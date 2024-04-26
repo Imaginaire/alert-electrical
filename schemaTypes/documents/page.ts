@@ -1,68 +1,79 @@
-import {DocumentIcon} from '@sanity/icons'
-import {defineField} from 'sanity'
+import {DocumentIcon, ImageIcon} from '@sanity/icons'
+import {defineArrayMember, defineField, defineType} from 'sanity'
+// import sections from '../partials/sections'
+import toStringFromCamelCase from '../../utils/toStringFromCamelCase'
+// import seo from 'schemas/partials/seo'
 
-import {validateSlug} from '../../utils/validateSlug'
-import { GROUPS } from '../../constants'
-
-export const pageType = defineField({
+export const pageType = defineType({
+  type: 'document',
   name: 'page',
   title: 'Page',
-  type: 'document',
   icon: DocumentIcon,
-  groups: GROUPS,
   fields: [
     defineField({
-      name: 'title',
-      group: 'editorial',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      name: 'title',
+      title: 'Title',
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'slug',
-      group: 'editorial',
       type: 'slug',
-      options: {source: 'title'},
-      validation: validateSlug,
+      name: 'slug',
+      title: 'Slug',
+      options: {
+        source: 'title',
+      },
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.custom((slug) => {
+          // if slug starts with / return warning
+          if (slug?.current?.startsWith('/')) {
+            return 'Slug cannot start with /, this is generated automatically.'
+          }
+
+          if (slug?.current?.endsWith('/')) {
+            return 'Slug cannot end with /, this is generated automatically.'
+          }
+
+          return true
+        }),
+      ],
     }),
     defineField({
-      name: 'colorTheme',
       type: 'reference',
-      to: [{type: 'colorTheme'}],
-      group: 'theme',
+      name: 'parent',
+      title: 'Parent',
+      to: [{type: 'page'}],
     }),
     defineField({
-      name: 'showHero',
-      type: 'boolean',
-      description: 'If disabled, page title will be displayed instead',
-      initialValue: false,
-      group: 'editorial',
+      type: 'string',
+      name: 'pageType',
+      title: 'Page Type',
+      description: 'Used to determine the page purpose. For example, "blog" or "caseStudy".',
+      options: {
+        list: [
+          {title: 'Blog', value: 'blog'},
+          {title: 'Case Studies', value: 'caseStudies'},
+          {title: 'Standard Page', value: 'page'},
+        ],
+      },
+      validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: 'hero',
-      type: 'hero',
-      hidden: ({document}) => !document?.showHero,
-      group: 'editorial',
-    }),
-    defineField({
-      name: 'body',
-      type: 'portableText',
-      group: 'editorial',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-      group: 'seo',
-    }),
+    // SEO fields
+    // seo,
+    // use sections schema
+    // sections,
   ],
   preview: {
     select: {
-      seoImage: 'seo.image',
       title: 'title',
+      pageType: 'pageType',
+      parent: 'parent.title',
     },
-    prepare({seoImage, title}) {
+    prepare({title, pageType, parent}) {
+      if (pageType !== 'page') return {title, subtitle: toStringFromCamelCase(pageType)}
       return {
-        media: seoImage ?? DocumentIcon,
+        subtitle: 'Page' + (parent ? ` - ${parent}` : ''),
         title,
       }
     },

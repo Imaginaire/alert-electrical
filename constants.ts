@@ -1,7 +1,7 @@
 // Currency code (ISO 4217) to use when displaying prices in the studio
 
-import ShopifyIcon from "./components/icons/Shopify"
-import { ColorWheelIcon, ComposeIcon, SearchIcon } from '@sanity/icons'
+import ShopifyIcon from './components/icons/Shopify'
+import {ColorWheelIcon, ComposeIcon, SearchIcon, BlockElementIcon} from '@sanity/icons'
 
 // https://en.wikipedia.org/wiki/ISO_4217
 export const DEFAULT_CURRENCY_CODE = 'USD'
@@ -46,7 +46,7 @@ export const GROUPS = [
     default: true,
     name: 'editorial',
     title: 'Editorial',
-    icon: ComposeIcon
+    icon: ComposeIcon,
   },
   {
     name: 'shopifySync',
@@ -54,8 +54,13 @@ export const GROUPS = [
     icon: ShopifyIcon,
   },
   {
+    name: 'sections',
+    title: 'Sections',
+    icon: BlockElementIcon,
+  },
+  {
     name: 'seo',
     title: 'SEO',
-    icon: SearchIcon
+    icon: SearchIcon,
   },
 ]
