@@ -20,11 +20,6 @@ export const homeType = defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      type: 'slug',
-      name: 'slug',
-      title: 'Slug',
-    }),
     seo,
     sections,
   ],

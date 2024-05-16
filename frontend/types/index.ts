@@ -19,6 +19,13 @@ export interface MegaMenuItem {
   }
 }
 
+export interface LayoutProps {
+  children: React.ReactNode
+  settings: SettingsPayload | undefined
+  preview?: boolean
+  loading?: boolean
+}
+
 export interface Address {
   _type: string
   number?: string
@@ -64,7 +71,6 @@ export interface ShowcaseProject {
 export interface NavbarProps {
   menuItems?: MenuItem[]
   companyInfo?: CompanyInformation
-  accreditation?: Accreditation
   contactPage?: PagePayload
 }
 

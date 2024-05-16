@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import {PagePayload, SettingsPayload} from '@/types'
-import getCanonicalUrl from '@/shared/utils/getCanonicalUrl'
 import prepareMetaRobots from '@/shared/utils/prepareMetaRobots'
 
 export interface PageHeadProps {

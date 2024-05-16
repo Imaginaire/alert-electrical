@@ -23,7 +23,6 @@ export const seo = defineField({
   //   },
   options: {
     collapsible: true,
-    collapsed: true,
   },
 
   fields: [

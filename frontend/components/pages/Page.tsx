@@ -1,4 +1,4 @@
-// import Layout from 'components/shared/Layout'
+import Layout from '@/shared/Layout'
 import ScrollUp from '../../shared/utils/ScrollUp'
 import type {HomePagePayload, PagePayload, SettingsPayload} from '../../types'
 
@@ -24,17 +24,17 @@ export function Page({page, settings, homePageTitle, preview, loading, canonical
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
 
-      {/* <Layout settings={settings} preview={preview} loading={loading}> */}
-      <div data-content="main">
-        {page?.title && <h1>{page.title}</h1>}
+      <Layout settings={settings} preview={preview} loading={loading}>
+        <div data-content="main">
+          {page?.title && <h1>{page.title}</h1>}
 
-        {/* Sections */}
-        {/* {sections && sections.length > 0 && <Sections sections={sections} />} */}
+          {/* Sections */}
+          {/* {sections && sections.length > 0 && <Sections sections={sections} />} */}
 
-        {/* Workaround: scroll to top on route change */}
-        <ScrollUp />
-      </div>
-      {/* </Layout> */}
+          {/* Workaround: scroll to top on route change */}
+          <ScrollUp />
+        </div>
+      </Layout>
     </>
   )
 }
