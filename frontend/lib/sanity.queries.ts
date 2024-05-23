@@ -58,9 +58,15 @@ export const homePageTitleQuery = groq`
   *[_type == "home"][0].title
 `
 
+// export const pagesBySlugQuery = groq`
+//   *[
+//     (_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "product")
+//   ]
+// `
+
 export const pagesBySlugQuery = groq`
   *[
-    (_type == "page" || _type == "caseStudy" || _type == "blog") && slug.current == $slug
+    ((_type == "page" || _type == "caseStudy" || _type == "blog" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
   ][0] {
     _id,
     _type,
@@ -75,8 +81,8 @@ export const pagesBySlugQuery = groq`
     date,
     tags,
     ${sectionsQuery},
+    store,
   }
-
 `
 
 export const pageSlug = (ref: string) => groq`
