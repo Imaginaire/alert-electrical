@@ -7,7 +7,13 @@ import {useLiveQuery} from 'next-sanity/preview'
 import groq from 'groq'
 
 // Queries
-import {settingsQuery, pagesBySlugQuery, homePageTitleQuery, pagePaths} from '@/lib/sanity.queries'
+import {
+  settingsQuery,
+  pagesBySlugQuery,
+  homePageTitleQuery,
+  pagePaths,
+  productsQuery,
+} from '@/lib/sanity.queries'
 
 // Types
 import {SettingsPayload, PagePayload} from '@/types'
@@ -16,19 +22,24 @@ import {PageProps} from '@/components/pages/Page'
 // Components
 import {Page} from '@/components/pages/Page'
 import ProductPage from '@/components/pages/ProductPage'
+import ShopPage from '@/components/pages/ShopPage'
 
 interface Query {
   [key: string]: string
 }
 
 export default function PageSlugRoute(props: PageProps) {
-  const {homePageTitle, settings, page: initialPage, draftMode, canonicalUrl} = props
+  const {homePageTitle, settings, page: initialPage, products, draftMode, canonicalUrl} = props
 
-  const [page, loading] = useLiveQuery<PagePayload | null>(initialPage, pagesBySlugQuery, {
-    slug: initialPage.slug,
-  })
+  const [page, loading] = useLiveQuery<PagePayload | null | undefined>(
+    initialPage,
+    pagesBySlugQuery,
+    {
+      slug: initialPage?.slug,
+    },
+  )
 
-  console.log(page)
+  console.log('pageType' + page?._type)
 
   let pageComponent: JSX.Element
 
@@ -42,6 +53,19 @@ export default function PageSlugRoute(props: PageProps) {
           preview={draftMode}
           loading={loading}
           canonicalUrl={canonicalUrl}
+        />
+      )
+      break
+    case 'shop':
+      pageComponent = (
+        <ShopPage
+          page={page}
+          settings={settings}
+          preview={draftMode}
+          loading={loading}
+          canonicalUrl={canonicalUrl}
+          homePageTitle={homePageTitle}
+          products={products}
         />
       )
       break
@@ -78,12 +102,11 @@ export default function PageSlugRoute(props: PageProps) {
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const {draftMode = false, params = {}} = ctx
   const client = getClient(draftMode)
+  let products = null
 
   const joinedSlug = Array.isArray(params.slug) ? params.slug.join('/') : params.slug
 
   const canonicalUrl = getCanonicalUrl(joinedSlug)
-
-  console.log('staticprops', joinedSlug)
 
   const [settings, page, homePageTitle] = await Promise.all([
     client.fetch<SettingsPayload | null>(settingsQuery),
@@ -99,6 +122,11 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     }
   }
 
+  // Fetch products if the page is a shop page
+  if (page._type === 'shop') {
+    products = await client.fetch(productsQuery)
+  }
+
   return {
     props: {
       page,
@@ -107,6 +135,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       draftMode,
       token: draftMode ? readToken : null,
       canonicalUrl,
+      products: products ?? null,
     },
     revalidate: 10,
   }
@@ -133,8 +162,8 @@ export const getStaticPaths = async () => {
     }),
   )
 
-  console.log(formattedPaths[1])
-  console.log(formattedPaths[5])
+  // pretty console.log formatted paths
+  //   console.log('formattedPaths', JSON.stringify(formattedPaths, null, 2))
 
   return {
     paths: formattedPaths || [],

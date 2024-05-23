@@ -391,13 +391,6 @@ export interface SEO {
 
 // Page payloads
 
-export interface HomePagePayload {
-  footer?: PortableTextBlock[]
-  seo?: SEO
-  title?: string
-  sections?: Sections[]
-}
-
 export interface PagePayload {
   _type?: string
   body?: PortableTextBlock[]

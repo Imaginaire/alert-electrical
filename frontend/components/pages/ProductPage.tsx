@@ -24,8 +24,6 @@ export default function ProductPage({
   console.log(store)
   const {title, descriptionHtml, previewImageUrl, productType, tags} = store || {}
 
-  console.log(store.gid)
-
   const checkout = async () => {
     try {
       const response = await fetch('/api/checkout', {

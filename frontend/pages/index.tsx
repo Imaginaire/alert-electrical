@@ -12,10 +12,10 @@ import {readToken} from '@/lib/sanity.api'
 import {Page} from '@/components/pages/Page'
 
 // types
-import {HomePagePayload, SettingsPayload} from '@/types'
+import {PagePayload, SettingsPayload} from '@/types'
 
 interface PageProps {
-  page: HomePagePayload
+  page: PagePayload
   settings: SettingsPayload
   draftMode: boolean
   token: string | null
@@ -28,12 +28,12 @@ interface Query {
 export default function IndexPage(props: PageProps) {
   const {page: initialPage, settings, draftMode} = props
   // Fetch the home page data
-  const [page, loading] = useLiveQuery<HomePagePayload | null>(initialPage, homePageQuery)
+  const [page, loading] = useLiveQuery<PagePayload | null>(initialPage, homePageQuery)
 
   return <Page settings={settings} page={page} />
 }
 
-const fallbackPage: HomePagePayload = {
+const fallbackPage: PagePayload = {
   title: '',
   sections: [],
 }
@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const {draftMode = false} = ctx
   const client = getClient()
   const [page, settings] = await Promise.all([
-    client.fetch<HomePagePayload | null>(homePageQuery),
+    client.fetch<PagePayload | null>(homePageQuery),
     client.fetch<SettingsPayload | null>(settingsQuery),
   ])
   return {
