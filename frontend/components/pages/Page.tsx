@@ -1,21 +1,11 @@
 import Layout from '@/shared/Layout'
 import ScrollUp from '../../shared/utils/ScrollUp'
-import type {PagePayload, SettingsPayload} from '../../types'
+import type {PageProps} from '../../types'
 
 import PageHead from './PageHead'
 
 // components
 // import Sections from 'components/shared/utils/Sections'
-
-export interface PageProps {
-  page: PagePayload | undefined | null
-  settings: SettingsPayload | undefined
-  homePageTitle: string | undefined
-  preview?: boolean
-  loading?: boolean
-  canonicalUrl?: string
-  products?: any
-}
 
 export function Page({page, settings, homePageTitle, preview, loading, canonicalUrl}: PageProps) {
   // Default to an empty object to allow previews on non-existent documents

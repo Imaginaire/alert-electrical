@@ -30,7 +30,7 @@ export default function IndexPage(props: PageProps) {
   // Fetch the home page data
   const [page, loading] = useLiveQuery<PagePayload | null>(initialPage, homePageQuery)
 
-  return <Page settings={settings} page={page} />
+  return <Page settings={settings} page={page} homePageTitle="" />
 }
 
 const fallbackPage: PagePayload = {

@@ -16,8 +16,7 @@ import {
 } from '@/lib/sanity.queries'
 
 // Types
-import {SettingsPayload, PagePayload} from '@/types'
-import {PageProps} from '@/components/pages/Page'
+import {SettingsPayload, PagePayload, PageProps} from '@/types'
 
 // Components
 import {Page} from '@/components/pages/Page'
@@ -161,9 +160,6 @@ export const getStaticPaths = async () => {
       return {params: {slug: slug.split('/')}}
     }),
   )
-
-  // pretty console.log formatted paths
-  //   console.log('formattedPaths', JSON.stringify(formattedPaths, null, 2))
 
   return {
     paths: formattedPaths || [],

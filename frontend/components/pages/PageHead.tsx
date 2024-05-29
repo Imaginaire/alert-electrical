@@ -4,7 +4,7 @@ import prepareMetaRobots from '@/shared/utils/prepareMetaRobots'
 
 export interface PageHeadProps {
   title: string | undefined
-  page: PagePayload | undefined
+  page: PagePayload | undefined | null
   settings: SettingsPayload | undefined
   canonicalUrl?: string
 }

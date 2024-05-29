@@ -9,7 +9,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         companyInfo={settings?.companyInfo}
         contactPage={settings?.contactPage}
       />
-      <div>{children}</div>
+      <div className="">{children}</div>
     </>
   )
 }

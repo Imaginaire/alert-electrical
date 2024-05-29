@@ -16,7 +16,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
 
   return (
     <>
-      <div className="navbar-desktop flex h-20 items-center">
+      <div className="navbar-desktop flex h-24 items-center">
         {/* Left - Logo */}
 
         {logo && (
@@ -34,7 +34,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
 
         {/* Center - Links */}
 
-        <ul className="flex">
+        <ul className="flex w-full justify-around">
           {menuItems &&
             menuItems.map((menuItem, index) => {
               const href = resolveHref(menuItem.type, menuItem.slug)

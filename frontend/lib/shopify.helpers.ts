@@ -1,6 +1,4 @@
 export async function callShopify(query: WebGLQuery, variables = {}) {
-  console.log(process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN)
-
   try {
     const res = await fetch('https://imaginaire-test.myshopify.com/api/2023-10/graphql.json', {
       method: 'POST',

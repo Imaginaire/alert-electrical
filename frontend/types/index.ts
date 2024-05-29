@@ -1,6 +1,7 @@
 import type {PortableTextBlock} from '@portabletext/types'
 
 import type {Image, Reference, Slug} from 'sanity'
+import {Product, Store} from './productType'
 
 export interface MenuItem {
   // doesn't use _type because it gets the type from a reference
@@ -389,6 +390,17 @@ export interface SEO {
   canonicalUrl?: string
 }
 
+export interface PageProps {
+  page: PagePayload | undefined | null
+  settings: SettingsPayload | undefined
+  homePageTitle: string | undefined
+  preview?: boolean
+  loading?: boolean
+  canonicalUrl?: string
+  products?: Product[]
+  draftMode?: boolean
+}
+
 // Page payloads
 
 export interface PagePayload {
@@ -399,6 +411,7 @@ export interface PagePayload {
   title?: string
   slug?: string
   sections?: Sections[]
+  store?: Store
 }
 
 export interface ProjectPayload {

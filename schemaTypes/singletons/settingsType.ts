@@ -75,6 +75,9 @@ export const settingsType = defineType({
                 {
                   type: 'page',
                 },
+                {
+                  type: 'shop',
+                },
                 // {
                 //   type: 'blog',
                 // },

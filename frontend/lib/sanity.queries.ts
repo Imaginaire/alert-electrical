@@ -81,7 +81,12 @@ export const pagesBySlugQuery = groq`
     date,
     tags,
     ${sectionsQuery},
-    store,
+    "store": {
+      ...store,
+      "variants": store.variants[]->{
+        ...
+      }
+    }
   }
 `
 
