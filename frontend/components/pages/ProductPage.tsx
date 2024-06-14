@@ -32,29 +32,12 @@ export default function ProductPage({
 
   const handleVariableChange = (variant: Variant) => setSelectedVariant(variant)
 
-  // const checkout = async () => {
-  //   try {
-  //     const response = await fetch('/api/checkout', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         variantId: getVariantId(store?.variants?.[0]?._ref ?? ''),
-  //       }),
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok')
-  //     }
-
-  //     const data = await response.json()
-  //     const {checkoutUrl} = data
-  //     window.location.href = checkoutUrl
-  //   } catch (error) {
-  //     console.error('Error fetching Shopify data:', error)
-  //   }
-  // }
+  const handleAddToCart = () => {
+    // add to local storage while while user is browsing
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    cart.push(selectedVariant)
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }
 
   return (
     <>
@@ -73,6 +56,12 @@ export default function ProductPage({
                 <ProductVariantSelector product={store} onVariantChange={handleVariableChange} />
               </div>
             )}
+
+            {selectedVariant && selectedVariant.store?.price && (
+              <p className="text-2xl py-4">Price: £{selectedVariant.store.price}</p>
+            )}
+
+            {selectedVariant && <button>Add to cart</button>}
           </div>
         </div>
       </Layout>

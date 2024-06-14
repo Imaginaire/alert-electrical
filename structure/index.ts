@@ -6,7 +6,7 @@ import pages from './pageStructure'
 import products from './productStructure'
 import settings from './settingStructure'
 import shop from './shopStructure'
-import checkout from './checkoutStructure'
+import cart from './cartStructure'
 
 /**
  * Structure overrides
@@ -39,7 +39,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'productVariant',
     'settings',
     'shop',
-    'checkout',
+    'cart',
   ].includes(id)
 }
 
@@ -50,7 +50,7 @@ export const structure: StructureResolver = (S, context) =>
       home(S, context),
       pages(S, context),
       shop(S, context),
-      checkout(S, context),
+      cart(S, context),
       S.divider(),
       collections(S, context),
       products(S, context),

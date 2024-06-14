@@ -4,16 +4,16 @@ import {defineField, defineType} from 'sanity'
 import {seo} from '../partials/seo'
 import {sections} from '../partials/sections'
 
-export const checkoutType = defineType({
-  name: 'checkout',
-  title: 'Checkout',
+export const cartType = defineType({
+  name: 'cart',
+  title: 'Cart',
   type: 'document',
   icon: ThListIcon,
   groups: GROUPS,
   fields: [
     defineField({
       name: 'title',
-      description: 'This field is the title of your checkout page.',
+      description: 'This field is the title of your cart page.',
       title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -21,7 +21,7 @@ export const checkoutType = defineType({
     defineField({
       name: 'slug',
       title: 'Slug',
-      description: 'This is the URL path for your checkout page.',
+      description: 'This is the URL path for your cart page.',
       type: 'slug',
       options: {
         source: 'title',
@@ -36,7 +36,7 @@ export const checkoutType = defineType({
       return {
         media: ThListIcon,
         subtitle: 'Index',
-        title: 'Checkout',
+        title: 'Cart',
       }
     },
   },

@@ -22,7 +22,7 @@ import {SettingsPayload, PagePayload, PageProps} from '@/types'
 import {Page} from '@/components/pages/Page'
 import ProductPage from '@/components/pages/ProductPage'
 import ShopPage from '@/components/pages/ShopPage'
-import CheckoutPage from '@/components/pages/CheckoutPage'
+import CartPage from '@/components/pages/CartPage'
 
 interface Query {
   [key: string]: string
@@ -69,9 +69,9 @@ export default function PageSlugRoute(props: PageProps) {
         />
       )
       break
-    case 'checkout':
+    case 'cart':
       pageComponent = (
-        <CheckoutPage
+        <CartPage
           page={page}
           settings={settings}
           preview={draftMode}
@@ -105,8 +105,6 @@ export default function PageSlugRoute(props: PageProps) {
         />
       )
   }
-
-  console.log(pageComponent)
 
   return pageComponent
 }
