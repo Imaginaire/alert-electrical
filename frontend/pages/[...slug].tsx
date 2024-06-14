@@ -22,6 +22,7 @@ import {SettingsPayload, PagePayload, PageProps} from '@/types'
 import {Page} from '@/components/pages/Page'
 import ProductPage from '@/components/pages/ProductPage'
 import ShopPage from '@/components/pages/ShopPage'
+import CheckoutPage from '@/components/pages/CheckoutPage'
 
 interface Query {
   [key: string]: string
@@ -38,7 +39,7 @@ export default function PageSlugRoute(props: PageProps) {
     },
   )
 
-  console.log('pageType' + page?._type)
+  console.log('pageType: ' + page?._type)
 
   let pageComponent: JSX.Element
 
@@ -65,6 +66,18 @@ export default function PageSlugRoute(props: PageProps) {
           canonicalUrl={canonicalUrl}
           homePageTitle={homePageTitle}
           products={products}
+        />
+      )
+      break
+    case 'checkout':
+      pageComponent = (
+        <CheckoutPage
+          page={page}
+          settings={settings}
+          preview={draftMode}
+          loading={loading}
+          canonicalUrl={canonicalUrl}
+          homePageTitle={homePageTitle}
         />
       )
       break

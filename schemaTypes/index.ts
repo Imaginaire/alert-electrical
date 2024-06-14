@@ -101,7 +101,8 @@ const documents = [collectionType, colorThemeType, pageType, productType, produc
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
 import {shopType} from './singletons/shopType'
+import {checkoutType} from './singletons/checkoutType'
 
-const singletons = [homeType, settingsType, shopType]
+const singletons = [homeType, settingsType, shopType, checkoutType]
 
 export const schemaTypes = [...annotations, ...objects, ...singletons, ...blocks, ...documents]

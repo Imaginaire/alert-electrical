@@ -66,7 +66,7 @@ export const homePageTitleQuery = groq`
 
 export const pagesBySlugQuery = groq`
   *[
-    ((_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
+    ((_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" || _type == "checkout" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
   ][0] {
     _id,
     _type,
