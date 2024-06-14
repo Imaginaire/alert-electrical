@@ -24,8 +24,3 @@ export async function callShopify(query: WebGLQuery, variables = {}) {
     return null
   }
 }
-
-export const getVariantId = (ref: string) => {
-  // get ID from string - remove shopifyProductVariant- prefix
-  return ref.replace('shopifyProductVariant-', '')
-}

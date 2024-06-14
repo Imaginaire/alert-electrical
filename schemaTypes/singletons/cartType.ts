@@ -1,4 +1,4 @@
-import {ThListIcon} from '@sanity/icons'
+import {BasketIcon} from '@sanity/icons'
 import {GROUPS} from '../../constants'
 import {defineField, defineType} from 'sanity'
 import {seo} from '../partials/seo'
@@ -8,7 +8,7 @@ export const cartType = defineType({
   name: 'cart',
   title: 'Cart',
   type: 'document',
-  icon: ThListIcon,
+  icon: BasketIcon,
   groups: GROUPS,
   fields: [
     defineField({
@@ -34,7 +34,7 @@ export const cartType = defineType({
   preview: {
     prepare() {
       return {
-        media: ThListIcon,
+        media: BasketIcon,
         subtitle: 'Index',
         title: 'Cart',
       }

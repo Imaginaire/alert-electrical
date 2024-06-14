@@ -4,7 +4,9 @@ import ProductHiddenInput from '../../components/inputs/ProductHidden'
 import ShopifyDocumentStatus from '../../components/media/ShopifyDocumentStatus'
 import {defineField, defineType} from 'sanity'
 import {getPriceRange} from '../../utils/getPriceRange'
-import { GROUPS } from '../../constants'
+import {GROUPS} from '../../constants'
+import {seo} from '../partials/seo'
+import {sections} from '../partials/sections'
 
 export const productType = defineType({
   name: 'product',
@@ -55,12 +57,8 @@ export const productType = defineType({
       description: 'Product data from Shopify (read-only)',
       group: 'shopifySync',
     }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-      group: 'seo',
-    }),
+    sections,
+    seo,
   ],
   orderings: [
     {

@@ -2,13 +2,13 @@ import {defineField, defineType} from 'sanity'
 import {GROUPS} from '../../constants'
 import {seo} from '../partials/seo'
 import {sections} from '../partials/sections'
-import {BasketIcon} from '@sanity/icons'
+import {ThListIcon} from '@sanity/icons'
 
 export const shopType = defineType({
   name: 'shop',
   title: 'Shop',
   type: 'document',
-  icon: BasketIcon,
+  icon: ThListIcon,
   groups: GROUPS,
   fields: [
     defineField({
@@ -34,7 +34,7 @@ export const shopType = defineType({
   preview: {
     prepare() {
       return {
-        media: BasketIcon,
+        media: ThListIcon,
         subtitle: 'Index',
         title: 'Shop',
       }
