@@ -15,11 +15,22 @@ interface PriceRange {
   minVariantPrice?: number
 }
 
-interface Variant {
+export interface Variant {
   _weak?: boolean
   _ref?: string
   _type?: string
   _key?: string
+  store?: {
+    [key: string]: string | number | string[] | undefined
+    _type?: string
+    option1?: string
+    option2?: string
+    option3?: string
+    price?: number
+    sku?: string
+    title?: string
+    weight?: number
+  }
 }
 
 export interface Store {

@@ -2,7 +2,9 @@ import {PagePayload, SettingsPayload} from '@/types'
 import PageHead from './PageHead'
 import Layout from '@/shared/Layout'
 import {getVariantId} from '@/lib/shopify.helpers'
-import Image from 'next/image'
+import {useState, useEffect} from 'react'
+import ProductVariantSelector from '../product/ProductVariantSelector'
+import {Variant} from '@/types/productType'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -25,29 +27,34 @@ export default function ProductPage({
   console.log(store)
   const {title, descriptionHtml, previewImageUrl, productType, variants, tags} = store || {}
 
-  const checkout = async () => {
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          variantId: getVariantId(store?.variants?.[0]?._ref ?? ''),
-        }),
-      })
+  // state for selected variant
+  const [selectedVariant, setSelectedVariant] = useState<Variant>()
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
+  const handleVariableChange = (variant: Variant) => setSelectedVariant(variant)
 
-      const data = await response.json()
-      const {checkoutUrl} = data
-      window.location.href = checkoutUrl
-    } catch (error) {
-      console.error('Error fetching Shopify data:', error)
-    }
-  }
+  // const checkout = async () => {
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         variantId: getVariantId(store?.variants?.[0]?._ref ?? ''),
+  //       }),
+  //     })
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok')
+  //     }
+
+  //     const data = await response.json()
+  //     const {checkoutUrl} = data
+  //     window.location.href = checkoutUrl
+  //   } catch (error) {
+  //     console.error('Error fetching Shopify data:', error)
+  //   }
+  // }
 
   return (
     <>
@@ -59,27 +66,13 @@ export default function ProductPage({
             <h1 className="text-4xl py-4 text-center ">{title}</h1>
             <div dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}} />
 
-            {variants?.length && (
+            {store && variants?.length && (
               <div className="flex flex-col">
                 <h2 className="text-2xl py-4">Variants</h2>
-                <ul>
-                  {/* {variants.map((variant) => {
-                    const {title, price, available} = variant
-                    return (
-                      <li key={variant._key} className="flex justify-between">
-                        <span>{title}</span>
-                        <span>{price}</span>
-                        <span>{available ? 'Available' : 'Sold out'}</span>
-                      </li>
-                    )
 
-                  }
-                  )} */}
-                </ul>
+                <ProductVariantSelector product={store} onVariantChange={handleVariableChange} />
               </div>
             )}
-
-            <button onClick={checkout}>Buy</button>
           </div>
         </div>
       </Layout>
