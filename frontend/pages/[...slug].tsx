@@ -90,6 +90,7 @@ export default function PageSlugRoute(props: PageProps) {
           loading={loading}
           canonicalUrl={canonicalUrl}
           homePageTitle={homePageTitle}
+          addToCartText={page?.addToCartText}
         />
       )
       break

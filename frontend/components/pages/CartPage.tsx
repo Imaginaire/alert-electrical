@@ -21,35 +21,43 @@ export default function CartPage({
   preview,
   canonicalUrl,
 }: CartPageProps) {
-  // const checkout = async () => {
-  //   try {
-  //     const response = await fetch('/api/checkout', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         variantId: getVariantId(store?.variants?.[0]?._ref ?? ''),
-  //       }),
-  //     })
+  const checkout = async () => {
+    try {
+      const cartItems = cart?.map((item) => {
+        return {
+          variantId: item?.store?.id,
+          quantity: item?.quantity ? item?.quantity : 1,
+        }
+      })
 
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok')
-  //     }
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cartItems,
+        }),
+      })
 
-  //     const data = await response.json()
-  //     const {checkoutUrl} = data
-  //     window.location.href = checkoutUrl
-  //   } catch (error) {
-  //     console.error('Error fetching Shopify data:', error)
-  //   }
-  // }
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const data = await response.json()
+      const {checkoutUrl} = data
+      window.location.href = checkoutUrl
+    } catch (error) {
+      console.error('Error fetching Shopify data:', error)
+    }
+  }
 
   const [cart, setCart] = useState<Variant[]>()
 
   useEffect(() => {
     // get cart items from local storage
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    console.log(cart)
     setCart(cart)
   }, [])
 
@@ -68,12 +76,18 @@ export default function CartPage({
               />
               <div className="cartItemDetails">
                 <h2 className="text-2xl">{item.store?.title}</h2>
-                <p>Price: £{item.store?.price}</p>
+                <p>Quantity: {item?.quantity}</p>
+                <p>
+                  Price: £
+                  {item?.store?.price
+                    ? item.store.price * (item?.quantity ? item?.quantity : 1)
+                    : 0}
+                </p>
               </div>
             </div>
           ))}
         </div>
-        <button className="checkoutButton" onClick={() => console.log('checkout')}>
+        <button className="checkoutButton" onClick={checkout}>
           Checkout
         </button>
       </div>

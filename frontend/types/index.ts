@@ -410,6 +410,7 @@ export interface PagePayload {
   seo?: SEO
   title?: string
   slug?: string
+  addToCartText?: string
   sections?: Sections[]
   store?: Store
 }

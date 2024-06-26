@@ -1,12 +1,12 @@
 import {ListItemBuilder, StructureResolver} from 'sanity/structure'
 import collections from './collectionStructure'
-import colorThemes from './colorThemeStructure'
 import home from './homeStructure'
 import pages from './pageStructure'
 import products from './productStructure'
 import settings from './settingStructure'
 import shop from './shopStructure'
 import cart from './cartStructure'
+import {getClient} from '../lib/sanity.client'
 
 /**
  * Structure overrides
@@ -43,21 +43,32 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
   ].includes(id)
 }
 
-export const structure: StructureResolver = (S, context) =>
-  S.list()
+// Fetch theme type from settings to determine which structure to use
+const fetchThemeType = async () => {
+  const query = `*[_type == "settings"][0]{
+    themeType
+  }`
+
+  const client = getClient()
+  const settings = await client.fetch(query)
+  return settings.themeType
+}
+
+export const structure: StructureResolver = async (S, context) => {
+  const themeType = await fetchThemeType()
+
+  return S.list()
     .title('Content')
     .items([
       home(S, context),
       pages(S, context),
-      shop(S, context),
-      cart(S, context),
+      ...(themeType === 'shopify' ? [shop(S, context), cart(S, context)] : []),
       S.divider(),
       collections(S, context),
-      products(S, context),
-      S.divider(),
-      colorThemes(S, context),
+      ...(themeType === 'shopify' ? [products(S, context)] : []),
       S.divider(),
       settings(S, context),
       S.divider(),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])
+}

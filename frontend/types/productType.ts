@@ -16,10 +16,12 @@ interface PriceRange {
 }
 
 export interface Variant {
+  quantity?: number
   _weak?: boolean
   _ref?: string
   _type?: string
   _key?: string
+  _id?: string
   store?: {
     [key: string]: string | number | string[] | undefined
     _type?: string

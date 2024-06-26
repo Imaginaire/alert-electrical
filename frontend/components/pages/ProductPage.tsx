@@ -1,7 +1,6 @@
 import {PagePayload, SettingsPayload} from '@/types'
 import PageHead from './PageHead'
 import Layout from '@/shared/Layout'
-import {getVariantId} from '@/lib/shopify.helpers'
 import {useState, useEffect} from 'react'
 import ProductVariantSelector from '../product/ProductVariantSelector'
 import {Variant} from '@/types/productType'
@@ -13,6 +12,7 @@ export interface ProductPageProps {
   preview?: boolean
   loading?: boolean
   canonicalUrl?: string
+  addToCartText?: string
 }
 
 export default function ProductPage({
@@ -24,18 +24,30 @@ export default function ProductPage({
   canonicalUrl,
 }: ProductPageProps) {
   const {store} = page || {}
-  console.log(store)
   const {title, descriptionHtml, previewImageUrl, productType, variants, tags} = store || {}
 
   // state for selected variant
   const [selectedVariant, setSelectedVariant] = useState<Variant>()
+  const [quantity, setQuantity] = useState<number>(1)
 
   const handleVariableChange = (variant: Variant) => setSelectedVariant(variant)
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setQuantity(Number(e.target.value))
 
   const handleAddToCart = () => {
     // add to local storage while while user is browsing
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-    cart.push(selectedVariant)
+
+    // check if cart already has the item, if so, update the quantity
+    const existingItem = cart.find((item: Variant) => item?._id === selectedVariant?._id)
+    if (existingItem) {
+      existingItem.quantity += quantity
+      localStorage.setItem('cart', JSON.stringify(cart))
+      return
+    }
+
+    cart.push({...selectedVariant, quantity})
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
@@ -58,10 +70,28 @@ export default function ProductPage({
             )}
 
             {selectedVariant && selectedVariant.store?.price && (
-              <p className="text-2xl py-4">Price: £{selectedVariant.store.price}</p>
+              <p className="text-2xl py-4">Price: £{selectedVariant.store.price * quantity}</p>
             )}
 
-            {selectedVariant && <button>Add to cart</button>}
+            {/* Quantity  */}
+            <div className="flex flex-col">
+              <label htmlFor="quantity" className="text-xl">
+                Quantity
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                max="10"
+                defaultValue="1"
+                value={quantity}
+                onChange={handleQuantityChange}
+                className="w-16 h-10"
+              />
+            </div>
+
+            {selectedVariant && <button onClick={handleAddToCart}>Add to cart</button>}
           </div>
         </div>
       </Layout>

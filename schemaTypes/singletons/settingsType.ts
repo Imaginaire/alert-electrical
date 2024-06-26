@@ -50,6 +50,11 @@ export const settingsType = defineType({
       title: 'SEO',
       icon: SearchIcon,
     },
+    {
+      name: 'themeSettings',
+      title: 'Theme Settings',
+      icon: CogIcon,
+    },
   ],
   fields: [
     defineField({
@@ -374,6 +379,20 @@ export const settingsType = defineType({
       description: 'Displayed on social cards and search engine results.',
       options: {
         hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'themeType',
+      title: 'Theme Type',
+      type: 'string',
+      group: 'themeSettings',
+      description:
+        'Choose the type of theme you want to use. This will determine the studio structure. Please refresh the studio after publishing this setting.',
+      options: {
+        list: [
+          {title: 'Brochure Site', value: 'brochure'},
+          {title: 'Shopify Site', value: 'shopify'},
+        ],
       },
     }),
   ],

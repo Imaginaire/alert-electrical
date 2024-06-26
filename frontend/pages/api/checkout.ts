@@ -4,11 +4,18 @@ import {cartCreateQuery, checkoutUrlQuery} from '@/lib/shopify.queries'
 import {NextApiRequest, NextApiResponse} from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const {variantId, email, country, address1, address2, city, province, zip} = req.body
+  const {variantId, email, country, address1, address2, city, province, zip, cartItems} = req.body
+
+  const lines = cartItems.map((item: {variantId: string; quantity: number}) => {
+    return {
+      quantity: item.quantity,
+      merchandiseId: `gid://shopify/ProductVariant/${item.variantId}`,
+    }
+  })
 
   const variables = {
     input: {
-      lines: [{quantity: 1, merchandiseId: `gid://shopify/ProductVariant/${variantId}`}],
+      lines,
     },
   }
 
