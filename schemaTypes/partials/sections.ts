@@ -11,16 +11,16 @@ export const sections = defineField({
   type: 'array',
   group: 'sections',
   of: [
-    // defineArrayMember({
-    //   type: 'hero',
-    //   name: 'hero',
-    //   title: 'Hero',
-    // }),
-    // defineArrayMember({
-    //   type: 'textLink',
-    //   name: 'textLink',
-    //   title: 'Text Link',
-    // }),
+    defineArrayMember({
+      type: 'hero',
+      name: 'hero',
+      title: 'Hero',
+    }),
+    defineArrayMember({
+      type: 'textLink',
+      name: 'textLink',
+      title: 'Text Link',
+    }),
     // defineArrayMember({
     //   type: 'gallery',
     //   name: 'gallery',

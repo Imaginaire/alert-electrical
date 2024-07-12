@@ -1,7 +1,7 @@
 import ScrollUp from '@/shared/utils/ScrollUp'
 import {PageProps} from '@/types'
 import PageHead from './PageHead'
-import Layout from '@/shared/Layout'
+import Layout from '@/components/global/Layout'
 import {resolveHref} from '@/shared/utils/resolveHref'
 import Link from 'next/link'
 

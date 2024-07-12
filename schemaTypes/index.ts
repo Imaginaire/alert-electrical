@@ -13,7 +13,6 @@ import {customProductOptionSizeType} from './objects/customProductOption/customP
 import {footerType} from './objects/global/footerType'
 import {gridItemType} from './objects/module/gridItemType'
 import {gridType} from './objects/module/gridType'
-import {heroType} from './objects/module/heroType'
 import {imageCallToActionType} from './objects/module/imageCallToActionType'
 import {imageFeaturesType} from './objects/module/imageFeaturesType'
 import {imageFeatureType} from './objects/module/imageFeatureType'
@@ -35,7 +34,6 @@ import {productHotspotsType} from './objects/hotspot/productHotspotsType'
 import {productReferenceType} from './objects/module/productReferenceType'
 import {productWithVariantType} from './objects/shopify/productWithVariantType'
 import {proxyStringType} from './objects/shopify/proxyStringType'
-import {seoType} from './objects/seoType'
 import {shopifyCollectionType} from './objects/shopify/shopifyCollectionType'
 import {shopifyProductType} from './objects/shopify/shopifyProductType'
 import {shopifyProductVariantType} from './objects/shopify/shopifyProductVariantType'
@@ -60,7 +58,6 @@ const objects = [
   footerType,
   gridItemType,
   gridType,
-  heroType,
   imageCallToActionType,
   imageFeaturesType,
   imageFeatureType,
@@ -78,12 +75,13 @@ const objects = [
   productReferenceType,
   productWithVariantType,
   proxyStringType,
-  seoType,
   shopifyCollectionType,
   shopifyProductType,
   shopifyProductVariantType,
   spotType,
 ]
+
+const sections = [heroType, textLinkType]
 
 import {portableTextType} from './portableText/portableTextType'
 import {portableTextSimpleType} from './portableText/portableTextSimpleType'
@@ -102,7 +100,16 @@ import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
 import {shopType} from './singletons/shopType'
 import {cartType} from './singletons/cartType'
+import {heroType} from './objects/sections/heroType'
+import {textLinkType} from './objects/sections/textLinkType'
 
 const singletons = [homeType, settingsType, shopType, cartType]
 
-export const schemaTypes = [...annotations, ...objects, ...singletons, ...blocks, ...documents]
+export const schemaTypes = [
+  ...annotations,
+  ...objects,
+  ...sections,
+  ...singletons,
+  ...blocks,
+  ...documents,
+]

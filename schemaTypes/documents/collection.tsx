@@ -1,11 +1,10 @@
-
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import {PackageIcon} from '@sanity/icons'
 import {getExtension} from '@sanity/asset-utils'
 import pluralize from 'pluralize-esm'
 import CollectionHiddenInput from '../../components/inputs/CollectionHidden'
 import ShopifyDocumentStatus from '../../components/media/ShopifyDocumentStatus'
-import { GROUPS } from '../../constants'
+import {GROUPS} from '../../constants'
 
 export const collectionType = defineType({
   name: 'collection',
@@ -96,12 +95,6 @@ export const collectionType = defineType({
       type: 'shopifyCollection',
       description: 'Collection data from Shopify (read-only)',
       group: 'shopifySync',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-      group: 'seo',
     }),
   ],
   orderings: [

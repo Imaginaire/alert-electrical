@@ -133,6 +133,8 @@ export const pagePaths = groq`
   *[_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" && slug.current != null].slug.current
 `
 
+export const productPagePaths = groq`*[_type == "product"].store.slug.current`
+
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer{

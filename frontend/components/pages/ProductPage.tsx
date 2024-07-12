@@ -1,6 +1,6 @@
 import {PagePayload, SettingsPayload} from '@/types'
 import PageHead from './PageHead'
-import Layout from '@/shared/Layout'
+import Layout from '@/components/global/Layout'
 import {useState, useEffect} from 'react'
 import ProductVariantSelector from '../product/ProductVariantSelector'
 import {Variant} from '@/types/productType'

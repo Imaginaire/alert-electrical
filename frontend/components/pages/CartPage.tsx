@@ -1,5 +1,5 @@
 import PageHead from './PageHead'
-import Layout from '@/shared/Layout'
+import Layout from '@/components/global/Layout'
 import {PagePayload, SettingsPayload} from '@/types'
 import {Variant} from '@/types/productType'
 import {useEffect, useState} from 'react'
