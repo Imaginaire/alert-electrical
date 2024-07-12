@@ -322,25 +322,9 @@ export const settingsType = defineType({
     defineField({
       name: 'googleTagManager',
       title: 'Google Tag Manager',
-      type: 'object',
+      type: 'string',
       group: 'seo',
-      options: {
-        collapsible: true,
-      },
-      description:
-        'Add code snippets or scripts for Google Tag Manager here. Make sure the formatting is correct',
-      fields: [
-        defineField({
-          name: 'head',
-          title: 'Head',
-          type: 'text',
-        }),
-        defineField({
-          name: 'body',
-          title: 'Body',
-          type: 'text',
-        }),
-      ],
+      description: 'Add Google Tag Manager ID here. This will be added to the head of the site.',
     }),
     defineField({
       name: 'robotsTxt',

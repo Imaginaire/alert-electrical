@@ -10,9 +10,10 @@ export interface PageHeadProps {
 }
 
 export default function PageHead({title, page, settings, canonicalUrl}: PageHeadProps) {
-  // const canonicalUrl = getCanonicalUrl()
   const {robotsMeta} = page?.seo || {}
   const {siteNoIndex} = settings || {}
+
+  console.log(settings?.googleTagManager)
 
   // const clean = DOMPurify.sanitize(settings?.googleTagManager?.head || '', {
   //   USE_PROFILES: { html: true },
