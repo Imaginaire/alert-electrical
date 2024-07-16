@@ -4,15 +4,15 @@
 
 import {createClient} from '@sanity/client'
 import {SanityClient} from 'sanity'
+import {getStudioEnvironmentVariables} from 'sanity/cli'
 
 export function getClient(): SanityClient {
   const client = createClient({
-    projectId: 'uxhlerf5',
-    dataset: 'production',
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID || '',
+    dataset: process.env.SANITY_STUDIO_DATASET || 'production',
     apiVersion: '2023-06-21',
     useCdn: true,
-    token:
-      'skeSzBLNRKJinRAkNFv9VBwTitODlGX90ss4w3EWuS1IyNa3ih1BbWhsfFracrcgCywZJLxvyAg4iI6JS2wCQEIypkLKhImuH5EQYdUP90JS3AH2H7rTcQsa1qZTcpBfY5d526TSw8XmMHHo42XkGm5aN7NBn3zT55nfQloB0fQVgsrIQxoY',
+    token: process.env.SANITY_STUDIO_API_READ_TOKEN || '',
     perspective: 'published',
   })
 

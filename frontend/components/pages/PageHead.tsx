@@ -13,12 +13,6 @@ export default function PageHead({title, page, settings, canonicalUrl}: PageHead
   const {robotsMeta} = page?.seo || {}
   const {siteNoIndex} = settings || {}
 
-  console.log(settings?.googleTagManager)
-
-  // const clean = DOMPurify.sanitize(settings?.googleTagManager?.head || '', {
-  //   USE_PROFILES: { html: true },
-  // })
-
   let robotsContent: string = prepareMetaRobots(robotsMeta || {}, siteNoIndex || false)
 
   return (

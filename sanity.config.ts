@@ -15,10 +15,10 @@ const devOnlyPlugins = [visionTool()]
 
 export default defineConfig({
   name: 'default',
-  title: 'sanity-shopify-theme',
+  title: process.env.SANITY_STUDIO_TITLE || 'Sanity Studio',
 
-  projectId: 'uxhlerf5',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || '',
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
     structureTool({structure}),
