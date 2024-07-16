@@ -50,7 +50,7 @@ const fetchThemeType = async () => {
   }`
 
   const client = getClient()
-  const settings = await client.fetch(query)
+  const settings = (await client.fetch(query)) || {themeType: 'brochure'}
   return settings.themeType
 }
 
