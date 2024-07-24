@@ -1,6 +1,6 @@
-import {defineArrayMember, defineField} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
-export const heroType = defineField({
+export const heroType = defineType({
   name: 'hero',
   title: 'Hero',
   type: 'object',

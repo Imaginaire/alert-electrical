@@ -81,7 +81,12 @@ const objects = [
   spotType,
 ]
 
-const sections = [heroType, textLinkType]
+import {heroType} from './objects/sections/heroType'
+import {textLinkType} from './objects/sections/textLinkType'
+import {postContentType} from './objects/sections/postContent'
+import {imageGalleryType} from './objects/sections/postContent/imageGallery'
+
+const sections = [heroType, textLinkType, postContentType, imageGalleryType]
 
 import {portableTextType} from './portableText/portableTextType'
 import {portableTextSimpleType} from './portableText/portableTextSimpleType'
@@ -100,8 +105,6 @@ import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
 import {shopType} from './singletons/shopType'
 import {cartType} from './singletons/cartType'
-import {heroType} from './objects/sections/heroType'
-import {textLinkType} from './objects/sections/textLinkType'
 
 const singletons = [homeType, settingsType, shopType, cartType]
 

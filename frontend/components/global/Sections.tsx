@@ -10,6 +10,8 @@ interface SectionsProps {
 }
 
 export default function Sections({sections}: SectionsProps) {
+  console.log(sections)
+
   return (
     <>
       {sections && sections.length > 0 && (

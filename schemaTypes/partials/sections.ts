@@ -21,6 +21,11 @@ export const sections = defineField({
       name: 'textLink',
       title: 'Text Link',
     }),
+    defineArrayMember({
+      type: 'postContent',
+      name: 'postContent',
+      title: 'Post Content',
+    }),
     // defineArrayMember({
     //   type: 'gallery',
     //   name: 'gallery',
