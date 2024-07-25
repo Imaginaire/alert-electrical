@@ -26,6 +26,11 @@ export const sections = defineField({
       name: 'postContent',
       title: 'Post Content',
     }),
+    defineArrayMember({
+      type: 'header',
+      name: 'header',
+      title: 'Header',
+    }),
     // defineArrayMember({
     //   type: 'gallery',
     //   name: 'gallery',

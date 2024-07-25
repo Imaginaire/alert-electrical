@@ -37,12 +37,6 @@ export const collectionType = defineType({
       options: {field: 'store.slug.current'},
     }),
     defineField({
-      name: 'colorTheme',
-      type: 'reference',
-      to: [{type: 'colorTheme'}],
-      group: 'theme',
-    }),
-    defineField({
       name: 'vector',
       title: 'Vector artwork',
       type: 'image',
@@ -69,24 +63,6 @@ export const collectionType = defineType({
       name: 'showHero',
       type: 'boolean',
       description: 'If disabled, page title will be displayed instead',
-      group: 'editorial',
-    }),
-    defineField({
-      name: 'hero',
-      type: 'hero',
-      hidden: ({document}) => !document?.showHero,
-      group: 'editorial',
-    }),
-    defineField({
-      name: 'modules',
-      type: 'array',
-      description: 'Editorial modules to associate with this collection',
-      of: [
-        defineArrayMember({type: 'callout'}),
-        defineArrayMember({type: 'callToAction'}),
-        defineArrayMember({type: 'image'}),
-        defineArrayMember({type: 'instagram'}),
-      ],
       group: 'editorial',
     }),
     defineField({

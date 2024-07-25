@@ -1,5 +1,4 @@
 import groq from 'groq'
-import {Reference} from 'sanity'
 
 // custom sections query to get the internal links - will be used across queries so defined here
 const sectionsQuery = `
@@ -58,12 +57,6 @@ export const homePageTitleQuery = groq`
   *[_type == "home"][0].title
 `
 
-// export const pagesBySlugQuery = groq`
-//   *[
-//     (_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "product")
-//   ]
-// `
-
 export const pagesBySlugQuery = groq`
   *[
     ((_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" || _type == "cart" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
@@ -99,25 +92,6 @@ export const pageSlug = (ref: string) => groq`
     "slug": slug.current,
     "title": title,
   }
-`
-
-export const projectBySlugQuery = groq`
-  *[_type == "project" && slug.current == $slug][0] {
-    _id,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
-    "slug": slug.current,
-    tags,
-    title,
-  }
-`
-
-export const projectPaths = groq`
-  *[_type == "project" && slug.current != null].slug.current
 `
 export const pageTypes = groq`
   *[

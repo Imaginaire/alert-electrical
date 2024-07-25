@@ -28,10 +28,5 @@ export const notFoundPageType = defineField({
         },
       ],
     }),
-    defineField({
-      name: 'colorTheme',
-      type: 'reference',
-      to: [{type: 'colorTheme'}],
-    }),
   ],
 })

@@ -102,6 +102,7 @@ export default function ProductVariantSelector({
 
   return (
     <div>
+      <h2 className="text-2xl py-4">Variants</h2>
       {product?.options?.map((option) => (
         <div key={option.name}>
           <label>{option.name}</label>

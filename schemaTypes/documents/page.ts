@@ -1,13 +1,15 @@
 import {DocumentIcon, ImageIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
-// import sections from '../partials/sections'
 import toStringFromCamelCase from '../../utils/toStringFromCamelCase'
-// import seo from 'schemas/partials/seo'
+import {GROUPS} from '../../constants'
+import {sections} from '../partials/sections'
+import {seo} from '../partials/seo'
 
 export const pageType = defineType({
   type: 'document',
   name: 'page',
   title: 'Page',
+  groups: GROUPS,
   icon: DocumentIcon,
   fields: [
     defineField({
@@ -59,10 +61,8 @@ export const pageType = defineType({
       },
       validation: (rule) => rule.required(),
     }),
-    // SEO fields
-    // seo,
-    // use sections schema
-    // sections,
+    seo,
+    sections,
   ],
   preview: {
     select: {

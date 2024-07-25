@@ -4,6 +4,7 @@ import Layout from '@/components/global/Layout'
 import {useState, useEffect} from 'react'
 import ProductVariantSelector from '../product/ProductVariantSelector'
 import {Variant} from '@/types/productType'
+import Sections from '@/components/global/Sections'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -23,8 +24,8 @@ export default function ProductPage({
   loading,
   canonicalUrl,
 }: ProductPageProps) {
-  const {store} = page || {}
-  const {title, descriptionHtml, previewImageUrl, productType, variants, tags} = store || {}
+  const {store, sections} = page || {}
+  const {title, descriptionHtml, previewImageUrl, variants} = store || {}
 
   // state for selected variant
   const [selectedVariant, setSelectedVariant] = useState<Variant>()
@@ -62,11 +63,7 @@ export default function ProductPage({
             <div dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}} />
 
             {store && variants?.length && (
-              <div className="flex flex-col">
-                <h2 className="text-2xl py-4">Variants</h2>
-
-                <ProductVariantSelector product={store} onVariantChange={handleVariableChange} />
-              </div>
+              <ProductVariantSelector product={store} onVariantChange={handleVariableChange} />
             )}
 
             {selectedVariant && selectedVariant.store?.price && (
@@ -92,6 +89,9 @@ export default function ProductPage({
             </div>
 
             {selectedVariant && <button onClick={handleAddToCart}>Add to cart</button>}
+
+            {/* Sections */}
+            {sections && sections.length > 0 && <Sections sections={sections} />}
           </div>
         </div>
       </Layout>

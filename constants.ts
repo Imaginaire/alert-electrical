@@ -4,7 +4,7 @@ import ShopifyIcon from './components/icons/Shopify'
 import {ColorWheelIcon, ComposeIcon, SearchIcon, BlockElementIcon} from '@sanity/icons'
 
 // https://en.wikipedia.org/wiki/ISO_4217
-export const DEFAULT_CURRENCY_CODE = 'USD'
+export const DEFAULT_CURRENCY_CODE = 'GBP'
 
 // Document types which:
 // - cannot be created in the 'new document' menu

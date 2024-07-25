@@ -3,76 +3,35 @@ import type {PortableTextBlock} from '@portabletext/types'
 import type {Image, Reference, Slug} from 'sanity'
 import {Product, Store} from './productType'
 
-export interface MenuItem {
-  // doesn't use _type because it gets the type from a reference
-  type: string
-  slug?: string
-  title?: string
-  megaMenuItems?: MegaMenuItem[]
-  megaMenuImage?: Image
-}
+// Section Types
 
-export interface MegaMenuItem {
-  megaMenuItem: {
-    title?: string
-    description?: string
-    slug?: string
-  }
-}
-
-export interface LayoutProps {
-  children: React.ReactNode
-  settings: SettingsPayload | undefined
-  preview?: boolean
-  loading?: boolean
-}
-
-export interface Address {
+export interface Sections {
   _type: string
-  number?: string
-  street?: string
-  town?: string
-  city?: string
-  postCode?: string
-}
-
-export interface CompanyInformation {
-  name?: string
-  address?: Address
-  phone?: string
-  email?: string
-  logo?: Image
-}
-
-export interface Accreditation {
-  tagline?: string
-  link?: string
-}
-
-export interface MilestoneItem {
-  description?: string
-  duration?: {
-    start?: string
-    end?: string
-  }
-  image?: Image
-  tags?: string[]
-  title?: string
-}
-
-export interface ShowcaseProject {
-  _type: string
-  coverImage?: Image
-  overview?: PortableTextBlock[]
-  slug?: string
-  tags?: string[]
-  title?: string
-}
-
-export interface NavbarProps {
-  menuItems?: MenuItem[]
-  companyInfo?: CompanyInformation
-  contactPage?: PagePayload
+  hero?: Hero
+  textLink?: TextLink
+  gallery?: Gallery
+  slider?: Slider
+  services?: Services
+  cta?: Cta
+  sellingPoints?: SellingPoints
+  ctaImage?: CtaImage
+  ctaStrap?: CtaStrap
+  shortHero?: ShortHero
+  textImage?: TextImage
+  postContent?: PostContent
+  testimonial?: Testimonial
+  showcaseSlider?: ShowcaseSlider
+  heroAlt?: HeroAlt
+  featuredCaseStudies?: featuredCaseStudies
+  infoStack?: InfoStack
+  blogs?: Blogs
+  contactHeader?: ContactHeader
+  spacer?: Spacer
+  columns?: Columns
+  caseStudySlider?: CaseStudySlider
+  customTable?: CustomTable
+  imageGrid?: ImageGrid
+  formBuilder?: FormBuilder
 }
 
 export interface Hero {
@@ -190,13 +149,6 @@ export interface Column {
   _type: string
   header?: string
   columnLinks?: ColumnLink[]
-}
-
-export interface Footer {
-  _type: string
-  column1?: Column
-  column2?: Column
-  column3?: Column
 }
 
 export interface ShortHero {
@@ -335,38 +287,68 @@ export interface FormBuilder {
   }[]
 }
 
-export interface Sections {
-  _type: string
-  hero?: Hero
-  textLink?: TextLink
-  gallery?: Gallery
-  slider?: Slider
-  services?: Services
-  cta?: Cta
-  sellingPoints?: SellingPoints
-  ctaImage?: CtaImage
-  ctaStrap?: CtaStrap
-  shortHero?: ShortHero
-  textImage?: TextImage
-  postContent?: PostContent
-  testimonial?: Testimonial
-  showcaseSlider?: ShowcaseSlider
-  heroAlt?: HeroAlt
-  featuredCaseStudies?: featuredCaseStudies
-  infoStack?: InfoStack
-  blogs?: Blogs
-  contactHeader?: ContactHeader
-  spacer?: Spacer
-  columns?: Columns
-  caseStudySlider?: CaseStudySlider
-  customTable?: CustomTable
-  imageGrid?: ImageGrid
-  formBuilder?: FormBuilder
-}
-
 export interface Tag {
   label?: string
   value?: string
+}
+
+export interface MenuItem {
+  // doesn't use _type because it gets the type from a reference
+  type: string
+  slug?: string
+  title?: string
+  megaMenuItems?: MegaMenuItem[]
+  megaMenuImage?: Image
+}
+
+export interface MegaMenuItem {
+  megaMenuItem: {
+    title?: string
+    description?: string
+    slug?: string
+  }
+}
+
+export interface LayoutProps {
+  children: React.ReactNode
+  settings: SettingsPayload | undefined
+  preview?: boolean
+  loading?: boolean
+}
+
+export interface Address {
+  _type: string
+  number?: string
+  street?: string
+  town?: string
+  city?: string
+  postCode?: string
+}
+
+export interface CompanyInformation {
+  name?: string
+  address?: Address
+  phone?: string
+  email?: string
+  logo?: Image
+}
+
+export interface Accreditation {
+  tagline?: string
+  link?: string
+}
+
+export interface NavbarProps {
+  menuItems?: MenuItem[]
+  companyInfo?: CompanyInformation
+  contactPage?: PagePayload
+}
+
+export interface Footer {
+  _type: string
+  column1?: Column
+  column2?: Column
+  column3?: Column
 }
 
 export interface GoogleTagManager {
@@ -415,21 +397,6 @@ export interface PagePayload {
   store?: Store
 }
 
-export interface ProjectPayload {
-  client?: string
-  coverImage?: Image
-  description?: PortableTextBlock[]
-  duration?: {
-    start?: string
-    end?: string
-  }
-  overview?: PortableTextBlock[]
-  site?: string
-  slug: string
-  tags?: string[]
-  title?: string
-}
-
 export interface CaseStudyPayload {
   title?: string
   slug?: string
@@ -449,7 +416,6 @@ export interface BlogPayload {
   title?: string
   slug?: string
   seo?: SEO
-  // coverImage?: Image
   featuredImage?: Image
   date?: string | Date
   tags?: Tag[]
