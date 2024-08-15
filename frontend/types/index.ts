@@ -8,29 +8,10 @@ import {Product, Store} from './productType'
 export interface Sections {
   _type: string
   hero?: Hero
-  textLink?: TextLink
-  gallery?: Gallery
-  slider?: Slider
-  services?: Services
-  cta?: Cta
-  sellingPoints?: SellingPoints
-  ctaImage?: CtaImage
-  ctaStrap?: CtaStrap
-  shortHero?: ShortHero
-  textImage?: TextImage
   postContent?: PostContent
-  testimonial?: Testimonial
-  showcaseSlider?: ShowcaseSlider
-  heroAlt?: HeroAlt
-  featuredCaseStudies?: featuredCaseStudies
-  infoStack?: InfoStack
-  blogs?: Blogs
   contactHeader?: ContactHeader
   spacer?: Spacer
   columns?: Columns
-  caseStudySlider?: CaseStudySlider
-  customTable?: CustomTable
-  imageGrid?: ImageGrid
   formBuilder?: FormBuilder
 }
 
@@ -46,99 +27,6 @@ export interface Hero {
   }
 }
 
-export interface TextLink {
-  _type: string
-  header?: string
-  content?: PortableTextBlock[]
-  linkText?: string
-  linkUrl?: string
-  slug?: {
-    current?: string
-  }
-}
-
-export interface Gallery {
-  _type: string
-  images?: Image[]
-}
-
-export interface Slider {
-  _type: string
-  images?: Image[]
-}
-
-export interface ServiceAreaLink {
-  _type: object
-  _ref: string
-}
-
-export interface ServiceArea {
-  header?: string
-  subheader?: string
-  content?: PortableTextBlock[]
-  link?: ServiceAreaLink
-  linkText?: object
-  slug?: {
-    current?: string
-  }
-}
-
-export interface SellingPoint {
-  content?: PortableTextBlock[]
-  icon?: Image
-}
-
-export interface Services {
-  _type: string
-  header?: string
-  content?: PortableTextBlock[]
-  textColour?: string
-  serviceAreas?: ServiceArea[]
-  link?: string
-  linkText?: string
-}
-
-export interface Cta {
-  _type: string
-  content?: PortableTextBlock[]
-  backgroundImage?: Image
-  link?: string
-  linkText?: string
-  slug?: {
-    current?: string
-  }
-}
-
-export interface SellingPoints {
-  _type: string
-  header?: string
-  points?: SellingPoint[]
-}
-
-export interface CtaImage {
-  _type: string
-  leftContent?: PortableTextBlock[]
-  centreContent?: PortableTextBlock[]
-  centreImages?: Image[]
-  buttonHeader?: string
-  linkText?: string
-  link?: string
-  externalLink?: string
-  mainImage?: Image
-  slug?: {
-    current?: string
-  }
-}
-
-export interface CtaStrap {
-  _type: string
-  imagesLeft?: Image[]
-  imagesRight?: Image[]
-  content?: PortableTextBlock[]
-  linkText?: string
-  link?: string
-}
-
 export interface ColumnLink {
   _type?: string
   slug?: string
@@ -151,19 +39,6 @@ export interface Column {
   columnLinks?: ColumnLink[]
 }
 
-export interface ShortHero {
-  _type: string
-  content?: PortableTextBlock[]
-  image?: Image
-}
-
-export interface TextImage {
-  _type: string
-  content?: PortableTextBlock[]
-  image?: Image
-  imageRight?: boolean
-}
-
 export interface PostContent {
   _type: string
   content?: PortableTextBlock[]
@@ -172,51 +47,6 @@ export interface PostContent {
     hex?: string
   }
   padding?: number
-}
-
-export interface Testimonial {
-  _type: string
-  header?: string
-  testimonialContent?: PortableTextBlock[]
-  name?: string
-  company?: string
-}
-
-export interface ShowcaseSlider {
-  _type: string
-  images?: Image[]
-}
-
-export interface HeroAlt {
-  _type: string
-  title?: string
-  content?: PortableTextBlock[]
-  image?: Image
-}
-
-export interface featuredCaseStudies {
-  _type: string
-  title?: string
-}
-
-export interface InfoStackItem {
-  _type: string
-  title?: string
-  description?: string
-}
-
-export interface InfoStack {
-  _type: string
-  header?: string
-  subheader?: string
-  content?: InfoStackItem[]
-}
-
-export interface Blogs {
-  _type: string
-  title?: string
-  headerContent?: PortableTextBlock[]
-  coverPhoto?: Image
 }
 
 export interface SocialMediaLink {
@@ -243,32 +73,6 @@ export interface Columns {
   contentBlock?: PortableTextBlock[]
 }
 
-export interface CaseStudySlider {
-  _type: string
-  showTags?: boolean
-  tags?: Tag[]
-}
-
-export interface Rows {
-  _type: 'tableRow'
-  cells?: string[]
-}
-
-export interface CustomTable {
-  _type: string
-  table?: {
-    _type: 'table'
-    rows?: Rows[]
-  }
-}
-
-export interface ImageGrid {
-  _type: string
-  images?: Image[]
-  gridColumns?: number
-  width?: string
-}
-
 export interface FormBuilder {
   _type: string
   formId?: string
@@ -285,11 +89,6 @@ export interface FormBuilder {
     }
     inputType?: string
   }[]
-}
-
-export interface Tag {
-  label?: string
-  value?: string
 }
 
 export interface MenuItem {
@@ -384,7 +183,6 @@ export interface PageProps {
 }
 
 // Page payloads
-
 export interface PagePayload {
   _type?: string
   body?: PortableTextBlock[]
@@ -397,46 +195,12 @@ export interface PagePayload {
   store?: Store
 }
 
-export interface CaseStudyPayload {
-  title?: string
-  slug?: string
-  seo?: SEO
-  position?: number
-  coverImage?: Image
-  featuredImage?: Image
-  featuredImageAlt?: string
-  shortDescription?: PortableTextBlock[]
-  tags?: Tag[]
-  location?: string
-  date?: string
-  sections?: Sections[]
-}
-
-export interface BlogPayload {
-  title?: string
-  slug?: string
-  seo?: SEO
-  featuredImage?: Image
-  date?: string | Date
-  tags?: Tag[]
-  sections?: Sections[]
-}
-
-export interface FooterCta {
-  text?: string
-  linkText?: string
-  link?: {
-    slug?: string
-  }
-}
-
 export interface SettingsPayload {
   menuItems?: MenuItem[]
   contactPage?: PagePayload
   companyInfo?: CompanyInformation
   googleTagManager?: GoogleTagManager
   accreditation?: Accreditation
-  footerCta?: FooterCta
   footer?: Footer
   robotsTxt?: {
     content?: string
