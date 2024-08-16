@@ -9,6 +9,7 @@ export interface Sections {
   _type: string
   hero?: Hero
   textLink?: TextLink
+  embed?: Embed
   gallery?: Gallery
   slider?: Slider
   services?: Services
@@ -55,6 +56,11 @@ export interface TextLink {
   slug?: {
     current?: string
   }
+}
+
+export interface Embed {
+  _type: string
+  html?: string
 }
 
 export interface Gallery {
