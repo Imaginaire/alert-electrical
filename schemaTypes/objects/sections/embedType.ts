@@ -13,4 +13,15 @@ export const embedType = defineType({
       rows: 3,
     }),
   ],
+  preview: {
+    select: {
+      html: 'html',
+    },
+    prepare(selection) {
+      return {
+        title: 'Embed',
+        subtitle: selection.html,
+      }
+    },
+  },
 })
