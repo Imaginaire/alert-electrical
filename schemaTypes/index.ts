@@ -60,8 +60,9 @@ import {textLinkType} from './objects/sections/textLinkType'
 import {postContentType} from './objects/sections/postContent'
 import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
+import {embedType} from './objects/sections/embedType'
 
-const sections = [heroType, textLinkType, postContentType, imageGalleryType, headerType]
+const sections = [heroType, textLinkType, postContentType, imageGalleryType, headerType, embedType]
 
 import {portableTextType} from './portableText/portableTextType'
 import {portableTextSimpleType} from './portableText/portableTextSimpleType'

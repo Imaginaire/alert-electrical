@@ -8,6 +8,7 @@ import {Product, Store} from './productType'
 export interface Sections {
   _type: string
   hero?: Hero
+  embed?: Embed
   postContent?: PostContent
   contactHeader?: ContactHeader
   spacer?: Spacer
@@ -25,6 +26,11 @@ export interface Hero {
   slug?: {
     current?: string
   }
+}
+
+export interface Embed {
+  _type: string
+  html?: string
 }
 
 export interface ColumnLink {
