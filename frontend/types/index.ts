@@ -214,3 +214,8 @@ export interface SettingsPayload {
   siteNoIndex?: boolean
   ogImage?: Image
 }
+
+export interface Header {
+  header: string
+  headerTag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+}
