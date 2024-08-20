@@ -6,35 +6,49 @@ export const heroType = defineType({
   type: 'object',
   fields: [
     defineField({
-      name: 'title',
-      type: 'text',
-      rows: 3,
+      type: 'string',
+      name: 'header',
+      title: 'Header',
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'description',
-      type: 'text',
-      rows: 3,
+      type: 'string',
+      name: 'subheader',
+      title: 'Subheader',
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'link',
-      type: 'array',
-      of: [{type: 'linkInternal'}, {type: 'linkExternal'}],
-      validation: (Rule) => Rule.max(1),
-    }),
-    defineField({
-      name: 'content',
-      type: 'array',
-      validation: (Rule) => Rule.max(1),
-      of: [
-        defineArrayMember({
-          name: 'productWithVariant',
-          type: 'productWithVariant',
-        }),
-        defineArrayMember({
-          name: 'imageWithProductHotspots',
-          type: 'imageWithProductHotspots',
+      type: 'image',
+      name: 'backgroundImage',
+      title: 'Background Image',
+      fields: [
+        defineField({
+          type: 'string',
+          name: 'alt',
+          title: 'Alt Text',
         }),
       ],
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      type: 'string',
+      name: 'linkText',
+      title: 'Link Text',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      type: 'reference',
+      name: 'link',
+      title: 'Link ',
+      validation: (rule) => rule.required(),
+      to: [{type: 'page'}],
     }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: 'Hero',
+      }
+    },
+  },
 })
