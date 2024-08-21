@@ -61,17 +61,8 @@ import {postContentType} from './objects/sections/postContent'
 import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
 import {embedType} from './objects/sections/embedType'
-import {ctaBannerType} from './objects/sections/ctaBannerType'
 
-const sections = [
-  heroType,
-  textLinkType,
-  postContentType,
-  imageGalleryType,
-  headerType,
-  embedType,
-  ctaBannerType,
-]
+const sections = [heroType, textLinkType, postContentType, imageGalleryType, headerType, embedType]
 
 import {portableTextType} from './portableText/portableTextType'
 import {portableTextSimpleType} from './portableText/portableTextSimpleType'

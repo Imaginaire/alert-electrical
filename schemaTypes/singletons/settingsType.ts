@@ -231,6 +231,34 @@ export const settingsType = defineType({
     }),
 
     defineField({
+      name: 'navCta',
+      title: 'Navbar CTA',
+      type: 'object',
+      description: 'Call to action displayed in the navbar.',
+      group: 'navigation',
+      options: {
+        collapsible: true,
+      },
+      fields: [
+        defineField({
+          name: 'leftText',
+          title: 'Left Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'middleText',
+          title: 'Middle Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'rightText',
+          title: 'Right Text',
+          type: 'string',
+        }),
+      ],
+    }),
+
+    defineField({
       name: 'footerCta',
       title: 'Footer CTA',
       type: 'object',

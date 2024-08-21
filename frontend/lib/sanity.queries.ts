@@ -153,6 +153,12 @@ export const settingsQuery = groq`
       "slug": slug.current,
     },
     googleTagManager,
+    navCta{
+      ...,
+      link->{
+        "slug": slug.current
+      }
+    },
     footerCta {
       ...,
       link->{
