@@ -147,6 +147,7 @@ export interface NavbarProps {
   menuItems?: MenuItem[]
   companyInfo?: CompanyInformation
   contactPage?: PagePayload
+  settings?: SettingsPayload
 }
 
 export interface Footer {
@@ -213,6 +214,7 @@ export interface SettingsPayload {
   }
   siteNoIndex?: boolean
   ogImage?: Image
+  navCta?: CtaBanner
 }
 
 export interface Header {
@@ -221,7 +223,7 @@ export interface Header {
 }
 
 export interface CtaBanner {
-  leftText: string
-  middleText: string
-  rightText: string
+  leftText?: string
+  middleText?: string
+  rightText?: string
 }

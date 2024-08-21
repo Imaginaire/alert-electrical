@@ -1,88 +1,35 @@
-import {useEffect, useState} from 'react'
+import {Swiper, SwiperSlide} from 'swiper/react'
+// import 'swiper/css'
+// import 'swiper/css/pagination'
+// import 'swiper/css/navigation'
+import {Autoplay, Navigation} from 'swiper/modules'
 import {CtaBanner} from '@/types'
 
-export default function CallToActionBanner(ctaBannerData: CtaBanner) {
-  const {leftText, middleText, rightText} = ctaBannerData
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const texts = [leftText, middleText, rightText]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [texts.length])
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + texts.length) % texts.length)
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length)
-  }
-
+export default function CallToActionBanner({leftText, middleText, rightText}: CtaBanner) {
   return (
-    <div className="fixed top-0 left-0 right-0">
-      <div className="relative w-full bg-primary text-white ">
-        {/* Carousel wrapper */}
-        <div className="relative overflow-hidden">
-          {/* Current text */}
-          <div className="text-center py-4">
-            <p className="text-xs md:text-2xl">{texts[currentIndex].toUpperCase()}</p>
-          </div>
-        </div>
-
-        {/* Slider controls */}
-        <button
-          type="button"
-          className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          onClick={handlePrev}
-        >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full  group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
-            <svg
-              className="w-4 h-4 text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 1 1 5l4 4"
-              />
-            </svg>
-            <span className="sr-only">Previous</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          onClick={handleNext}
-        >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full  group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
-            <svg
-              className="w-4 h-4 text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
-            <span className="sr-only">Next</span>
-          </span>
-        </button>
-      </div>
-    </div>
+    <>
+      {leftText && middleText && rightText && (
+        <>
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Autoplay, Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>{leftText}</SwiperSlide>
+            <SwiperSlide>{middleText}</SwiperSlide>
+            <SwiperSlide>{rightText}</SwiperSlide>
+          </Swiper>
+        </>
+      )}
+    </>
   )
 }
