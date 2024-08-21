@@ -31,11 +31,15 @@ export const sections = defineField({
       name: 'header',
       title: 'Header',
     }),
-
     defineArrayMember({
       type: 'embed',
       name: 'embed',
       title: 'Embed',
+    }),
+    defineArrayMember({
+      type: 'ctaBanner',
+      name: 'ctaBanner',
+      title: 'CTA Banner',
     }),
   ],
 })
