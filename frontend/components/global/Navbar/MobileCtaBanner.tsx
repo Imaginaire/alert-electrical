@@ -36,7 +36,7 @@ export default function MobileCtaBanner(props: CtaBannerProps) {
           {ctas?.map((cta, index) => (
             <SwiperSlide key={index} className="!flex justify-center items-center text-xs">
               {cta.link?.slug ? (
-                <Link href={cta.link.slug} key={index}>
+                <Link href={cta.link.slug} key={index} className="hover:text-blue-400">
                   {cta.text}
                 </Link>
               ) : (

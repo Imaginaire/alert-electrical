@@ -17,7 +17,7 @@ export default function DesktopCtaBanner(props: CtaBannerProps) {
           {ctas.map((cta, index) => {
             if (cta.link) {
               return (
-                <Link href={cta.link?.slug ?? ''} key={index}>
+                <Link href={cta.link?.slug ?? ''} key={index} className="hover:text-blue-400">
                   {cta.text}
                 </Link>
               )
