@@ -31,7 +31,6 @@ export const sections = defineField({
       name: 'header',
       title: 'Header',
     }),
-
     defineArrayMember({
       type: 'embed',
       name: 'embed',

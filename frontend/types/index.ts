@@ -147,6 +147,7 @@ export interface NavbarProps {
   menuItems?: MenuItem[]
   companyInfo?: CompanyInformation
   contactPage?: PagePayload
+  navCta?: CtaBanner
 }
 
 export interface Footer {
@@ -213,9 +214,19 @@ export interface SettingsPayload {
   }
   siteNoIndex?: boolean
   ogImage?: Image
+  navCta?: CtaBanner
 }
 
 export interface Header {
   header: string
   headerTag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+}
+
+export interface CtaBanner {
+  ctas?: {
+    text: string
+    link?: {
+      slug?: string
+    }
+  }[]
 }

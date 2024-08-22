@@ -8,6 +8,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         menuItems={settings?.menuItems}
         companyInfo={settings?.companyInfo}
         contactPage={settings?.contactPage}
+        navCta={settings?.navCta}
       />
       <div className="">{children}</div>
     </>
