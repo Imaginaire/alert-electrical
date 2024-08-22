@@ -223,7 +223,5 @@ export interface Header {
 }
 
 export interface CtaBanner {
-  leftText?: string
-  middleText?: string
-  rightText?: string
+  texts?: string[]
 }

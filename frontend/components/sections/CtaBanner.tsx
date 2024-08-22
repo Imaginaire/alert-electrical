@@ -13,7 +13,7 @@ interface CtaBannerProps {
 }
 
 export default function CtaBanner({navCta}: CtaBannerProps) {
-  const {leftText, middleText, rightText} = navCta || {}
+  const {texts} = navCta || {}
 
   return (
     <>
@@ -32,15 +32,11 @@ export default function CtaBanner({navCta}: CtaBannerProps) {
           modules={[Autoplay, Navigation]}
           className="mySwiper bg-primary text-white w-full h-full !py-4"
         >
-          <SwiperSlide className="!flex justify-center items-center text-xs">
-            {leftText}
-          </SwiperSlide>
-          <SwiperSlide className="!flex justify-center items-center text-xs">
-            {middleText}
-          </SwiperSlide>
-          <SwiperSlide className="!flex justify-center items-center text-xs">
-            {rightText}
-          </SwiperSlide>
+          {texts?.map((text, index) => (
+            <SwiperSlide key={index} className="!flex justify-center items-center text-xs">
+              {text}
+            </SwiperSlide>
+          ))}
 
           <div className="custom-navigation-prev absolute left-0 top-1/2 transform -translate-y-1/2 cursor-pointer z-10 p-2">
             <LeftArrow />

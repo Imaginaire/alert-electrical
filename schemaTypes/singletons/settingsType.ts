@@ -241,19 +241,11 @@ export const settingsType = defineType({
       },
       fields: [
         defineField({
-          name: 'leftText',
-          title: 'Left Text',
-          type: 'string',
-        }),
-        defineField({
-          name: 'middleText',
-          title: 'Middle Text',
-          type: 'string',
-        }),
-        defineField({
-          name: 'rightText',
-          title: 'Right Text',
-          type: 'string',
+          name: 'texts',
+          title: 'Banner Text',
+          type: 'array',
+          of: [{type: 'string'}],
+          validation: (Rule) => Rule.max(3).error('You can only add up to 3 texts.'),
         }),
       ],
     }),
