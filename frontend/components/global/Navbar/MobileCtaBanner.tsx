@@ -7,17 +7,18 @@ import type {CtaBanner} from '@/types'
 
 import LeftArrow from '@/svgs/LeftArrow'
 import RightArrow from '@/svgs/RightArrow'
+import Link from 'next/link'
 
 interface CtaBannerProps {
-  navCta: CtaBanner
+  ctas: CtaBanner['ctas']
 }
 
-export default function MobileCtaBanner({navCta}: CtaBannerProps) {
-  const {texts} = navCta || {}
+export default function MobileCtaBanner(props: CtaBannerProps) {
+  const {ctas = []} = props
 
   return (
     <>
-      {navCta && (
+      {ctas.length > 0 && (
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -32,9 +33,16 @@ export default function MobileCtaBanner({navCta}: CtaBannerProps) {
           modules={[Autoplay, Navigation]}
           className="mySwiper bg-primary text-white w-full h-full !py-4"
         >
-          {texts?.map((text, index) => (
+          {ctas?.map((cta, index) => (
             <SwiperSlide key={index} className="!flex justify-center items-center text-xs">
-              {text}
+              {cta.link?.slug ? (
+                <Link href={cta.link.slug} key={index}>
+                  {cta.text}
+                </Link>
+              ) : (
+                cta.text
+              )}
+              {}
             </SwiperSlide>
           ))}
 

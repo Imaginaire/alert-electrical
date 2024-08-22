@@ -1,21 +1,29 @@
 import type {CtaBanner} from '@/types'
+import Link from 'next/link'
 
 interface CtaBannerProps {
-  navCta: CtaBanner
+  ctas: CtaBanner['ctas']
 }
 
-export default function DesktopCtaBanner({navCta}: CtaBannerProps) {
-  const {texts} = navCta || {}
+export default function DesktopCtaBanner(props: CtaBannerProps) {
+  const {ctas = []} = props
+
+  console.log(ctas)
 
   return (
     <>
-      {navCta && (
+      {ctas.length > 0 && (
         <div className="bg-primary text-white flex justify-between items-center w-full py-4 text-base">
-          {texts?.map((text, index) => (
-            <span key={index} className="">
-              {text}
-            </span>
-          ))}
+          {ctas.map((cta, index) => {
+            if (cta.link) {
+              return (
+                <Link href={cta.link?.slug ?? ''} key={index}>
+                  {cta.text}
+                </Link>
+              )
+            }
+            return <span key={index}>{cta.text}</span>
+          })}
         </div>
       )}
     </>

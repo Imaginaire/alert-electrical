@@ -155,8 +155,11 @@ export const settingsQuery = groq`
     googleTagManager,
     navCta{
       ...,
-      link->{
-        "slug": slug.current
+      ctas[]{
+        ...,
+        link->{
+          "slug": slug.current
+        }
       }
     },
     footerCta {

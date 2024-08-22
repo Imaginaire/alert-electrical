@@ -1,10 +1,7 @@
 import * as React from 'react'
 
 interface LeftArrowProps {
-  colour?: string
-  backgroundColour?: string
   hoverColour?: string
-  hoverBackgroundColour?: string
 }
 
 const LeftArrow: React.FC<LeftArrowProps> = ({hoverColour = '#009FE3'}) => {

@@ -232,20 +232,33 @@ export const settingsType = defineType({
 
     defineField({
       name: 'navCta',
-      title: 'Navbar CTA',
+      title: 'Navbar CTAs',
       type: 'object',
-      description: 'Call to action displayed in the navbar.',
+      description: 'Call to action items displayed above the navbar.',
       group: 'navigation',
       options: {
         collapsible: true,
       },
       fields: [
         defineField({
-          name: 'texts',
-          title: 'Banner Text',
+          name: 'ctas',
+          title: 'CTAs',
           type: 'array',
-          of: [{type: 'string'}],
-          validation: (Rule) => Rule.max(3).error('You can only add up to 3 texts.'),
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  type: 'string',
+                  name: 'text',
+                  title: 'CTA Text',
+                  validation: (Rule) => Rule.required(),
+                },
+                {type: 'reference', name: 'link', title: 'CTA Link', to: [{type: 'page'}]},
+              ],
+            },
+          ],
+          validation: (Rule) => Rule.max(3).error('You can only add up to 3 CTAs.'),
         }),
       ],
     }),

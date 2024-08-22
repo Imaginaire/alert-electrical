@@ -3,20 +3,18 @@ import Desktop from './Desktop'
 import MobileCtaBanner from './MobileCtaBanner'
 import DesktopCtaBanner from './DesktopCtaBanner'
 
-export default function Navbar({menuItems, companyInfo, contactPage, settings}: NavbarProps) {
+export default function Navbar({menuItems, companyInfo, contactPage, navCta}: NavbarProps) {
   return (
     <>
       {/* Desktop Nav */}
       <nav className="hidden sm:block">
-        {settings?.navCta && <DesktopCtaBanner navCta={settings?.navCta} />}
+        {navCta && <DesktopCtaBanner ctas={navCta.ctas} />}
 
         <Desktop menuItems={menuItems} companyInfo={companyInfo} contactPage={contactPage} />
       </nav>
 
       {/* Mobile Nav */}
-      <nav className="sm:hidden z-50">
-        {settings?.navCta && <MobileCtaBanner navCta={settings?.navCta} />}
-      </nav>
+      <nav className="sm:hidden z-50">{navCta && <MobileCtaBanner ctas={navCta.ctas} />}</nav>
     </>
   )
 }
