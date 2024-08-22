@@ -12,7 +12,7 @@ interface CtaBannerProps {
   navCta: CtaBanner
 }
 
-export default function CtaBanner({navCta}: CtaBannerProps) {
+export default function MobileCtaBanner({navCta}: CtaBannerProps) {
   const {texts} = navCta || {}
 
   return (
