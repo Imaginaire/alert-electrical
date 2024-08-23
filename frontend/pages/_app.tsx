@@ -10,15 +10,17 @@ const cormorantInfant = Cormorant_Infant({
   variable: '--font-cormorant-infant',
 })
 
-const Manropes = Manrope({
+const manropes = Manrope({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-manrope',
 })
 
 export default function App({Component, pageProps}: AppProps) {
   return (
-    <main className={cormorantInfant.className}>
+    <main
+      className={`${cormorantInfant.className} ${cormorantInfant.variable} ${manropes.variable}`}
+    >
       <Component {...pageProps} />
       {pageProps?.settings?.googleTagManager && (
         <GoogleTagManager gtmId={pageProps.settings.googleTagManager} />
