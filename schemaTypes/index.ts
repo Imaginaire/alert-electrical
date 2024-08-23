@@ -61,8 +61,17 @@ import {postContentType} from './objects/sections/postContent'
 import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
 import {embedType} from './objects/sections/embedType'
+import {largeCtaType} from './objects/sections/largeCtaType'
 
-const sections = [heroType, textLinkType, postContentType, imageGalleryType, headerType, embedType]
+const sections = [
+  heroType,
+  textLinkType,
+  postContentType,
+  imageGalleryType,
+  headerType,
+  embedType,
+  largeCtaType,
+]
 
 import {portableTextType} from './portableText/portableTextType'
 import {portableTextSimpleType} from './portableText/portableTextSimpleType'

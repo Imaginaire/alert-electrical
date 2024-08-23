@@ -230,3 +230,15 @@ export interface CtaBanner {
     }
   }[]
 }
+
+export interface LargeCta {
+  _type: string
+  header?: string
+  description?: PortableTextBlock[]
+  backgroundImage?: Image
+  linkText?: string
+  linkUrl?: string
+  slug?: {
+    current?: string
+  }
+}
