@@ -12,12 +12,10 @@ export default function Hero(heroData: HeroType) {
     ? urlForImage(backgroundImage)?.width(1920).url()
     : undefined
 
-  //TODO: adjust the location of the box to be in the centre of the hero section
-
   return (
     <>
       {heroData && (
-        <section className="hero w-full flex justify-center space-y-20 items-end pt-24 h-screen relative">
+        <section className="hero w-full h-[calc(100vh-159px)] flex justify-center items-center relative">
           <Image
             src={backgroundImgUrl ? backgroundImgUrl : ''}
             fill={true}
@@ -27,13 +25,11 @@ export default function Hero(heroData: HeroType) {
             priority={true}
             quality={100}
           />
-          <div className="hero-container absolute top-[20%] text-white bg-primary flex flex-col items-center justify-center py-8 px-6 md:py-10 md:px-12 max-w-[600px] mx-4 md:m-0">
-            <h2 className="text-sm animation-delay-300 flex items-center">
-              <span className="text-3xl text-center">{header}</span>
-            </h2>
-            <h1 className="text-7xl lg:text-[128px] m-5">{subheader}</h1>
+          <div className="hero-container z-10 max-w-[620px] mx-5 px-5 py-7 lg:py-9 lg:px-[78px]  bg-primary text-white text-center">
+            <h2 className="text-[32px] leading-9 mb-4 lg:mb-[8px] uppercase">{header}</h2>
+            <p className="text-7xl lg:text-[128px] lg:text-[128px] mb-4 lg:mb-[8px]">{subheader}</p>
             <Link href={slug?.current || '/'}>
-              <span className="text-3xl underline">{linkText}</span>
+              <span className="text-[32px] underline uppercase">{linkText}</span>
             </Link>
           </div>
         </section>
