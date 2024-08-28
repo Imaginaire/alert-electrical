@@ -62,6 +62,7 @@ import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
 import {embedType} from './objects/sections/embedType'
 import {largeCtaType} from './objects/sections/largeCtaType'
+import {shortHeroType} from './objects/sections/shortHeroType'
 
 const sections = [
   heroType,
@@ -71,6 +72,7 @@ const sections = [
   headerType,
   embedType,
   largeCtaType,
+  shortHeroType,
 ]
 
 import {portableTextType} from './portableText/portableTextType'
