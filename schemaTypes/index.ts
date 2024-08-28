@@ -82,8 +82,9 @@ import {collectionType} from './documents/collection'
 import {pageType} from './documents/page'
 import {productType} from './documents/product'
 import {productVariantType} from './documents/productVariant'
+import {latestNewsType} from './documents/latest-news'
 
-const documents = [collectionType, pageType, productType, productVariantType]
+const documents = [collectionType, pageType, productType, productVariantType, latestNewsType]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'

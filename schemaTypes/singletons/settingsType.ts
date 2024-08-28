@@ -1,7 +1,3 @@
-/**
- * @TODO Add blog and case study types and update the references in the settings type, and columnFields
- */
-
 import {
   CogIcon,
   InfoOutlineIcon,
@@ -9,6 +5,7 @@ import {
   ErrorOutlineIcon,
   MenuIcon,
   SearchIcon,
+  HeartIcon,
 } from '@sanity/icons'
 import {defineType, defineField} from 'sanity'
 import columnFields from '../partials/columnFields'
@@ -55,6 +52,11 @@ export const settingsType = defineType({
       title: 'Theme Settings',
       icon: CogIcon,
     },
+    {
+      name: 'socialMedia',
+      title: 'Social Media',
+      icon: HeartIcon,
+    },
   ],
   fields: [
     defineField({
@@ -83,9 +85,9 @@ export const settingsType = defineType({
                 {
                   type: 'shop',
                 },
-                // {
-                //   type: 'blog',
-                // },
+                {
+                  type: 'latestNews',
+                },
                 // {
                 //   type: 'caseStudy',
                 // },
@@ -120,10 +122,9 @@ export const settingsType = defineType({
                         {
                           type: 'page',
                         },
-
-                        // {
-                        //   type: 'blog',
-                        // },
+                        {
+                          type: 'latestNews',
+                        },
                         // {
                         //   type: 'caseStudy',
                         // },
@@ -291,9 +292,9 @@ export const settingsType = defineType({
             {
               type: 'page',
             },
-            // {
-            //   type: 'blog',
-            // },
+            {
+              type: 'latestNews',
+            },
             // {
             //   type: 'caseStudy',
             // },
@@ -411,6 +412,69 @@ export const settingsType = defineType({
           {title: 'Shopify Site', value: 'shopify'},
         ],
       },
+    }),
+
+    defineField({
+      name: 'socialMedia',
+      title: 'Social Media',
+      type: 'object',
+      group: 'socialMedia',
+
+      fields: [
+        defineField({
+          name: 'facebook',
+          title: 'Facebook',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'url',
+              title: 'Facebook URL',
+              type: 'url',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Facebook Image',
+              type: 'image',
+            }),
+          ],
+        }),
+
+        defineField({
+          name: 'twitter',
+          title: 'Twitter',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'url',
+              title: 'Twitter URL',
+              type: 'url',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Twitter Image',
+              type: 'image',
+            }),
+          ],
+        }),
+
+        defineField({
+          name: 'instagram',
+          title: 'Instagram',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'url',
+              title: 'Instagram URL',
+              type: 'url',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Instagram Image',
+              type: 'image',
+            }),
+          ],
+        }),
+      ],
     }),
   ],
   preview: {

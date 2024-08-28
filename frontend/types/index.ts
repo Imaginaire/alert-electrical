@@ -189,6 +189,16 @@ export interface PageProps {
   draftMode?: boolean
 }
 
+export interface LatestNewsProps {
+  page: PagePayload | undefined | null
+  settings: SettingsPayload | undefined
+  homePageTitle: string | undefined
+  preview?: boolean
+  loading?: boolean
+  canonicalUrl?: string
+  draftMode?: boolean
+}
+
 // Page payloads
 export interface PagePayload {
   _type?: string
@@ -200,6 +210,8 @@ export interface PagePayload {
   addToCartText?: string
   sections?: Sections[]
   store?: Store
+  date?: string
+  image?: Image
 }
 
 export interface SettingsPayload {
@@ -215,6 +227,16 @@ export interface SettingsPayload {
   siteNoIndex?: boolean
   ogImage?: Image
   navCta?: CtaBanner
+  socialMedia?: {
+    twitter?: SocialMediaLink
+    facebook?: SocialMediaLink
+    instagram?: SocialMediaLink
+  }
+}
+
+export interface SocialMediaLink {
+  url?: string
+  image?: Image
 }
 
 export interface Header {
