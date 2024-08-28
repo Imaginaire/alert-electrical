@@ -264,3 +264,8 @@ export interface LargeCta {
     current?: string
   }
 }
+
+export interface ShortHero {
+  header?: string
+  description?: PortableTextBlock[]
+}
