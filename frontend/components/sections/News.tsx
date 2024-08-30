@@ -1,0 +1,100 @@
+import {useState, useEffect} from 'react'
+import getNewsArticles from '../utils/getNewsArticles'
+import urlForImage from '@/shared/utils/urlForImage'
+import Image from 'next/image'
+import type {PortableTextBlock} from '@portabletext/types'
+
+interface ArticleType {
+  id: string
+  title: string
+  slug: string
+  image: string
+  sections: {
+    content: PortableTextBlock[]
+  }[]
+}
+
+// types
+import {News as NewsType} from '../../types'
+import {CustomPortableText} from '../shared/CustomPortableText'
+import Link from 'next/link'
+
+export default function News(newsData: NewsType) {
+  const {title} = newsData ?? {}
+
+  console.log(newsData)
+
+  // state for news
+  const [news, setNews] = useState<ArticleType[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  // get news
+  useEffect(() => {
+    getNewsArticles().then((res) => {
+      setNews(res)
+      setLoading(false)
+    })
+  }, [])
+
+  console.log('news', news)
+
+  return (
+    <section className="latest-news w-full flex justify-center items-center relative">
+      <div className="bg-primary pt-[60px] w-full h-[329px]">
+        <h1 className="text-4xl text-white text-center ">{title}</h1>
+      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[60px] mb-12 px-5 max-w-[1388px] absolute top-[120px]">
+          {news.map((article, articleIndex) => {
+            return (
+              <div
+                key={articleIndex}
+                className={`newsCard w-full flex flex-col items-center  ${articleIndex === 0 ? 'bg-[#F5F5F5] sm:col-span-2 sm:h-[473px]' : 'border-[1px] lg:col-span-1'} lg:flex-row`}
+              >
+                <div className={`relative w-full h-[328px] lg:h-full lg:w-5/12 `}>
+                  <Image
+                    src={urlForImage(article.image)?.width(1920).url()}
+                    alt={article.title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col p-5 w-full lg:w-6/12">
+                  <h2
+                    className={` font-semibold  ${
+                      articleIndex === 0
+                        ? 'text-4xl leading-[43px] mb-5 '
+                        : 'text-primary text-[20px] leading-6 mb-2'
+                    }`}
+                  >
+                    {article.title}
+                  </h2>
+                  {/* {article.sections?.map((section, index) => {
+                    return (
+                      <div key={index} className="font-manrope text-secondary">
+                        <CustomPortableText value={section.content} />
+                      </div>
+                    )
+                  })} */}
+
+                  <div className="font-manrope text-secondary font-light">
+                    <CustomPortableText value={[article.sections[0].content[0]]} />
+                  </div>
+                  <Link
+                    href={article.slug}
+                    className={`font-manrope ${articleIndex === 0 ? 'mt-10' : 'mt-5 text-primary'}`}
+                  >
+                    <span>Read more</span>
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </section>
+  )
+}

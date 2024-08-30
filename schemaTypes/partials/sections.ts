@@ -46,5 +46,10 @@ export const sections = defineField({
       name: 'shortHero',
       title: 'Short Hero',
     }),
+    defineArrayMember({
+      type: 'news',
+      name: 'news',
+      title: 'News',
+    }),
   ],
 })

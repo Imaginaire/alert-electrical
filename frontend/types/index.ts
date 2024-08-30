@@ -269,3 +269,7 @@ export interface ShortHero {
   header?: string
   description?: PortableTextBlock[]
 }
+
+export interface News {
+  title?: string
+}

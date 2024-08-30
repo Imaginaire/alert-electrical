@@ -17,8 +17,6 @@ export function Page({page, settings, homePageTitle, preview, loading, canonical
 
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
-          {page?.title && <h1>{page.title}</h1>}
-
           {/* Sections */}
           {sections && sections.length > 0 && <Sections sections={sections} />}
 
