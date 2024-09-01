@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import getNewsArticles from '../utils/getNewsArticles'
 import urlForImage from '@/shared/utils/urlForImage'
-import Image from 'next/image'
-import type {PortableTextBlock} from '@portabletext/types'
+import {CustomPortableText} from '../shared/CustomPortableText'
+import RightArrow from '@/svgs/RightArrow'
 
 interface ArticleType {
   id: string
@@ -16,8 +18,7 @@ interface ArticleType {
 
 // types
 import {News as NewsType} from '../../types'
-import {CustomPortableText} from '../shared/CustomPortableText'
-import Link from 'next/link'
+import type {PortableTextBlock} from '@portabletext/types'
 
 export default function News(newsData: NewsType) {
   const {title} = newsData ?? {}
@@ -85,9 +86,12 @@ export default function News(newsData: NewsType) {
                   </div>
                   <Link
                     href={article.slug}
-                    className={`font-manrope ${articleIndex === 0 ? 'mt-10' : 'mt-5 text-primary'}`}
+                    className={`font-manrope flex items-center ${articleIndex === 0 ? 'mt-10' : 'mt-5 text-primary'} hover:text-[#009FE3]`}
                   >
                     <span>Read more</span>
+                    <button className="bg-[#E0E0E0] ml-[10px] rounded-full p-1">
+                      <RightArrow width="18" height="18" />
+                    </button>
                   </Link>
                 </div>
               </div>
