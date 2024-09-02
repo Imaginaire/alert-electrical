@@ -41,13 +41,13 @@ export default function News(newsData: NewsType) {
 
   return (
     <section className="latest-news w-full flex justify-center items-center relative">
-      <div className="bg-primary pt-[60px] w-full h-[329px]">
+      <div className="bg-primary pt-[60px] w-full h-[329px] absolute top-0">
         <h1 className="text-4xl text-white text-center ">{title}</h1>
       </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[60px] mb-12 px-5 max-w-[1388px] absolute top-[120px]">
+        <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[164px] mb-12 px-5 z-30 max-w-[1388px] ">
           {news.map((article, articleIndex) => {
             return (
               <div
