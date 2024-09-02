@@ -270,6 +270,11 @@ export interface ShortHero {
   description?: PortableTextBlock[]
 }
 
+
+export interface News {
+  title?: string
+}
+
 export interface TextImage {
   header?: string
   description?: PortableTextBlock[]

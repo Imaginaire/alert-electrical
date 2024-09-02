@@ -47,6 +47,11 @@ export const sections = defineField({
       title: 'Short Hero',
     }),
     defineArrayMember({
+      type: 'news',
+      name: 'news',
+      title: 'News',
+    }),
+    defineArrayMember({
       type: 'textImage',
       name: 'textImage',
       title: 'Text Image',

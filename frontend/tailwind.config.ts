@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: '#05003E',
+        secondary: '#A5A5A5',
       },
       fontFamily: {
         sans: ['var(--font-cormorant-infant)', ...defaultTheme.fontFamily.sans],

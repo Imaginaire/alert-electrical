@@ -22,7 +22,7 @@ const sectionsQuery = `
           _type == "internalLink" => {
             "slug": reference->slug
           }
-        }
+        },
       }
     },
     serviceAreas[]{
@@ -209,6 +209,21 @@ export const blogPostQuery = groq`
     seo,
     featuredImage,
     date,
+    tags,
+    ${sectionsQuery},
+  }
+`
+
+export const newsQuery = groq`
+  *[_type == "latestNews"] | order(date desc){
+    _id,
+    _type,
+    "slug": slug.current,
+    title,
+    date,
+    seo,
+    image,
+    body,
     tags,
     ${sectionsQuery},
   }
