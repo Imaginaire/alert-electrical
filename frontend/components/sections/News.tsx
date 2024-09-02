@@ -60,9 +60,11 @@ export default function News(newsData: NewsType) {
             return (
               <div
                 key={articleIndex}
-                className={`newsCard w-full flex flex-col items-center  ${articleIndex === 0 ? 'bg-[#F5F5F5] sm:col-span-2 sm:h-[473px]' : 'border-[1px] lg:col-span-1'} lg:flex-row`}
+                className={`newsCard w-full flex flex-col items-center  ${articleIndex === 0 ? 'bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
               >
-                <div className={`relative w-full h-[328px] lg:h-full lg:w-5/12 `}>
+                <div
+                  className={`relative w-full h-[328px]   ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
+                >
                   <Image
                     src={urlForImage(article.image)?.width(1920).url()}
                     alt={article.title}
@@ -71,12 +73,14 @@ export default function News(newsData: NewsType) {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex flex-col p-5 w-full lg:w-6/12">
+                <div
+                  className={`flex flex-col p-5 w-full  ${articleIndex === 0 ? 'lg:p-[96px] lg:justify-center' : 'p-6'}`}
+                >
                   <h2
-                    className={` font-semibold  ${
+                    className={`   ${
                       articleIndex === 0
-                        ? 'text-4xl leading-[43px] mb-5 '
-                        : 'text-primary text-[20px] leading-6 mb-2'
+                        ? 'text-4xl leading-[43px] mb-5 font-medium'
+                        : 'text-primary text-[20px] leading-6 mb-2 font-semibold'
                     }`}
                   >
                     {article.title}
@@ -98,9 +102,9 @@ export default function News(newsData: NewsType) {
             )
           })}
           <button
-            className="uppercase text-center underline mt-6 sm:col-span-2"
+            className="uppercase text-center underline mt-6 sm:col-span-2 hover:text-[#009FE3]"
             onClick={() => {
-              setDisplayedNews(displayedNews + 7)
+              setDisplayedNews(displayedNews + 6)
             }}
           >
             load more
