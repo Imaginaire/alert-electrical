@@ -19,6 +19,7 @@ interface ArticleType {
 // types
 import {News as NewsType} from '../../types'
 import type {PortableTextBlock} from '@portabletext/types'
+import toPlainText from '../utils/toPlainText'
 
 export default function News(newsData: NewsType) {
   const {title} = newsData ?? {}
@@ -39,6 +40,12 @@ export default function News(newsData: NewsType) {
   }, [])
 
   console.log('news', news)
+
+  const getFirstSentence = (content: PortableTextBlock[]) => {
+    const plainText = toPlainText(content)
+    const firstSentence = plainText.split('.').slice(0, 2).join('.') + '.'
+    return firstSentence
+  }
 
   return (
     <section className="latest-news w-full flex justify-center items-center relative">
@@ -74,16 +81,8 @@ export default function News(newsData: NewsType) {
                   >
                     {article.title}
                   </h2>
-                  {/* {article.sections?.map((section, index) => {
-                    return (
-                      <div key={index} className="font-manrope text-secondary">
-                        <CustomPortableText value={section.content} />
-                      </div>
-                    )
-                  })} */}
-
-                  <div className="font-manrope text-secondary font-light">
-                    <CustomPortableText value={[article.sections[0].content[0]]} />
+                  <div className="font-manrope text-secondary ">
+                    <p className="font-normal">{getFirstSentence(article.sections[0].content)}</p>
                   </div>
                   <Link
                     href={article.slug}
