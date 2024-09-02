@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import getNewsArticles from '../utils/getNewsArticles'
 import urlForImage from '@/shared/utils/urlForImage'
-import {CustomPortableText} from '../shared/CustomPortableText'
 import RightArrow from '@/svgs/RightArrow'
 
 interface ArticleType {
@@ -24,11 +23,9 @@ import toPlainText from '../utils/toPlainText'
 export default function News(newsData: NewsType) {
   const {title} = newsData ?? {}
 
-  console.log(newsData)
-
   // state for news
   const [news, setNews] = useState<ArticleType[]>([])
-  const [displayedNews, setDisplayedNews] = useState<number>(7)
+  const [numOfArticlesToShow, setNumOfArticlesToShow] = useState<number>(7)
   const [loading, setLoading] = useState<boolean>(true)
 
   // get news
@@ -38,14 +35,6 @@ export default function News(newsData: NewsType) {
       setLoading(false)
     })
   }, [])
-
-  console.log('news', news)
-
-  const getFirstSentence = (content: PortableTextBlock[]) => {
-    const plainText = toPlainText(content)
-    const firstSentence = plainText.split('.').slice(0, 2).join('.') + '.'
-    return firstSentence
-  }
 
   return (
     <section className="latest-news relative">
@@ -87,7 +76,9 @@ export default function News(newsData: NewsType) {
                     {article.title}
                   </h2>
                   <div className="font-manrope text-secondary ">
-                    <p className="font-normal">{getFirstSentence(article.sections[0].content)}</p>
+                    <p className="font-normal line-clamp-4">
+                      {toPlainText(article.sections[0].content)}
+                    </p>
                   </div>
                   <Link
                     href={article.slug}
@@ -105,7 +96,7 @@ export default function News(newsData: NewsType) {
           <button
             className="uppercase text-center underline mt-6 sm:col-span-2 hover:text-[#009FE3]"
             onClick={() => {
-              setDisplayedNews(displayedNews + 6)
+              setNumOfArticlesToShow((d) => d + 6)
             }}
           >
             load more
