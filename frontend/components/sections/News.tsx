@@ -48,22 +48,23 @@ export default function News(newsData: NewsType) {
   }
 
   return (
-    <section className="latest-news w-full flex justify-center items-center relative">
-      <div className="bg-primary pt-[60px] w-full h-[329px] absolute top-0">
-        <h1 className="text-4xl text-white text-center ">{title}</h1>
-      </div>
+    <section className="latest-news relative">
+      <div className="bg-primary w-full h-[329px] absolute top-0 z-[-1]" />
+      <h1 className="py-[60px] text-4xl text-white text-center">{title}</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[164px] mb-12 px-5 z-30 max-w-[1388px] ">
-          {news.slice(0, displayedNews).map((article, articleIndex) => {
+        <div className="newsContainer grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mx-auto px-5 max-w-[1388px] ">
+          {news.slice(0, numOfArticlesToShow).map((article, articleIndex) => {
+            const isFirst = articleIndex === 0
+
             return (
               <div
                 key={articleIndex}
-                className={`newsCard w-full flex flex-col items-center  ${articleIndex === 0 ? 'bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
+                className={`newsCard w-full  flex flex-col items-center  ${articleIndex === 0 ? 'h-auto bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
               >
                 <div
-                  className={`relative w-full h-[328px]   ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
+                  className={`relative w-full h-[328px] ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
                 >
                   <Image
                     src={urlForImage(article.image)?.width(1920).url()}
