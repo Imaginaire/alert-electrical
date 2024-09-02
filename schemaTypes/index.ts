@@ -64,6 +64,8 @@ import {embedType} from './objects/sections/embedType'
 import {largeCtaType} from './objects/sections/largeCtaType'
 import {shortHeroType} from './objects/sections/shortHeroType'
 import newsType from './objects/sections/newsType'
+import {textImageType} from './objects/sections/textImageType'
+
 
 const sections = [
   heroType,
@@ -75,6 +77,7 @@ const sections = [
   largeCtaType,
   shortHeroType,
   newsType,
+  textImageType,
 ]
 
 import {portableTextType} from './portableText/portableTextType'
