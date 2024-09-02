@@ -269,3 +269,13 @@ export interface ShortHero {
   header?: string
   description?: PortableTextBlock[]
 }
+
+export interface TextImage {
+  header?: string
+  description?: PortableTextBlock[]
+  availability?: {
+    availableTimes?: {from?: string; to?: string}[]
+    day?: string
+  }[]
+  images?: Image[]
+}
