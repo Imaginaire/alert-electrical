@@ -27,6 +27,7 @@ export default function News(newsData: NewsType) {
 
   // state for news
   const [news, setNews] = useState<ArticleType[]>([])
+  const [displayedNews, setDisplayedNews] = useState<number>(7)
   const [loading, setLoading] = useState<boolean>(true)
 
   // get news
@@ -48,7 +49,7 @@ export default function News(newsData: NewsType) {
         <p>Loading...</p>
       ) : (
         <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[164px] mb-12 px-5 z-30 max-w-[1388px] ">
-          {news.map((article, articleIndex) => {
+          {news.slice(0, displayedNews).map((article, articleIndex) => {
             return (
               <div
                 key={articleIndex}
@@ -97,6 +98,14 @@ export default function News(newsData: NewsType) {
               </div>
             )
           })}
+          <button
+            className="uppercase text-center underline mt-6 sm:col-span-2"
+            onClick={() => {
+              setDisplayedNews(displayedNews + 7)
+            }}
+          >
+            load more
+          </button>
         </div>
       )}
     </section>
