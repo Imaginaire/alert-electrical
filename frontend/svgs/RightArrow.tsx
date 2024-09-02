@@ -4,12 +4,14 @@ interface RightArrowProps {
   hoverColour?: string
   width?: string
   height?: string
+  arrowColor?: string
 }
 
 const RightArrow: React.FC<RightArrowProps> = ({
   hoverColour = '#009FE3',
   width = '24',
   height = '24',
+  arrowColor = 'white',
 }) => {
   const [isHovered, setIsHovered] = React.useState(false)
 
@@ -34,7 +36,7 @@ const RightArrow: React.FC<RightArrowProps> = ({
       <path
         fill="none"
         d="M9 18L15 12L9 6"
-        stroke={isHovered ? hoverColour : 'white'}
+        stroke={isHovered ? hoverColour : arrowColor}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

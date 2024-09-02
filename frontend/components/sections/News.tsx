@@ -90,7 +90,7 @@ export default function News(newsData: NewsType) {
                   >
                     <span>Read more</span>
                     <button className="bg-[#E0E0E0] ml-[10px] rounded-full p-1">
-                      <RightArrow width="18" height="18" />
+                      <RightArrow width="18" height="18" arrowColor="black" />
                     </button>
                   </Link>
                 </div>
