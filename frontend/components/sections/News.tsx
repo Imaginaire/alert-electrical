@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import getNewsArticles from '../utils/getNewsArticles'
 import urlForImage from '@/shared/utils/urlForImage'
-import {CustomPortableText} from '../shared/CustomPortableText'
 import RightArrow from '@/svgs/RightArrow'
 
 interface ArticleType {
@@ -24,11 +23,9 @@ import toPlainText from '../utils/toPlainText'
 export default function News(newsData: NewsType) {
   const {title} = newsData ?? {}
 
-  console.log(newsData)
-
   // state for news
   const [news, setNews] = useState<ArticleType[]>([])
-  const [displayedNews, setDisplayedNews] = useState<number>(7)
+  const [numOfArticlesToShow, setNumOfArticlesToShow] = useState<number>(7)
   const [loading, setLoading] = useState<boolean>(true)
 
   // get news
@@ -39,31 +36,24 @@ export default function News(newsData: NewsType) {
     })
   }, [])
 
-  console.log('news', news)
-
-  const getFirstSentence = (content: PortableTextBlock[]) => {
-    const plainText = toPlainText(content)
-    const firstSentence = plainText.split('.').slice(0, 2).join('.') + '.'
-    return firstSentence
-  }
-
   return (
-    <section className="latest-news w-full flex justify-center items-center relative">
-      <div className="bg-primary pt-[60px] w-full h-[329px] absolute top-0">
-        <h1 className="text-4xl text-white text-center ">{title}</h1>
-      </div>
+    <section className="latest-news relative">
+      <div className="bg-primary w-full h-[329px] absolute top-0 z-[-1]" />
+      <h1 className="py-[60px] text-4xl text-white text-center">{title}</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="newsContainer w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-[164px] mb-12 px-5 z-30 max-w-[1388px] ">
-          {news.slice(0, displayedNews).map((article, articleIndex) => {
+        <div className="newsContainer grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 mx-auto px-5 max-w-[1388px] ">
+          {news.slice(0, numOfArticlesToShow).map((article, articleIndex) => {
+            const isFirst = articleIndex === 0
+
             return (
               <div
                 key={articleIndex}
-                className={`newsCard w-full flex flex-col items-center  ${articleIndex === 0 ? 'bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
+                className={`newsCard w-full  flex flex-col items-center  ${articleIndex === 0 ? 'h-auto bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
               >
                 <div
-                  className={`relative w-full h-[328px]   ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
+                  className={`relative w-full h-[328px] ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
                 >
                   <Image
                     src={urlForImage(article.image)?.width(1920).url()}
@@ -86,7 +76,9 @@ export default function News(newsData: NewsType) {
                     {article.title}
                   </h2>
                   <div className="font-manrope text-secondary ">
-                    <p className="font-normal">{getFirstSentence(article.sections[0].content)}</p>
+                    <p className="font-normal line-clamp-4">
+                      {toPlainText(article.sections[0].content)}
+                    </p>
                   </div>
                   <Link
                     href={article.slug}
@@ -104,7 +96,7 @@ export default function News(newsData: NewsType) {
           <button
             className="uppercase text-center underline mt-6 sm:col-span-2 hover:text-[#009FE3]"
             onClick={() => {
-              setDisplayedNews(displayedNews + 6)
+              setNumOfArticlesToShow((d) => d + 6)
             }}
           >
             load more
