@@ -27,14 +27,31 @@ export default function News(newsData: NewsType) {
   const [news, setNews] = useState<ArticleType[]>([])
   const [numOfArticlesToShow, setNumOfArticlesToShow] = useState<number>(7)
   const [loading, setLoading] = useState<boolean>(true)
+  const [isLoadMoreClicked, setIsLoadMoreClicked] = useState<boolean>(false)
 
-  // get news
+  // Fetch initial news articles
   useEffect(() => {
-    getNewsArticles().then((res) => {
-      setNews(res)
+    const fetchInitialArticles = async () => {
+      const initialArticles = await getNewsArticles(0, numOfArticlesToShow)
+      setNews(initialArticles)
       setLoading(false)
-    })
+    }
+
+    fetchInitialArticles()
   }, [])
+
+  // Load more articles when the "Load more" button is clicked
+  useEffect(() => {
+    if (isLoadMoreClicked) {
+      const loadMoreArticles = async () => {
+        const additionalArticles = await getNewsArticles(news.length, numOfArticlesToShow)
+        setNews((prev) => [...prev, ...additionalArticles])
+        setIsLoadMoreClicked(false)
+      }
+
+      loadMoreArticles()
+    }
+  }, [numOfArticlesToShow])
 
   return (
     <section className="latest-news relative">
@@ -93,14 +110,18 @@ export default function News(newsData: NewsType) {
               </div>
             )
           })}
-          <button
-            className="uppercase text-center underline mt-6 sm:col-span-2 hover:text-[#009FE3]"
-            onClick={() => {
-              setNumOfArticlesToShow((d) => d + 6)
-            }}
-          >
-            load more
-          </button>
+
+          {news.length === numOfArticlesToShow ? (
+            <button
+              className="uppercase text-center underline mt-6 sm:col-span-2 hover:text-[#009FE3]"
+              onClick={() => {
+                setIsLoadMoreClicked(true)
+                setNumOfArticlesToShow((prev) => prev + 6)
+              }}
+            >
+              load more
+            </button>
+          ) : null}
         </div>
       )}
     </section>

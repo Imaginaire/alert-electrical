@@ -215,7 +215,7 @@ export const blogPostQuery = groq`
 `
 
 export const newsQuery = groq`
-  *[_type == "latestNews"] | order(date desc){
+  *[_type == "latestNews"] | order(date desc)[$start...$end]{
     _id,
     _type,
     "slug": slug.current,
