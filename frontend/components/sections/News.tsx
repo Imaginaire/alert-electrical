@@ -50,10 +50,10 @@ export default function News(newsData: NewsType) {
             return (
               <div
                 key={articleIndex}
-                className={`newsCard w-full  flex flex-col items-center  ${articleIndex === 0 ? 'h-auto bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
+                className={`newsCard w-full  flex flex-col items-center  ${isFirst ? 'h-auto bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
               >
                 <div
-                  className={`relative w-full h-[328px] ${articleIndex === 0 ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
+                  className={`relative w-full h-[328px] ${isFirst ? 'lg:w-10/12 lg:h-full' : 'xl:w-8/12 xl:h-full'}`}
                 >
                   <Image
                     src={urlForImage(article.image)?.width(1920).url()}
@@ -64,11 +64,11 @@ export default function News(newsData: NewsType) {
                   />
                 </div>
                 <div
-                  className={`flex flex-col p-5 w-full  ${articleIndex === 0 ? 'lg:p-[96px] lg:justify-center' : 'p-6'}`}
+                  className={`flex flex-col p-5 w-full  ${isFirst ? 'lg:p-[96px] lg:justify-center' : 'p-6'}`}
                 >
                   <h2
                     className={`   ${
-                      articleIndex === 0
+                      isFirst
                         ? 'text-4xl leading-[43px] mb-5 font-medium'
                         : 'text-primary text-[20px] leading-6 mb-2 font-semibold'
                     }`}
@@ -82,7 +82,7 @@ export default function News(newsData: NewsType) {
                   </div>
                   <Link
                     href={article.slug}
-                    className={`font-manrope flex items-center ${articleIndex === 0 ? 'mt-10' : 'mt-5 text-primary'} hover:text-[#009FE3]`}
+                    className={`font-manrope flex items-center ${isFirst ? 'mt-10' : 'mt-5 text-primary'} hover:text-[#009FE3]`}
                   >
                     <span>Read more</span>
                     <button className="bg-[#E0E0E0] ml-[10px] rounded-full p-1">
