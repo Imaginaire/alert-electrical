@@ -8,8 +8,6 @@ interface CtaBannerProps {
 export default function DesktopCtaBanner(props: CtaBannerProps) {
   const {ctas = []} = props
 
-  console.log(ctas)
-
   return (
     <>
       {ctas.length > 0 && (
