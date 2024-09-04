@@ -66,7 +66,6 @@ import {shortHeroType} from './objects/sections/shortHeroType'
 import newsType from './objects/sections/newsType'
 import {textImageType} from './objects/sections/textImageType'
 
-
 const sections = [
   heroType,
   textLinkType,
@@ -90,8 +89,16 @@ import {pageType} from './documents/page'
 import {productType} from './documents/product'
 import {productVariantType} from './documents/productVariant'
 import {latestNewsType} from './documents/latest-news'
+import {productSettingType} from './singletons/product-setting'
 
-const documents = [collectionType, pageType, productType, productVariantType, latestNewsType]
+const documents = [
+  collectionType,
+  pageType,
+  productType,
+  productVariantType,
+  latestNewsType,
+  productSettingType,
+]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
