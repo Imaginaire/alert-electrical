@@ -16,6 +16,7 @@ import Cart from '@/svgs/Cart'
 import VisitUs from '@/svgs/VisitUs'
 import ContactUs from '@/svgs/ContactUs'
 import MyAccount from '@/svgs/MyAccount'
+import CartModal from '../CartModal'
 
 const fakeLeftMenuItems = [
   {title: 'Home', href: '/'},
@@ -45,6 +46,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
 
   return (
     <>
+      <CartModal />
       <div className="hidden xl:flex navbar-desktop h-[115px]  items-center justify-between p-[30px]">
         {/* Left - search */}
         <button className="mr-14">
