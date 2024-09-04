@@ -29,7 +29,6 @@ const fakeRightMenuItems = [
   {title: 'Visit Us', href: '/visit-us'},
   {title: 'Contact Us', href: '/contact-us'},
   {title: 'My Account', href: '/my-account'},
-  {title: 'Your Cart', href: '/cart'},
 ]
 
 const icons = [
@@ -37,16 +36,17 @@ const icons = [
   {name: 'Visit Us', icon: VisitUs},
   {name: 'Contact Us', icon: ContactUs},
   {name: 'My Account', icon: MyAccount},
-  {name: 'Your Cart', icon: Cart},
 ]
 
 export default function Desktop({menuItems, companyInfo, contactPage}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
   const [showMegaMenu, setShowMegaMenu] = useState(false)
-
+  const [showCartModal, setShowCartModal] = useState(false)
   return (
     <>
-      <CartModal />
+      {/* Cart Modal */}
+      {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
+
       <div className="hidden xl:flex navbar-desktop h-[115px]  items-center justify-between p-[30px]">
         {/* Left - search */}
         <button className="mr-14">
@@ -112,6 +112,17 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
                 </li>
               )
             })}
+
+          {/* Cart */}
+          <li>
+            <button
+              className="flex flex-col justify-center items-center gap-2"
+              onClick={() => setShowCartModal(true)}
+            >
+              <Cart />
+              Your Cart
+            </button>
+          </li>
         </ul>
       </div>
     </>

@@ -7,6 +7,7 @@ type CartAction =
   | {type: 'REMOVE_FROM_CART'; payload: string}
   | {type: 'CLEAR_CART'}
   | {type: 'SET_CART'; payload: Variant[]} // For setting initial cart items
+  | {type: 'UPDATE_QUANTITY'; payload: {id: string; quantity: number}} // For updating quantity
 
 // Define the cart state structure
 type CartState = {
@@ -46,6 +47,15 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         ...state,
         cart: action.payload,
       }
+    case 'UPDATE_QUANTITY': // Handle quantity update
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          item?.store?.id === action.payload.id
+            ? {...item, quantity: action.payload.quantity}
+            : item,
+        ),
+      }
     default:
       return state
   }
@@ -57,12 +67,14 @@ const CartContext = createContext<{
   addToCart: (item: Variant) => void
   removeFromCart: (id: string) => void
   clearCart: () => void
+  updateQuantity: (id: string, quantity: number) => void
   checkout: () => Promise<void>
 }>({
   cartState: initialState,
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
+  updateQuantity: () => {},
   checkout: async () => {},
 })
 
@@ -89,6 +101,8 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   const addToCart = (item: Variant) => dispatch({type: 'ADD_TO_CART', payload: item})
   const removeFromCart = (id: string) => dispatch({type: 'REMOVE_FROM_CART', payload: id})
   const clearCart = () => dispatch({type: 'CLEAR_CART'})
+  const updateQuantity = (id: string, quantity: number) =>
+    dispatch({type: 'UPDATE_QUANTITY', payload: {id, quantity}})
 
   // Function to handle checkout by making API call
   const checkout = async () => {
@@ -118,7 +132,9 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   }
 
   return (
-    <CartContext.Provider value={{cartState, addToCart, removeFromCart, clearCart, checkout}}>
+    <CartContext.Provider
+      value={{cartState, addToCart, removeFromCart, clearCart, updateQuantity, checkout}}
+    >
       {children}
     </CartContext.Provider>
   )
