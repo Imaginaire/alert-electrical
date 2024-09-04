@@ -39,7 +39,8 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
           £{item?.store?.price ? (item?.store?.price * (item?.quantity ?? 1)).toFixed(2) : '0.00'}
         </p>
 
-        <div className="flex items-center border border-secondary border-[0.5px] py-1">
+        {/* Quantity */}
+        <div className="flex items-center border justify-between border-secondary border-[0.5px] py-1 px-2">
           <button onClick={handleDecreaseQuantity} className="px-2 text-3xl">
             <Decrease height={12} width={12} />
           </button>
