@@ -9,7 +9,7 @@ import {Variant} from '@/types/productType'
 import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
-import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/24/outline'
+import {ChevronUpIcon, ChevronDownIcon, MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -95,12 +95,49 @@ export default function ProductPage({
 
                 <div dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}} />
 
-                <div className="mt-10 flex">
+                <div className="mt-10 flex gap-2">
+                  <div className="max-w-xs mx-auto relative flex items-center max-w-[8rem] border">
+                    <button
+                      type="button"
+                      data-input-counter-decrement="quantity-input"
+                      className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                    >
+                      <MinusIcon
+                        className="w-3 h-3 text-primary"
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity((prev) => prev - 1)
+                          }
+                        }}
+                      />
+                    </button>
+                    <input
+                      type="text"
+                      id="quantity-input"
+                      data-input-counter
+                      aria-describedby="helper-text-explanation"
+                      className="h-11 text-center text-base text-primary block w-full py-2.5"
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                      required
+                    />
+                    <button
+                      type="button"
+                      data-input-counter-increment="quantity-input"
+                      className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                    >
+                      <PlusIcon
+                        className="w-3 h-3 text-primary dark:text-white"
+                        onClick={() => setQuantity((prev) => prev + 1)}
+                      />
+                    </button>
+                  </div>
+
                   <button
                     type="submit"
-                    className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                    className="flex max-w-xs flex-1 items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full uppercase"
                   >
-                    Add to bag
+                    Add to cart
                   </button>
                 </div>
 
