@@ -13,6 +13,9 @@ const config: Config = {
         primary: '#05003E',
         secondary: '#A5A5A5',
       },
+      screens: {
+        xs: '420px',
+      },
       fontFamily: {
         sans: ['var(--font-cormorant-infant)', ...defaultTheme.fontFamily.sans],
         manrope: 'var(--font-manrope)',

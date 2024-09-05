@@ -48,7 +48,7 @@ export default function ProductPage({
       return
     }
 
-    cart.push({...selectedVariant, quantity})
+    cart.push({...selectedVariant, quantity, previewImageUrl})
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
