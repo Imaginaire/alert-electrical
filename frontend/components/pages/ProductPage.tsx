@@ -1,4 +1,4 @@
-import {PagePayload, SettingsPayload} from '@/types'
+import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import {useState, useEffect} from 'react'
@@ -14,6 +14,7 @@ export interface ProductPageProps {
   loading?: boolean
   canonicalUrl?: string
   addToCartText?: string
+  productSetting?: ProductSettingPayload
 }
 
 export default function ProductPage({
@@ -23,9 +24,12 @@ export default function ProductPage({
   homePageTitle,
   loading,
   canonicalUrl,
+  productSetting,
 }: ProductPageProps) {
   const {store, sections} = page || {}
   const {title, descriptionHtml, previewImageUrl, variants} = store || {}
+
+  console.log('productSetting', productSetting)
 
   // state for selected variant
   const [selectedVariant, setSelectedVariant] = useState<Variant>()

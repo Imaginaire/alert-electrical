@@ -228,3 +228,16 @@ export const newsQuery = groq`
     ${sectionsQuery},
   }
 `
+
+export const productSettingQuery = groq`
+  *[_type == "productSetting"][0]{
+    warranty,
+    delivery,
+    Cta{
+      header,
+      description,
+      backgroundImage,
+      linkText,
+    }
+  }
+`
