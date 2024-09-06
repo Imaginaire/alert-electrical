@@ -68,6 +68,8 @@ export default function ProductPage({
     {name: 'delivery', items: [delivery]},
   ]
 
+  const price = variants?.[0]?.store?.price ?? 0
+
   return (
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
@@ -88,9 +90,11 @@ export default function ProductPage({
 
               {/* Product info */}
               <div className="px-5">
-                <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+                <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
                   <h1 className="text-2xl font-normal text-primary text-center">{title}</h1>
-                  <p className="mt-3 text-2xl text-center text-secondary">£999</p>
+                  <p className="my-6 text-2xl text-center text-secondary">
+                    £{quantity === 1 ? price : price * quantity}
+                  </p>
                 </div>
 
                 <div dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}} />
