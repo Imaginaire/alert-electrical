@@ -233,7 +233,7 @@ export const productSettingQuery = groq`
   *[_type == "productSetting"][0]{
     warranty,
     delivery,
-    Cta{
+    cta{
       header,
       description,
       backgroundImage,

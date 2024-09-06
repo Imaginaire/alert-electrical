@@ -23,7 +23,7 @@ export const productSettingType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'Cta',
+      name: 'cta',
       title: 'CTA',
       type: 'object',
       options: {

@@ -288,5 +288,5 @@ export interface TextImage {
 export interface ProductSettingPayload {
   warranty?: string
   delivery?: string
-  Cta?: CtaBanner
+  cta?: LargeCta
 }

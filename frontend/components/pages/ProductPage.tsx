@@ -1,5 +1,6 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
+import urlForImage from '@/shared/utils/urlForImage'
 
 import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
@@ -9,6 +10,8 @@ import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {ChevronUpIcon, ChevronDownIcon, MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
+import {CustomPortableText} from '../shared/CustomPortableText'
+import Link from 'next/link'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -32,7 +35,7 @@ export default function ProductPage({
 }: ProductPageProps) {
   const {store, sections} = page || {}
   const {title, descriptionHtml, previewImageUrl, variants} = store || {}
-  const {warranty, delivery, Cta} = productSetting || {}
+  const {warranty, delivery, cta} = productSetting || {}
 
   const [quantity, setQuantity] = useState<number>(1)
 
@@ -68,6 +71,10 @@ export default function ProductPage({
   const handlePrice = (price: number) => {
     return price * quantity
   }
+
+  const backgroundImgUrl = cta?.backgroundImage
+    ? urlForImage(cta?.backgroundImage)?.width(1920).url()
+    : undefined
 
   return (
     <>
@@ -197,10 +204,38 @@ export default function ProductPage({
                 </div>
               </div>
             </div>
-
-            {/* Sections */}
-            {sections && sections.length > 0 && <Sections sections={sections} />}
           </div>
+
+          {cta && (
+            <section className="flex justify-center relative">
+              <Image
+                src={backgroundImgUrl || ''}
+                fill={true}
+                alt="Large CTA background image"
+                sizes="100vw"
+                className="object-cover object-center"
+                priority={true}
+                quality={100}
+              />
+              <div className="z-10 max-w-[600px] my-32 mx-5 p-[30px] sm:p-11 bg-primary text-white text-center">
+                {cta.header && <h2 className="text-[32px] leading-9 mb-3 sm:mb-7">{cta.header}</h2>}
+                {cta.description && (
+                  <div className="font-manrope font-light mb-3 sm:mb-7">
+                    <CustomPortableText
+                      value={cta.description}
+                      paragraphClasses="[&:not(last)]:mb-4"
+                    />
+                  </div>
+                )}
+                <Link href={cta.slug?.current || '/'}>
+                  <span className="text-xl underline uppercase">{cta.linkText}</span>
+                </Link>
+              </div>
+            </section>
+          )}
+
+          {/* Sections */}
+          {sections && sections.length > 0 && <Sections sections={sections} />}
         </div>
       </Layout>
     </>
