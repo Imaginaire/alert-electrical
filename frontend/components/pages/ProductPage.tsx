@@ -77,7 +77,7 @@ export default function ProductPage({
           <div className="productPage-container mx-auto max-w-2xl py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
-              <div className="relative w-full h-[520px]">
+              <div className="relative w-full h-[520px] lg:h-full">
                 <Image
                   src={previewImageUrl || ''}
                   fill
@@ -91,73 +91,81 @@ export default function ProductPage({
               <div className="px-5">
                 <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
                   <h1 className="text-2xl font-normal text-primary text-center">{title}</h1>
-                  <p className="my-6 text-2xl text-center text-secondary">£{handlePrice(price)}</p>
+                  <p className="my-6 lg:mb-0 text-2xl text-center text-secondary">
+                    £{handlePrice(price)}
+                  </p>
                 </div>
 
-                <div className="flex justify-center items-center gap-2">
-                  <div className="max-w-32 relative flex items-center max-w-[8rem] border">
-                    <button
-                      type="button"
-                      data-input-counter-decrement="quantity-input"
-                      className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
-                    >
-                      <MinusIcon
-                        className="w-3 h-3 text-primary"
-                        onClick={() => {
-                          if (quantity > 1) {
-                            setQuantity((prev) => prev - 1)
-                          }
-                        }}
+                <div className="flex flex-col lg:flex-col-reverse">
+                  <div className="flex justify-center items-center gap-2 lg:mb-7">
+                    <div className="max-w-32 relative flex items-center max-w-[8rem] border">
+                      <button
+                        type="button"
+                        data-input-counter-decrement="quantity-input"
+                        className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                      >
+                        <MinusIcon
+                          className="w-3 h-3 text-primary"
+                          onClick={() => {
+                            if (quantity > 1) {
+                              setQuantity((prev) => prev - 1)
+                            }
+                          }}
+                        />
+                      </button>
+                      <input
+                        type="text"
+                        id="quantity-input"
+                        data-input-counter
+                        aria-describedby="helper-text-explanation"
+                        className="h-11 text-center text-base text-primary block w-full py-2.5"
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        required
                       />
-                    </button>
-                    <input
-                      type="text"
-                      id="quantity-input"
-                      data-input-counter
-                      aria-describedby="helper-text-explanation"
-                      className="h-11 text-center text-base text-primary block w-full py-2.5"
-                      value={quantity}
-                      onChange={handleQuantityChange}
-                      required
-                    />
+                      <button
+                        type="button"
+                        data-input-counter-increment="quantity-input"
+                        className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                      >
+                        <PlusIcon
+                          className="w-3 h-3 text-primary dark:text-white"
+                          onClick={() => setQuantity((prev) => prev + 1)}
+                        />
+                      </button>
+                    </div>
+
                     <button
-                      type="button"
-                      data-input-counter-increment="quantity-input"
-                      className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                      type="submit"
+                      className="flex w-full items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 uppercase"
+                      onClick={handleAddToCart}
                     >
-                      <PlusIcon
-                        className="w-3 h-3 text-primary dark:text-white"
-                        onClick={() => setQuantity((prev) => prev + 1)}
-                      />
+                      Add to cart
                     </button>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="flex w-full items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 uppercase"
-                    onClick={handleAddToCart}
-                  >
-                    Add to cart
-                  </button>
-                </div>
-                <div
-                  className="my-6 leading-[26px] font-manrope"
-                  dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
-                />
+                  <div>
+                    {/* description */}
+                    <div
+                      className="my-6 lg:my-3 leading-[26px] font-manrope"
+                      dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
+                    />
 
-                {/* inventory */}
-                <div className="flex gap-3 items-center justify-center font-manrope text-primary mt-6 mb-32 lg:my-8">
-                  {variants?.[0]?.store?.inventory?.isAvailable ? (
-                    <>
-                      <div className="w-4 h-4 rounded-full bg-green-500" />
-                      <p>In stock - see delivery information for delivery timeframes</p>
-                    </>
-                  ) : (
-                    <>
-                      <div className="w-4 h-4 rounded-full bg-red-500" />
-                      <p>Out of stock</p>
-                    </>
-                  )}
+                    {/* inventory */}
+                    <div className="flex gap-3 items-center justify-center font-manrope text-primary mt-6 mb-32 lg:my-8">
+                      {variants?.[0]?.store?.inventory?.isAvailable ? (
+                        <>
+                          <div className="w-4 h-4 rounded-full bg-green-500" />
+                          <p>In stock - see delivery information for delivery timeframes</p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-4 h-4 rounded-full bg-red-500" />
+                          <p>Out of stock</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Additional details */}
