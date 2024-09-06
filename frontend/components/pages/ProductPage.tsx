@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import Image from 'next/image'
 
 import PageHead from './PageHead'
-import ProductVariantSelector from '../product/ProductVariantSelector'
 import Layout from '@/components/global/Layout'
 import Sections from '@/components/global/Sections'
 import {Variant} from '@/types/productType'
@@ -35,11 +34,7 @@ export default function ProductPage({
   const {title, descriptionHtml, previewImageUrl, variants} = store || {}
   const {warranty, delivery, Cta} = productSetting || {}
 
-  // state for selected variant
-  const [selectedVariant, setSelectedVariant] = useState<Variant>()
   const [quantity, setQuantity] = useState<number>(1)
-
-  const handleVariableChange = (variant: Variant) => setSelectedVariant(variant)
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuantity(Number(e.target.value))
@@ -49,7 +44,7 @@ export default function ProductPage({
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
     // check if cart already has the item, if so, update the quantity
-    const existingItem = cart.find((item: Variant) => item?._id === selectedVariant?._id)
+    const existingItem = cart.find((item: Variant) => item?._id === variants?.[0]._id)
     if (existingItem) {
       existingItem.quantity += quantity
       localStorage.setItem('cart', JSON.stringify(cart))
@@ -145,11 +140,25 @@ export default function ProductPage({
                     Add to cart
                   </button>
                 </div>
-
                 <div
                   className="my-6 leading-[26px] font-manrope"
                   dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
                 />
+
+                {/* inventory */}
+                <div className="flex gap-3 items-center justify-center font-manrope text-primary mt-6 mb-32 lg:my-8">
+                  {variants?.[0]?.store?.inventory?.isAvailable ? (
+                    <>
+                      <div className="w-4 h-4 rounded-full bg-green-500" />
+                      <p>In stock - see delivery information for delivery timeframes</p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-4 h-4 rounded-full bg-red-500" />
+                      <p>Out of stock</p>
+                    </>
+                  )}
+                </div>
 
                 {/* Additional details */}
                 <div className="divide-y divide-gray-200 border-b">

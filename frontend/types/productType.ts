@@ -25,7 +25,7 @@ export interface Variant {
   previewImageUrl?: string
   title?: string
   store?: {
-    [key: string]: string | number | string[] | undefined
+    [key: string]: string | number | string[] | {} | undefined
     _type?: string
     option1?: string
     option2?: string
@@ -34,6 +34,7 @@ export interface Variant {
     sku?: string
     title?: string
     weight?: number
+    inventory?: {isAvailable?: boolean}
   }
 }
 
