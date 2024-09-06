@@ -56,7 +56,7 @@ export default function ProductPage({
       return
     }
 
-    cart.push({...selectedVariant, quantity, previewImageUrl})
+    cart.push({...variants?.[0], title, quantity, previewImageUrl})
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
@@ -69,6 +69,10 @@ export default function ProductPage({
   ]
 
   const price = variants?.[0]?.store?.price ?? 0
+
+  const handlePrice = (price: number) => {
+    return price * quantity
+  }
 
   return (
     <>
@@ -92,9 +96,7 @@ export default function ProductPage({
               <div className="px-5">
                 <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
                   <h1 className="text-2xl font-normal text-primary text-center">{title}</h1>
-                  <p className="my-6 text-2xl text-center text-secondary">
-                    £{quantity === 1 ? price : price * quantity}
-                  </p>
+                  <p className="my-6 text-2xl text-center text-secondary">£{handlePrice(price)}</p>
                 </div>
 
                 <div className="flex justify-center items-center gap-2">

@@ -23,6 +23,7 @@ export interface Variant {
   _key?: string
   _id?: string
   previewImageUrl?: string
+  title?: string
   store?: {
     [key: string]: string | number | string[] | undefined
     _type?: string

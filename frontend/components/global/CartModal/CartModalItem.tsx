@@ -26,15 +26,11 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
 
   return (
     <div className="cartItem mb-4 flex  text-primary h-32">
-      <img
-        src={item?.previewImageUrl}
-        alt={item?.store?.title}
-        className=" aspect-square object-cover"
-      />
+      <img src={item?.previewImageUrl} alt={item?.title} className=" aspect-square object-cover" />
 
       {/* Item details */}
       <div className="ml-4 flex flex-col justify-between ">
-        <h3 className="text-lg">{item?.store?.title}</h3>
+        <h3 className="text-lg">{item?.title}</h3>
         <p className="text-lg">
           £{item?.store?.price ? (item?.store?.price * (item?.quantity ?? 1)).toFixed(2) : '0.00'}
         </p>
