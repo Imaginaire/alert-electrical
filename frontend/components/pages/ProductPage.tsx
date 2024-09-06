@@ -103,15 +103,13 @@ export default function ProductPage({
                         type="button"
                         data-input-counter-decrement="quantity-input"
                         className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity((prev) => prev - 1)
+                          }
+                        }}
                       >
-                        <MinusIcon
-                          className="w-3 h-3 text-primary"
-                          onClick={() => {
-                            if (quantity > 1) {
-                              setQuantity((prev) => prev - 1)
-                            }
-                          }}
-                        />
+                        <MinusIcon className="w-3 h-3 text-primary" />
                       </button>
                       <input
                         type="text"
@@ -127,11 +125,9 @@ export default function ProductPage({
                         type="button"
                         data-input-counter-increment="quantity-input"
                         className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                        onClick={() => setQuantity((prev) => prev + 1)}
                       >
-                        <PlusIcon
-                          className="w-3 h-3 text-primary dark:text-white"
-                          onClick={() => setQuantity((prev) => prev + 1)}
-                        />
+                        <PlusIcon className="w-3 h-3 text-primary dark:text-white" />
                       </button>
                     </div>
 
