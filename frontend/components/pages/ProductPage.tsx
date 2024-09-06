@@ -97,10 +97,8 @@ export default function ProductPage({
                   </p>
                 </div>
 
-                <div dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}} />
-
-                <div className="mt-10 flex gap-2">
-                  <div className="max-w-xs mx-auto relative flex items-center max-w-[8rem] border">
+                <div className="flex justify-center items-center gap-2">
+                  <div className="max-w-32 relative flex items-center max-w-[8rem] border">
                     <button
                       type="button"
                       data-input-counter-decrement="quantity-input"
@@ -139,39 +137,17 @@ export default function ProductPage({
 
                   <button
                     type="submit"
-                    className="flex max-w-xs flex-1 items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full uppercase"
+                    className="flex w-full items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 uppercase"
+                    onClick={handleAddToCart}
                   >
                     Add to cart
                   </button>
                 </div>
 
-                {/* {store && variants?.length && (
-              <ProductVariantSelector product={store} onVariantChange={handleVariableChange} />
-            )}
-
-            {selectedVariant && selectedVariant.store?.price && (
-              <p className="text-2xl py-4">Price: £{selectedVariant.store.price * quantity}</p>
-            )} */}
-
-                {/* Quantity  */}
-                {/* <div className="flex flex-col">
-              <label htmlFor="quantity" className="text-xl">
-                Quantity
-              </label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                min="1"
-                max="10"
-                defaultValue="1"
-                value={quantity}
-                onChange={handleQuantityChange}
-                className="w-16 h-10"
-              />
-            </div> */}
-
-                {/* {selectedVariant && <button onClick={handleAddToCart}>Add to cart</button>} */}
+                <div
+                  className="my-6 leading-[26px] font-manrope"
+                  dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
+                />
 
                 {/* Additional details */}
                 <div className="divide-y divide-gray-200 border-b">
@@ -179,7 +155,7 @@ export default function ProductPage({
                     <Disclosure key={detail.name} as="div">
                       <h3>
                         <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
-                          <span className="text-sm font-medium text-gray-900 group-data-[open]:text-indigo-600">
+                          <span className="text-xl font-medium text-gray-900 group-data-[open]:text-indigo-600">
                             {detail.name}
                           </span>
                           <span className="ml-6 flex items-center">
