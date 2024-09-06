@@ -9,7 +9,6 @@ export const textImageType = defineType({
       type: 'string',
       name: 'header',
       title: 'Header',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       type: 'array',
