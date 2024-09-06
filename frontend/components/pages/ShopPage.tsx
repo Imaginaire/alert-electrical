@@ -4,6 +4,7 @@ import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import {resolveHref} from '@/shared/utils/resolveHref'
 import Link from 'next/link'
+import {useState} from 'react'
 
 export function ShopPage({
   page,
@@ -15,6 +16,7 @@ export function ShopPage({
   products,
 }: PageProps) {
   console.log(page)
+  const [numOfProductsToShow, setNumOfProductsToShow] = useState<number>(24)
   return (
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
@@ -26,7 +28,7 @@ export function ShopPage({
           <div className="grid grid-cols-4 gap-8 py-24">
             {/* Products */}
             {products && products.length > 0 ? (
-              products.map((product) => {
+              products.slice(0, numOfProductsToShow).map((product) => {
                 console.log(product)
                 const {title, descriptionHtml, previewImageUrl, productType, tags} =
                   product.store || {}
@@ -48,7 +50,20 @@ export function ShopPage({
               <p>No products found</p>
             )}
           </div>
+          {products && numOfProductsToShow < products.length && (
+            <div className="flex justify-center">
+              <button
+                className="uppercase text-center underline mt-6 hover:text-[#009FE3]"
+                onClick={() => {
+                  setNumOfProductsToShow((prev) => prev + 24)
+                }}
+              >
+                load more
+              </button>
+            </div>
+          )}
         </div>
+
         <ScrollUp />
       </Layout>
     </>
