@@ -14,12 +14,19 @@ import {Button} from '@/components/shared/Button'
 import Search from '@/svgs/Search'
 import MyAccount from '@/svgs/MyAccount'
 import Cart from '@/svgs/Cart'
+import CartWithItems from '@/svgs/CartWithItems'
 import CartModal from '../CartModal'
+
+// context
+import {useCart} from '@/contexts/CartContext'
 
 export default function Mobile({menuItems, companyInfo, contactPage}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
   const [isOpen, setIsOpen] = useState(false)
   const [showCartModal, setShowCartModal] = useState(false)
+
+  // Get cart state from context
+  const {cartState} = useCart()
 
   console.log('logo', logo)
   return (
@@ -52,7 +59,7 @@ export default function Mobile({menuItems, companyInfo, contactPage}: NavbarProp
           </li>
           <li>
             <button onClick={() => setShowCartModal(true)}>
-              <Cart />
+              {cartState.cart.length > 0 ? <CartWithItems /> : <Cart />}
             </button>
           </li>
         </ul>
