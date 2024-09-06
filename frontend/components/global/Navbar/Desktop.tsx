@@ -13,10 +13,14 @@ import {title} from 'process'
 import Search from '@/svgs/Search'
 import Inspiration from '@/svgs/Inspiration'
 import Cart from '@/svgs/Cart'
+import CartWithItems from '@/svgs/CartWithItems'
 import VisitUs from '@/svgs/VisitUs'
 import ContactUs from '@/svgs/ContactUs'
 import MyAccount from '@/svgs/MyAccount'
 import CartModal from '../CartModal'
+
+// context
+import {useCart} from '@/contexts/CartContext'
 
 const fakeLeftMenuItems = [
   {title: 'Home', href: '/'},
@@ -42,6 +46,9 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
   const {name, address, phone, email, logo} = companyInfo || {}
   const [showMegaMenu, setShowMegaMenu] = useState(false)
   const [showCartModal, setShowCartModal] = useState(false)
+
+  // Get cart state from context
+  const {cartState} = useCart()
   return (
     <>
       {/* Cart Modal */}
@@ -119,7 +126,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
               className="flex flex-col justify-center items-center gap-2"
               onClick={() => setShowCartModal(true)}
             >
-              <Cart />
+              {cartState.cart.length > 0 ? <CartWithItems /> : <Cart />}
               Your Cart
             </button>
           </li>
