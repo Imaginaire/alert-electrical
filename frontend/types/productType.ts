@@ -31,6 +31,7 @@ export interface Variant {
     option2?: string
     option3?: string
     price?: number
+    id?: number
     sku?: string
     title?: string
     weight?: number

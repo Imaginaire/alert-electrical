@@ -12,6 +12,7 @@ import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {ChevronUpIcon, ChevronDownIcon, MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {CustomPortableText} from '../shared/CustomPortableText'
 import Link from 'next/link'
+import {useCart} from '@/contexts/CartContext'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -42,20 +43,28 @@ export default function ProductPage({
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuantity(Number(e.target.value))
 
+  // cart context
+  const {addToCart, updateQuantity} = useCart()
+
   const handleAddToCart = () => {
-    // add to local storage while while user is browsing
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    // add to local storage while user is browsing
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Variant[]
 
     // check if cart already has the item, if so, update the quantity
-    const existingItem = cart.find((item: Variant) => item?._id === variants?.[0]._id)
-    if (existingItem) {
-      existingItem.quantity += quantity
-      localStorage.setItem('cart', JSON.stringify(cart))
-      return
+    const existingItem = cart.find((item: Variant) => {
+      return item?.store?.id && item.store.id === variants?.[0].store?.id
+    })
+    if (existingItem?.store?.id && existingItem?.quantity) {
+      updateQuantity(existingItem.store.id, existingItem.quantity + quantity)
+    } else {
+      // Use the context's addToCart method
+      addToCart({
+        ...variants?.[0],
+        title,
+        quantity,
+        previewImageUrl,
+      })
     }
-
-    cart.push({...variants?.[0], title, quantity, previewImageUrl})
-    localStorage.setItem('cart', JSON.stringify(cart))
   }
 
   //first two items are the fake data

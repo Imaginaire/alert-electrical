@@ -8,19 +8,19 @@ import Decrease from '@/svgs/Decrease'
 
 interface CartModalItemProps {
   item: Variant
-  removeFromCart: (item: string) => void
-  updateQuantity: (id: string, quantity: number) => void // Add this
+  removeFromCart: (id: number) => void
+  updateQuantity: (id: number, quantity: number) => void // Add this
 }
 
 export default function CartModalItem({item, removeFromCart, updateQuantity}: CartModalItemProps) {
   const handleIncreaseQuantity = () => {
-    updateQuantity(item?.store?.id as string, (item.quantity || 1) + 1)
+    updateQuantity(item?.store?.id as number, (item.quantity || 1) + 1)
   }
 
   const handleDecreaseQuantity = () => {
     const newQuantity = (item.quantity || 1) - 1
     if (newQuantity > 0) {
-      updateQuantity(item?.store?.id as string, newQuantity)
+      updateQuantity(item?.store?.id as number, newQuantity)
     }
   }
 
@@ -48,7 +48,7 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
       </div>
 
       {/* Remove button */}
-      <button className="ml-auto mb-auto" onClick={() => removeFromCart(item?.store?.id as string)}>
+      <button className="ml-auto mb-auto" onClick={() => removeFromCart(item?.store?.id as number)}>
         <Bin />
       </button>
     </div>
