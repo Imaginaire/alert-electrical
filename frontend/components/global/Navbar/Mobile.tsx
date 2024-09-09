@@ -1,5 +1,6 @@
 // Utils
 import {useEffect, useState} from 'react'
+import dynamic from 'next/dynamic'
 import {resolveHref} from '@/shared/utils/resolveHref'
 
 // types
@@ -15,7 +16,6 @@ import Search from '@/svgs/Search'
 import MyAccount from '@/svgs/MyAccount'
 import Cart from '@/svgs/Cart'
 import CartWithItems from '@/svgs/CartWithItems'
-import CartModal from '../CartModal'
 
 // context
 import {useCart} from '@/contexts/CartContext'
@@ -27,6 +27,8 @@ export default function Mobile({menuItems, companyInfo, contactPage}: NavbarProp
 
   // Get cart state from context
   const {cartState} = useCart()
+
+  const CartModal = dynamic(() => import('../CartModal'))
 
   console.log('logo', logo)
   return (

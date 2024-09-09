@@ -17,7 +17,7 @@ import CartWithItems from '@/svgs/CartWithItems'
 import VisitUs from '@/svgs/VisitUs'
 import ContactUs from '@/svgs/ContactUs'
 import MyAccount from '@/svgs/MyAccount'
-import CartModal from '../CartModal'
+import dynamic from 'next/dynamic'
 
 // context
 import {useCart} from '@/contexts/CartContext'
@@ -41,6 +41,8 @@ const icons = [
   {name: 'Contact Us', icon: ContactUs},
   {name: 'My Account', icon: MyAccount},
 ]
+
+const CartModal = dynamic(() => import('../CartModal'))
 
 export default function Desktop({menuItems, companyInfo, contactPage}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
