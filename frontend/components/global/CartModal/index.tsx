@@ -52,7 +52,7 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
 
             {/* Close Button */}
             <button
-              className="ml-auto"
+              className="ml-auto text-primary"
               onClick={() => {
                 setIsVisible(false)
                 setTimeout(() => setShowCartModal(false), 300) // delay to allow animation

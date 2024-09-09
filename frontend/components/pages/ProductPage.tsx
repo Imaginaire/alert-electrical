@@ -13,6 +13,7 @@ import {ChevronUpIcon, ChevronDownIcon, MinusIcon, PlusIcon} from '@heroicons/re
 import {CustomPortableText} from '../shared/CustomPortableText'
 import Link from 'next/link'
 import {useCart} from '@/contexts/CartContext'
+import CartBanner from '../product/CartBanner'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -37,6 +38,7 @@ export default function ProductPage({
   const {store, sections} = page || {}
   const {title, descriptionHtml, previewImageUrl, variants} = store || {}
   const {warranty, delivery, cta} = productSetting || {}
+  const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
 
   const [quantity, setQuantity] = useState<number>(1)
 
@@ -65,6 +67,7 @@ export default function ProductPage({
         previewImageUrl,
       })
     }
+    setIsAddToCartClicked(true)
   }
 
   //first two items are the fake data
@@ -89,6 +92,7 @@ export default function ProductPage({
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
       <Layout settings={settings} preview={preview} loading={loading}>
+        {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="productPage-container mx-auto max-w-2xl py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
