@@ -1,10 +1,12 @@
 import {useState} from 'react'
-import CartModal from '../global/CartModal'
+import dynamic from 'next/dynamic'
 
 interface CartBannerProps {
   title: string
   quantity: number
 }
+
+const CartModal = dynamic(() => import('../global/CartModal'))
 
 export default function CartBanner({title, quantity}: CartBannerProps) {
   const [showCartModal, setShowCartModal] = useState(false)
