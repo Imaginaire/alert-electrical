@@ -17,6 +17,7 @@ import {
   pagesBySlugQuery,
   homePageTitleQuery,
   productsQuery,
+  productSettingQuery,
 } from '@/lib/sanity.queries'
 
 interface Query {
@@ -27,6 +28,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   const {draftMode = false, params = {}} = ctx
   const client = getClient(draftMode)
   let products = null
+  let productSetting = null
 
   // Join the slug segments to form the full slug
   const joinedSlug = Array.isArray(params.slug) ? params.slug.join('/') : params.slug
@@ -53,6 +55,10 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     products = await client.fetch(productsQuery)
   }
 
+  if (page._type === 'product') {
+    productSetting = await client.fetch(productSettingQuery)
+  }
+
   return {
     props: {
       page,
@@ -62,6 +68,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
       token: draftMode ? readToken : null,
       canonicalUrl,
       products: products ?? null,
+      productSetting: productSetting ?? null,
     },
     // Re-generate the page every 10 seconds: see Next.js revalidation docs
     revalidate: 10,

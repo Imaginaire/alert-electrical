@@ -4,10 +4,10 @@ import {Variant} from '@/types/productType'
 // Define action types for cart operations
 type CartAction =
   | {type: 'ADD_TO_CART'; payload: Variant}
-  | {type: 'REMOVE_FROM_CART'; payload: string}
+  | {type: 'REMOVE_FROM_CART'; payload: number}
   | {type: 'CLEAR_CART'}
   | {type: 'SET_CART'; payload: Variant[]} // For setting initial cart items
-  | {type: 'UPDATE_QUANTITY'; payload: {id: string; quantity: number}} // For updating quantity
+  | {type: 'UPDATE_QUANTITY'; payload: {id: number; quantity: number}} // For updating quantity
 
 // Define the cart state structure
 type CartState = {
@@ -65,9 +65,9 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 const CartContext = createContext<{
   cartState: CartState
   addToCart: (item: Variant) => void
-  removeFromCart: (id: string) => void
+  removeFromCart: (id: number) => void
   clearCart: () => void
-  updateQuantity: (id: string, quantity: number) => void
+  updateQuantity: (id: number, quantity: number) => void
   checkout: () => Promise<void>
 }>({
   cartState: initialState,
@@ -82,6 +82,8 @@ const CartContext = createContext<{
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [cartState, dispatch] = useReducer(cartReducer, initialState)
   const [isInitialised, setIsInitialised] = useState(false)
+
+  console.log(cartState)
 
   // Sync with localStorage whenever cart changes
   useEffect(() => {
@@ -99,9 +101,9 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   }, [cartState.cart, isInitialised])
 
   const addToCart = (item: Variant) => dispatch({type: 'ADD_TO_CART', payload: item})
-  const removeFromCart = (id: string) => dispatch({type: 'REMOVE_FROM_CART', payload: id})
+  const removeFromCart = (id: number) => dispatch({type: 'REMOVE_FROM_CART', payload: id})
   const clearCart = () => dispatch({type: 'CLEAR_CART'})
-  const updateQuantity = (id: string, quantity: number) =>
+  const updateQuantity = (id: number, quantity: number) =>
     dispatch({type: 'UPDATE_QUANTITY', payload: {id, quantity}})
 
   // Function to handle checkout by making API call

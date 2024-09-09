@@ -187,6 +187,7 @@ export interface PageProps {
   canonicalUrl?: string
   products?: Product[]
   draftMode?: boolean
+  productSetting?: ProductSettingPayload
 }
 
 export interface LatestNewsProps {
@@ -270,7 +271,6 @@ export interface ShortHero {
   description?: PortableTextBlock[]
 }
 
-
 export interface News {
   title?: string
 }
@@ -283,4 +283,10 @@ export interface TextImage {
     day?: string
   }[]
   images?: Image[]
+}
+
+export interface ProductSettingPayload {
+  warranty?: string
+  delivery?: string
+  cta?: LargeCta
 }
