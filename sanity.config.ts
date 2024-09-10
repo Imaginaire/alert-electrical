@@ -3,6 +3,7 @@ import {defineConfig, isDev} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemaTypes'
 import {structure} from './structure'
+import {defaultDocumentNode} from './structure/defaultDocumentNode'
 
 import {visionTool} from '@sanity/vision'
 import {colorInput} from '@sanity/color-input'
@@ -22,7 +23,7 @@ export default defineConfig({
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
-    structureTool({structure}),
+    structureTool({defaultDocumentNode, structure}),
     colorInput(),
     imageHotspotArrayPlugin(),
     customDocumentActions(),
