@@ -198,7 +198,7 @@ export default function ProductPage({
                           <span className="ml-6 flex items-center">
                             <ChevronDownIcon
                               aria-hidden="true"
-                              className="block h-6 w-6 text-gray-400 group-hover:text-gray-500 group-data-[open]:hidden"
+                              className="block h-6 w-6 text-primary group-hover:text-gray-500 group-data-[open]:hidden"
                             />
                             <ChevronUpIcon
                               aria-hidden="true"
@@ -208,7 +208,7 @@ export default function ProductPage({
                         </DisclosureButton>
                       </h3>
                       <DisclosurePanel className="prose prose-sm pb-6">
-                        <ul role="list">
+                        <ul role="list" className="px-5">
                           {detail.items.map((item) => (
                             <li key={item}>{item}</li>
                           ))}
