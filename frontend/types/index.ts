@@ -213,6 +213,7 @@ export interface PagePayload {
   store?: Store
   date?: string
   image?: Image
+  shortHero?: ShortHero
 }
 
 export interface SettingsPayload {

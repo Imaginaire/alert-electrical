@@ -74,6 +74,7 @@ export const pagesBySlugQuery = groq`
     location,
     date,
     tags,
+    shortHero,
     ${sectionsQuery},
     "store": {
       ...store,
