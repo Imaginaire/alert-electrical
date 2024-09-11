@@ -9,6 +9,7 @@ import {
 } from '@sanity/icons'
 import {defineType, defineField} from 'sanity'
 import columnFields from '../partials/columnFields'
+import {customBlock} from '../objects/partials/customBlock'
 
 const TITLE = 'Settings'
 interface ProductOptions {
@@ -326,30 +327,56 @@ export const settingsType = defineType({
             }),
           ],
         }),
-      ],
-    }),
-
-    defineField({
-      name: 'accreditation',
-      title: 'Accreditation',
-      type: 'object',
-      description: 'Site cccreditation section used in footer.',
-      options: {
-        collapsible: true,
-        collapsed: true,
-      },
-      fields: [
         defineField({
-          name: 'tagline',
-          title: 'Accreditation Tagline',
-          description: 'Tagline for accreditation section in footer.',
-          type: 'string',
+          name: 'payment',
+          title: 'Payment',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'paymentText',
+              title: 'Text',
+              type: 'string',
+              description: 'Text displayed next to payment icons.',
+            }),
+            defineField({
+              name: 'paymentIcons',
+              title: 'Icons',
+              type: 'array',
+              of: [
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'image',
+                }),
+              ],
+            }),
+          ],
         }),
         defineField({
-          name: 'link',
-          title: 'Accreditation Link',
-          description: 'Link to accredited page.',
-          type: 'url',
+          name: 'copyright',
+          title: 'Copyright',
+          type: 'array',
+          of: [customBlock],
+        }),
+        defineField({
+          name: 'accreditation',
+          title: 'Accreditation',
+          type: 'object',
+          description: 'Site cccreditation section used in footer.',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Accreditation Tagline',
+              description: 'Tagline for accreditation section in footer.',
+              type: 'string',
+            }),
+            defineField({
+              name: 'link',
+              title: 'Accreditation Link',
+              description: 'Link to accredited page.',
+              type: 'url',
+            }),
+          ],
         }),
       ],
     }),

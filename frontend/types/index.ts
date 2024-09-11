@@ -152,6 +152,12 @@ export interface NavbarProps {
 
 export interface Footer {
   columns?: Column[]
+  payment?: {
+    paymentText?: string
+    paymentIcons?: Image[]
+  }
+  copyright?: PortableTextBlock[]
+  accreditation?: Accreditation
 }
 
 export interface GoogleTagManager {

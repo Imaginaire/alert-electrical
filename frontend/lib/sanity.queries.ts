@@ -121,7 +121,15 @@ export const settingsQuery = groq`
           "slug": slug.current,
           title
         }
-      }
+      },
+      payment{
+        paymentText,
+        paymentIcons[]{
+          "icon": asset._ref
+        }
+      },
+      copyright,
+      accreditation
     },
     // gets the menu items and the mega menu items
     menuItems[] {
@@ -130,9 +138,9 @@ export const settingsQuery = groq`
       "type": reference->_type,
       "megaMenuImage": megaMenuImage.asset->url,
       megaMenuItems[] {
-          "title": title,
-          "description": description,
-          "slug": link->slug.current
+        "title": title,
+        "description": description,
+        "slug": link->slug.current
       }
     },
     contactPage->{
