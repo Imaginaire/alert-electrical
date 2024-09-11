@@ -314,45 +314,15 @@ export const settingsType = defineType({
       },
       fields: [
         defineField({
-          name: 'column1',
-          title: 'Column 1',
-          type: 'object',
-          fields: columnFields,
-        }),
-        defineField({
-          name: 'column2',
-          title: 'Column 2',
-          type: 'object',
-          fields: columnFields,
-        }),
-        defineField({
-          name: 'column3',
-          title: 'Column 3',
-          type: 'object',
-          fields: columnFields,
-        }),
-        defineField({
-          name: 'column4',
-          title: 'Column 4',
-          type: 'object',
-          fields: columnFields,
-        }),
-        defineField({
-          name: 'column5',
-          title: 'Column 5',
-          type: 'object',
-          fields: columnFields,
-        }),
-        defineField({
-          name: 'column6',
-          title: 'Column 6',
-          type: 'object',
-          fields: [
+          name: 'columns',
+          title: 'Columns',
+          type: 'array',
+          of: [
             defineField({
-              name: 'header',
-              title: 'Header',
-              type: 'string',
-              description: 'Header for Get in Touch column.',
+              name: 'column',
+              title: 'Column',
+              type: 'object',
+              fields: columnFields,
             }),
           ],
         }),

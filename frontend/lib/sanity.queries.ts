@@ -114,48 +114,13 @@ export const productPagePaths = groq`*[_type == "product"].store.slug.current`
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer{
-      column1{
+      columns[]{
         header,
         columnLinks[]->{
           _type,
           "slug": slug.current,
           title
         }
-      },
-      column2{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
-        }
-      },
-      column3{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
-        }
-      },
-      column4{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
-        }
-      },
-      column5{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
-        }
-      },
-      column6{
-        header
       }
     },
     // gets the menu items and the mega menu items
