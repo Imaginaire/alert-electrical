@@ -137,6 +137,25 @@ export const settingsQuery = groq`
           "slug": slug.current,
           title
         }
+      },
+      column4{
+        header,
+        columnLinks[]->{
+          _type,
+          "slug": slug.current,
+          title
+        }
+      },
+      column5{
+        header,
+        columnLinks[]->{
+          _type,
+          "slug": slug.current,
+          title
+        }
+      },
+      column6{
+        header
       }
     },
     // gets the menu items and the mega menu items

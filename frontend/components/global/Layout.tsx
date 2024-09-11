@@ -1,5 +1,6 @@
 import Navbar from '@/components/global/Navbar'
 import {LayoutProps} from '@/types'
+import Footer from '@/components/global/Footer'
 
 export default function Layout({children, settings, preview, loading}: LayoutProps) {
   return (
@@ -11,6 +12,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         navCta={settings?.navCta}
       />
       <div className="">{children}</div>
+      <Footer {...settings?.footer} />
     </>
   )
 }

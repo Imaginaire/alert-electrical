@@ -151,10 +151,13 @@ export interface NavbarProps {
 }
 
 export interface Footer {
-  _type: string
+  _type?: string
   column1?: Column
   column2?: Column
   column3?: Column
+  column4?: Column
+  column5?: Column
+  header?: string
 }
 
 export interface GoogleTagManager {
