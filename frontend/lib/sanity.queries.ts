@@ -74,6 +74,7 @@ export const pagesBySlugQuery = groq`
     location,
     date,
     tags,
+    shortHero,
     ${sectionsQuery},
     "store": {
       ...store,
@@ -113,7 +114,7 @@ export const productPagePaths = groq`*[_type == "product"].store.slug.current`
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer{
-      column1{
+      columns[]{
         header,
         columnLinks[]->{
           _type,
@@ -121,22 +122,14 @@ export const settingsQuery = groq`
           title
         }
       },
-      column2{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
+      payment{
+        paymentText,
+        paymentIcons[]{
+          "icon": asset._ref
         }
       },
-      column3{
-        header,
-        columnLinks[]->{
-          _type,
-          "slug": slug.current,
-          title
-        }
-      }
+      copyright,
+      accreditation
     },
     // gets the menu items and the mega menu items
     menuItems[] {
@@ -145,9 +138,9 @@ export const settingsQuery = groq`
       "type": reference->_type,
       "megaMenuImage": megaMenuImage.asset->url,
       megaMenuItems[] {
-          "title": title,
-          "description": description,
-          "slug": link->slug.current
+        "title": title,
+        "description": description,
+        "slug": link->slug.current
       }
     },
     contactPage->{

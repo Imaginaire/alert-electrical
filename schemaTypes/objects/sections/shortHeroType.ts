@@ -20,6 +20,9 @@ export const shortHeroType = defineType({
       validation: (rule) => rule.required(),
     }),
   ],
+  options: {
+    collapsible: true,
+  },
   preview: {
     prepare() {
       return {

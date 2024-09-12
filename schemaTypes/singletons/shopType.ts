@@ -3,6 +3,7 @@ import {GROUPS} from '../../constants'
 import {seo} from '../partials/seo'
 import {sections} from '../partials/sections'
 import {ThListIcon} from '@sanity/icons'
+import {shortHeroType} from '../objects/sections/shortHeroType'
 
 export const shopType = defineType({
   name: 'shop',
@@ -28,6 +29,7 @@ export const shopType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    defineField(shortHeroType),
     seo,
     sections,
   ],

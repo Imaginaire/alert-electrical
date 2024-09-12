@@ -5,6 +5,7 @@ import Layout from '@/components/global/Layout'
 import {resolveHref} from '@/shared/utils/resolveHref'
 import Link from 'next/link'
 import {useState} from 'react'
+import ShortHero from '../sections/ShortHero'
 
 export function ShopPage({
   page,
@@ -15,16 +16,17 @@ export function ShopPage({
   homePageTitle,
   products,
 }: PageProps) {
-  console.log(page)
   const [numOfProductsToShow, setNumOfProductsToShow] = useState<number>(24)
+
+  const {shortHero} = page || {}
+
   return (
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
 
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
-          <h1 className="text-4xl text-center py-12">{page?.title}</h1>
-
+          {shortHero && <ShortHero {...shortHero} />}
           <div className="grid grid-cols-4 gap-8 py-24">
             {/* Products */}
             {products && products.length > 0 ? (

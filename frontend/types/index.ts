@@ -151,10 +151,13 @@ export interface NavbarProps {
 }
 
 export interface Footer {
-  _type: string
-  column1?: Column
-  column2?: Column
-  column3?: Column
+  columns?: Column[]
+  payment?: {
+    paymentText?: string
+    paymentIcons?: Image[]
+  }
+  copyright?: PortableTextBlock[]
+  accreditation?: Accreditation
 }
 
 export interface GoogleTagManager {
@@ -213,6 +216,7 @@ export interface PagePayload {
   store?: Store
   date?: string
   image?: Image
+  shortHero?: ShortHero
 }
 
 export interface SettingsPayload {
