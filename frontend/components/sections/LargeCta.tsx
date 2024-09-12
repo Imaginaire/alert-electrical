@@ -7,8 +7,6 @@ import {CustomPortableText} from '../shared/CustomPortableText'
 export default function LargeCta(largeCtaData: LargeCtaType) {
   const {header, description, backgroundImage, linkText, slug} = largeCtaData
 
-  console.log('largeCtaData', largeCtaData)
-
   const backgroundImgUrl = backgroundImage
     ? urlForImage(backgroundImage)?.width(1920).url()
     : undefined
@@ -16,7 +14,7 @@ export default function LargeCta(largeCtaData: LargeCtaType) {
   return (
     <>
       {largeCtaData && (
-        <section className="large-cta w-full flex justify-center relative">
+        <section className="large-cta flex justify-center relative">
           <Image
             src={backgroundImgUrl || ''}
             fill={true}

@@ -62,6 +62,9 @@ import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
 import {embedType} from './objects/sections/embedType'
 import {largeCtaType} from './objects/sections/largeCtaType'
+import {shortHeroType} from './objects/sections/shortHeroType'
+import newsType from './objects/sections/newsType'
+import {textImageType} from './objects/sections/textImageType'
 
 const sections = [
   heroType,
@@ -71,6 +74,9 @@ const sections = [
   headerType,
   embedType,
   largeCtaType,
+  shortHeroType,
+  newsType,
+  textImageType,
 ]
 
 import {portableTextType} from './portableText/portableTextType'
@@ -82,8 +88,17 @@ import {collectionType} from './documents/collection'
 import {pageType} from './documents/page'
 import {productType} from './documents/product'
 import {productVariantType} from './documents/productVariant'
+import {latestNewsType} from './documents/latest-news'
+import {productSettingType} from './singletons/product-setting'
 
-const documents = [collectionType, pageType, productType, productVariantType]
+const documents = [
+  collectionType,
+  pageType,
+  productType,
+  productVariantType,
+  latestNewsType,
+  productSettingType,
+]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'

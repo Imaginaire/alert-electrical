@@ -22,16 +22,20 @@ export interface Variant {
   _type?: string
   _key?: string
   _id?: string
+  previewImageUrl?: string
+  title?: string
   store?: {
-    [key: string]: string | number | string[] | undefined
+    [key: string]: string | number | string[] | {} | undefined
     _type?: string
     option1?: string
     option2?: string
     option3?: string
     price?: number
+    id?: number
     sku?: string
     title?: string
     weight?: number
+    inventory?: {isAvailable?: boolean}
   }
 }
 

@@ -22,7 +22,7 @@ const sectionsQuery = `
           _type == "internalLink" => {
             "slug": reference->slug
           }
-        }
+        },
       }
     },
     serviceAreas[]{
@@ -59,7 +59,7 @@ export const homePageTitleQuery = groq`
 
 export const pagesBySlugQuery = groq`
   *[
-    ((_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" || _type == "cart" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
+    ((_type == "page" || _type == "caseStudy" || _type == "latestNews" || _type == "shop" || _type == "cart" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
   ][0] {
     _id,
     _type,
@@ -70,6 +70,7 @@ export const pagesBySlugQuery = groq`
     coverImage,
     featuredImage,
     shortDescription,
+    image,
     location,
     date,
     tags,
@@ -104,7 +105,7 @@ export const pageTypes = groq`
 `
 
 export const pagePaths = groq`
-  *[_type == "page" || _type == "caseStudy" || _type == "blog" || _type == "shop" && slug.current != null].slug.current
+  *[_type == "page" || _type == "caseStudy" || _type == "latestNews" || _type == "shop" && slug.current != null].slug.current
 `
 
 export const productPagePaths = groq`*[_type == "product"].store.slug.current`
@@ -172,6 +173,7 @@ export const settingsQuery = groq`
     ogImage,
     companyInfo,
     accreditation,
+    socialMedia,
   }
 `
 
@@ -209,5 +211,33 @@ export const blogPostQuery = groq`
     date,
     tags,
     ${sectionsQuery},
+  }
+`
+
+export const newsQuery = groq`
+  *[_type == "latestNews"] | order(date desc)[$start...$end]{
+    _id,
+    _type,
+    "slug": slug.current,
+    title,
+    date,
+    seo,
+    image,
+    body,
+    tags,
+    ${sectionsQuery},
+  }
+`
+
+export const productSettingQuery = groq`
+  *[_type == "productSetting"][0]{
+    warranty,
+    delivery,
+    cta{
+      header,
+      description,
+      backgroundImage,
+      linkText,
+    }
   }
 `

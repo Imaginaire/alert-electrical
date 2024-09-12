@@ -187,6 +187,17 @@ export interface PageProps {
   canonicalUrl?: string
   products?: Product[]
   draftMode?: boolean
+  productSetting?: ProductSettingPayload
+}
+
+export interface LatestNewsProps {
+  page: PagePayload | undefined | null
+  settings: SettingsPayload | undefined
+  homePageTitle: string | undefined
+  preview?: boolean
+  loading?: boolean
+  canonicalUrl?: string
+  draftMode?: boolean
 }
 
 // Page payloads
@@ -200,6 +211,8 @@ export interface PagePayload {
   addToCartText?: string
   sections?: Sections[]
   store?: Store
+  date?: string
+  image?: Image
 }
 
 export interface SettingsPayload {
@@ -215,6 +228,16 @@ export interface SettingsPayload {
   siteNoIndex?: boolean
   ogImage?: Image
   navCta?: CtaBanner
+  socialMedia?: {
+    twitter?: SocialMediaLink
+    facebook?: SocialMediaLink
+    instagram?: SocialMediaLink
+  }
+}
+
+export interface SocialMediaLink {
+  url?: string
+  image?: Image
 }
 
 export interface Header {
@@ -241,4 +264,29 @@ export interface LargeCta {
   slug?: {
     current?: string
   }
+}
+
+export interface ShortHero {
+  header?: string
+  description?: PortableTextBlock[]
+}
+
+export interface News {
+  title?: string
+}
+
+export interface TextImage {
+  header?: string
+  description?: PortableTextBlock[]
+  availability?: {
+    availableTimes?: {from?: string; to?: string}[]
+    day?: string
+  }[]
+  images?: Image[]
+}
+
+export interface ProductSettingPayload {
+  warranty?: string
+  delivery?: string
+  cta?: LargeCta
 }

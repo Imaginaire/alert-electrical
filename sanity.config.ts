@@ -3,12 +3,14 @@ import {defineConfig, isDev} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemaTypes'
 import {structure} from './structure'
+import {defaultDocumentNode} from './structure/defaultDocumentNode'
 
 import {visionTool} from '@sanity/vision'
 import {colorInput} from '@sanity/color-input'
 import {imageHotspotArrayPlugin} from 'sanity-plugin-hotspot-array'
 import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {customDocumentActions} from './plugins/customDocumentActions'
+import {availability} from 'sanity-plugin-availability'
 import Navbar from './components/studio/Navbar'
 
 const devOnlyPlugins = [visionTool()]
@@ -21,11 +23,12 @@ export default defineConfig({
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [
-    structureTool({structure}),
+    structureTool({defaultDocumentNode, structure}),
     colorInput(),
     imageHotspotArrayPlugin(),
     customDocumentActions(),
     media(),
+    availability(),
     ...(isDev ? devOnlyPlugins : []),
   ],
 

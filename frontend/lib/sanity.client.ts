@@ -6,20 +6,16 @@ export function getClient(previewDrafts?: boolean): SanityClient {
     projectId,
     dataset,
     apiVersion,
-    useCdn,
+    useCdn: !previewDrafts, // Disable CDN when previewing drafts
     // Passing the token early, in case the dataset is private
-    token: readToken,
-    perspective: 'published',
+    token: previewDrafts ? readToken : undefined, // Use the token only for draft mode
+    perspective: previewDrafts ? 'previewDrafts' : 'published',
   })
-  if (previewDrafts) {
-    // If there is no token but draft mode has been enabled it's a sign that the app isn't fully configured yet
-    if (!readToken) {
-      throw new Error('You must provide a token to preview drafts')
-    }
-    return client.withConfig({
-      useCdn: true,
-      perspective: 'previewDrafts',
-    })
+
+  // If there is no token but draft mode has been enabled, it's a sign that the app isn't fully configured yet
+  if (previewDrafts && !readToken) {
+    throw new Error('You must provide a token to preview drafts')
   }
+
   return client
 }

@@ -14,9 +14,18 @@ import {Page} from '@/components/pages/Page'
 import ProductPage from '@/components/pages/ProductPage'
 import ShopPage from '@/components/pages/ShopPage'
 import CartPage from '@/components/pages/CartPage'
+import {LatestNewsPage} from '@/components/pages/LatestNewsPage'
 
 export default function PageSlugRoute(props: PageProps) {
-  const {homePageTitle, settings, page: initialPage, products, draftMode, canonicalUrl} = props
+  const {
+    homePageTitle,
+    settings,
+    page: initialPage,
+    products,
+    draftMode,
+    canonicalUrl,
+    productSetting,
+  } = props
 
   const [page, loading] = useLiveQuery<PagePayload | null | undefined>(
     initialPage,
@@ -78,6 +87,19 @@ export default function PageSlugRoute(props: PageProps) {
           canonicalUrl={canonicalUrl}
           homePageTitle={homePageTitle}
           addToCartText={page?.addToCartText}
+          productSetting={productSetting}
+        />
+      )
+      break
+    case 'latestNews':
+      pageComponent = (
+        <LatestNewsPage
+          settings={settings}
+          page={page}
+          homePageTitle={homePageTitle}
+          preview={draftMode}
+          loading={loading}
+          canonicalUrl={canonicalUrl}
         />
       )
       break
