@@ -136,6 +136,7 @@ export interface CompanyInformation {
   phone?: string
   email?: string
   logo?: Image
+  postCode?: string
 }
 
 export interface Accreditation {

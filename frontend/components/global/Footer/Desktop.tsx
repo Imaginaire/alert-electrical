@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {CustomPortableText} from '@/components/shared/CustomPortableText'
 import ColumnItems from './ColumnItems'
 import Payment from './Payment'
+import GetInTouch from './GetInTouch'
 
 export default function Desktop({footer, companyInfo, socialMedia}: FooterProps) {
   return (
@@ -14,7 +15,13 @@ export default function Desktop({footer, companyInfo, socialMedia}: FooterProps)
               <div key={index} className=" ">
                 <h3 className="text-xl uppercase">{column.header}</h3>
                 <ul className="mt-7">
-                  <ColumnItems column={column} />
+                  {column.header === 'Get in Touch' ? (
+                    <GetInTouch companyInfo={companyInfo} socialMedia={socialMedia} />
+                  ) : (
+                    <ul role="list">
+                      <ColumnItems column={column} />
+                    </ul>
+                  )}
                 </ul>
               </div>
             )

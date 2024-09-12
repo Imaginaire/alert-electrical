@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {CustomPortableText} from '@/components/shared/CustomPortableText'
 import ColumnItems from './ColumnItems'
 import Payment from './Payment'
+import GetInTouch from './GetInTouch'
 
 export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) {
   return (
@@ -28,9 +29,13 @@ export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) 
               </DisclosureButton>
             </h3>
             <DisclosurePanel className="prose prose-sm pb-6">
-              <ul role="list" className="px-5">
-                <ColumnItems column={column} />
-              </ul>
+              {column.header === 'Get in Touch' ? (
+                <GetInTouch companyInfo={companyInfo} socialMedia={socialMedia} />
+              ) : (
+                <ul role="list" className="px-5">
+                  <ColumnItems column={column} />
+                </ul>
+              )}
             </DisclosurePanel>
           </Disclosure>
         ))}
