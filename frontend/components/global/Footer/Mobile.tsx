@@ -1,8 +1,11 @@
 import {Footer} from '@/types'
 
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
-import {ChevronUpIcon, ChevronDownIcon, MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
+import {ChevronUpIcon, ChevronDownIcon, LockClosedIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import Image from 'next/image'
+import urlForImage from '@/shared/utils/urlForImage'
+import {CustomPortableText} from '@/components/shared/CustomPortableText'
 
 interface MobileProps {
   footer: Footer
@@ -12,8 +15,8 @@ export default function Mobile({footer}: MobileProps) {
   console.log('footer', footer)
 
   return (
-    <footer>
-      <div className="divide-y divide-white border-b bg-primary">
+    <footer className="bg-primary pb-10">
+      <div className="divide-y divide-white border-b ">
         {footer.columns?.map((column, index) => (
           <Disclosure key={index} as="div">
             <h3>
@@ -47,6 +50,44 @@ export default function Mobile({footer}: MobileProps) {
           </Disclosure>
         ))}
       </div>
+      <div>
+        <div className="flex items-center justify-center gap-7 mt-10 mb-5 mx-5">
+          {footer.payment?.paymentIcons &&
+            footer.payment.paymentIcons.map((icon, index) => {
+              const iconUrl = icon ? urlForImage(icon.icon)?.width(1920).url() : undefined
+              return (
+                <div key={index}>
+                  <Image
+                    src={iconUrl || ''}
+                    alt=""
+                    sizes="100vw"
+                    width={50}
+                    height={24}
+                    className="object-cover object-center"
+                    priority={true}
+                    quality={100}
+                  />
+                </div>
+              )
+            })}
+        </div>
+        <div className="flex justify-center items-center gap-6">
+          <LockClosedIcon className="text-white h-5 stroke-2" />
+          <p className="text-white uppercase font-manrope text-center">
+            {footer.payment?.paymentText}
+          </p>
+        </div>
+      </div>
+      <div className="font-manrope font-light my-10 mx-5 text-white text-center">
+        {footer.copyright && <CustomPortableText value={footer.copyright} />}
+      </div>
+      {footer.accreditation && (
+        <Link href={footer.accreditation.link || ''}>
+          <span className="text-white font-manrope block text-center">
+            {footer.accreditation.tagline}
+          </span>
+        </Link>
+      )}
     </footer>
   )
 }
