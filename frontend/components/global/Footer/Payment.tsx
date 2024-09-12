@@ -14,14 +14,13 @@ export default function Payment({payment}: PaymentProps) {
         {payment?.paymentIcons?.map((icon, index) => {
           const iconUrl = icon ? urlForImage(icon.icon)?.width(1920).url() : undefined
           return (
-            <div key={index}>
+            <div key={index} className="relative h-8 w-14">
               <Image
                 src={iconUrl || ''}
                 alt=""
                 sizes="100vw"
-                width={50}
-                height={24}
-                className="object-cover object-center"
+                fill={true}
+                className="object-contain object-center"
                 priority={true}
                 quality={100}
               />
@@ -29,7 +28,7 @@ export default function Payment({payment}: PaymentProps) {
           )
         })}
       </div>
-      <div className="flex justify-center items-center gap-6">
+      <div className="flex justify-center items-center xs:gap-6">
         <LockClosedIcon className="text-white h-5 stroke-2" />
         <p className="text-white uppercase font-manrope text-center">{payment?.paymentText}</p>
       </div>

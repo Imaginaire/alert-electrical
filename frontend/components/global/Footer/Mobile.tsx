@@ -14,8 +14,8 @@ export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) 
         {footer?.columns?.map((column, index) => (
           <Disclosure key={index} as="div">
             <h3>
-              <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
-                <span className="text-xl text-white uppercase">{column.header}</span>
+              <DisclosureButton className="group relative flex w-full items-center justify-between py-5 px-5 text-left">
+                <span className="text-xl text-white uppercase tracking-wide">{column.header}</span>
                 <span className="ml-6 flex items-center">
                   <ChevronDownIcon
                     aria-hidden="true"
@@ -41,18 +41,20 @@ export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) 
         ))}
       </div>
 
-      {footer?.payment && <Payment payment={footer.payment} />}
+      <div className="mx-5">
+        {footer?.payment && <Payment payment={footer.payment} />}
 
-      <div className="font-manrope font-light my-10 mx-5 text-white text-center">
-        {footer?.copyright && <CustomPortableText value={footer.copyright} />}
+        <div className="font-manrope font-light my-10  text-white text-center">
+          {footer?.copyright && <CustomPortableText value={footer.copyright} />}
+        </div>
+        {footer?.accreditation && (
+          <Link href={footer.accreditation.link || ''}>
+            <span className="text-white font-manrope block text-center">
+              {footer.accreditation.tagline}
+            </span>
+          </Link>
+        )}
       </div>
-      {footer?.accreditation && (
-        <Link href={footer.accreditation.link || ''}>
-          <span className="text-white font-manrope block text-center">
-            {footer.accreditation.tagline}
-          </span>
-        </Link>
-      )}
     </footer>
   )
 }
