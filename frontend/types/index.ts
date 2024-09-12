@@ -294,3 +294,9 @@ export interface ProductSettingPayload {
   delivery?: string
   cta?: LargeCta
 }
+
+export interface FooterProps {
+  footer?: Footer
+  companyInfo?: CompanyInformation
+  socialMedia?: SettingsPayload['socialMedia']
+}

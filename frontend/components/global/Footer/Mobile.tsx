@@ -1,4 +1,4 @@
-import {Footer} from '@/types'
+import {FooterProps} from '@/types'
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -6,17 +6,11 @@ import {CustomPortableText} from '@/components/shared/CustomPortableText'
 import ColumnItems from './ColumnItems'
 import Payment from './Payment'
 
-interface MobileProps {
-  footer: Footer
-}
-
-export default function Mobile({footer}: MobileProps) {
-  console.log('footer', footer)
-
+export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) {
   return (
     <footer className="xl:hidden bg-primary pb-10">
       <div className="divide-y divide-white border-b ">
-        {footer.columns?.map((column, index) => (
+        {footer?.columns?.map((column, index) => (
           <Disclosure key={index} as="div">
             <h3>
               <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
@@ -42,12 +36,12 @@ export default function Mobile({footer}: MobileProps) {
         ))}
       </div>
 
-      {footer.payment && <Payment payment={footer.payment} />}
+      {footer?.payment && <Payment payment={footer.payment} />}
 
       <div className="font-manrope font-light my-10 mx-5 text-white text-center">
-        {footer.copyright && <CustomPortableText value={footer.copyright} />}
+        {footer?.copyright && <CustomPortableText value={footer.copyright} />}
       </div>
-      {footer.accreditation && (
+      {footer?.accreditation && (
         <Link href={footer.accreditation.link || ''}>
           <span className="text-white font-manrope block text-center">
             {footer.accreditation.tagline}
