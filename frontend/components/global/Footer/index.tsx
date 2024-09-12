@@ -1,14 +1,15 @@
-import {Footer as FooterType} from '@/types'
+import {FooterProps} from '@/types'
 import Desktop from './Desktop'
 import Mobile from './Mobile'
 
-export default function Footer(footer: FooterType) {
+export default function Footer({footer, companyInfo, socialMedia}: FooterProps) {
   return (
     <>
       {/* Desktop Footer */}
-      <Desktop />
+      {footer && <Desktop footer={footer} companyInfo={companyInfo} socialMedia={socialMedia} />}
+
       {/* Mobile Footer */}
-      <Mobile footer={footer} />
+      {footer && <Mobile footer={footer} companyInfo={companyInfo} socialMedia={socialMedia} />}
     </>
   )
 }

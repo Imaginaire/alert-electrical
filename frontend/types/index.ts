@@ -136,6 +136,7 @@ export interface CompanyInformation {
   phone?: string
   email?: string
   logo?: Image
+  postCode?: string
 }
 
 export interface Accreditation {
@@ -293,4 +294,10 @@ export interface ProductSettingPayload {
   warranty?: string
   delivery?: string
   cta?: LargeCta
+}
+
+export interface FooterProps {
+  footer?: Footer
+  companyInfo?: CompanyInformation
+  socialMedia?: SettingsPayload['socialMedia']
 }

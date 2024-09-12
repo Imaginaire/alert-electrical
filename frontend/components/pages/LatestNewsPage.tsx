@@ -56,7 +56,11 @@ export function LatestNewsPage({
             {/* Social Media */}
 
             {settings?.socialMedia && (
-              <SocialMediaBlock classes="self-start mt-12" socialMedia={settings?.socialMedia} />
+              <SocialMediaBlock
+                containerClasses="self-start mt-12"
+                listClasses="p-3 border border-gray-200"
+                socialMedia={settings?.socialMedia}
+              />
             )}
           </div>
           {/* Workaround: scroll to top on route change */}

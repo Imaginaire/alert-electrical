@@ -1,27 +1,21 @@
-import {Footer} from '@/types'
-
+import {FooterProps} from '@/types'
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
-import {ChevronUpIcon, ChevronDownIcon, LockClosedIcon} from '@heroicons/react/24/outline'
+import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import Image from 'next/image'
-import urlForImage from '@/shared/utils/urlForImage'
 import {CustomPortableText} from '@/components/shared/CustomPortableText'
+import ColumnItems from './ColumnItems'
+import Payment from './Payment'
+import GetInTouch from './GetInTouch'
 
-interface MobileProps {
-  footer: Footer
-}
-
-export default function Mobile({footer}: MobileProps) {
-  console.log('footer', footer)
-
+export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) {
   return (
-    <footer className="bg-primary pb-10">
+    <footer className="xl:hidden bg-primary pb-10">
       <div className="divide-y divide-white border-b ">
-        {footer.columns?.map((column, index) => (
+        {footer?.columns?.map((column, index) => (
           <Disclosure key={index} as="div">
             <h3>
-              <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
-                <span className="text-xl text-white uppercase">{column.header}</span>
+              <DisclosureButton className="group relative flex w-full items-center justify-between py-5 px-5 text-left">
+                <span className="text-xl text-white uppercase tracking-wide">{column.header}</span>
                 <span className="ml-6 flex items-center">
                   <ChevronDownIcon
                     aria-hidden="true"
@@ -35,59 +29,32 @@ export default function Mobile({footer}: MobileProps) {
               </DisclosureButton>
             </h3>
             <DisclosurePanel className="prose prose-sm pb-6">
-              <ul role="list" className="px-5">
-                {column.columnLinks?.map((link, index) => (
-                  <li key={index} className="py-1">
-                    <Link href={link.slug || '/'}>
-                      <span className="text-white first-letter:uppercase underline font-manrope">
-                        {link.title}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {column.header === 'Get in Touch' ? (
+                <GetInTouch companyInfo={companyInfo} socialMedia={socialMedia} />
+              ) : (
+                <ul role="list" className="px-5">
+                  <ColumnItems column={column} />
+                </ul>
+              )}
             </DisclosurePanel>
           </Disclosure>
         ))}
       </div>
-      <div>
-        <div className="flex items-center justify-center gap-7 mt-10 mb-5 mx-5">
-          {footer.payment?.paymentIcons &&
-            footer.payment.paymentIcons.map((icon, index) => {
-              const iconUrl = icon ? urlForImage(icon.icon)?.width(1920).url() : undefined
-              return (
-                <div key={index}>
-                  <Image
-                    src={iconUrl || ''}
-                    alt=""
-                    sizes="100vw"
-                    width={50}
-                    height={24}
-                    className="object-cover object-center"
-                    priority={true}
-                    quality={100}
-                  />
-                </div>
-              )
-            })}
+
+      <div className="mx-5">
+        {footer?.payment && <Payment payment={footer.payment} />}
+
+        <div className="font-manrope font-light my-10  text-white text-center">
+          {footer?.copyright && <CustomPortableText value={footer.copyright} />}
         </div>
-        <div className="flex justify-center items-center gap-6">
-          <LockClosedIcon className="text-white h-5 stroke-2" />
-          <p className="text-white uppercase font-manrope text-center">
-            {footer.payment?.paymentText}
-          </p>
-        </div>
+        {footer?.accreditation && (
+          <Link href={footer.accreditation.link || ''}>
+            <span className="text-white font-manrope block text-center">
+              {footer.accreditation.tagline}
+            </span>
+          </Link>
+        )}
       </div>
-      <div className="font-manrope font-light my-10 mx-5 text-white text-center">
-        {footer.copyright && <CustomPortableText value={footer.copyright} />}
-      </div>
-      {footer.accreditation && (
-        <Link href={footer.accreditation.link || ''}>
-          <span className="text-white font-manrope block text-center">
-            {footer.accreditation.tagline}
-          </span>
-        </Link>
-      )}
     </footer>
   )
 }

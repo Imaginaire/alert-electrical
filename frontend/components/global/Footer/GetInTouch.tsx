@@ -1,0 +1,27 @@
+import SocialMediaBlock from '@/components/shared/SocialMediaBlock'
+import {FooterProps} from '@/types'
+
+interface GetInTouchProps {
+  companyInfo: FooterProps['companyInfo']
+  socialMedia: FooterProps['socialMedia']
+}
+
+export default function GetInTouch({companyInfo, socialMedia}: GetInTouchProps) {
+  return (
+    <ul className="text-white px-5 xl:p-0 underline font-manrope font-light">
+      <li className="py-1">{companyInfo?.phone}</li>
+      <li className="py-1">{companyInfo?.email}</li>
+      <li className="py-1">{`${companyInfo?.address?.street},`}</li>
+      <li className="py-1">{`${companyInfo?.address?.city},`}</li>
+      <li className="py-1">{companyInfo?.address?.postCode}</li>
+      {socialMedia && (
+        <SocialMediaBlock
+          containerClasses="self-start mt-10"
+          listClasses="mr-4"
+          imgaeClasses="brightness-0 invert-1"
+          socialMedia={socialMedia}
+        />
+      )}
+    </ul>
+  )
+}
