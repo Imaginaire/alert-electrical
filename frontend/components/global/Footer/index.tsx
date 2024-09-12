@@ -6,7 +6,7 @@ export default function Footer(footer: FooterType) {
   return (
     <>
       {/* Desktop Footer */}
-      <Desktop />
+      <Desktop footer={footer} />
       {/* Mobile Footer */}
       <Mobile footer={footer} />
     </>

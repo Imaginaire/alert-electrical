@@ -15,7 +15,7 @@ export default function Mobile({footer}: MobileProps) {
   console.log('footer', footer)
 
   return (
-    <footer className="bg-primary pb-10">
+    <footer className="xl:hidden bg-primary pb-10">
       <div className="divide-y divide-white border-b ">
         {footer.columns?.map((column, index) => (
           <Disclosure key={index} as="div">
