@@ -3,7 +3,6 @@ import {LayoutProps} from '@/types'
 import Footer from '@/components/global/Footer'
 
 export default function Layout({children, settings, preview, loading}: LayoutProps) {
-  console.log('wwwwwwwsettings', settings)
   return (
     <>
       <Navbar
