@@ -3,7 +3,6 @@ import {LayoutProps} from '@/types'
 import Footer from '@/components/global/Footer'
 
 export default function Layout({children, settings, preview, loading}: LayoutProps) {
-  console.log('wwwwwwwsettings', settings)
   return (
     <>
       <Navbar
@@ -11,6 +10,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         companyInfo={settings?.companyInfo}
         contactPage={settings?.contactPage}
         navCta={settings?.navCta}
+        deliveryInfoBar={settings?.deliveryInfoBar}
       />
       <div className="">{children}</div>
       <Footer

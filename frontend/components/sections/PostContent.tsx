@@ -38,9 +38,9 @@ export default function PostContent(data: PostContent) {
               value={data.content || []}
               headerClasses="text-3xl text-secondary py-4"
               subheaderClasses="text-2xl text-secondary py-4"
-              paragraphClasses="text-secondary-dark-gray pb-2"
+              paragraphClasses="text-secondary-dark-gray pb-2 font-manrope"
               listClasses="list-bullets-black"
-              listItemClasses="text-secondary-dark-gray"
+              listItemClasses="text-secondary-dark-gray font-manrope"
             />
           </div>
         </section>
