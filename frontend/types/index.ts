@@ -23,6 +23,8 @@ export interface Hero {
   backgroundImage?: Image
   linkText?: string
   linkUrl?: string
+  useSwiper?: boolean
+  heros?: Hero[]
   slug?: {
     current?: string
   }
