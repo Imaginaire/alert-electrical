@@ -266,6 +266,39 @@ export const settingsType = defineType({
     }),
 
     defineField({
+      name: 'deliveryInfoBar',
+      title: 'Delivery Info Bar',
+      type: 'object',
+      description: 'Delivery information displayed under the navbar.',
+      group: 'navigation',
+      options: {
+        collapsible: true,
+      },
+      fields: [
+        defineField({
+          name: 'info',
+          title: 'Information',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  type: 'string',
+                  name: 'text',
+                  title: 'CTA Text',
+                  validation: (Rule) => Rule.required(),
+                },
+                {type: 'reference', name: 'link', title: 'CTA Link', to: [{type: 'page'}]},
+              ],
+            },
+          ],
+          validation: (Rule) => Rule.max(3).error('You can only add up to 3 info.'),
+        }),
+      ],
+    }),
+
+    defineField({
       name: 'footerCta',
       title: 'Footer CTA',
       type: 'object',

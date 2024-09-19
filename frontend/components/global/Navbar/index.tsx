@@ -3,8 +3,16 @@ import Desktop from './Desktop'
 import MobileCtaBanner from './MobileCtaBanner'
 import DesktopCtaBanner from './DesktopCtaBanner'
 import Mobile from './Mobile'
+import DeliveryInfoBar from './DeliveryInfoBar'
 
-export default function Navbar({menuItems, companyInfo, contactPage, navCta}: NavbarProps) {
+export default function Navbar({
+  menuItems,
+  companyInfo,
+  contactPage,
+  navCta,
+  deliveryInfoBar,
+}: NavbarProps) {
+  console.log('deliveryInfoBar', deliveryInfoBar)
   return (
     <>
       {/* Desktop Nav */}
@@ -16,6 +24,8 @@ export default function Navbar({menuItems, companyInfo, contactPage, navCta}: Na
       {/* Mobile Nav */}
       <nav className="lg:hidden z-50">{navCta && <MobileCtaBanner ctas={navCta.ctas} />}</nav>
       <Mobile menuItems={menuItems} companyInfo={companyInfo} contactPage={contactPage} />
+
+      {deliveryInfoBar && <DeliveryInfoBar info={deliveryInfoBar.info} />}
     </>
   )
 }

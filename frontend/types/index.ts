@@ -151,6 +151,7 @@ export interface NavbarProps {
   companyInfo?: CompanyInformation
   contactPage?: PagePayload
   navCta?: CtaBanner
+  deliveryInfoBar?: DeliveryInfoBar
 }
 
 export interface Footer {
@@ -235,6 +236,7 @@ export interface SettingsPayload {
   siteNoIndex?: boolean
   ogImage?: Image
   navCta?: CtaBanner
+  deliveryInfoBar?: DeliveryInfoBar
   socialMedia?: {
     twitter?: SocialMediaLink
     facebook?: SocialMediaLink
@@ -254,6 +256,15 @@ export interface Header {
 
 export interface CtaBanner {
   ctas?: {
+    text: string
+    link?: {
+      slug?: string
+    }
+  }[]
+}
+
+export interface DeliveryInfoBar {
+  info?: {
     text: string
     link?: {
       slug?: string
