@@ -24,6 +24,10 @@ export const customBlock = {
     {title: 'Normal Alt', value: 'normalAlt'},
     {title: 'bullet', value: 'bullet'},
   ],
+  lists: [
+    {title: 'Numbered', value: 'number'}, // Add ordered list
+    {title: 'Bullet', value: 'bullet'}, // Add bullet list
+  ],
   marks: {
     decorators: [
       {title: 'Strong', value: 'strong'},
@@ -80,6 +84,10 @@ export const customBlock = {
             name: 'href',
             type: 'url',
             title: 'URL',
+            validation: (Rule) =>
+              Rule.uri({
+                scheme: ['http', 'https', 'mailto'],
+              }),
           }),
           defineField({
             name: 'blank',

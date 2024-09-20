@@ -36,10 +36,10 @@ export default function PostContent(data: PostContent) {
           <div className={`postContent-container max-w-screen-xl w-11/12 ${widthClass} `}>
             <CustomPortableText
               value={data.content || []}
-              headerClasses="text-3xl text-secondary py-4"
-              subheaderClasses="text-2xl text-secondary py-4"
-              paragraphClasses="text-secondary-dark-gray pb-2 font-manrope"
-              listClasses="list-bullets-black"
+              headerClasses="text-3xl text-primary mb-4 mt-6"
+              subheaderClasses="text-2xl text-secondary my-4"
+              paragraphClasses="text-secondary-dark-gray mb-4 font-manrope"
+              listClasses="list-bullets-black pl-10 mb-4"
               listItemClasses="text-secondary-dark-gray font-manrope"
             />
           </div>
