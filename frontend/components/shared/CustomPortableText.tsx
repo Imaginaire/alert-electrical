@@ -61,7 +61,7 @@ export function CustomPortableText({
         } else {
           return (
             <a
-              className={` transition hover:opacity-50 ${linkClasses}`}
+              className={`text-secondary transition hover:opacity-70 ${linkClasses}`}
               href={value?.href || '/'}
               rel="noreferrer noopener"
               target={`${value?.blank ? '_blank' : '_self'}`}
@@ -95,7 +95,14 @@ export function CustomPortableText({
       },
       alignCenter: ({children}) => <span className="text-center block">{children}</span>,
     },
-    list: ({children}) => <ul className={` ${listClasses}`}>{children}</ul>,
+    list: ({children, value}) => {
+      // Check if the listItem is a numbered or bullet list
+      if (value.listItem === 'number') {
+        return <ol className={`list-decimal ${listClasses}`}>{children}</ol>
+      } else {
+        return <ul className={`list-disc ${listClasses}`}>{children}</ul>
+      }
+    },
     listItem: ({children}) => <li className={` ${listItemClasses}`}>{children}</li>,
 
     types: {
