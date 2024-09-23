@@ -250,7 +250,7 @@ export default function ProductPage({
           )}
 
           {/* Sections */}
-          {sections && sections.length > 0 && <Sections sections={sections} />}
+          {sections && sections.length > 0 && <Sections sections={sections} settings={settings} />}
         </div>
       </Layout>
     </>

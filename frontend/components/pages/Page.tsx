@@ -18,7 +18,7 @@ export function Page({page, settings, homePageTitle, preview, loading, canonical
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
           {/* Sections */}
-          {sections && sections.length > 0 && <Sections sections={sections} />}
+          {sections && sections.length > 0 && <Sections sections={sections} settings={settings} />}
 
           {/* Workaround: scroll to top on route change */}
           <ScrollUp />

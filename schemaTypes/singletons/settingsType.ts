@@ -229,6 +229,10 @@ export const settingsType = defineType({
             }),
           ],
         }),
+        defineField({
+          name: 'availability',
+          type: 'availability',
+        }),
       ],
     }),
 
