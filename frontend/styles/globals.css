@@ -21,3 +21,32 @@
     text-wrap: balance;
   }
 }
+
+/* custom styles for terms and conditions page lists */
+.postContent ol {
+  counter-reset: item;
+  margin-top: 16px;
+}
+
+.postContent ol > li {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.postContent ol > li > p {
+  display: inline;
+}
+
+.postContent ol > li:before {
+  content: counters(item, '.') '. ';
+  counter-increment: item;
+}
+
+.postContent ol ol ol > li {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.postContent ol ol ol > li:before {
+  content: '•';
+}
