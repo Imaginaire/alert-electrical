@@ -1,16 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import urlForImage from '@/shared/utils/urlForImage'
-
 import {TextImage as TextImageType} from '@/types'
 import {CustomPortableText} from '../shared/CustomPortableText'
-import {groupConsecutiveDays} from '../utils/groupConsecutiveDays'
+import Availability from '../shared/Availability'
 
 export default function TextImage(textImageData: TextImageType) {
-  const {header, description, availability, images} = textImageData
-
-  // Group consecutive days with the same available times
-  const groupedDays = groupConsecutiveDays(availability)
+  const {header, description, images, settings} = textImageData
 
   return (
     <>
@@ -23,29 +19,8 @@ export default function TextImage(textImageData: TextImageType) {
                 <CustomPortableText value={description} />
               </div>
             )}
-            {availability && (
-              <div className="font-manrope font-light mt-5">
-                <table className="table-auto">
-                  <tbody>
-                    {groupedDays.map((group, index) => {
-                      console.log(group)
-                      return (
-                        <tr key={index}>
-                          <td className="pr-10 sm:pr-24 py-2 whitespace-nowrap">
-                            {group.startDay}
-                            {group.endDay ? ` to ${group.endDay}` : ''}
-                          </td>
-                          <td className="py-2">
-                            {group.times.length > 0
-                              ? group.times.map((time) => `${time.from} - ${time.to}`).join(', ')
-                              : 'Closed'}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
+            {settings?.companyInfo?.availability && (
+              <Availability availability={settings?.companyInfo?.availability} />
             )}
           </div>
           <div className="flex-1">

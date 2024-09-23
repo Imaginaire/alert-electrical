@@ -2,14 +2,15 @@
  * Sections component that renders section components based on the _type
  */
 
-import type {Sections} from '@/types'
+import type {Sections, SettingsPayload} from '@/types'
 import {loadSectionComponent} from '@/shared/utils/loadSectionComponent'
 
 interface SectionsProps {
   sections: Sections[]
+  settings: SettingsPayload | undefined
 }
 
-export default function Sections({sections}: SectionsProps) {
+export default function Sections({sections, settings}: SectionsProps) {
   console.log(sections)
 
   return (
@@ -18,7 +19,8 @@ export default function Sections({sections}: SectionsProps) {
         <>
           {sections.map((section, index) => {
             const SectionComponent = loadSectionComponent(section._type)
-            return <SectionComponent key={index} {...section} />
+            const props = {...section, settings}
+            return <SectionComponent key={index} {...props} />
           })}
         </>
       )}

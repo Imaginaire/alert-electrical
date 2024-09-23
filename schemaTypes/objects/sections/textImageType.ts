@@ -18,10 +18,6 @@ export const textImageType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'availability',
-      type: 'availability',
-    }),
-    defineField({
       type: 'array',
       name: 'images',
       title: 'Images',

@@ -139,6 +139,7 @@ export interface CompanyInformation {
   email?: string
   logo?: Image
   postCode?: string
+  availability?: AvailabilityType
 }
 
 export interface Accreditation {
@@ -296,11 +297,8 @@ export interface News {
 export interface TextImage {
   header?: string
   description?: PortableTextBlock[]
-  availability?: {
-    availableTimes?: {from?: string; to?: string}[]
-    day?: string
-  }[]
   images?: Image[]
+  settings?: SettingsPayload | undefined
 }
 
 export interface ProductSettingPayload {
@@ -313,4 +311,11 @@ export interface FooterProps {
   footer?: Footer
   companyInfo?: CompanyInformation
   socialMedia?: SettingsPayload['socialMedia']
+}
+
+export interface AvailabilityType {
+  availability?: {
+    availableTimes?: {from?: string; to?: string}[]
+    day?: string
+  }[]
 }

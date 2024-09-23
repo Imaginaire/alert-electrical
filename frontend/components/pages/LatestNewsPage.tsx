@@ -51,7 +51,9 @@ export function LatestNewsPage({
             {page?.date && <p className="text-sm w-full  mb-6">{page?.date}</p>}
 
             {/* Sections */}
-            {sections && sections.length > 0 && <Sections sections={sections} />}
+            {sections && sections.length > 0 && (
+              <Sections sections={sections} settings={settings} />
+            )}
 
             {/* Social Media */}
 
