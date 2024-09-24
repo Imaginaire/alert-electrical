@@ -234,7 +234,15 @@ export const newsQuery = groq`
 export const productSettingQuery = groq`
   *[_type == "productSetting"][0]{
     warranty,
-    delivery,
+    delivery[]{
+      ...,
+      markDefs[]{
+          ...,
+          _type == "internalLink" => {
+            "slug": reference->slug
+          }
+        },
+    },
     cta{
       header,
       description,
