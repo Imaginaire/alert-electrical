@@ -72,8 +72,8 @@ export default function ProductPage({
 
   //first two items are the fake data
   const details = [
-    {name: 'About the product', items: ['the best light you can get']},
-    {name: 'Sizing & technical information', items: ['easy fitting']},
+    {name: 'About the product', items: ['WIP']},
+    {name: 'Sizing & technical information', items: ['WIP']},
     {name: 'delivery information', items: [delivery]},
     {name: 'warranty', items: [warranty]},
   ]
@@ -192,7 +192,7 @@ export default function ProductPage({
                     <Disclosure key={detail.name} as="div">
                       <h3>
                         <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
-                          <span className="text-xl  text-black group-data-[open]:text-indigo-600 first-letter:uppercase">
+                          <span className="text-xl  text-black group-data-[open]:text-secondary first-letter:uppercase">
                             {detail.name}
                           </span>
                           <span className="ml-6 flex items-center">
@@ -202,7 +202,7 @@ export default function ProductPage({
                             />
                             <ChevronUpIcon
                               aria-hidden="true"
-                              className="hidden h-6 w-6 text-indigo-400 group-hover:text-indigo-500 group-data-[open]:block"
+                              className="hidden h-6 w-6 text-secondary group-hover:text-secondary group-data-[open]:block"
                             />
                           </span>
                         </DisclosureButton>
