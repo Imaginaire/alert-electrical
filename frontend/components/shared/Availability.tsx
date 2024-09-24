@@ -3,17 +3,18 @@ import {groupConsecutiveDays} from '../utils/groupConsecutiveDays'
 
 interface AvailabilityProps {
   availability: AvailabilityType
+  classes: string
 }
 
 export default function Availability(props: AvailabilityProps) {
-  const {availability} = props
+  const {availability, classes} = props
 
   // Group consecutive days with the same available times
   const groupedDays = groupConsecutiveDays(availability)
 
   return (
     availability && (
-      <div className="font-manrope font-light mt-5">
+      <div className={`font-manrope font-light ${classes}`}>
         <table className="table-auto">
           <tbody>
             {groupedDays.map((group, index) => {

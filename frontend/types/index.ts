@@ -319,3 +319,15 @@ export interface AvailabilityType {
     day?: string
   }[]
 }
+
+export interface TextMapType {
+  sectionTitle: string
+  description?: PortableTextBlock[]
+  showPhoneNumber?: boolean
+  phoneNumberCaption?: string
+  showEmail?: boolean
+  emailCaption?: string
+  addressTitle: string
+  openingHoursTitle: string
+  settings?: SettingsPayload | undefined
+}

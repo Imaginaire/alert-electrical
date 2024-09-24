@@ -56,5 +56,10 @@ export const sections = defineField({
       name: 'textImage',
       title: 'Text Image',
     }),
+    defineArrayMember({
+      type: 'textMap',
+      name: 'textMap',
+      title: 'Text Map',
+    }),
   ],
 })

@@ -20,7 +20,7 @@ export default function TextImage(textImageData: TextImageType) {
               </div>
             )}
             {settings?.companyInfo?.availability && (
-              <Availability availability={settings?.companyInfo?.availability} />
+              <Availability availability={settings?.companyInfo?.availability} classes="mt-5" />
             )}
           </div>
           <div className="flex-1">
