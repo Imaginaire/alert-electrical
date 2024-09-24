@@ -303,7 +303,7 @@ export interface TextImage {
 
 export interface ProductSettingPayload {
   warranty?: string
-  delivery?: string
+  delivery?: PortableTextBlock[]
   cta?: LargeCta
 }
 

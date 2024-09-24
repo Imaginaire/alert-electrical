@@ -207,11 +207,19 @@ export default function ProductPage({
                           </span>
                         </DisclosureButton>
                       </h3>
-                      <DisclosurePanel className="prose prose-sm pb-6">
+                      <DisclosurePanel className="prose prose-sm pb-6 font-manrope">
                         <ul role="list" className="px-5">
-                          {detail.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
+                          {detail.items.map((item) => {
+                            if (typeof item === 'string') {
+                              return <li key={item}>{item}</li>
+                            }
+                            return item ? (
+                              <CustomPortableText
+                                value={item}
+                                linkClasses="text-secondary underline"
+                              />
+                            ) : null
+                          })}
                         </ul>
                       </DisclosurePanel>
                     </Disclosure>

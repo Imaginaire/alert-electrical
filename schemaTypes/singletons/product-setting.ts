@@ -19,7 +19,8 @@ export const productSettingType = defineType({
     defineField({
       name: 'delivery',
       title: 'Delivery',
-      type: 'text',
+      type: 'array',
+      of: [customBlock],
       validation: (rule) => rule.required(),
     }),
     defineField({
