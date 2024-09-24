@@ -14,6 +14,10 @@ export default function prepareHref(slug?: string, type?: string): string {
     case 'home':
       return getBaseUrl()
     default:
-      return `${getBaseUrl()}${slug}/`
+      if (slug.charAt(0) === '/') {
+        return `${getBaseUrl()}${slug}/`
+      } else {
+        return `${getBaseUrl()}/${slug}`
+      }
   }
 }
