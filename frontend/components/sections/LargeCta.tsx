@@ -28,7 +28,11 @@ export default function LargeCta(largeCtaData: LargeCtaType) {
             {header && <h2 className="text-[32px] leading-9 mb-3 sm:mb-7">{header}</h2>}
             {description && (
               <div className="font-manrope font-light mb-3 sm:mb-7">
-                <CustomPortableText value={description} paragraphClasses="[&:not(last)]:mb-4" />
+                <CustomPortableText
+                  value={description}
+                  headerClasses="text-3xl mb-4"
+                  paragraphClasses="[&:not(last)]:mb-4"
+                />
               </div>
             )}
             <Link href={slug?.current || '/'}>

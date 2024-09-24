@@ -12,7 +12,7 @@ export default function ShortHero(shortHeroData: ShortHeroType) {
             <h2 className="text-[36px] leading-9 mb-7 uppercase">{header}</h2>
             {description && (
               <div className="font-manrope font-light">
-                <CustomPortableText value={description} />
+                <CustomPortableText value={description} headerClasses="text-xl mb-4" />
               </div>
             )}
           </div>

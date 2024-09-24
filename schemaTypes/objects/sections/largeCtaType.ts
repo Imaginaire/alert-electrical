@@ -37,13 +37,11 @@ export const largeCtaType = defineType({
       type: 'string',
       name: 'linkText',
       title: 'Link Text',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       type: 'reference',
       name: 'link',
       title: 'Link',
-      validation: (rule) => rule.required(),
       to: [{type: 'page'}],
     }),
   ],
