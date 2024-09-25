@@ -56,7 +56,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
       {/* Cart Modal */}
       {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
 
-      <div className="hidden xl:flex navbar-desktop h-[115px]  items-center justify-between p-[30px]">
+      <div className="hidden xl:flex navbar-desktop  items-center justify-between p-5">
         {/* Left - search */}
         <button className="mr-14">
           <Search />
@@ -67,8 +67,9 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
           {fakeLeftMenuItems &&
             fakeLeftMenuItems.map((menuItem, index) => {
               return (
-                <li key={index} className="uppercase">
+                <li key={index} className="relative group uppercase">
                   <Link href={menuItem.href}>{menuItem.title}</Link>
+                  <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
                 </li>
               )
             })}
@@ -110,7 +111,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
                 console.log('menuItem', menuItem)
               }
               return (
-                <li key={index}>
+                <li key={index} className="relative group ">
                   <Link
                     href={menuItem.href}
                     className="flex flex-col justify-center items-center gap-2"
@@ -118,12 +119,13 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
                     {IconComponent && <IconComponent />}
                     {menuItem.title}
                   </Link>
+                  <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
                 </li>
               )
             })}
 
           {/* Cart */}
-          <li>
+          <li className="group relative">
             <button
               className="flex flex-col justify-center items-center gap-2"
               onClick={() => setShowCartModal(true)}
@@ -131,6 +133,7 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
               {cartState.cart.length > 0 ? <CartWithItems /> : <Cart />}
               Your Cart
             </button>
+            <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
           </li>
         </ul>
       </div>

@@ -10,13 +10,13 @@ export default function DeliveryInfoBar(props: DevlieryInfoBarProps) {
 
   return (
     <>
-      <div className="bg-blue-300 text-white  w-full py-2 text-base">
+      <div className="deliveryInfoBar bg-blue-100  w-full py-[0.35rem] text-base">
         {info.length > 1 ? (
           <div className="mx-7 flex justify-between items-center">
             {info.map((item, index) => {
               if (item.link) {
                 return (
-                  <Link href={item.link?.slug ?? ''} key={index} className="hover:text-blue-400">
+                  <Link href={item.link?.slug ?? ''} key={index} className="text-blue-400 ">
                     {item.text}
                   </Link>
                 )
