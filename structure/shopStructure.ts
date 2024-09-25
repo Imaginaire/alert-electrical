@@ -3,7 +3,7 @@ import defineStructure from '../utils/defineStructure'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
-    .title('Shop')
+    .title('Shop Page')
     .schemaType('shop')
     .child(S.editor().title('Shop').schemaType('shop').documentId('shop')),
 )
