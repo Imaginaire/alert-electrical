@@ -110,14 +110,15 @@ export default function ProductPage({
               <div>
                 <div className="px-5">
                   <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
-                    <h1 className="text-2xl font-normal text-primary text-center">{title}</h1>
+                    <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
                     <p className="my-6 lg:mb-0 text-2xl text-center text-secondary">
                       £{handlePrice(price)}
                     </p>
                   </div>
 
-                  <div className="flex flex-col lg:flex-col-reverse">
-                    <div className="flex justify-center items-center gap-2 lg:mb-7">
+                  <div className="flex flex-col lg:flex-col-reverse items-center">
+                    {/* Quantity & Add to Cart */}
+                    <div className="flex justify-center items-center gap-2 lg:mb-7 w-full lg:w-4/5">
                       <div className="max-w-32 relative flex items-center max-w-[8rem] border">
                         <button
                           type="button"
@@ -163,7 +164,7 @@ export default function ProductPage({
                     <div>
                       {/* description */}
                       <div
-                        className="my-6 lg:my-3 leading-[26px] font-manrope"
+                        className="my-6 lg:my-3 leading-[26px] font-manrope text-center"
                         dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
                       />
 

@@ -14,11 +14,11 @@ export default function Payment({payment}: PaymentProps) {
         {payment?.paymentIcons?.map((icon, index) => {
           const iconUrl = icon ? urlForImage(icon.icon)?.width(1920).url() : undefined
           return (
-            <div key={index} className="relative h-8 w-14">
+            <div key={index} className="relative h-12 w-14">
               <Image
                 src={iconUrl || ''}
                 alt=""
-                sizes="100vw"
+                sizes="10vw"
                 fill={true}
                 className="object-contain object-center"
                 priority={true}

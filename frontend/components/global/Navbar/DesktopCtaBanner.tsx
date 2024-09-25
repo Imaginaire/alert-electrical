@@ -11,7 +11,7 @@ export default function DesktopCtaBanner(props: CtaBannerProps) {
   return (
     <>
       {ctas.length > 0 && (
-        <div className="bg-primary text-white  w-full py-4 text-base">
+        <div className="bg-primary text-white  w-full py-3 text-base">
           <div className="mx-7 flex justify-between items-center">
             {ctas.map((cta, index) => {
               if (cta.link) {
