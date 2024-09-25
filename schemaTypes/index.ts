@@ -106,8 +106,9 @@ import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
 import {shopType} from './singletons/shopType'
 import {cartType} from './singletons/cartType'
+import {redirectionsType} from './singletons/redirectionsType'
 
-const singletons = [homeType, settingsType, shopType, cartType]
+const singletons = [homeType, settingsType, shopType, cartType, redirectionsType]
 
 export const schemaTypes = [
   ...annotations,

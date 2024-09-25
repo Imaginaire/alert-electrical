@@ -4,7 +4,7 @@ import {ColorWheelIcon} from '@sanity/icons'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
-    .title('Product Setting')
+    .title('Product Page')
     .icon(ColorWheelIcon)
     .schemaType('productSetting')
     .child(

@@ -1,3 +1,5 @@
+import generateRedirects from '../utils/generateRedirects.mjs'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -11,6 +13,9 @@ const nextConfig = {
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: process.env.VERCEL_ENV === 'production',
+  },
+  async redirects() {
+    return generateRedirects()
   },
 }
 
