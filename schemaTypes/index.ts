@@ -66,6 +66,7 @@ import {shortHeroType} from './objects/sections/shortHeroType'
 import newsType from './objects/sections/newsType'
 import {textImageType} from './objects/sections/textImageType'
 import {textMapType} from './objects/sections/textMapType'
+import {trendingCollectionsType} from './objects/sections/trendingCollectionsType'
 
 const sections = [
   heroType,
@@ -79,6 +80,7 @@ const sections = [
   newsType,
   textImageType,
   textMapType,
+  trendingCollectionsType,
 ]
 
 import {portableTextType} from './portableText/portableTextType'

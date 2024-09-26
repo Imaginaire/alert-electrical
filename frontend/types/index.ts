@@ -14,6 +14,7 @@ export interface Sections {
   spacer?: Spacer
   columns?: Columns
   formBuilder?: FormBuilder
+  trendingCollections?: TrendingCollections
 }
 
 export interface Hero {
@@ -253,6 +254,7 @@ export interface SocialMediaLink {
 export interface Header {
   header: string
   headerTag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  classes?: string
 }
 
 export interface CtaBanner {
@@ -299,6 +301,18 @@ export interface TextImage {
   description?: PortableTextBlock[]
   images?: Image[]
   settings?: SettingsPayload | undefined
+}
+
+export interface TrendingCollections {
+  header?: Header
+  link?: Reference
+  linkText?: string
+  collections?: {
+    title?: string
+    image?: Image
+    linkText?: string
+    link?: Reference
+  }[]
 }
 
 export interface ProductSettingPayload {
