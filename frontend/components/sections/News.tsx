@@ -59,7 +59,8 @@ export default function News(newsData: NewsType) {
             const isFirst = articleIndex === 0
 
             return (
-              <div
+              <Link
+                href={article.slug}
                 key={articleIndex}
                 className={`newsCard w-full  flex flex-col items-center  ${isFirst ? 'h-auto bg-[#F5F5F5] sm:col-span-2 lg:flex-row' : 'border-[1px] lg:col-span-1 xl:flex-row'} `}
               >
@@ -101,7 +102,7 @@ export default function News(newsData: NewsType) {
                     </button>
                   </Link>
                 </div>
-              </div>
+              </Link>
             )
           })}
 
