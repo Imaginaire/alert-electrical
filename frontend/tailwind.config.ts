@@ -12,6 +12,8 @@ const config: Config = {
       colors: {
         primary: '#05003E',
         secondary: '#A5A5A5',
+        'secondary-grey': '#FBFBFB',
+        'secondary-grey-text': '#A5A5A5',
       },
       screens: {
         xs: '420px',

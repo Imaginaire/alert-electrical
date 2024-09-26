@@ -61,5 +61,10 @@ export const sections = defineField({
       name: 'textMap',
       title: 'Text Map',
     }),
+    defineArrayMember({
+      type: 'trendingCollections',
+      name: 'trendingCollections',
+      title: 'Trending Collections',
+    }),
   ],
 })

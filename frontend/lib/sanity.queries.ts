@@ -25,10 +25,6 @@ const sectionsQuery = `
         },
       }
     },
-    serviceAreas[]{
-      ...,
-      "slug": link->slug
-    },
 
       "slug": link->slug
     
