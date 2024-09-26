@@ -60,7 +60,7 @@ export const checkoutUrlQuery = `
 
 export const productsQuery = `
   query productsQuery {
-    products(first: 20) {
+    products(first: 24) {
       edges {
         node {
           id
@@ -72,7 +72,6 @@ export const productsQuery = `
           featuredImage {
             url
           }
-          descriptionHtml
           priceRange {
             maxVariantPrice {
               amount

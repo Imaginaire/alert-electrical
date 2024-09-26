@@ -1,30 +1,30 @@
-import {Product} from '@/types/productType'
+import {ShopPageProduct} from '@/types/productType'
 import Link from 'next/link'
 import Image from 'next/image'
 import urlForImage from '@/shared/utils/urlForImage'
 
 interface ProductCardProps {
-  product: Product
+  product: ShopPageProduct
 }
 
 export default function ProductCard({product}: ProductCardProps) {
-  const {title, previewImageUrl, priceRange, slug} = product.store || {}
+  const {title, featuredImage, priceRange, brand, id, slug} = product || {}
 
   return (
     <div>
-      <Link href={slug?.current || '/'}>
-        {/* <div className="relative w-full h-[265px]">
+      <Link href={slug || '/'}>
+        <div className="relative w-full h-[265px]">
           <Image
-            src={urlForImage(previewImageUrl)?.width(1920).url()}
+            src={featuredImage?.url || ''}
             alt={title || ''}
             fill
             sizes="100vw"
+            style={{objectFit: 'contain'}}
           />
-        </div> */}
-        <img src={previewImageUrl} alt={title} className="w-full aspect-square object-contain" />
+        </div>
         <div className="my-2 text-xl self-stretch flex flex-col md:flex-row justify-between items-baseline">
-          <span className="mb-2 md:mb-0 text-secondary text-sm uppercase">placeholder</span>
-          <span className="text-primary">£{priceRange?.maxVariantPrice?.toFixed(2)}</span>
+          <span className="mb-2 md:mb-0 text-secondary text-sm uppercase">{brand?.value}</span>
+          <span className="text-primary">£{priceRange?.maxVariantPrice?.amount}</span>
         </div>
         <h2 className="text-xl text-primary">{title}</h2>
       </Link>
