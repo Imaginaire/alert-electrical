@@ -16,12 +16,37 @@ import {
   settingsQuery,
   pagesBySlugQuery,
   homePageTitleQuery,
-  productsQuery,
   productSettingQuery,
 } from '@/lib/sanity.queries'
+import {callShopify} from '@/lib/shopify.helpers'
+import {productsQuery} from '@/lib/shopify.queries'
 
 interface Query {
   [key: string]: string
+}
+
+interface Edge {
+  cursor: string
+  node: {
+    brand: {
+      value: string
+    }
+    descriptionHtml: string
+    featuredImage: {
+      url: string
+    }
+    id: string
+    priceRange: {
+      maxVariantPrice: {
+        amount: string
+      }
+      minVariantPrice: {
+        amount: string
+      }
+    }
+    slug: string
+    title: string
+  }
 }
 
 export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
@@ -52,7 +77,8 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
   // Fetch products if the page is a shop page
   if (page._type === 'shop') {
-    products = await client.fetch(productsQuery)
+    const res = await callShopify(productsQuery)
+    products = res.data.products.edges.map((edge: Edge) => edge.node)
   }
 
   if (page._type === 'product') {

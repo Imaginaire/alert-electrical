@@ -1,7 +1,7 @@
 export async function callShopify(query: WebGLQuery, variables = {}) {
   try {
     const res = await fetch(
-      'https://nottingham-lighting-center-2024.myshopify.com/api/2023-10/graphql.json',
+      'https://nottingham-lighting-center-2024.myshopify.com/api/2024-07/graphql.json',
       {
         method: 'POST',
         headers: {

@@ -57,3 +57,36 @@ export const checkoutUrlQuery = `
     }
   }
 `
+
+export const productsQuery = `
+  query productsQuery {
+    products(first: 20) {
+      edges {
+        node {
+          id
+          title
+          slug: handle
+          brand: metafield(namespace: "custom", key: "brand") {
+            value
+          }
+          featuredImage {
+            url
+          }
+          descriptionHtml
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+`
