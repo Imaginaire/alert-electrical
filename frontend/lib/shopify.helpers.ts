@@ -1,11 +1,12 @@
 export async function callShopify(query: WebGLQuery, variables = {}) {
   try {
     const res = await fetch(
-      'https://nottingham-lighting-center-2024.myshopify.com/api/2024-07/graphql.json',
+      'https://nottingham-lighting-center-2024.myshopify.com/api/2023-10/graphql.json',
       {
         method: 'POST',
         headers: {
-          'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+          'X-Shopify-Storefront-Access-Token':
+            process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({

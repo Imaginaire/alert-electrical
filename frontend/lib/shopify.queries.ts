@@ -89,3 +89,121 @@ export const productsQuery = `
     }
   }
 `
+export const productQuery = `
+  query productQuery($handle: String!) {
+    product(handle: $handle) {
+        title
+        description
+        descriptionHtml
+        featuredImage {
+            url
+        }
+        priceRange {
+            maxVariantPrice {
+                amount
+            }
+            minVariantPrice {
+                amount
+            }
+        }
+        vendor
+        brand: metafield(namespace: "custom", key: "brand") {
+            value
+            type
+        }
+        range: metafield(namespace: "custom", key: "range") {
+            value
+            type
+        }
+        finish: metafield(namespace: "custom", key: "finish") {
+            value
+            type
+        }
+        material: metafield(namespace: "custom", key: "material") {
+            value
+            type
+        }
+        sizeDiameter: metafield(namespace: "custom", key: "size_diameter") {
+            value
+            type
+        }
+        cutOutDiameter: metafield(namespace: "custom", key: "cut_out_diameter") {
+            value
+            type
+        }
+        height: metafield(namespace: "custom", key: "size_height") {
+            value
+            type
+        }
+        width: metafield(namespace: "custom", key: "size_width") {
+            value
+            type
+        }
+        projection: metafield(namespace: "custom", key: "projection") {
+            value
+            type
+        }
+        lampSocketType: metafield(namespace: "custom", key: "lamp_socket_type") {
+            value
+            type
+        }
+        inputVoltage: metafield(namespace: "custom", key: "input_voltage") {
+            value
+            type
+        }
+        electricalClass: metafield(namespace: "custom", key: "electrical_class") {
+            value
+            type
+        }
+        numberOfLamps: metafield(namespace: "custom", key: "number_of_lamps") {
+            value
+            type
+        }
+        wattage: metafield(namespace: "custom", key: "wattage") {
+            value
+            type
+        }
+        maxWattage: metafield(namespace: "custom", key: "max_wattage") {
+            value
+            type
+        }
+        lumens: metafield(namespace: "custom", key: "lumens") {
+            value
+            type
+        }
+        colourTemperature: metafield(namespace: "custom", key: "colour_temperature") {
+            value
+            type
+        }
+        integratedSwtich: metafield(namespace: "custom", key: "integrated_swtich") {
+            value
+            type
+        }
+        minimumRecessDepth: metafield(namespace: "custom", key: "minimum_recess_depth") {
+            value
+            type
+        }
+        dimmable: metafield(namespace: "custom", key: "dimmable") {
+            value
+            type
+        }
+        lampsSupplied: metafield(namespace: "custom", key: "lamps_supplied") {
+            value
+            type
+        }
+        ipRating: metafield(namespace: "custom", key: "ip_rating") {
+            value
+            type
+        }
+        iscCode: metafield(namespace: "custom", key: "isc_code") {
+            value
+            type
+        }
+        slug: metafield(namespace: "custom", key: "slug") {
+            value
+            type
+        }
+      id      
+    }
+}
+`
