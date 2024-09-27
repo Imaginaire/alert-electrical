@@ -12,6 +12,7 @@ import {useCart} from '@/contexts/CartContext'
 import CartBanner from '../product/CartBanner'
 import LargeCta from '../sections/LargeCta'
 import DropDowns from '../shared/Dropdowns'
+import Breadcrumbs from '../global/Breadcrumbs'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -86,12 +87,21 @@ export default function ProductPage({
     ? urlForImage(cta?.backgroundImage)?.width(1920).url()
     : undefined
 
+  const pages = [
+    {name: 'Ceiling Lights', href: '/product', current: false},
+    {name: title, current: true},
+  ]
+
   return (
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
       <Layout settings={settings} preview={preview} loading={loading}>
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
+          <div className="flex justify-between m-7 text-primary font-manrope">
+            <Breadcrumbs pages={pages} />
+            <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p>
+          </div>
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}

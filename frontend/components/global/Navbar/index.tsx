@@ -12,7 +12,6 @@ export default function Navbar({
   navCta,
   deliveryInfoBar,
 }: NavbarProps) {
-  console.log('deliveryInfoBar', deliveryInfoBar)
   return (
     <>
       {/* Desktop Nav */}

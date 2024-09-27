@@ -32,7 +32,6 @@ export function ShopPage({
             {/* Products */}
             {products && products.length > 0 ? (
               products.slice(0, numOfProductsToShow).map((product) => {
-                console.log(product)
                 const {title, descriptionHtml, previewImageUrl, productType, tags} =
                   product.store || {}
                 return <ProductCard product={product} key={product._id} />
