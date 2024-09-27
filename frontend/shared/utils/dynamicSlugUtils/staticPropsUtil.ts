@@ -19,7 +19,7 @@ import {
   productSettingQuery,
 } from '@/lib/sanity.queries'
 import {callShopify} from '@/lib/shopify.helpers'
-import {productsQuery} from '@/lib/shopify.queries'
+import {productQuery, productsQuery} from '@/lib/shopify.queries'
 
 interface Query {
   [key: string]: string
@@ -52,6 +52,7 @@ interface Edge {
 export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const {draftMode = false, params = {}} = ctx
   const client = getClient(draftMode)
+  let product = null
   let products = null
   let productSetting = null
 
@@ -83,6 +84,9 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
   if (page._type === 'product') {
     productSetting = await client.fetch(productSettingQuery)
+    const variables = {handle: params.slug[0].split('/').pop()}
+    const res = await callShopify(productQuery, variables)
+    product = res.data.product
   }
 
   return {
@@ -93,6 +97,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
       draftMode,
       token: draftMode ? readToken : null,
       canonicalUrl,
+      product: product ?? null,
       products: products ?? null,
       productSetting: productSetting ?? null,
     },

@@ -21,6 +21,7 @@ export default function PageSlugRoute(props: PageProps) {
     homePageTitle,
     settings,
     page: initialPage,
+    product,
     products,
     draftMode,
     canonicalUrl,
@@ -88,6 +89,7 @@ export default function PageSlugRoute(props: PageProps) {
           homePageTitle={homePageTitle}
           addToCartText={page?.addToCartText}
           productSetting={productSetting}
+          product={product}
         />
       )
       break

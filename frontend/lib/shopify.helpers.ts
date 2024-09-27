@@ -5,8 +5,7 @@ export async function callShopify(query: WebGLQuery, variables = {}) {
       {
         method: 'POST',
         headers: {
-          'X-Shopify-Storefront-Access-Token':
-            process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+          'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({

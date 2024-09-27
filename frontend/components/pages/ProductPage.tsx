@@ -1,21 +1,16 @@
-import {use, useEffect, useState} from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
-import urlForImage from '@/shared/utils/urlForImage'
 
 import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import Sections from '@/components/global/Sections'
-import {ProductPageProduct, Variant} from '@/types/productType'
+import {ProductPageProduct} from '@/types/productType'
 import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {useCart} from '@/contexts/CartContext'
 import CartBanner from '../product/CartBanner'
 import LargeCta from '../sections/LargeCta'
 import DropDowns from '../shared/Dropdowns'
-
-import {usePathname} from 'next/navigation'
-import {callShopify} from '@/lib/shopify.helpers'
-import {productQuery} from '@/lib/shopify.queries'
 
 export interface ProductPageProps {
   page: PagePayload | undefined
@@ -26,6 +21,7 @@ export interface ProductPageProps {
   canonicalUrl?: string
   addToCartText?: string
   productSetting?: ProductSettingPayload
+  product?: ProductPageProduct
 }
 
 export default function ProductPage({
@@ -36,14 +32,61 @@ export default function ProductPage({
   loading,
   canonicalUrl,
   productSetting,
+  product,
 }: ProductPageProps) {
-  const {store, sections} = page || {}
+  const {sections} = page || {}
   const {warranty, delivery, cta} = productSetting || {}
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
 
-  const [product, setProduct] = useState<ProductPageProduct | null>(null)
+  const {
+    title,
+    descriptionHtml,
+    featuredImage,
+    priceRange,
+    height,
+    sizeDiameter,
+    cutOutDiameter,
+    electricalClass,
+    ipRating,
+    numberOfLamps,
+    lampsSupplied,
+    lumens,
+    colourTemperature,
+    integratedSwtich,
+    dimmable,
+    wattage,
+    brand,
+    finish,
+    range,
+    width,
+    projection,
+  } = product || {}
 
-  const {title, descriptionHtml, featuredImage, priceRange} = product || {}
+  const aboutProductArray = [
+    {label: 'Brand', value: brand?.value},
+    {label: 'Finish', value: finish?.value},
+    {label: 'Range', value: range?.value},
+  ]
+
+  const sizeInfoArray = [
+    {label: 'Height', value: height?.value},
+    {label: 'Diameter', value: sizeDiameter?.value},
+    {label: 'Cut Out Diameter', value: cutOutDiameter?.value},
+    {label: 'Width', value: width?.value},
+    {label: 'Projection', value: projection?.value},
+  ]
+
+  const specsArray = [
+    {label: 'Electrical Class', value: electricalClass?.value},
+    {label: 'IP Rating', value: ipRating?.value},
+    {label: 'No of Lamps', value: numberOfLamps?.value},
+    {label: 'Lamps Supplied', value: lampsSupplied?.value},
+    {label: 'Lumens', value: lumens?.value},
+    {label: 'Colour Temperature', value: colourTemperature?.value},
+    {label: 'Integrated Switch', value: integratedSwtich?.value},
+    {label: 'Dimmable', value: dimmable?.value},
+    {label: 'Wattage', value: wattage?.value},
+  ]
 
   console.log({product})
 
@@ -79,10 +122,16 @@ export default function ProductPage({
 
   //first two items are the fake data
   const details = [
-    {name: 'About the product', items: ['WIP']},
-    {name: 'Sizing & technical information', items: ['WIP']},
-    {name: 'delivery information', items: [delivery]},
-    {name: 'warranty', items: [warranty]},
+    {name: 'About the product', items: [{value: aboutProductArray}]},
+    {
+      name: 'Sizing & technical information',
+      items: [
+        {title: 'Sizing', value: sizeInfoArray},
+        {title: 'Technical Information', value: specsArray},
+      ],
+    },
+    {name: 'delivery information', items: delivery ? [delivery] : []},
+    {name: 'warranty', items: [warranty ?? '']},
   ]
 
   const price = priceRange?.maxVariantPrice?.amount ?? 0
@@ -90,24 +139,6 @@ export default function ProductPage({
   const handlePrice = (price: number) => {
     return price * quantity
   }
-
-  const backgroundImgUrl = cta?.backgroundImage
-    ? urlForImage(cta?.backgroundImage)?.width(1920).url()
-    : undefined
-
-  const pathname = usePathname().split('/').pop()
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const variables = {handle: pathname}
-      const res = await callShopify(productQuery, variables)
-      setProduct(res.data.product)
-    }
-
-    fetchProduct()
-  }, [])
-
-  console.log({product})
 
   return (
     <>
@@ -118,7 +149,6 @@ export default function ProductPage({
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
-
               <div className="relative lg:sticky lg:top-10 w-full h-[520px] ">
                 <Image
                   src={featuredImage?.url || ''}
