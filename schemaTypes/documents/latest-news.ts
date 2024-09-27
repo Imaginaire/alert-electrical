@@ -1,12 +1,11 @@
 import {defineField, defineType} from 'sanity'
 import {GROUPS} from '../../constants'
-import {postContentType} from '../objects/sections/postContent'
 import {sections} from '../partials/sections'
 
 export const latestNewsType = defineType({
   type: 'document',
   name: 'latestNews',
-  title: 'Latest News',
+  title: 'Inspiration',
   groups: GROUPS,
   fields: [
     defineField({

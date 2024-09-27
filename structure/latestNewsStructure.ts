@@ -4,7 +4,7 @@ import {DocumentSheetIcon} from '@sanity/icons'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
-    .title('Latest News')
+    .title('#inspiration')
     .icon(DocumentSheetIcon)
     .schemaType('latestNews')
     .child(S.documentTypeList('latestNews')),
