@@ -1,11 +1,14 @@
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/24/outline'
 import {CustomPortableText} from '../shared/CustomPortableText'
+import {PortableTextBlock} from '@portabletext/types'
 
-interface DropdownsProps {
+type DropdownsTableRow = {label: string; value: string | undefined}
+
+type DropdownsProps = {
   data: {
     name: string
-    items: (string | any)[]
+    items: string[] | {title?: string; value: Array<DropdownsTableRow>}[] | PortableTextBlock[][]
   }[]
 }
 
@@ -33,11 +36,37 @@ export default function DropDowns({data}: DropdownsProps) {
           </h3>
           <DisclosurePanel className="prose prose-sm pb-6 font-manrope">
             <ul role="list" className="px-5">
-              {detail.items.map((item) => {
+              {detail.items.map((item, index) => {
                 if (typeof item === 'string') {
                   return <li key={item}>{item}</li>
                 }
-                return item ? (
+
+                if (typeof item === 'object' && 'value' in item && Array.isArray(item.value)) {
+                  return (
+                    <table>
+                      <tbody key={index}>
+                        {item.title ? (
+                          <tr>
+                            <th className="font-semibold py-4 text-center" colSpan={2}>
+                              {item.title}
+                            </th>
+                          </tr>
+                        ) : null}
+                        {item.value.map((subItem, subIndex: number) => {
+                          if (!subItem.value) return null
+                          return (
+                            <tr key={subIndex}>
+                              <td className="font-medium pr-4">{subItem.label}</td>
+                              <td>{subItem.value || 'N/A'}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  )
+                }
+
+                return Array.isArray(item) ? (
                   <CustomPortableText value={item} linkClasses="text-secondary underline" />
                 ) : null
               })}

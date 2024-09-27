@@ -21,6 +21,8 @@ export function ShopPage({
 
   const {shortHero} = page || {}
 
+  console.log(products)
+
   return (
     <>
       <PageHead page={page} settings={settings} title={homePageTitle} canonicalUrl={canonicalUrl} />
@@ -31,10 +33,9 @@ export function ShopPage({
           <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 max-w-[1728px] mx-auto p-5 pt-9">
             {/* Products */}
             {products && products.length > 0 ? (
-              products.slice(0, numOfProductsToShow).map((product) => {
-                const {title, descriptionHtml, previewImageUrl, productType, tags} =
-                  product.store || {}
-                return <ProductCard product={product} key={product._id} />
+              products.map((product) => {
+                const {title, featuredImage, brand, id, slug} = product || {}
+                return <ProductCard product={product} key={product.id} />
               })
             ) : (
               <p>No products found</p>

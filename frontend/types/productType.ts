@@ -11,8 +11,8 @@ interface Option {
 }
 
 interface PriceRange {
-  maxVariantPrice?: number
-  minVariantPrice?: number
+  maxVariantPrice?: {amount?: number}
+  minVariantPrice?: {amount?: number}
 }
 
 export interface Variant {
@@ -57,11 +57,47 @@ export interface Store {
   tags?: string
 }
 
-export interface Product {
-  _rev?: string
-  _type?: string
-  _id?: string
-  store?: Store
-  _updatedAt?: string
-  _createdAt?: string
+export interface ShopPageProduct {
+  title?: string
+  featuredImage?: {
+    url?: string
+  }
+  brand?: {value?: string}
+  id?: string
+  priceRange?: PriceRange
+  slug?: string
+}
+
+export interface ProductPageProduct {
+  title?: string
+  description?: string
+  descriptionHtml?: string
+  featuredImage?: {
+    url?: string
+  }
+  id?: string
+  priceRange?: PriceRange
+  brand?: {value?: string}
+  range?: {value?: string}
+  finish?: {value?: string}
+  material?: {value?: string}
+  sizeDiameter?: {value?: string}
+  cutOutDiameter?: {value?: string}
+  height?: {value?: string}
+  width?: {value?: string}
+  projection?: {value?: string}
+  lampSocketType?: {value?: string}
+  inputVoltage?: {value?: string}
+  electricalClass?: {value?: string}
+  numberOfLamps?: {value?: string}
+  wattage?: {value?: string}
+  maxWattage?: {value?: string}
+  lumens?: {value?: string}
+  colourTemperature?: {value?: string}
+  integratedSwtich?: {value?: string}
+  minimumRecessDepth?: {value?: string}
+  dimmable?: {value?: string}
+  lampsSupplied?: {value?: string}
+  ipRating?: {value?: string}
+  slug?: {value?: string}
 }

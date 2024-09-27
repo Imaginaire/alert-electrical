@@ -1,11 +1,10 @@
 import {useState} from 'react'
 import Image from 'next/image'
-import urlForImage from '@/shared/utils/urlForImage'
 
 import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import Sections from '@/components/global/Sections'
-import {Variant} from '@/types/productType'
+import {ProductPageProduct} from '@/types/productType'
 import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {useCart} from '@/contexts/CartContext'
@@ -23,6 +22,7 @@ export interface ProductPageProps {
   canonicalUrl?: string
   addToCartText?: string
   productSetting?: ProductSettingPayload
+  product?: ProductPageProduct
 }
 
 export default function ProductPage({
@@ -33,11 +33,63 @@ export default function ProductPage({
   loading,
   canonicalUrl,
   productSetting,
+  product,
 }: ProductPageProps) {
-  const {store, sections} = page || {}
-  const {title, descriptionHtml, previewImageUrl, variants} = store || {}
+  const {sections} = page || {}
   const {warranty, delivery, cta} = productSetting || {}
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
+
+  const {
+    title,
+    descriptionHtml,
+    featuredImage,
+    priceRange,
+    height,
+    sizeDiameter,
+    cutOutDiameter,
+    electricalClass,
+    ipRating,
+    numberOfLamps,
+    lampsSupplied,
+    lumens,
+    colourTemperature,
+    integratedSwtich,
+    dimmable,
+    wattage,
+    brand,
+    finish,
+    range,
+    width,
+    projection,
+  } = product || {}
+
+  const aboutProductArray = [
+    {label: 'Brand', value: brand?.value},
+    {label: 'Finish', value: finish?.value},
+    {label: 'Range', value: range?.value},
+  ]
+
+  const sizeInfoArray = [
+    {label: 'Height', value: height?.value},
+    {label: 'Diameter', value: sizeDiameter?.value},
+    {label: 'Cut Out Diameter', value: cutOutDiameter?.value},
+    {label: 'Width', value: width?.value},
+    {label: 'Projection', value: projection?.value},
+  ]
+
+  const specsArray = [
+    {label: 'Electrical Class', value: electricalClass?.value},
+    {label: 'IP Rating', value: ipRating?.value},
+    {label: 'No of Lamps', value: numberOfLamps?.value},
+    {label: 'Lamps Supplied', value: lampsSupplied?.value},
+    {label: 'Lumens', value: lumens?.value},
+    {label: 'Colour Temperature', value: colourTemperature?.value},
+    {label: 'Integrated Switch', value: integratedSwtich?.value},
+    {label: 'Dimmable', value: dimmable?.value},
+    {label: 'Wattage', value: wattage?.value},
+  ]
+
+  console.log({product})
 
   const [quantity, setQuantity] = useState<number>(1)
 
@@ -47,45 +99,47 @@ export default function ProductPage({
   // cart context
   const {addToCart, updateQuantity} = useCart()
 
-  const handleAddToCart = () => {
-    // add to local storage while user is browsing
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Variant[]
+  // const handleAddToCart = () => {
+  //   // add to local storage while user is browsing
+  //   const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Variant[]
 
-    // check if cart already has the item, if so, update the quantity
-    const existingItem = cart.find((item: Variant) => {
-      return item?.store?.id && item.store.id === variants?.[0].store?.id
-    })
-    if (existingItem?.store?.id && existingItem?.quantity) {
-      updateQuantity(existingItem.store.id, existingItem.quantity + quantity)
-    } else {
-      // Use the context's addToCart method
-      addToCart({
-        ...variants?.[0],
-        title,
-        quantity,
-        previewImageUrl,
-      })
-    }
-    setIsAddToCartClicked(true)
-  }
+  //   // check if cart already has the item, if so, update the quantity
+  //   const existingItem = cart.find((item: ProductPageProduct) => {
+  //     return item?.id && item.id === item.id
+  //   })
+  //   if (existingItem?.id && existingItem?.quantity) {
+  //     updateQuantity(existingItem.store.id, existingItem.quantity + quantity)
+  //   } else {
+
+  //     addToCart({
+  //       ...variants?.[0],
+  //       title,
+  //       quantity,
+  //       previewImageUrl,
+  //     })
+  //   }
+  //   setIsAddToCartClicked(true)
+  // }
 
   //first two items are the fake data
   const details = [
-    {name: 'About the product', items: ['WIP']},
-    {name: 'Sizing & technical information', items: ['WIP']},
-    {name: 'delivery information', items: [delivery]},
-    {name: 'warranty', items: [warranty]},
+    {name: 'About the product', items: [{value: aboutProductArray}]},
+    {
+      name: 'Sizing & technical information',
+      items: [
+        {title: 'Sizing', value: sizeInfoArray},
+        {title: 'Technical Information', value: specsArray},
+      ],
+    },
+    {name: 'delivery information', items: delivery ? [delivery] : []},
+    {name: 'warranty', items: [warranty ?? '']},
   ]
 
-  const price = variants?.[0]?.store?.price ?? 0
+  const price = priceRange?.maxVariantPrice?.amount ?? 0
 
   const handlePrice = (price: number) => {
     return price * quantity
   }
-
-  const backgroundImgUrl = cta?.backgroundImage
-    ? urlForImage(cta?.backgroundImage)?.width(1920).url()
-    : undefined
 
   const pages = [
     {name: 'Ceiling Lights', href: '/product', current: false},
@@ -105,10 +159,9 @@ export default function ProductPage({
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
-
               <div className="relative lg:sticky lg:top-10 w-full h-[520px] ">
                 <Image
-                  src={previewImageUrl || ''}
+                  src={featuredImage?.url || ''}
                   fill
                   alt={title || ''}
                   sizes="50vw"
@@ -165,7 +218,7 @@ export default function ProductPage({
                       <button
                         type="submit"
                         className="flex w-full items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 uppercase"
-                        onClick={handleAddToCart}
+                        // onClick={handleAddToCart}
                       >
                         Add to cart
                       </button>
@@ -177,21 +230,6 @@ export default function ProductPage({
                         className="my-6 lg:my-3 leading-[26px] font-manrope text-center"
                         dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
                       />
-
-                      {/* inventory */}
-                      <div className="flex gap-3 items-center justify-center font-manrope text-primary mt-6 mb-32 lg:my-8">
-                        {variants?.[0]?.store?.inventory?.isAvailable ? (
-                          <>
-                            <div className="w-4 h-4 rounded-full bg-green-500" />
-                            <p>In stock - see delivery information for delivery timeframes</p>
-                          </>
-                        ) : (
-                          <>
-                            <div className="w-4 h-4 rounded-full bg-red-500" />
-                            <p>Out of stock</p>
-                          </>
-                        )}
-                      </div>
                     </div>
                   </div>
                 </div>

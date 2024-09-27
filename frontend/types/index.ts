@@ -1,7 +1,7 @@
 import type {PortableTextBlock} from '@portabletext/types'
 
 import type {Image, Reference, Slug} from 'sanity'
-import {Product, Store} from './productType'
+import {ProductPageProduct, ShopPageProduct, Store} from './productType'
 
 // Section Types
 
@@ -194,9 +194,10 @@ export interface PageProps {
   preview?: boolean
   loading?: boolean
   canonicalUrl?: string
-  products?: Product[]
+  products?: ShopPageProduct[]
   draftMode?: boolean
   productSetting?: ProductSettingPayload
+  product?: ProductPageProduct
 }
 
 export interface LatestNewsProps {
