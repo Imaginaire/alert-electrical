@@ -200,6 +200,18 @@ export interface PageProps {
   product?: ProductPageProduct
 }
 
+export interface CollectionPageProps {
+  page?: {
+    title: string
+    slug: string
+    description: string
+  }
+  settings?: SettingsPayload | undefined
+  homePageTitle?: string | undefined
+  canonicalUrl?: string
+  products?: ShopPageProduct[]
+}
+
 export interface LatestNewsProps {
   page: PagePayload | undefined | null
   settings: SettingsPayload | undefined
@@ -290,7 +302,8 @@ export interface LargeCta {
 
 export interface ShortHero {
   header?: string
-  description?: PortableTextBlock[]
+  description?: PortableTextBlock[] | string
+  shopifyData?: boolean
 }
 
 export interface News {

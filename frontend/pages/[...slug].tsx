@@ -15,6 +15,7 @@ import ProductPage from '@/components/pages/ProductPage'
 import ShopPage from '@/components/pages/ShopPage'
 import CartPage from '@/components/pages/CartPage'
 import {LatestNewsPage} from '@/components/pages/LatestNewsPage'
+import {CollectionPage} from '@/components/pages/CollectionPage'
 
 export default function PageSlugRoute(props: PageProps) {
   const {
@@ -26,6 +27,7 @@ export default function PageSlugRoute(props: PageProps) {
     draftMode,
     canonicalUrl,
     productSetting,
+    collection,
   } = props
 
   const [page, loading] = useLiveQuery<PagePayload | null | undefined>(
@@ -104,6 +106,9 @@ export default function PageSlugRoute(props: PageProps) {
           canonicalUrl={canonicalUrl}
         />
       )
+      break
+    case 'collection':
+      pageComponent = <CollectionPage page={page} settings={settings} />
       break
     default:
       pageComponent = (

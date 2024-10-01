@@ -207,3 +207,57 @@ export const productQuery = `
     }
 }
 `
+
+export const collectionByHandleQuery = `
+  query getCollectionByHandle($handle: String!) {
+    collectionByHandle(handle: $handle) {
+      id
+      title
+      handle
+      description
+      metafield(namespace: "custom", key: "parent_collection") {
+        value
+      }
+      products(first: 24) {
+              edges {
+        node {
+          id
+          title
+          slug: handle
+          brand: metafield(namespace: "custom", key: "brand") {
+            value
+          }
+          featuredImage {
+            url
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+      }
+    }
+  }
+    `
+
+export const collectionByIdQuery = `
+  query getCollectionById($id: ID!) {
+    collection(id: $id) {
+      id
+      title
+      handle
+      metafield(namespace: "custom", key: "parent_collection") {
+        value
+      }
+    }
+  }
+`

@@ -18,7 +18,7 @@ import {
   homePageTitleQuery,
   productSettingQuery,
 } from '@/lib/sanity.queries'
-import {callShopify} from '@/lib/shopify.helpers'
+import {buildCollectionUrl, callShopify, getCollectionByHandle} from '@/lib/shopify.helpers'
 import {productQuery, productsQuery} from '@/lib/shopify.queries'
 
 interface Query {
@@ -51,8 +51,50 @@ interface Edge {
 
 export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const {draftMode = false, params = {}} = ctx
+
+  // Get the last slug segment
+  const endSlug = params.slug[params.slug.length - 1]
+
+  // Check if the page is a collection
+  const collection = await getCollectionByHandle(endSlug)
+
+  // If the page is a collection, fetch the collection data
+  if (collection) {
+    // Build the full URL path by recursively fetching parent collections
+    const urlSegments = await buildCollectionUrl(collection)
+    const fullUrl = '/' + urlSegments.join('/')
+
+    // Get products for the collection
+    const formattedProducts = collection.products.edges.map((edge: Edge) => edge.node)
+
+    // get settings, and homepage title
+    const client = getClient(draftMode)
+    const [settings, homePageTitle] = await Promise.all([
+      client.fetch<SettingsPayload | null>(settingsQuery),
+      client.fetch<string | null>(homePageTitleQuery),
+    ])
+
+    return {
+      props: {
+        page: {
+          _type: 'collection',
+          data: {
+            ...collection,
+            products: formattedProducts,
+          },
+        },
+        settings: settings ?? {},
+        homePageTitle: homePageTitle ?? undefined,
+        canonicalUrl: getCanonicalUrl(fullUrl),
+        productSetting: undefined,
+        draftMode,
+      },
+      revalidate: 10,
+    }
+  }
+
+  // if the page is not a collection, fetch the page data from Sanity
   const client = getClient(draftMode)
-  let product = null
   let products = null
   let productSetting = null
 
@@ -82,13 +124,6 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     products = res.data.products.edges.map((edge: Edge) => edge.node)
   }
 
-  if (page._type === 'product') {
-    productSetting = await client.fetch(productSettingQuery)
-    const variables = {handle: params.slug[0].split('/').pop()}
-    const res = await callShopify(productQuery, variables)
-    product = res.data.product
-  }
-
   return {
     props: {
       page,
@@ -97,9 +132,8 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
       draftMode,
       token: draftMode ? readToken : null,
       canonicalUrl,
-      product: product ?? null,
       products: products ?? null,
-      productSetting: productSetting ?? null,
+      productSetting: productSetting ?? undefined,
     },
     // Re-generate the page every 10 seconds: see Next.js revalidation docs
     revalidate: 10,
