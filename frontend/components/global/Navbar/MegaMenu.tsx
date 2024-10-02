@@ -31,7 +31,7 @@ export default function MegaMenu({menuItem, showMegaMenu, setShowMegaMenu}: Mega
     <>
       {/* Mega Menu Overlay */}
       <div
-        className={`megaMenu-overlay w-full absolute top-24 left-0 h-screen transition-opacity duration-300 bg-black z-20 ${showMegaMenu ? 'opacity-30' : 'opacity-0'} `}
+        className={`megaMenu-overlay w-full absolute  top-24 left-0 h-screen transition-opacity duration-300 bg-black z-20 ${showMegaMenu ? 'opacity-30 pointer-events-auto' : 'opacity-0 pointer-events-none'} `}
         onMouseEnter={() => setShowMegaMenu(false)}
       ></div>
 

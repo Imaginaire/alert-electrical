@@ -86,7 +86,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
         settings: settings ?? {},
         homePageTitle: homePageTitle ?? undefined,
         canonicalUrl: getCanonicalUrl(fullUrl),
-        productSetting: undefined,
+        productSetting: null,
         draftMode,
       },
       revalidate: 10,
@@ -133,7 +133,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
       token: draftMode ? readToken : null,
       canonicalUrl,
       products: products ?? null,
-      productSetting: productSetting ?? undefined,
+      productSetting: productSetting ?? null,
     },
     // Re-generate the page every 10 seconds: see Next.js revalidation docs
     revalidate: 10,

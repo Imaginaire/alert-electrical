@@ -1,8 +1,6 @@
 import {ListItemBuilder, StructureResolver} from 'sanity/structure'
-import collections from './collectionStructure'
 import home from './homeStructure'
 import pages from './pageStructure'
-import products from './productStructure'
 import settings from './settingStructure'
 import shop from './shopStructure'
 import cart from './cartStructure'
@@ -33,13 +31,10 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
   }
 
   return ![
-    'collection',
     'home',
     'media.tag',
     'page',
     'latestNews',
-    'product',
-    'productVariant',
     'settings',
     'shop',
     'cart',
@@ -71,9 +66,6 @@ export const structure: StructureResolver = async (S, context) => {
       productSetting(S, context),
       S.divider(),
       latestNews(S, context),
-      S.divider(),
-      collections(S, context),
-      ...(themeType === 'shopify' ? [products(S, context)] : []),
       S.divider(),
       settings(S, context),
       redirections(S, context),
