@@ -3,17 +3,25 @@ import {PagePayload, SettingsPayload} from '@/types'
 import prepareMetaRobots from '@/shared/utils/prepareMetaRobots'
 
 export interface PageHeadProps {
-  title: string | undefined
-  page: PagePayload | undefined | null
-  settings: SettingsPayload | undefined
+  title?: string | undefined
+  page?: PagePayload | undefined | null
+  // Type for when on a Shopify product page
+  productSeo?: {
+    title: string
+    description: string
+  }
+  settings?: SettingsPayload | undefined
   canonicalUrl?: string
 }
 
-export default function PageHead({title, page, settings, canonicalUrl}: PageHeadProps) {
+export default function PageHead({page, productSeo, settings, canonicalUrl}: PageHeadProps) {
   const {robotsMeta} = page?.seo || {}
   const {siteNoIndex} = settings || {}
 
   let robotsContent: string = prepareMetaRobots(robotsMeta || {}, siteNoIndex || false)
+
+  const metaTitle = productSeo?.title || page?.seo?.metaTitle
+  const metaDescription = productSeo?.description || page?.seo?.metaDescription
 
   return (
     <Head>
@@ -24,8 +32,12 @@ export default function PageHead({title, page, settings, canonicalUrl}: PageHead
         <link rel="canonical" href={canonicalUrl} />
       )}
 
-      <title key="title">{page?.seo?.metaTitle}</title>
-      <meta key="description" name="description" content={page?.seo?.metaDescription} />
+      <title key="title">{metaTitle || 'Default Site Title'}</title>
+      <meta
+        key="description"
+        name="description"
+        content={metaDescription || 'Default description'}
+      />
       {robotsContent.length > 0 && <meta name="robots" content={robotsContent} />}
 
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />

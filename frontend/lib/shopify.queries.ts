@@ -95,6 +95,10 @@ export const productQuery = `
         title
         description
         descriptionHtml
+        seo {
+          title
+          description
+        }
         featuredImage {
             url
         }

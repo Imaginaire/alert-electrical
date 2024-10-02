@@ -232,7 +232,7 @@ export interface PageProps {
   canonicalUrl?: string
   products?: ShopPageProduct[]
   draftMode?: boolean
-  productSetting?: ProductSettingPayload
+  productSetting?: ProductSettingPayload | null
   product?: ProductPageProduct
 }
 

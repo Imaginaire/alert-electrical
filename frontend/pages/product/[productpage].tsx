@@ -1,8 +1,3 @@
-// pages/products/[productpage].tsx
-
-import {GetStaticProps, GetStaticPaths} from 'next'
-import {callShopify} from '@/lib/shopify.helpers'
-import {productQuery, productsQuery} from '@/lib/shopify.queries'
 import {useState} from 'react'
 import Image from 'next/image'
 import PageHead from '@/components/pages/PageHead'
@@ -14,78 +9,9 @@ import CartBanner from '@/components/product/CartBanner'
 import LargeCta from '@/components/sections/LargeCta'
 import {useCart} from '@/contexts/CartContext'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
-import {getClient} from '@/lib/sanity.client'
-import {settingsQuery, homePageTitleQuery, productSettingQuery} from '@/lib/sanity.queries'
 import {ProductPageProduct, Variant} from '@/types/productType'
-import {ProductSettingPayload, SettingsPayload} from '@/types'
-
-// Shopify product fetching by slug (handle)
-export const getStaticProps: GetStaticProps = async ({params}) => {
-  const productSlug = params?.productpage // Get the slug from the URL
-
-  if (!productSlug) {
-    return {
-      notFound: true,
-    }
-  }
-
-  // Fetch the product data from Shopify using the slug (handle)
-  const variables = {handle: productSlug}
-  const res = await callShopify(productQuery, variables)
-
-  const product = res?.data?.product || null
-
-  if (!product) {
-    return {
-      notFound: true,
-    }
-  }
-
-  const client = getClient(false)
-  const [settings, homePageTitle, productSetting] = await Promise.all([
-    client.fetch<SettingsPayload | null>(settingsQuery),
-    client.fetch<string | null>(homePageTitleQuery),
-    client.fetch<string | null>(productSettingQuery),
-  ])
-
-  return {
-    props: {
-      product,
-      settings,
-      homePageTitle,
-      productSetting,
-    },
-    revalidate: 10, // Re-generate the page every 10 seconds
-  }
-}
-
-// Use Shopify to generate static paths for all products
-export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    // Fetch all products from Shopify
-    const res = await callShopify(productsQuery)
-    const products = res?.data?.products?.edges || []
-
-    // Ensure that each product has a valid handle
-    const paths = products
-      .map(({node}) => node.handle) // Get the handle (slug)
-      .filter(Boolean) // Filter out any undefined or null handles
-      .map((handle) => ({
-        params: {productpage: handle}, // Return the slug as productpage
-      }))
-
-    return {
-      paths,
-      fallback: 'blocking', // Serve dynamic pages if not generated at build time
-    }
-  } catch (error) {
-    console.error('Error fetching products:', error)
-    return {
-      paths: [],
-      fallback: 'blocking',
-    }
-  }
-}
+import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsUtil'
+import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
 
 // Render product details
 export default function ProductPage({product, settings, homePageTitle, productSetting}: any) {
@@ -114,6 +40,7 @@ export default function ProductPage({product, settings, homePageTitle, productSe
     range,
     width,
     projection,
+    seo,
   } = product || {}
 
   const aboutProductArray = [
@@ -197,8 +124,8 @@ export default function ProductPage({product, settings, homePageTitle, productSe
 
   return (
     <>
-      <PageHead title={title} />
-      <Layout>
+      <PageHead productSeo={seo} canonicalUrl={`/product/${title}`} />
+      <Layout settings={settings}>
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between m-7 text-primary font-manrope">
@@ -298,4 +225,16 @@ export default function ProductPage({product, settings, homePageTitle, productSe
       </Layout>
     </>
   )
+}
+
+// Shopify product fetching by slug (handle)
+export const getStaticProps = fetchStaticProps
+
+// Use Shopify to generate static paths for all products
+export const getStaticPaths = async () => {
+  const paths = await fetchStaticPaths()
+  return {
+    paths,
+    fallback: 'blocking',
+  }
 }
