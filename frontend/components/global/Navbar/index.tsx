@@ -7,6 +7,7 @@ import DeliveryInfoBar from './DeliveryInfoBar'
 
 export default function Navbar({
   menuItems,
+  menuItemsRight,
   companyInfo,
   contactPage,
   navCta,
@@ -17,7 +18,12 @@ export default function Navbar({
       {/* Desktop Nav */}
       <nav className="hidden lg:block">
         {navCta && <DesktopCtaBanner ctas={navCta.ctas} />}
-        <Desktop menuItems={menuItems} companyInfo={companyInfo} contactPage={contactPage} />
+        <Desktop
+          menuItems={menuItems}
+          companyInfo={companyInfo}
+          contactPage={contactPage}
+          menuItemsRight={menuItemsRight}
+        />
       </nav>
 
       {/* Mobile Nav */}

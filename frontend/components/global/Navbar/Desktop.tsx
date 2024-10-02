@@ -1,62 +1,34 @@
-// Utils
 import {useState} from 'react'
-import {resolveHref} from '@/shared/utils/resolveHref'
-
-// types
-import {NavbarProps} from '@/types'
-
-// components
 import Link from 'next/link'
 import Image from 'next/image'
 import urlForImage from '@/shared/utils/urlForImage'
-import {title} from 'process'
 import Search from '@/svgs/Search'
-import Inspiration from '@/svgs/Inspiration'
 import Cart from '@/svgs/Cart'
 import CartWithItems from '@/svgs/CartWithItems'
-import VisitUs from '@/svgs/VisitUs'
-import ContactUs from '@/svgs/ContactUs'
-import MyAccount from '@/svgs/MyAccount'
 import dynamic from 'next/dynamic'
-
-// context
+import MegaMenu from './MegaMenu'
 import {useCart} from '@/contexts/CartContext'
-
-const fakeLeftMenuItems = [
-  {title: 'Home', href: '/'},
-  {title: 'Lighting', href: '/lighting'},
-  {title: 'Lightbulbs', href: '/lightbulbs'},
-  {title: 'About Us', href: '/about-us'},
-]
-const fakeRightMenuItems = [
-  {title: 'Inspiration', href: '/inspiration'},
-  {title: 'Visit Us', href: '/visit-us'},
-  {title: 'Contact Us', href: '/contact-us'},
-  {title: 'My Account', href: '/my-account'},
-]
-
-const icons = [
-  {name: 'Inspiration', icon: Inspiration},
-  {name: 'Visit Us', icon: VisitUs},
-  {name: 'Contact Us', icon: ContactUs},
-  {name: 'My Account', icon: MyAccount},
-]
+import {MenuItem, NavbarProps} from '@/types'
 
 const CartModal = dynamic(() => import('../CartModal'))
 
-export default function Desktop({menuItems, companyInfo, contactPage}: NavbarProps) {
-  const {name, address, phone, email, logo} = companyInfo || {}
-  const [showMegaMenu, setShowMegaMenu] = useState(false)
+export default function Desktop({menuItems, menuItemsRight, companyInfo}: NavbarProps) {
+  const {logo} = companyInfo || {}
+  const [showMegaMenu, setShowMegaMenu] = useState<boolean | false>(false)
+  const [menuItem, setMenuItem] = useState<MenuItem | null>(null)
   const [showCartModal, setShowCartModal] = useState(false)
 
   // Get cart state from context
   const {cartState} = useCart()
+
+  console.log(menuItems)
+
   return (
     <>
       {/* Cart Modal */}
       {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
 
-      <div className="hidden xl:flex navbar-desktop  items-center justify-between p-5">
+      <div className="hidden xl:flex navbar-desktop relative h-24 items-center justify-between p-5">
         {/* Left - search */}
         <button className="mr-14">
           <Search />
@@ -64,29 +36,46 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
 
         {/* Left - Links */}
         <ul className="flex w-full gap-14">
-          {fakeLeftMenuItems &&
-            fakeLeftMenuItems.map((menuItem, index) => {
+          {Array.isArray(menuItems) &&
+            menuItems.map((menuItem, index) => {
+              const hasMegaMenu = menuItem.useMegaMenu
+
               return (
-                <li key={index} className="relative group uppercase">
-                  <Link href={menuItem.href}>{menuItem.title}</Link>
+                <li
+                  key={index}
+                  className="relative group uppercase hover:cursor-pointer"
+                  onMouseEnter={() => {
+                    if (hasMegaMenu) {
+                      setMenuItem(menuItem)
+                      setShowMegaMenu(true)
+                    } else {
+                      setShowMegaMenu(false)
+                    }
+                  }}
+                >
+                  {menuItem.sanityLink ? (
+                    <Link
+                      href={menuItem.title === 'Home' ? '/' : `/${menuItem.sanityLink?.slug || ''}`}
+                    >
+                      {menuItem.title}
+                    </Link>
+                  ) : (
+                    <a href={menuItem.slug}>{menuItem.title}</a>
+                  )}
+
                   <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
                 </li>
               )
             })}
         </ul>
-        {/* <ul className="flex w-full justify-around">
-          {menuItems &&
-            menuItems.map((menuItem, index) => {
-              const href = resolveHref(menuItem.type, menuItem.slug)
 
+        {/* Mega Menu */}
 
-              return (
-                <li key={index}>
-                  <Link href={href}>{menuItem.title}</Link>
-                </li>
-              )
-            })}
-        </ul> */}
+        <MegaMenu
+          menuItem={menuItem || ({} as MenuItem)}
+          showMegaMenu={showMegaMenu}
+          setShowMegaMenu={setShowMegaMenu}
+        />
 
         {/* Centre - Logo */}
         {logo && (
@@ -104,19 +93,19 @@ export default function Desktop({menuItems, companyInfo, contactPage}: NavbarPro
 
         {/* Right - Contact */}
         <ul className="flex w-full justify-end gap-7">
-          {fakeRightMenuItems &&
-            fakeRightMenuItems.map((menuItem, index) => {
-              const IconComponent = icons.find((icon) => icon.name === menuItem.title)?.icon
-              {
-                console.log('menuItem', menuItem)
-              }
+          {Array.isArray(menuItemsRight) &&
+            menuItemsRight.map((menuItem, index) => {
+              const icon = urlForImage(menuItem?.icon)?.url()
+
               return (
-                <li key={index} className="relative group ">
+                <li key={index} className="relative group">
                   <Link
-                    href={menuItem.href}
+                    href={menuItem?.link?.current || '/'}
                     className="flex flex-col justify-center items-center gap-2"
                   >
-                    {IconComponent && <IconComponent />}
+                    <div className="relative h-6 w-5">
+                      <Image src={icon || ''} alt={menuItem.title} fill={true} />
+                    </div>
                     {menuItem.title}
                   </Link>
                   <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>

@@ -7,8 +7,6 @@ import urlForImage from '@/shared/utils/urlForImage'
 export default function TrendingCollections(trendingCollectionsData: TrendingCollectionsType) {
   const {header, linkText, collections, slug} = trendingCollectionsData || {}
 
-  console.log('Link:', trendingCollectionsData)
-
   return (
     <section className="trendingCollections w-full flex justify-center bg-secondary-grey py-12">
       {/* Container */}
@@ -24,7 +22,7 @@ export default function TrendingCollections(trendingCollectionsData: TrendingCol
           />
 
           {/* Header Link */}
-          <Link href={slug || ''} className="group relative mt-4 sm:mt-0">
+          <Link href={typeof slug === 'string' ? slug : ''} className="group relative mt-4 sm:mt-0">
             <span className="text-xl uppercase text-primary">{linkText}</span>
             <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
           </Link>

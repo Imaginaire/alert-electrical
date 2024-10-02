@@ -109,6 +109,7 @@ export const productPagePaths = groq`*[_type == "product"].store.slug.current`
 
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
+    ...,
     footer{
       columns[]{
         header,
@@ -128,15 +129,10 @@ export const settingsQuery = groq`
       accreditation
     },
     // gets the menu items and the mega menu items
-    menuItems[] {
-      "slug": reference->slug.current,
-      "title": reference->title,
-      "type": reference->_type,
-      "megaMenuImage": megaMenuImage.asset->url,
-      megaMenuItems[] {
-        "title": title,
-        "description": description,
-        "slug": link->slug.current
+    menuItems[]{
+      ...,
+        sanityLink->{
+          "slug": slug.current
       }
     },
     contactPage->{

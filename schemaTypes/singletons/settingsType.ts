@@ -63,7 +63,7 @@ export const settingsType = defineType({
     defineField({
       name: 'menuItems',
       title: 'Menu Item list',
-      description: 'Links displayed on the header of your site.',
+      description: 'Menu Items and Mega Menus displayed on the left of the navbar.',
       type: 'array',
       group: 'navigation',
       of: [
@@ -73,30 +73,55 @@ export const settingsType = defineType({
           title: 'Menu Item',
           fields: [
             defineField({
-              title: 'Reference',
-              name: 'reference',
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            }),
+
+            defineField({
+              title: 'Sanity Link',
+              name: 'sanityLink',
               type: 'reference',
+              description:
+                'Link to a page. Use this if you are linking to a page hosted on Sanity.',
               to: [
-                {
-                  type: 'home',
-                },
                 {
                   type: 'page',
                 },
                 {
-                  type: 'shop',
-                },
-                {
                   type: 'latestNews',
                 },
-                // {
-                //   type: 'caseStudy',
-                // },
+
+                {
+                  type: 'home',
+                },
               ],
             }),
+
             defineField({
-              title: 'Mega Menu Items',
-              name: 'megaMenuItems',
+              title: 'Shopify Link',
+              name: 'shopifyLink',
+              type: 'url',
+              description:
+                'Link to a page. Use this if you are linking to a page created on Shopify. Examples include collections and individual products',
+            }),
+
+            defineField({
+              title: 'use Mega Menu',
+              name: 'useMegaMenu',
+              type: 'boolean',
+              description: 'Enable Mega Menu for this item',
+            }),
+
+            // Column 1
+            defineField({
+              title: 'Mega Menu Items Column 1 Title',
+              name: 'megaMenuItemsColumn1Title',
+              type: 'string',
+            }),
+            defineField({
+              title: 'Mega Menu Items Column 1',
+              name: 'megaMenuItemsColumn1',
               type: 'array',
               of: [
                 // Define the structure of megamenu items
@@ -111,41 +136,155 @@ export const settingsType = defineType({
                       type: 'string',
                     }),
                     defineField({
-                      title: 'Description',
-                      name: 'description',
-                      type: 'text',
-                    }),
-                    defineField({
                       title: 'Link',
                       name: 'link',
-                      type: 'reference',
-                      to: [
-                        {
-                          type: 'page',
-                        },
-                        {
-                          type: 'latestNews',
-                        },
-                        // {
-                        //   type: 'caseStudy',
-                        // },
-                      ],
+                      type: 'slug',
                     }),
                   ],
                 },
               ],
             }),
+
+            // Column 2
+            defineField({
+              title: 'Mega Menu Items Column 2 Title',
+              name: 'megaMenuItemsColumn2Title',
+              type: 'string',
+            }),
+            defineField({
+              title: 'Mega Menu Items Column 2',
+              name: 'megaMenuItemsColumn2',
+              type: 'array',
+              of: [
+                // Define the structure of megamenu items
+                {
+                  type: 'object',
+                  name: 'megaMenuItem',
+                  title: 'MegaMenu Item',
+                  fields: [
+                    defineField({
+                      title: 'Title',
+                      name: 'title',
+                      type: 'string',
+                    }),
+                    defineField({
+                      title: 'Link',
+                      name: 'link',
+                      type: 'slug',
+                    }),
+                  ],
+                },
+              ],
+            }),
+
+            // Column 3
+            defineField({
+              title: 'Mega Menu Items Column 3 Title',
+              name: 'megaMenuItemsColumn3Title',
+              type: 'string',
+            }),
+            defineField({
+              title: 'Mega Menu Items Column 3',
+              name: 'megaMenuItemsColumn3',
+              type: 'array',
+              of: [
+                // Define the structure of megamenu items
+                {
+                  type: 'object',
+                  name: 'megaMenuItem',
+                  title: 'MegaMenu Item',
+                  fields: [
+                    defineField({
+                      title: 'Title',
+                      name: 'title',
+                      type: 'string',
+                    }),
+                    defineField({
+                      title: 'Link',
+                      name: 'link',
+                      type: 'slug',
+                    }),
+                  ],
+                },
+              ],
+            }),
+
+            // Column 4
+            defineField({
+              title: 'Mega Menu Items Column 4 Title',
+              name: 'megaMenuItemsColumn4Title',
+              type: 'string',
+            }),
+            defineField({
+              title: 'Mega Menu Items Column 4',
+              name: 'megaMenuItemsColumn4',
+              type: 'array',
+              of: [
+                // Define the structure of megamenu items
+                {
+                  type: 'object',
+                  name: 'megaMenuItem',
+                  title: 'MegaMenu Item',
+                  fields: [
+                    defineField({
+                      title: 'Title',
+                      name: 'title',
+                      type: 'string',
+                    }),
+                    defineField({
+                      title: 'Link',
+                      name: 'link',
+                      type: 'slug',
+                    }),
+                  ],
+                },
+              ],
+            }),
+
+            // Mega Menu Image
             defineField({
               title: 'Mega Menu Image',
               name: 'megaMenuImage',
               type: 'image',
             }),
+            // Mega menu Image link
+            defineField({
+              title: 'Mega Menu Image Link',
+              name: 'megaMenuImageLink',
+              type: 'url',
+            }),
           ],
-          preview: {
-            select: {
-              title: 'reference.title',
-            },
-          },
+        },
+      ],
+    }),
+    defineField({
+      type: 'array',
+      name: 'menuItemsRight',
+      title: 'Menu Items Right',
+      group: 'navigation',
+      description: 'Menu items displayed on the right of the navbar.',
+      of: [
+        {
+          type: 'object',
+          name: 'menuItemRight',
+          title: 'Menu Item Right',
+          fields: [
+            defineField({
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            }),
+            defineField({
+              title: 'Link',
+              name: 'link',
+              type: 'slug',
+            }),
+            defineField({
+              title: 'Icon',
+              name: 'icon',
+              type: 'image',
+            }),
+          ],
         },
       ],
     }),

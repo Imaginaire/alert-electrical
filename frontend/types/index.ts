@@ -101,12 +101,47 @@ export interface FormBuilder {
 }
 
 export interface MenuItem {
-  // doesn't use _type because it gets the type from a reference
-  type: string
-  slug?: string
-  title?: string
-  megaMenuItems?: MegaMenuItem[]
+  title: string
+  link: Slug
+  sanityLink: Reference | null
+  shopifyLink?: string
+  useMegaMenu: boolean
+  megaMenuItemsColumn1Title?: string
+  megaMenuItemsColumn1?: {
+    title: string
+    link: string
+  }[]
+  megaMenuItemsColumn2Title?: string
+  megaMenuItemsColumn2?: {
+    title: string
+    link: string
+  }[]
+  megaMenuItemsColumn3Title?: string
+  megaMenuItemsColumn3?: {
+    title: string
+    link: string
+  }[]
+  megaMenuItemsColumn4Title?: string
+  megaMenuItemsColumn4?: {
+    title: string
+    link: string
+  }[]
   megaMenuImage?: Image
+  megaMenuImageLink?: string
+}
+
+export interface MenuItems {
+  menuItems: MenuItem[]
+}
+
+export interface MenuItemRight {
+  title: string
+  link?: string
+  image: Image
+}
+
+export interface MenuItemsRight {
+  menuItemsRight: MenuItemRight[]
 }
 
 export interface MegaMenuItem {
@@ -149,7 +184,8 @@ export interface Accreditation {
 }
 
 export interface NavbarProps {
-  menuItems?: MenuItem[]
+  menuItems?: MenuItems
+  menuItemsRight?: MenuItemsRight
   companyInfo?: CompanyInformation
   contactPage?: PagePayload
   navCta?: CtaBanner
@@ -239,7 +275,8 @@ export interface PagePayload {
 }
 
 export interface SettingsPayload {
-  menuItems?: MenuItem[]
+  menuItems?: MenuItems
+  menuItemsRight?: MenuItemsRight
   contactPage?: PagePayload
   companyInfo?: CompanyInformation
   googleTagManager?: GoogleTagManager
@@ -327,6 +364,9 @@ export interface TrendingCollections {
     linkText?: string
     link?: Reference
   }[]
+  slug?: {
+    current?: string
+  }
 }
 
 export interface ProductSettingPayload {

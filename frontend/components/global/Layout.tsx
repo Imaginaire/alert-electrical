@@ -7,6 +7,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
     <>
       <Navbar
         menuItems={settings?.menuItems}
+        menuItemsRight={settings?.menuItemsRight}
         companyInfo={settings?.companyInfo}
         contactPage={settings?.contactPage}
         navCta={settings?.navCta}
