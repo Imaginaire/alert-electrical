@@ -19,7 +19,7 @@ import {
   productSettingQuery,
 } from '@/lib/sanity.queries'
 import {buildCollectionUrl, callShopify, getCollectionByHandle} from '@/lib/shopify.helpers'
-import {productQuery, productsQuery} from '@/lib/shopify.queries'
+import {collectionByMetafieldQuery, productQuery, productsQuery} from '@/lib/shopify.queries'
 
 interface Query {
   [key: string]: string
@@ -58,6 +58,13 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   // Check if the page is a collection
   const collection = await getCollectionByHandle(endSlug)
 
+  // get settings, and homepage title
+  const client = getClient(draftMode)
+  const [settings, homePageTitle] = await Promise.all([
+    client.fetch<SettingsPayload | null>(settingsQuery),
+    client.fetch<string | null>(homePageTitleQuery),
+  ])
+
   // If the page is a collection, fetch the collection data
   if (collection) {
     // Build the full URL path by recursively fetching parent collections
@@ -67,20 +74,60 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     // Get products for the collection
     const formattedProducts = collection.products.edges.map((edge: Edge) => edge.node)
 
-    // get settings, and homepage title
-    const client = getClient(draftMode)
-    const [settings, homePageTitle] = await Promise.all([
-      client.fetch<SettingsPayload | null>(settingsQuery),
-      client.fetch<string | null>(homePageTitleQuery),
-    ])
+    return {
+      props: {
+        page: {
+          _type: 'shop',
+          ...collection,
+        },
+        settings: settings ?? {},
+        homePageTitle: homePageTitle ?? undefined,
+        canonicalUrl: getCanonicalUrl(fullUrl),
+        productSetting: null,
+        products: formattedProducts ?? null,
+        draftMode,
+      },
+      revalidate: 10,
+    }
+  }
+
+  const pagesByMetaField = ['brand', 'finish', 'range']
+
+  // Check if the page is sorted by a metafield
+  // get first slug segment after the first slash
+  const firstSlug = params.slug[0]
+
+  // if the firstSlug exists in the pagesByMetaField array get products by metafield
+
+  if (pagesByMetaField.includes(firstSlug)) {
+    // convert end slug to string, break at comma add a space, and capitalise first letter
+    const value = endSlug
+      .toString()
+      .split('-')
+      .join(' ')
+      .replace(/\b\w/g, (l) => l.toUpperCase())
+
+    const variables = {
+      key: firstSlug,
+      value: value,
+    }
+
+    const metafieldProducts = await callShopify(collectionByMetafieldQuery, variables)
+
+    const formattedProducts = metafieldProducts.data.collection.products.edges.map(
+      (edge: Edge) => edge.node,
+    )
+
+    // get full url from the slug
+    const fullUrl = '/' + (Array.isArray(params.slug) ? params.slug.join('/') : params.slug)
 
     return {
       props: {
         page: {
           _type: 'collection',
           data: {
-            ...collection,
             products: formattedProducts,
+            title: value,
           },
         },
         settings: settings ?? {},
@@ -94,7 +141,6 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   }
 
   // if the page is not a collection, fetch the page data from Sanity
-  const client = getClient(draftMode)
   let products = null
   let productSetting = null
 
@@ -104,12 +150,10 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   const canonicalUrl = getCanonicalUrl(joinedSlug)
 
   // Fetch the page data
-  const [settings, page, homePageTitle] = await Promise.all([
-    client.fetch<SettingsPayload | null>(settingsQuery),
+  const [page] = await Promise.all([
     client.fetch<PagePayload | null>(pagesBySlugQuery, {
       slug: joinedSlug, // Join the segments to form the full slug
     }),
-    client.fetch<string | null>(homePageTitleQuery),
   ])
 
   if (!page) {

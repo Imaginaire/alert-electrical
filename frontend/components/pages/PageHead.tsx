@@ -20,7 +20,7 @@ export default function PageHead({page, productSeo, settings, canonicalUrl}: Pag
 
   let robotsContent: string = prepareMetaRobots(robotsMeta || {}, siteNoIndex || false)
 
-  const metaTitle = productSeo?.title || page?.seo?.metaTitle
+  const metaTitle = productSeo?.title || page?.seo?.metaTitle || page?.title
   const metaDescription = productSeo?.description || page?.seo?.metaDescription
 
   return (

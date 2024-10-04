@@ -265,6 +265,7 @@ export interface PagePayload {
   name?: string
   seo?: SEO
   title?: string
+  description?: string
   slug?: string
   addToCartText?: string
   sections?: Sections[]

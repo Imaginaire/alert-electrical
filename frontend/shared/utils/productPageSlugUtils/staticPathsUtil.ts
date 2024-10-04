@@ -13,9 +13,9 @@ export const fetchStaticPaths = async () => {
 
     // Ensure that each product has a valid handle
     const paths = products
-      .map(({node}) => node.handle) // Get the handle (slug)
+      .map(({node}: {node: {handle: string}}) => node.handle) // Get the handle (slug)
       .filter(Boolean) // Filter out any undefined or null handles
-      .map((handle) => ({
+      .map((handle: string) => ({
         params: {productpage: handle}, // Return the slug as productpage
       }))
 

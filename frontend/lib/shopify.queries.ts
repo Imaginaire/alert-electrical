@@ -265,3 +265,49 @@ export const collectionByIdQuery = `
     }
   }
 `
+
+/**
+ * Query to fetch a collection by metafield
+ * @param key - The metafield key
+ * @param value - The metafield value
+ */
+export const collectionByMetafieldQuery = `
+  query getCollectionByMetafield($key: String!, $value: String!){
+    collection(handle: "all-products") {
+      handle
+      products(first: 24, filters:{
+        productMetafield:{
+          namespace: "custom",
+          key: $key,
+          value: $value
+        }
+      }) {
+        edges {
+          node {
+            id
+            title
+            slug: handle
+            brand: metafield(namespace: "custom", key: "brand") {
+              value
+            }
+            featuredImage {
+              url
+            }
+            priceRange {
+              maxVariantPrice{
+                amount
+              }
+              minVariantPrice{
+                amount
+              }
+            }
+          }
+          cursor
+        }
+        pageInfo{
+          hasNextPage
+        }
+        
+      }
+    }
+  }`

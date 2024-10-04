@@ -19,9 +19,13 @@ export function ShopPage({
 }: PageProps) {
   const [numOfProductsToShow, setNumOfProductsToShow] = useState<number>(24)
 
-  const {shortHero} = page || {}
+  const shortHero = page?.shortHero ?? {
+    header: page?.title,
+    description: page?.description,
+    shopifyData: true,
+  }
 
-  console.log(products)
+  console.log(page)
 
   return (
     <>
@@ -29,7 +33,7 @@ export function ShopPage({
 
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
-          {shortHero && <ShortHero {...shortHero} />}
+          <ShortHero {...shortHero} />
           <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 max-w-[1728px] mx-auto p-5 pt-9">
             {/* Products */}
             {products && products.length > 0 ? (

@@ -12,9 +12,15 @@ import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {ProductPageProduct, Variant} from '@/types/productType'
 import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsUtil'
 import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
+import {ProductPageProps} from '@/components/pages/ProductPage'
 
 // Render product details
-export default function ProductPage({product, settings, homePageTitle, productSetting}: any) {
+export default function ProductPage({
+  product,
+  settings,
+  homePageTitle,
+  productSetting,
+}: ProductPageProps) {
   const {warranty, delivery, cta} = productSetting || {}
 
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)

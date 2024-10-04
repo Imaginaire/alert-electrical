@@ -21,8 +21,6 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
   // Get cart state from context
   const {cartState} = useCart()
 
-  console.log(menuItems)
-
   return (
     <>
       {/* Cart Modal */}

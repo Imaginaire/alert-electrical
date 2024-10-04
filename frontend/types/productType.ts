@@ -100,4 +100,9 @@ export interface ProductPageProduct {
   lampsSupplied?: {value?: string}
   ipRating?: {value?: string}
   slug?: {value?: string}
+  seo?: {
+    title: string
+    metaTitle: string
+    metaDescription: string
+  }
 }
