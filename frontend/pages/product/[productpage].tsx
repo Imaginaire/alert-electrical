@@ -123,7 +123,7 @@ export default function ProductPage({
   const price = priceRange?.maxVariantPrice?.amount ?? 0
 
   const handlePrice = (price: number) => {
-    return price * quantity
+    return Number(price * quantity).toFixed(2)
   }
 
   const pages = [
