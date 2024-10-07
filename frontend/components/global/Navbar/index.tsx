@@ -28,7 +28,12 @@ export default function Navbar({
 
       {/* Mobile Nav */}
       <nav className="lg:hidden z-50">{navCta && <MobileCtaBanner ctas={navCta.ctas} />}</nav>
-      <Mobile menuItems={menuItems} companyInfo={companyInfo} contactPage={contactPage} />
+      <Mobile
+        menuItems={menuItems}
+        companyInfo={companyInfo}
+        contactPage={contactPage}
+        menuItemsRight={menuItemsRight}
+      />
 
       {deliveryInfoBar && <DeliveryInfoBar info={deliveryInfoBar.info} />}
     </>

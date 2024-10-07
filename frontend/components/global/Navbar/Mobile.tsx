@@ -1,36 +1,26 @@
-// Utils
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import dynamic from 'next/dynamic'
-import {resolveHref} from '@/shared/utils/resolveHref'
-
-// types
-import {NavbarProps} from '@/types'
-
-// components
 import Link from 'next/link'
 import Image from 'next/image'
 import urlForImage from '@/shared/utils/urlForImage'
 import HamburgerMenu from '@/components/shared/HamburgerMenu'
-import {Button} from '@/components/shared/Button'
 import Search from '@/svgs/Search'
 import MyAccount from '@/svgs/MyAccount'
 import Cart from '@/svgs/Cart'
 import CartWithItems from '@/svgs/CartWithItems'
-
-// context
+import MobileMenuModal from './MobileMenuModal' // Import the new modal component
 import {useCart} from '@/contexts/CartContext'
+import {NavbarProps} from '@/types'
 
-export default function Mobile({menuItems, companyInfo, contactPage}: NavbarProps) {
+export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
   const [isOpen, setIsOpen] = useState(false)
   const [showCartModal, setShowCartModal] = useState(false)
-
-  // Get cart state from context
   const {cartState} = useCart()
-
   const CartModal = dynamic(() => import('../CartModal'))
 
-  console.log('logo', logo)
+  const closeMenu = () => setIsOpen(false)
+
   return (
     <>
       {/* Cart Modal */}
@@ -66,14 +56,13 @@ export default function Mobile({menuItems, companyInfo, contactPage}: NavbarProp
           </li>
         </ul>
 
-        {isOpen && (
-          <div className="absolute top-0 left-0 right-15  w-3/4 h-full bg-white z-50">
-            <button className="p-5 font-manrope text-2xl" onClick={() => setIsOpen(false)}>
-              X
-            </button>
-            <hr className="border-gray-500" />
-          </div>
-        )}
+        {/* Mobile Menu Modal */}
+        <MobileMenuModal
+          menuItems={menuItems}
+          menuItemsRight={menuItemsRight}
+          isOpen={isOpen}
+          closeMenu={closeMenu}
+        />
       </div>
     </>
   )
