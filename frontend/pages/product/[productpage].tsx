@@ -47,7 +47,10 @@ export default function ProductPage({
     width,
     projection,
     seo,
+    id,
   } = product || {}
+
+  console.log('product', product)
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -92,13 +95,13 @@ export default function ProductPage({
       return item?.id && item.id === item.id
     })
     if (existingItem?.id && existingItem?.quantity) {
-      updateQuantity(existingItem.store.id, existingItem.quantity + quantity)
+      updateQuantity(existingItem.id, existingItem.quantity + quantity)
     } else {
       addToCart({
-        ...variants?.[0],
+        id,
         title,
         quantity,
-        previewImageUrl,
+        featuredImage: featuredImage?.url,
       })
     }
     setIsAddToCartClicked(true)

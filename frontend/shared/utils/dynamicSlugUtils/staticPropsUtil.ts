@@ -124,17 +124,16 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     return {
       props: {
         page: {
-          _type: 'collection',
-          data: {
-            products: formattedProducts,
-            title: value,
-          },
+          _type: 'shop',
+          title: value,
+          description: `Products by ${value}`,
         },
         settings: settings ?? {},
         homePageTitle: homePageTitle ?? undefined,
         canonicalUrl: getCanonicalUrl(fullUrl),
         productSetting: null,
         draftMode,
+        products: formattedProducts ?? null,
       },
       revalidate: 10,
     }
