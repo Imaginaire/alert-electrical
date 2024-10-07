@@ -24,7 +24,9 @@ export default function ProductCard({product}: ProductCardProps) {
         </div>
         <div className="my-2 text-xl self-stretch flex flex-col md:flex-row justify-between items-baseline">
           <span className="mb-2 md:mb-0 text-secondary text-sm uppercase">{brand?.value}</span>
-          <span className="text-primary">£{priceRange?.maxVariantPrice?.amount}</span>
+          <span className="text-primary">
+            £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
+          </span>
         </div>
         <h2 className="text-xl text-primary">{title}</h2>
       </Link>
