@@ -308,6 +308,25 @@ export interface Header {
   classes?: string
 }
 
+export interface BrowseProduct {
+  title: string
+  product1Handle: string
+  product2Handle: string
+  product3Handle: string
+  product4Handle: string
+  product5Handle: string
+  product6Handle: string
+}
+
+export interface BrowseProducts {
+  header: Header
+  headerLink: Slug
+  headerLinkText: string
+  menuItems: BrowseProduct[]
+  newInFallback?: boolean
+  bestSellersFallback?: boolean
+}
+
 export interface CtaBanner {
   ctas?: {
     text: string

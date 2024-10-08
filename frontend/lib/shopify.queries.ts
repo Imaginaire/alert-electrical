@@ -97,6 +97,39 @@ export const productsQuery = `
     }
   }
 `
+
+export const productsQuerySortKey = `
+  query productsQuery($sortKey: ProductSortKeys) {
+    products(first: 6 sortKey: $sortKey) {
+      edges {
+        node {
+          id
+          title
+          slug: handle
+          brand: metafield(namespace: "custom", key: "brand") {
+            value
+          }
+          featuredImage {
+            url
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+`
+
 export const productQuery = `
   query productQuery($handle: String!) {
     product(handle: $handle) {

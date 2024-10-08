@@ -23,7 +23,7 @@ export default function TrendingCollections(trendingCollectionsData: TrendingCol
 
           {/* Header Link */}
           <Link href={typeof slug === 'string' ? slug : ''} className="group relative mt-4 sm:mt-0">
-            <span className="text-xl uppercase text-primary">{linkText}</span>
+            <span className=" uppercase text-primary">{linkText}</span>
             <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
           </Link>
         </div>

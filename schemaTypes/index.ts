@@ -24,6 +24,7 @@ const sections = [
   textImageType,
   textMapType,
   trendingCollectionsType,
+  browseProductsType,
 ]
 
 import {pageType} from './documents/page'
@@ -37,6 +38,7 @@ import {settingsType} from './singletons/settingsType'
 import {shopType} from './singletons/shopType'
 import {cartType} from './singletons/cartType'
 import {redirectionsType} from './singletons/redirectionsType'
+import {browseProductsType} from './objects/sections/browseProductsType'
 
 const singletons = [homeType, settingsType, shopType, cartType, redirectionsType]
 
