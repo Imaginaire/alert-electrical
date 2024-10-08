@@ -310,12 +310,12 @@ export interface Header {
 
 export interface BrowseProduct {
   title: string
-  product1Handle: string
-  product2Handle: string
-  product3Handle: string
-  product4Handle: string
-  product5Handle: string
-  product6Handle: string
+  product1Title: string
+  product2Title: string
+  product3Title: string
+  product4Title: string
+  product5Title: string
+  product6Title: string
 }
 
 export interface BrowseProducts {

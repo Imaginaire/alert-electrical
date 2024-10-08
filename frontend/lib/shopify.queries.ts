@@ -120,6 +120,14 @@ export const productsQuerySortKey = `
               amount
             }
           }
+          compareAtPriceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
         }
         cursor
       }
@@ -129,6 +137,46 @@ export const productsQuerySortKey = `
     }
   }
 `
+
+export const productsQueryByTitles = `
+  query productsQuery($titlesQuery: String!) {
+    products(first: 6, query:$titlesQuery) {
+      edges {
+        node {
+          id
+          title
+          slug: handle
+          brand: metafield(namespace: "custom", key: "brand") {
+            value
+          }
+          featuredImage {
+            url
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+          compareAtPriceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+  `
 
 export const productQuery = `
   query productQuery($handle: String!) {

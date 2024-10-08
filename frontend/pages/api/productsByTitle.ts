@@ -1,21 +1,25 @@
 import {callShopify} from '@/lib/shopify.helpers'
 import {NextApiRequest, NextApiResponse} from 'next'
-import {productsQuerySortKey} from '@/lib/shopify.queries'
+import {productsQueryByTitles} from '@/lib/shopify.queries'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
 
-  // Extract sortKey from body
-  const {sortKey} = body
+  // Extract handlesQuery from body
+  const {titlesQuery} = body
+
+  console.log('handlesQuery', titlesQuery)
 
   try {
-    const productsResponse = await callShopify(productsQuerySortKey, {sortKey: sortKey})
+    const productsResponse = await callShopify(productsQueryByTitles, {titlesQuery: titlesQuery})
 
     if (!productsResponse || productsResponse.errors) {
       throw new Error('An error occurred while fetching products')
     }
 
     const products = productsResponse.data.products.edges.map((edge: any) => edge.node)
+
+    console.log('productsByHandles', productsResponse)
 
     return res.status(200).json({products})
   } catch (error) {
