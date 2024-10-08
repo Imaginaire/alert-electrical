@@ -29,6 +29,7 @@ export default function ProductPage({
     descriptionHtml,
     featuredImage,
     priceRange,
+    compareAtPriceRange,
     height,
     sizeDiameter,
     cutOutDiameter,
@@ -120,12 +121,6 @@ export default function ProductPage({
     {name: 'warranty', items: [warranty ?? '']},
   ]
 
-  const price = priceRange?.maxVariantPrice?.amount ?? 0
-
-  const handlePrice = (price: number) => {
-    return Number(price * quantity).toFixed(2)
-  }
-
   const pages = [
     {name: 'Ceiling Lights', href: '/product', current: false},
     {name: title, current: true},
@@ -160,7 +155,20 @@ export default function ProductPage({
                   <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
                     <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
                     <p className="my-6 lg:mb-0 text-2xl text-center text-secondary">
-                      £{handlePrice(price)}
+                      <span
+                        className={
+                          Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                            ? 'text-sm text-secondary mr-3 line-through'
+                            : 'text-primary'
+                        }
+                      >
+                        £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
+                      </span>
+                      <span className="text-primary">
+                        {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                          ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
+                          : null}
+                      </span>
                     </p>
                   </div>
 

@@ -80,6 +80,14 @@ export const productsQuery = `
               amount
             }
           }
+          compareAtPriceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
+            }
+          }
         }
         cursor
       }
@@ -108,6 +116,14 @@ export const productQuery = `
             }
             minVariantPrice {
                 amount
+            }
+        }
+        compareAtPriceRange {
+            maxVariantPrice {
+              amount
+            }
+            minVariantPrice {
+              amount
             }
         }
         vendor
