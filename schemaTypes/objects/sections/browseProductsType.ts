@@ -47,45 +47,35 @@ export const browseProductsType = defineType({
             }),
             defineField({
               type: 'string',
-              name: 'product1Handle',
-              title: 'Product 1 Handle',
+              name: 'product1Title',
+              title: 'Product 1 Title',
               description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+                'The title of the product that you want to display. This can be found on the Shopify product page.',
             }),
             defineField({
               type: 'string',
-              name: 'product2Handle',
-              title: 'Product 2 Handle',
-              description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+              name: 'product2Title',
+              title: 'Product 2 Title',
             }),
             defineField({
               type: 'string',
-              name: 'product3Handle',
-              title: 'Product 3 Handle',
-              description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+              name: 'product3Title',
+              title: 'Product 3 Title',
             }),
             defineField({
               type: 'string',
-              name: 'product4Handle',
-              title: 'Product 4 Handle',
-              description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+              name: 'product4Title',
+              title: 'Product 4 Title',
             }),
             defineField({
               type: 'string',
-              name: 'product5Handle',
-              title: 'Product 5 Handle',
-              description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+              name: 'product5Title',
+              title: 'Product 5 Title',
             }),
             defineField({
               type: 'string',
-              name: 'product6Handle',
-              title: 'Product 6 Handle',
-              description:
-                'The handle of the product you want to link to. This is the part of the URL that comes after /products/. in the Shopify admin panel.',
+              name: 'product6Title',
+              title: 'Product 6 Title',
             }),
           ],
         }),
