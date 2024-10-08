@@ -1,26 +1,30 @@
 import {callShopify} from '@/lib/shopify.helpers'
+import {collectionByMetafieldQuery} from '@/lib/shopify.queries'
 import {NextApiRequest, NextApiResponse} from 'next'
-import {productsQueryByTitles} from '@/lib/shopify.queries'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
 
-  // Extract handlesQuery from body
-  const {titlesQuery} = body
+  const {brand} = body
+
+  console.log(brand)
 
   try {
-    const productsResponse = await callShopify(productsQueryByTitles, {titlesQuery: titlesQuery})
+    const productsResponse = await callShopify(collectionByMetafieldQuery, {
+      key: 'brand',
+      value: brand,
+    })
 
     if (!productsResponse || productsResponse.errors) {
       throw new Error('An error occurred while fetching products')
     }
 
-    const products = productsResponse.data.products.edges.map((edge: any) => edge.node)
+    console.log('productsByBrand', productsResponse.data.collection.products)
 
-    console.log('productsByHandles', productsResponse)
+    const products = productsResponse.data.collection.products.edges.map((edge: any) => edge.node)
 
     return res.status(200).json({products})
-  } catch (error) {
+  } catch {
     res.status(500).json({error: 'An error occurred while fetching products'})
   }
 }

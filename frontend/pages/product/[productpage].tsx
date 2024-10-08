@@ -13,6 +13,7 @@ import {ProductPageProduct, Variant} from '@/types/productType'
 import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsUtil'
 import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
 import {ProductPageProps} from '@/components/pages/ProductPage'
+import RecommendedProducts from '@/components/sections/RecommendedProducts'
 
 // Render product details
 export default function ProductPage({
@@ -50,8 +51,6 @@ export default function ProductPage({
     seo,
     id,
   } = product || {}
-
-  console.log('product', product)
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -237,6 +236,8 @@ export default function ProductPage({
               </div>
             </div>
           </div>
+
+          {brand?.value && <RecommendedProducts brand={brand?.value || ''} />}
 
           {/* Large CTA */}
           {cta && <LargeCta {...cta} />}
