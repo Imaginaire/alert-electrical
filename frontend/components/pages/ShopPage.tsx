@@ -25,7 +25,7 @@ export function ShopPage({
     shopifyData: true,
   }
 
-  console.log(page)
+  console.log(products)
 
   return (
     <>
