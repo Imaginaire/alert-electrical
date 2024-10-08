@@ -147,6 +147,11 @@ export default function ProductPage({
                   sizes="50vw"
                   className="object-contain"
                 />
+                {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
+                  <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white">
+                    SALE
+                  </span>
+                )}
               </div>
 
               {/* Product info */}
