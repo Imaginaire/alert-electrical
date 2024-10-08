@@ -21,6 +21,11 @@ export default function ProductCard({product}: ProductCardProps) {
             sizes="100vw"
             style={{objectFit: 'contain'}}
           />
+          {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
+            <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white">
+              SALE
+            </span>
+          )}
         </div>
         <div className="my-2 text-xl self-stretch flex flex-col md:flex-row justify-between items-baseline">
           <span className="mb-2 md:mb-0 text-secondary text-sm uppercase">{brand?.value}</span>
