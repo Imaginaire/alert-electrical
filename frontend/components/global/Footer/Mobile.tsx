@@ -9,7 +9,7 @@ import GetInTouch from './GetInTouch'
 
 export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) {
   return (
-    <footer className="xl:hidden bg-primary pb-10">
+    <footer className="md:hidden bg-primary pb-10">
       <div className="divide-y divide-white border-b ">
         {footer?.columns?.map((column, index) => (
           <Disclosure key={index} as="div">

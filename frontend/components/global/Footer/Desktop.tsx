@@ -7,8 +7,8 @@ import GetInTouch from './GetInTouch'
 
 export default function Desktop({footer, companyInfo, socialMedia}: FooterProps) {
   return (
-    <footer className="hidden xl:block bg-primary text-white px-7 py-[52px]">
-      <div className="flex items-start justify-between">
+    <footer className="hidden md:block bg-primary text-white px-7 py-[52px]">
+      <div className="grid grid-cols-3 gap-8 lg:grid-cols-6 justify-between">
         {footer &&
           footer.columns?.map((column, index) => {
             return (
