@@ -65,6 +65,7 @@ export interface ShopPageProduct {
   brand?: {value?: string}
   id?: string
   priceRange?: PriceRange
+  compareAtPriceRange?: PriceRange
   slug?: string
 }
 
@@ -77,6 +78,7 @@ export interface ProductPageProduct {
   }
   id?: string
   priceRange?: PriceRange
+  compareAtPriceRange?: PriceRange
   brand?: {value?: string}
   range?: {value?: string}
   finish?: {value?: string}
