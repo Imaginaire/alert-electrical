@@ -13,7 +13,8 @@
   ```
 */
 
-import {useState} from 'react'
+import {ChangeEvent, useState} from 'react'
+import {useRouter, useSearchParams} from 'next/navigation'
 import {
   Dialog,
   DialogBackdrop,
@@ -21,11 +22,8 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  ListboxOption,
   Menu,
   MenuButton,
-  MenuItem,
-  MenuItems,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -33,53 +31,116 @@ import {
 } from '@headlessui/react'
 import {XMarkIcon, AdjustmentsHorizontalIcon, CheckIcon} from '@heroicons/react/24/outline'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
+import {MenuItem} from '../../types'
 
-const filters = [
-  {
-    id: 'price',
-    name: 'Price',
-    options: [
-      {value: 'tees', label: 'Tees'},
-      {value: 'crewnecks', label: 'Crewnecks'},
-      {value: 'hats', label: 'Hats'},
-    ],
-  },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      {value: 'clothing-company', label: 'Clothing Company'},
-      {value: 'fashion-inc', label: 'Fashion Inc.'},
-      {value: 'shoes-n-more', label: "Shoes 'n More"},
-    ],
-  },
-  {
-    id: 'brand',
-    name: 'Brand',
-    options: [
-      {value: 'white', label: 'White'},
-      {value: 'black', label: 'Black'},
-      {value: 'grey', label: 'Grey'},
-    ],
-  },
-  {
-    id: 'finish',
-    name: 'Finish',
-    options: [
-      {value: 's', label: 'S'},
-      {value: 'm', label: 'M'},
-      {value: 'l', label: 'L'},
-    ],
-  },
-]
+interface FilterProps {
+  menuItems?: MenuItem[]
+}
 
-export default function Filter() {
-  const [open, setOpen] = useState(false)
+type FilterId = 'price' | 'category' | 'brand' | 'finish'
+
+type SelectedFilters = {
+  [key in FilterId]?: string
+}
+
+export default function Filter({menuItems}: FilterProps) {
+  // const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({})
+
+  // console.log({selectedFilters})
+
+  const router = useRouter()
+
+  const filtersData = menuItems?.[1]
+  const categoryColumn = filtersData?.megaMenuItemsColumn1
+  const brandColumn = filtersData?.megaMenuItemsColumn3
+  const finishColumn = filtersData?.megaMenuItemsColumn4
+
+  const filters = [
+    {
+      id: 'price',
+      caption: 'Price',
+      options: [
+        {value: '<1000', label: '<£1000'},
+        {value: '1000-2000', label: '£1000-£2000'},
+        {value: '>2000', label: '>£2000'},
+      ],
+    },
+  ]
+
+  if (categoryColumn) {
+    filters.push({
+      id: 'category',
+      caption: 'Category',
+      options: categoryColumn.map((item) => ({
+        value: item.link?.current,
+        label: item.title,
+      })),
+    })
+  }
+
+  if (brandColumn) {
+    filters.push({
+      id: 'brand',
+      caption: 'Brand',
+      options: brandColumn.map((item) => ({
+        value: item.link?.current,
+        label: item.title,
+      })),
+    })
+  }
+
+  if (finishColumn) {
+    filters.push({
+      id: 'finish',
+      caption: 'Finish',
+      options: finishColumn.map((item) => ({
+        value: item.link?.current,
+        label: item.title,
+      })),
+    })
+  }
+
+  const searchParams = useSearchParams()
+
+  const handleCheckboxChange = (filterId: string, value: string, checked: boolean) => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const currentFilterValues = searchParams.get(filterId)
+
+    if (checked) {
+      if (!currentFilterValues) {
+        // If the filterId is not in the URL, add it
+        searchParams.set(filterId, value)
+      } else {
+        // If filterId exists, add the new value while retaining the existing ones
+        const valuesArray = currentFilterValues.split(',')
+        if (!valuesArray.includes(value)) {
+          valuesArray.push(value)
+        }
+        searchParams.set(filterId, valuesArray.join(','))
+      }
+    } else {
+      // If the filter is being unchecked
+      if (currentFilterValues) {
+        let valuesArray = currentFilterValues.split(',')
+        valuesArray = valuesArray.filter((item) => item !== value)
+        if (valuesArray.length > 0) {
+          searchParams.set(filterId, valuesArray.join(','))
+        } else {
+          searchParams.delete(filterId) // Remove filterId if no values remain
+        }
+      }
+    }
+
+    // Update the URL while retaining other query parameters
+    router.push(`shop?${searchParams.toString()}`)
+  }
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <div className="filter">
       {/* Mobile filter dialog */}
-      <Dialog open={open} onClose={setOpen} className="relative z-40 md:hidden">
+      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="relative z-40 md:hidden">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
@@ -94,7 +155,7 @@ export default function Filter() {
               <h2 className="text-lg font-medium text-gray-900">Filters</h2>
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => setMobileMenuOpen(false)}
                 className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <span className="sr-only">Close menu</span>
@@ -104,15 +165,11 @@ export default function Filter() {
 
             {/* Filters */}
             <form className="mt-4">
-              {filters.map((section) => (
-                <Disclosure
-                  key={section.name}
-                  as="div"
-                  className="border-t border-gray-200 px-4 py-6"
-                >
+              {filters.map((filter) => (
+                <Disclosure key={filter.id} as="div" className="border-t border-gray-200 px-4 py-6">
                   <h3 className="-mx-2 -my-3 flow-root">
                     <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
-                      <span className="font-medium text-gray-900">{section.name}</span>
+                      <span className="font-medium text-gray-900">{filter.caption}</span>
                       <span className="ml-6 flex items-center">
                         <ChevronDownIcon
                           aria-hidden="true"
@@ -123,17 +180,17 @@ export default function Filter() {
                   </h3>
                   <DisclosurePanel className="pt-6">
                     <div className="space-y-6">
-                      {section.options.map((option, optionIdx) => (
-                        <div key={option.value} className="flex items-center">
+                      {filter.options.map((option, optionIdx) => (
+                        <div key={option.value ?? option.label} className="flex items-center">
                           <input
                             defaultValue={option.value}
-                            id={`filter-mobile-${section.id}-${optionIdx}`}
-                            name={`${section.id}[]`}
+                            id={`filter-mobile-${filter.id}-${optionIdx}`}
+                            name={`${filter.id}[]`}
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                           <label
-                            htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                            htmlFor={`filter-mobile-${filter.id}-${optionIdx}`}
                             className="ml-3 text-sm text-gray-500"
                           >
                             {option.label}
@@ -149,8 +206,8 @@ export default function Filter() {
         </div>
       </Dialog>
 
-      <div className="max-w-3xl px-4 text-center md:px-6 lg:max-w-7xl lg:px-8">
-        <section aria-labelledby="filter-heading" className="border-gray-200 py-6">
+      <div className="max-w-3xl text-center  lg:max-w-7xl ">
+        <section aria-labelledby="filter-heading" className="border-gray-200 py-4">
           <h2 id="filter-heading" className="sr-only">
             Product filters
           </h2>
@@ -158,7 +215,7 @@ export default function Filter() {
           <Menu as="div" className="flex items-center justify-between font-manrope">
             <MenuButton
               type="button"
-              onClick={() => setOpen(true)}
+              onClick={() => setMobileMenuOpen(true)}
               className="inline-block text-sm text-gray-700 hover:text-gray-900 md:hidden flex gap-3 w-full"
             >
               <AdjustmentsHorizontalIcon className="w-6" />
@@ -167,16 +224,16 @@ export default function Filter() {
 
             <PopoverGroup className="hidden md:flex md:items-baseline sm:space-x-14">
               <p>Filter products</p>
-              {filters.map((section, sectionIdx) => (
+              {filters.map((filter, filterIdx) => (
                 <Popover
-                  key={section.name}
-                  id={`desktop-menu-${sectionIdx}`}
+                  key={filter.id}
+                  id={`desktop-menu-${filterIdx}`}
                   className="relative inline-block text-left"
                 >
                   <div>
                     <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                      <span className="text-base font-light">{section.name}</span>
-                      {/* {sectionIdx === 0 ? (
+                      <span className="text-base font-light">{filter.caption}</span>
+                      {/* {filterIdx === 0 ? (
                         <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                           1
                         </span>
@@ -193,17 +250,21 @@ export default function Filter() {
                     className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                   >
                     <form className="space-y-4">
-                      {section.options.map((option, optionIdx) => (
-                        <div key={option.value} className="flex items-center">
+                      {filter.options.map((option, optionIdx) => (
+                        <div key={option.value ?? option.label} className="flex items-center">
                           <input
-                            defaultValue={option.value}
-                            id={`filter-${section.id}-${optionIdx}`}
-                            name={`${section.id}[]`}
+                            checked={searchParams.get(filter.id)?.split(',').includes(option.value)}
+                            id={`filter-${filter.id}-${optionIdx}`}
+                            name={`${filter.id}[]`}
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            onChange={(e) => {
+                              const checked = e.target.checked
+                              handleCheckboxChange(filter.id, option.value, checked)
+                            }}
                           />
                           <label
-                            htmlFor={`filter-${section.id}-${optionIdx}`}
+                            htmlFor={`filter-${filter.id}-${optionIdx}`}
                             className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900"
                           >
                             {option.label}

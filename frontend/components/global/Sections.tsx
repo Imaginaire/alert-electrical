@@ -11,8 +11,6 @@ interface SectionsProps {
 }
 
 export default function Sections({sections, settings}: SectionsProps) {
-  console.log(sections)
-
   return (
     <>
       {sections && sections.length > 0 && (

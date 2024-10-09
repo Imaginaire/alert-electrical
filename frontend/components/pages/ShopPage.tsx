@@ -35,10 +35,10 @@ export function ShopPage({
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
           <ShortHero {...shortHero} />
-          <div className="max-w-[1728px] mx-auto p-5 pt-9">
+          <div className="max-w-[1728px] mx-auto p-5 pt-0">
             {/* Filter */}
-            <Filter />
-            <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 ">
+            <Filter menuItems={settings?.menuItems} />
+            <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 pt-9">
               {/* Products */}
               {products && products.length > 0 ? (
                 products.map((product) => {
