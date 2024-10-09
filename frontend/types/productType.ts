@@ -22,7 +22,8 @@ export interface Variant {
   _type?: string
   _key?: string
   _id?: string
-  previewImageUrl?: string
+  featuredImage?: string
+  price?: number
   title?: string
   store?: {
     [key: string]: string | number | string[] | {} | undefined
@@ -107,4 +108,8 @@ export interface ProductPageProduct {
     metaTitle: string
     metaDescription: string
   }
+  variants: {
+    id: string
+    title: string
+  }[]
 }

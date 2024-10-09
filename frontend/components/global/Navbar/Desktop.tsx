@@ -9,8 +9,7 @@ import dynamic from 'next/dynamic'
 import MegaMenu from './MegaMenu'
 import {useCart} from '@/contexts/CartContext'
 import {MenuItem, NavbarProps} from '@/types'
-
-const CartModal = dynamic(() => import('../CartModal'))
+import CartModal from '../CartModal'
 
 export default function Desktop({menuItems, menuItemsRight, companyInfo}: NavbarProps) {
   const {logo} = companyInfo || {}

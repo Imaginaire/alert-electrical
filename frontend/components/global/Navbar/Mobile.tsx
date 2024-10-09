@@ -11,13 +11,13 @@ import CartWithItems from '@/svgs/CartWithItems'
 import MobileMenuModal from './MobileMenuModal' // Import the new modal component
 import {useCart} from '@/contexts/CartContext'
 import {NavbarProps} from '@/types'
+import CartModal from '../CartModal'
 
 export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
   const [isOpen, setIsOpen] = useState(false)
   const [showCartModal, setShowCartModal] = useState(false)
   const {cartState} = useCart()
-  const CartModal = dynamic(() => import('../CartModal'))
 
   const closeMenu = () => setIsOpen(false)
 

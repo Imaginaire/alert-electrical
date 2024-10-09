@@ -184,6 +184,14 @@ export const productQuery = `
         title
         description
         descriptionHtml
+        variants(first:1){
+          edges{
+            node {
+              id
+              title
+            }
+          }
+        }
         seo {
           title
           description

@@ -1,6 +1,11 @@
-import {useCart} from '@/contexts/CartContext'
+// Components
 import CartModalItem from './CartModalItem'
-import {useEffect, useState} from 'react'
+
+// Utils
+import {useEffect, useState, useCallback} from 'react'
+
+// Contexts
+import {useCart} from '@/contexts/CartContext'
 
 interface CartModalProps {
   setShowCartModal: (show: boolean) => void
@@ -10,20 +15,28 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
   const {cartState, removeFromCart, checkout, updateQuantity} = useCart()
   const {cart} = cartState
 
-  // State to trigger animations
+  // State to trigger animations (only when the modal is first opened)
   const [isVisible, setIsVisible] = useState(false)
+  // State to handle loading state of the checkout button
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // Allow the animations to trigger after the initial render
+    // Only trigger fade-in when the modal is first opened
     setIsVisible(true)
   }, [])
 
   // Calculate subtotal by summing the total price of each item
   const subtotal = cart.reduce((total, item) => {
-    const itemPrice = item?.store?.price || 0
+    const itemPrice = item?.price || 0
     const itemQuantity = item.quantity || 1
     return total + itemPrice * itemQuantity
   }, 0)
+
+  // Memoize the callback to prevent re-rendering
+  const handleClose = useCallback(() => {
+    setIsVisible(false)
+    setTimeout(() => setShowCartModal(false), 300) // delay to allow fade-out
+  }, [setShowCartModal])
 
   return (
     <div className="cartModal fixed inset-0 z-[60]">
@@ -31,10 +44,7 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
       <div className="relative w-full h-full flex justify-end">
         {/* Overlay */}
         <div
-          onClick={() => {
-            setIsVisible(false)
-            setTimeout(() => setShowCartModal(false), 300) // delay to allow fade-out
-          }}
+          onClick={handleClose}
           className={`absolute inset-0 bg-black transition-opacity duration-300 ${
             isVisible ? 'opacity-60' : 'opacity-0'
           } z-[60]`}
@@ -51,13 +61,7 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
             <h2 className="text-primary text-2xl flex flex-col ">Cart</h2>
 
             {/* Close Button */}
-            <button
-              className="ml-auto text-primary"
-              onClick={() => {
-                setIsVisible(false)
-                setTimeout(() => setShowCartModal(false), 300) // delay to allow animation
-              }}
-            >
+            <button className="ml-auto text-primary" onClick={handleClose}>
               X
             </button>
           </div>
@@ -83,9 +87,9 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
             {/* Subtotal */}
             {cart.length > 0 && (
               <div className="px-6 pt-6 border-t-secondary border-t-[0.5px]">
-                <p className="flex justify-between text-xl">
+                <p className="flex justify-between text-xl text-primary">
                   <span>Subtotal</span>
-                  <span>£{subtotal.toFixed(2)}</span>
+                  <span>£{subtotal && subtotal.toFixed(2)}</span>
                 </p>
               </div>
             )}
@@ -93,8 +97,20 @@ export default function CartModal({setShowCartModal}: CartModalProps) {
             {/* Checkout Button */}
             {cart.length > 0 && (
               <div className="p-6 border-t-secondary">
-                <button className="bg-primary text-white px-4 py-2 w-full" onClick={checkout}>
-                  Checkout
+                <button
+                  className="bg-primary text-white px-4 py-2 w-full flex items-center justify-center"
+                  onClick={async () => {
+                    setLoading(true)
+                    await checkout()
+                    setLoading(false)
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <div className="w-5 h-5 border-2 border-t-transparent border-white border-solid rounded-full animate-spin"></div>
+                  ) : (
+                    'Checkout'
+                  )}
                 </button>
               </div>
             )}
