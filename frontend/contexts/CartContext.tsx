@@ -9,14 +9,14 @@ type CartAction =
   | {type: 'SET_CART'; payload: Variant[]} // For setting initial cart items
   | {type: 'UPDATE_QUANTITY'; payload: {id: number; quantity: number}} // For updating quantity
 
+// Define the structure of the checkout response
+type CheckoutResponse = {
+  checkoutUrl: string
+}
+
 // Define the cart state structure
 type CartState = {
   cart: Variant[]
-}
-
-// Define cart API responses
-type CheckoutResponse = {
-  checkoutUrl: string
 }
 
 // Initial empty state
@@ -27,15 +27,32 @@ const initialState: CartState = {
 // Create a reducer function to manage cart actions
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case 'ADD_TO_CART': {
+      const existingProductIndex = state.cart.findIndex(
+        (item) => item.store?.id === action.payload.store?.id,
+      )
+
+      if (existingProductIndex !== -1) {
+        // If product already exists in the cart, update the quantity
+        const updatedCart = [...state.cart]
+        const existingProduct = updatedCart[existingProductIndex]
+        updatedCart[existingProductIndex] = {
+          ...existingProduct,
+          quantity: (existingProduct.quantity || 1) + (action.payload.quantity || 1),
+        }
+        return {...state, cart: updatedCart}
+      }
+
+      // Otherwise, add the new product to the cart
       return {
         ...state,
         cart: [...state.cart, action.payload],
       }
+    }
     case 'REMOVE_FROM_CART':
       return {
         ...state,
-        cart: state.cart.filter((item) => item?.store?.id !== action.payload),
+        cart: state.cart.filter((item) => item.store?.id !== action.payload),
       }
     case 'CLEAR_CART':
       return {
@@ -51,7 +68,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item?.store?.id === action.payload.id
+          item.store?.id === action.payload.id
             ? {...item, quantity: action.payload.quantity}
             : item,
         ),
@@ -82,8 +99,6 @@ const CartContext = createContext<{
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [cartState, dispatch] = useReducer(cartReducer, initialState)
   const [isInitialised, setIsInitialised] = useState(false)
-
-  console.log(cartState)
 
   // Sync with localStorage whenever cart changes
   useEffect(() => {

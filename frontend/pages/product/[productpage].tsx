@@ -9,7 +9,6 @@ import CartBanner from '@/components/product/CartBanner'
 import LargeCta from '@/components/sections/LargeCta'
 import {useCart} from '@/contexts/CartContext'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
-import {ProductPageProduct, Variant} from '@/types/productType'
 import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsUtil'
 import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
 import {ProductPageProps} from '@/components/pages/ProductPage'
@@ -52,7 +51,12 @@ export default function ProductPage({
     projection,
     seo,
     id,
+    variants,
   } = product || {}
+
+  console.log(variants)
+
+  const variantId = variants?.edges[0].node.id
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -80,6 +84,19 @@ export default function ProductPage({
     {label: 'Wattage', value: wattage?.value},
   ]
 
+  const details = [
+    {name: 'About the product', items: [{value: aboutProductArray}]},
+    {
+      name: 'Sizing & technical information',
+      items: [
+        {title: 'Sizing', value: sizeInfoArray},
+        {title: 'Technical Information', value: specsArray},
+      ],
+    },
+    {name: 'delivery information', items: delivery ? [delivery] : []},
+    {name: 'warranty', items: [warranty ?? '']},
+  ]
+
   const [quantity, setQuantity] = useState<number>(1)
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -98,43 +115,20 @@ export default function ProductPage({
   }, [router, breadcrumbs])
 
   const handleAddToCart = () => {
-    // add to local storage while user is browsing
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Variant[]
-
-    // check if cart already has the item, if so, update the quantity
-    const existingItem = cart.find((item: ProductPageProduct) => {
-      return item?.id && item.id === item.id
-    })
-    if (existingItem?.id && existingItem?.quantity) {
-      updateQuantity(existingItem.id, existingItem.quantity + quantity)
-    } else {
-      addToCart({
-        id,
-        title,
-        quantity,
-        featuredImage: featuredImage?.url,
-      })
+    const variant = {
+      id: variantId,
+      title,
+      quantity, // Pass the selected quantity
+      featuredImage: featuredImage?.url,
+      price: priceRange?.maxVariantPrice?.amount,
+      store: {
+        id: variantId, // Include the unique variant ID here
+      },
     }
+
+    addToCart(variant) // Use the updated addToCart logic
     setIsAddToCartClicked(true)
   }
-
-  const details = [
-    {name: 'About the product', items: [{value: aboutProductArray}]},
-    {
-      name: 'Sizing & technical information',
-      items: [
-        {title: 'Sizing', value: sizeInfoArray},
-        {title: 'Technical Information', value: specsArray},
-      ],
-    },
-    {name: 'delivery information', items: delivery ? [delivery] : []},
-    {name: 'warranty', items: [warranty ?? '']},
-  ]
-
-  const pages = [
-    {name: 'Ceiling Lights', href: '/product', current: false},
-    {name: title, current: true},
-  ]
 
   return (
     <>

@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const lines = cartItems.map((item: {variantId: string; quantity: number}) => {
     return {
       quantity: item.quantity,
-      merchandiseId: `gid://shopify/ProductVariant/${item.variantId}`,
+      merchandiseId: item.variantId,
     }
   })
 
