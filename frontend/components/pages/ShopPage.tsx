@@ -4,10 +4,12 @@ import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import {resolveHref} from '@/shared/utils/resolveHref'
 import Link from 'next/link'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import ShortHero from '../sections/ShortHero'
 import ProductCard from '../global/ProductCard'
 import Filter from '../shop/Filter'
+import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
+import {useRouter} from 'next/router'
 
 export function ShopPage({
   page,
@@ -26,7 +28,15 @@ export function ShopPage({
     shopifyData: true,
   }
 
-  console.log(products)
+  const router = useRouter()
+  const {setBreadcrumbsFromUrl} = useBreadcrumbs()
+
+  // set breadcrumbs
+  useEffect(() => {
+    if (router && router.asPath) {
+      setBreadcrumbsFromUrl(router.asPath)
+    }
+  }, [router])
 
   return (
     <>
