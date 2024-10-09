@@ -14,7 +14,7 @@
 */
 
 import {useState} from 'react'
-import {useRouter, useSearchParams} from 'next/navigation'
+import {useRouter, useSearchParams, usePathname} from 'next/navigation'
 import {
   Dialog,
   DialogBackdrop,
@@ -43,6 +43,7 @@ interface FilterProps {
 export default function Filter({menuItems}: FilterProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const pathname = usePathname()
 
   const filtersData = menuItems?.[1]
   const categoryColumn = filtersData?.megaMenuItemsColumn1
@@ -121,10 +122,10 @@ export default function Filter({menuItems}: FilterProps) {
     const newSearchParamsString = newSearchParams.toString()
 
     if (!newSearchParamsString) {
-      router.push('shop')
+      router.push(pathname)
     } else {
       // Update the URL while retaining other query parameters
-      router.push(`shop?${newSearchParamsString}`)
+      router.push(`${pathname}?${newSearchParamsString}`)
     }
   }
 
@@ -141,10 +142,10 @@ export default function Filter({menuItems}: FilterProps) {
     const newSearchParamsString = newSearchParams.toString()
 
     if (!newSearchParamsString) {
-      router.push('shop')
+      router.push(pathname)
     } else {
       // Update the URL while retaining other query parameters
-      router.push(`shop?${newSearchParamsString}`)
+      router.push(`${pathname}?${newSearchParamsString}`)
     }
   }
 
