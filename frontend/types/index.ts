@@ -109,22 +109,22 @@ export interface MenuItem {
   megaMenuItemsColumn1Title?: string
   megaMenuItemsColumn1?: {
     title: string
-    link: string
+    link: Slug
   }[]
   megaMenuItemsColumn2Title?: string
   megaMenuItemsColumn2?: {
     title: string
-    link: string
+    link: Slug
   }[]
   megaMenuItemsColumn3Title?: string
   megaMenuItemsColumn3?: {
     title: string
-    link: string
+    link: Slug
   }[]
   megaMenuItemsColumn4Title?: string
   megaMenuItemsColumn4?: {
     title: string
-    link: string
+    link: Slug
   }[]
   megaMenuImage?: Image
   megaMenuImageLink?: string
@@ -276,8 +276,8 @@ export interface PagePayload {
 }
 
 export interface SettingsPayload {
-  menuItems?: MenuItems
-  menuItemsRight?: MenuItemsRight
+  menuItems?: MenuItem[]
+  menuItemsRight?: MenuItemRight[]
   contactPage?: PagePayload
   companyInfo?: CompanyInformation
   googleTagManager?: GoogleTagManager
