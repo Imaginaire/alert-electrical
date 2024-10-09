@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Image from 'next/image'
 import PageHead from '@/components/pages/PageHead'
 import Layout from '@/components/global/Layout'
@@ -14,6 +14,8 @@ import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsU
 import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
 import {ProductPageProps} from '@/components/pages/ProductPage'
 import RecommendedProducts from '@/components/sections/RecommendedProducts'
+import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
+import {useRouter} from 'next/router'
 
 // Render product details
 export default function ProductPage({
@@ -86,6 +88,15 @@ export default function ProductPage({
   // cart context
   const {addToCart, updateQuantity} = useCart()
 
+  const {breadcrumbs, setBreadcrumbsFromUrl} = useBreadcrumbs()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (breadcrumbs.length === 0 && router && router.asPath) {
+      setBreadcrumbsFromUrl(router.asPath)
+    }
+  }, [router, breadcrumbs])
+
   const handleAddToCart = () => {
     // add to local storage while user is browsing
     const cart = JSON.parse(localStorage.getItem('cart') || '[]') as Variant[]
@@ -132,7 +143,7 @@ export default function ProductPage({
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between m-7 text-primary font-manrope">
-            <Breadcrumbs pages={pages} />
+            <Breadcrumbs pages={breadcrumbs} />
             {/* <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p> */}
           </div>
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
