@@ -28,8 +28,11 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
+  Field,
+  Input,
+  Label,
 } from '@headlessui/react'
-import {XMarkIcon, AdjustmentsHorizontalIcon, CheckIcon} from '@heroicons/react/24/outline'
+import {XMarkIcon, AdjustmentsHorizontalIcon} from '@heroicons/react/24/outline'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
 import {MenuItem} from '../../types'
 
@@ -46,17 +49,7 @@ export default function Filter({menuItems}: FilterProps) {
   const brandColumn = filtersData?.megaMenuItemsColumn3
   const finishColumn = filtersData?.megaMenuItemsColumn4
 
-  const filters = [
-    {
-      id: 'price',
-      caption: 'Price',
-      options: [
-        {value: '<1000', label: '<£1000'},
-        {value: '1000-2000', label: '£1000-£2000'},
-        {value: '>2000', label: '>£2000'},
-      ],
-    },
-  ]
+  const filters = []
 
   if (categoryColumn) {
     filters.push({
@@ -135,6 +128,26 @@ export default function Filter({menuItems}: FilterProps) {
     }
   }
 
+  const handlePriceChange = (filterId: string, value: string) => {
+    const currentFilterValue = searchParams.get(filterId)
+    const newSearchParams = new URLSearchParams(window.location.search)
+
+    if (value) {
+      newSearchParams.set(filterId, value)
+    } else if (currentFilterValue) {
+      newSearchParams.delete(filterId)
+    }
+
+    const newSearchParamsString = newSearchParams.toString()
+
+    if (!newSearchParamsString) {
+      router.push('shop')
+    } else {
+      // Update the URL while retaining other query parameters
+      router.push(`shop?${newSearchParamsString}`)
+    }
+  }
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -165,6 +178,47 @@ export default function Filter({menuItems}: FilterProps) {
 
             {/* Filters */}
             <form className="mt-4">
+              <Disclosure key="price" as="div" className="border-t border-gray-200 px-4 py-6">
+                <h3 className="-mx-2 -my-3 flow-root">
+                  <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
+                    <span className="font-medium text-gray-900">Price</span>
+                    <span className="ml-6 flex items-center">
+                      <ChevronDownIcon
+                        aria-hidden="true"
+                        className="h-5 w-5 rotate-0 transform group-data-[open]:-rotate-180"
+                      />
+                    </span>
+                  </DisclosureButton>
+                </h3>
+                <DisclosurePanel className="pt-6">
+                  <div className="space-y-6">
+                    <Field>
+                      <Label>Min</Label>
+                      <Input
+                        name="minPrice"
+                        type="number"
+                        min={0}
+                        max={searchParams.get('maxPrice') || 999999}
+                        step={10}
+                        onChange={(e) => handlePriceChange('minPrice', e.target.value)}
+                        value={searchParams.get('minPrice') || undefined}
+                      />
+                    </Field>
+                    <Field>
+                      <Label>Max</Label>
+                      <Input
+                        name="maxPrice"
+                        type="number"
+                        min={searchParams.get('minPrice') || 0}
+                        max={999999}
+                        step={10}
+                        onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
+                        value={searchParams.get('maxPrice') || undefined}
+                      />
+                    </Field>
+                  </div>
+                </DisclosurePanel>
+              </Disclosure>
               {filters.map((filter) => (
                 <Disclosure key={filter.id} as="div" className="border-t border-gray-200 px-4 py-6">
                   <h3 className="-mx-2 -my-3 flow-root">
@@ -180,23 +234,25 @@ export default function Filter({menuItems}: FilterProps) {
                   </h3>
                   <DisclosurePanel className="pt-6">
                     <div className="space-y-6">
-                      {filter.options.map((option, optionIdx) => (
-                        <div key={option.value ?? option.label} className="flex items-center">
-                          <input
-                            defaultValue={option.value}
-                            id={`filter-mobile-${filter.id}-${optionIdx}`}
-                            name={`${filter.id}[]`}
-                            type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          />
-                          <label
-                            htmlFor={`filter-mobile-${filter.id}-${optionIdx}`}
-                            className="ml-3 text-sm text-gray-500"
-                          >
-                            {option.label}
-                          </label>
-                        </div>
-                      ))}
+                      {filter.options.map((option, optionIdx) => {
+                        return (
+                          <div key={option.value ?? option.label} className="flex items-center">
+                            <input
+                              defaultValue={option.value}
+                              id={`filter-mobile-${filter.id}-${optionIdx}`}
+                              name={`${filter.id}[]`}
+                              type="checkbox"
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+                            <label
+                              htmlFor={`filter-mobile-${filter.id}-${optionIdx}`}
+                              className="ml-3 text-sm text-gray-500"
+                            >
+                              {option.label}
+                            </label>
+                          </div>
+                        )
+                      })}
                     </div>
                   </DisclosurePanel>
                 </Disclosure>
@@ -224,6 +280,49 @@ export default function Filter({menuItems}: FilterProps) {
 
             <PopoverGroup className="hidden md:flex md:items-baseline sm:space-x-14">
               <p>Filter products</p>
+              <Popover className="relative inline-block text-left">
+                <div>
+                  <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                    <span className="text-base font-light">Price</span>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                    />
+                  </PopoverButton>
+                </div>
+
+                <PopoverPanel
+                  transition
+                  className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <form className="space-y-4">
+                    <Field>
+                      <Label>Min</Label>
+                      <Input
+                        name="minPrice"
+                        type="number"
+                        min={0}
+                        max={searchParams.get('maxPrice') || 999999}
+                        step={10}
+                        onChange={(e) => handlePriceChange('minPrice', e.target.value)}
+                        value={searchParams.get('minPrice') || undefined}
+                      />
+                    </Field>
+                    <Field>
+                      <Label>Max</Label>
+                      <Input
+                        name="maxPrice"
+                        type="number"
+                        min={searchParams.get('minPrice') || 0}
+                        max={999999}
+                        step={10}
+                        onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
+                        value={searchParams.get('maxPrice') || undefined}
+                      />
+                    </Field>
+                  </form>
+                </PopoverPanel>
+              </Popover>
               {filters.map((filter, filterIdx) => (
                 <Popover
                   key={filter.id}
@@ -233,11 +332,6 @@ export default function Filter({menuItems}: FilterProps) {
                   <div>
                     <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                       <span className="text-base font-light">{filter.caption}</span>
-                      {/* {filterIdx === 0 ? (
-                        <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
-                          1
-                        </span>
-                      ) : null} */}
                       <ChevronDownIcon
                         aria-hidden="true"
                         className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -254,6 +348,7 @@ export default function Filter({menuItems}: FilterProps) {
                         <div key={option.value ?? option.label} className="flex items-center">
                           <input
                             checked={
+                              searchParams.get(filter.id) === option.value ||
                               searchParams.get(filter.id)?.split(',').includes(option.value) ||
                               false
                             }

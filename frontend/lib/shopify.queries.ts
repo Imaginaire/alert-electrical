@@ -360,3 +360,43 @@ export const collectionByMetafieldQuery = `
       }
     }
   }`
+
+/**
+ * Query to fetch a collection with filters
+ * @param handle - The collection handle
+ * @param filters - The filters to apply
+ */
+export const getCollectionWithFilters = `
+  query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = []) {
+    collection(handle: $handle) {
+      handle
+      products(first: 24, filters: $filters) {
+        edges {
+          node {
+            id
+            title
+            slug: handle
+            brand: metafield(namespace: "custom", key: "brand") {
+              value
+            }
+            featuredImage {
+              url
+            }
+            priceRange {
+              maxVariantPrice{
+                amount
+              }
+              minVariantPrice{
+                amount
+              }
+            }
+          }
+          cursor
+        }
+        pageInfo{
+          hasNextPage
+        }
+        
+      }
+    }
+  }`
