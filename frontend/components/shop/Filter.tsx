@@ -13,7 +13,7 @@
   ```
 */
 
-import {ChangeEvent, useState} from 'react'
+import {useState} from 'react'
 import {useRouter, useSearchParams} from 'next/navigation'
 import {
   Dialog,
@@ -37,18 +37,9 @@ interface FilterProps {
   menuItems?: MenuItem[]
 }
 
-type FilterId = 'price' | 'category' | 'brand' | 'finish'
-
-type SelectedFilters = {
-  [key in FilterId]?: string
-}
-
 export default function Filter({menuItems}: FilterProps) {
-  // const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({})
-
-  // console.log({selectedFilters})
-
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const filtersData = menuItems?.[1]
   const categoryColumn = filtersData?.megaMenuItemsColumn1
@@ -71,10 +62,12 @@ export default function Filter({menuItems}: FilterProps) {
     filters.push({
       id: 'category',
       caption: 'Category',
-      options: categoryColumn.map((item) => ({
-        value: item.link?.current,
-        label: item.title,
-      })),
+      options: categoryColumn
+        .map((item) => ({
+          value: item.link?.current,
+          label: item.title,
+        }))
+        .filter((item) => item.value),
     })
   }
 
@@ -82,10 +75,12 @@ export default function Filter({menuItems}: FilterProps) {
     filters.push({
       id: 'brand',
       caption: 'Brand',
-      options: brandColumn.map((item) => ({
-        value: item.link?.current,
-        label: item.title,
-      })),
+      options: brandColumn
+        .map((item) => ({
+          value: item.link?.current,
+          label: item.title,
+        }))
+        .filter((item) => item.value),
     })
   }
 
@@ -93,46 +88,51 @@ export default function Filter({menuItems}: FilterProps) {
     filters.push({
       id: 'finish',
       caption: 'Finish',
-      options: finishColumn.map((item) => ({
-        value: item.link?.current,
-        label: item.title,
-      })),
+      options: finishColumn
+        .map((item) => ({
+          value: item.link?.current,
+          label: item.title,
+        }))
+        .filter((item) => item.value),
     })
   }
 
-  const searchParams = useSearchParams()
-
   const handleCheckboxChange = (filterId: string, value: string, checked: boolean) => {
-    const searchParams = new URLSearchParams(window.location.search)
-    const currentFilterValues = searchParams.get(filterId)
+    const currentFilterValue = searchParams.get(filterId)
+    const newSearchParams = new URLSearchParams(window.location.search)
 
     if (checked) {
-      if (!currentFilterValues) {
+      if (!currentFilterValue) {
         // If the filterId is not in the URL, add it
-        searchParams.set(filterId, value)
+        newSearchParams.set(filterId, value)
       } else {
         // If filterId exists, add the new value while retaining the existing ones
-        const valuesArray = currentFilterValues.split(',')
+        const valuesArray = currentFilterValue.split(',')
         if (!valuesArray.includes(value)) {
           valuesArray.push(value)
         }
-        searchParams.set(filterId, valuesArray.join(','))
+        newSearchParams.set(filterId, valuesArray.join(','))
       }
     } else {
       // If the filter is being unchecked
-      if (currentFilterValues) {
-        let valuesArray = currentFilterValues.split(',')
-        valuesArray = valuesArray.filter((item) => item !== value)
-        if (valuesArray.length > 0) {
-          searchParams.set(filterId, valuesArray.join(','))
+      if (currentFilterValue) {
+        const valuesArray = currentFilterValue.split(',').filter((item) => item !== value)
+        if (valuesArray.length) {
+          newSearchParams.set(filterId, valuesArray.join(','))
         } else {
-          searchParams.delete(filterId) // Remove filterId if no values remain
+          newSearchParams.delete(filterId) // Remove filterId if no values remain
         }
       }
     }
 
-    // Update the URL while retaining other query parameters
-    router.push(`shop?${searchParams.toString()}`)
+    const newSearchParamsString = newSearchParams.toString()
+
+    if (!newSearchParamsString) {
+      router.push('shop')
+    } else {
+      // Update the URL while retaining other query parameters
+      router.push(`shop?${newSearchParamsString}`)
+    }
   }
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -253,7 +253,10 @@ export default function Filter({menuItems}: FilterProps) {
                       {filter.options.map((option, optionIdx) => (
                         <div key={option.value ?? option.label} className="flex items-center">
                           <input
-                            checked={searchParams.get(filter.id)?.split(',').includes(option.value)}
+                            checked={
+                              searchParams.get(filter.id)?.split(',').includes(option.value) ||
+                              false
+                            }
                             id={`filter-${filter.id}-${optionIdx}`}
                             name={`${filter.id}[]`}
                             type="checkbox"
