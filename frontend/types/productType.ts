@@ -32,7 +32,7 @@ export interface Variant {
     option2?: string
     option3?: string
     price?: number
-    id?: number
+    id?: string
     sku?: string
     title?: string
     weight?: number
@@ -109,7 +109,11 @@ export interface ProductPageProduct {
     metaDescription: string
   }
   variants: {
-    id: string
-    title: string
-  }[]
+    edges: {
+      node: {
+        id: string
+        title: string
+      }
+    }[]
+  }
 }

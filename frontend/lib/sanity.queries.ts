@@ -225,7 +225,10 @@ export const newsQuery = groq`
 
 export const productSettingQuery = groq`
   *[_type == "productSetting"][0]{
+    ...,
     warranty,
+    masterRobots,
+    productSpecificRobots,
     delivery[]{
       ...,
       markDefs[]{
@@ -240,6 +243,7 @@ export const productSettingQuery = groq`
       description,
       backgroundImage,
       linkText,
-    }
+    },
+   
   }
 `

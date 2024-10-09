@@ -23,7 +23,7 @@ export default function ProductPage({
   homePageTitle,
   productSetting,
 }: ProductPageProps) {
-  const {warranty, delivery, cta} = productSetting || {}
+  const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
   const {
@@ -54,9 +54,9 @@ export default function ProductPage({
     variants,
   } = product || {}
 
-  console.log(variants)
-
   const variantId = variants?.edges[0].node.id
+
+  console.log(productSpecificRobots)
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -118,21 +118,27 @@ export default function ProductPage({
     const variant = {
       id: variantId,
       title,
-      quantity, // Pass the selected quantity
+      quantity,
       featuredImage: featuredImage?.url,
       price: priceRange?.maxVariantPrice?.amount,
       store: {
-        id: variantId, // Include the unique variant ID here
+        id: variantId,
       },
     }
 
-    addToCart(variant) // Use the updated addToCart logic
+    addToCart(variant)
     setIsAddToCartClicked(true)
   }
 
   return (
     <>
-      <PageHead productSeo={seo} canonicalUrl={`/product/${title}`} />
+      <PageHead
+        productSeo={seo ? {...seo, description: seo.metaDescription} : undefined}
+        fallbackRobots={masterRobots}
+        productSpecificRobots={productSpecificRobots}
+        canonicalUrl={`/product/${title}`}
+        title={title}
+      />
       <Layout settings={settings}>
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">

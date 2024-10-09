@@ -15,8 +15,8 @@ type DropdownsProps = {
 export default function DropDowns({data}: DropdownsProps) {
   return (
     <div className="divide-y divide-gray-200 border-b">
-      {data.map((detail) => (
-        <Disclosure key={detail.name} as="div">
+      {data.map((detail, index) => (
+        <Disclosure key={index} as="div">
           <h3>
             <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
               <span className="text-xl  text-black group-data-[open]:text-secondary first-letter:uppercase">
@@ -38,7 +38,7 @@ export default function DropDowns({data}: DropdownsProps) {
             <ul role="list" className="px-5">
               {detail.items.map((item, index) => {
                 if (typeof item === 'string') {
-                  return <li key={item}>{item}</li>
+                  return <li key={index}>{item}</li>
                 }
 
                 if (typeof item === 'object' && 'value' in item && Array.isArray(item.value)) {
