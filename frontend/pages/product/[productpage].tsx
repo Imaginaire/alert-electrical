@@ -25,8 +25,6 @@ export default function ProductPage({
 }: ProductPageProps) {
   const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
-  console.log(productSpecificRobots)
-
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
   const {
     title,

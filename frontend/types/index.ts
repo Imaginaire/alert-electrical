@@ -400,6 +400,16 @@ export interface ProductSettingPayload {
     noimageindex?: boolean
     nosnippet?: boolean
   }
+  productSpecificRobots?: {
+    _type: any
+    _key: any
+    productTitle?: string
+    noindex?: boolean
+    nofollow?: boolean
+    noarchive?: boolean
+    noimageindex?: boolean
+    nosnippet?: boolean
+  }[]
 }
 
 export interface FooterProps {

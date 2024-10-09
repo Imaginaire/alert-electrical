@@ -48,7 +48,7 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
       </div>
 
       {/* Remove button */}
-      <button className="ml-auto mb-auto" onClick={() => removeFromCart(item?.store?.id as number)}>
+      <button className="ml-auto mb-auto pl-2" onClick={() => removeFromCart(item?.store?.id)}>
         <Bin />
       </button>
     </div>
