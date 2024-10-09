@@ -3,7 +3,7 @@ import {readToken} from '@/lib/sanity.api'
 import {getClient} from '@/lib/sanity.client'
 import {homePageTitleQuery, pagesBySlugQuery, settingsQuery} from '@/lib/sanity.queries'
 import {callShopify} from '@/lib/shopify.helpers'
-import {productsQuery} from '@/lib/shopify.queries'
+import {getCollectionWithFilters} from '@/lib/shopify.queries'
 import getCanonicalUrl from '@/shared/utils/getCanonicalUrl'
 import {PagePayload, PageProps, SettingsPayload} from '@/types'
 import {GetServerSideProps} from 'next'
@@ -49,12 +49,10 @@ export default function Shop(props: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  let products = null
+  let products = []
   let productSetting = null
 
   const {draftMode = false, params = {}} = context
-
-  console.log('query: ', context.query)
 
   // get settings, and homepage title
   const client = getClient(draftMode)
@@ -78,8 +76,70 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     }
   }
 
-  const res = await callShopify(productsQuery)
-  products = res.data.products.edges.map((edge: Edge) => edge.node)
+  const finish = (context.query.finish as string)?.split(',') || []
+  const brand = (context.query.brand as string)?.split(',') || []
+
+  const category = (context.query.category as string)?.split(',') || []
+
+  const minPrice = context.query.minPrice || null
+  const maxPrice = context.query.maxPrice || null
+
+  const filters: any = []
+
+  finish.forEach((value) => {
+    filters.push({
+      productMetafield: {
+        namespace: 'custom',
+        key: 'finish',
+        value: formatMetaFieldValue(value),
+      },
+    })
+  })
+
+  brand.forEach((value) => {
+    filters.push({
+      productMetafield: {
+        namespace: 'custom',
+        key: 'brand',
+        value: formatMetaFieldValue(value),
+      },
+    })
+  })
+
+  if (minPrice) {
+    filters.push({
+      price: {min: Number(minPrice)},
+    })
+  }
+
+  if (maxPrice) {
+    filters.push({
+      price: {max: Number(maxPrice)},
+    })
+  }
+
+  const variables = {
+    filters,
+  }
+
+  // hacky way to get multiple categories
+  if (category.length > 0) {
+    const resArray = await Promise.all(
+      category.map((value) => {
+        return callShopify(getCollectionWithFilters, {
+          handle: value,
+          variables,
+        })
+      }),
+    )
+
+    resArray.forEach((res) => {
+      products.push(...res.data.collection.products.edges.map((edge: Edge) => edge.node))
+    })
+  } else {
+    const res = await callShopify(getCollectionWithFilters, variables)
+    products = res.data.collection.products.edges.map((edge: Edge) => edge.node)
+  }
 
   return {
     props: {
@@ -93,4 +153,12 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
       productSetting: productSetting ?? null,
     },
   }
+}
+
+function formatMetaFieldValue(val: string) {
+  return val
+    .toString()
+    .split('-')
+    .join(' ')
+    .replace(/\b\w/g, (l) => l.toUpperCase())
 }
