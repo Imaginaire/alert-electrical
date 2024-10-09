@@ -393,6 +393,13 @@ export interface ProductSettingPayload {
   warranty?: string
   delivery?: PortableTextBlock[]
   cta?: LargeCta
+  masterRobots?: {
+    noindex?: boolean
+    nofollow?: boolean
+    noarchive?: boolean
+    noimageindex?: boolean
+    nosnippet?: boolean
+  }
 }
 
 export interface FooterProps {

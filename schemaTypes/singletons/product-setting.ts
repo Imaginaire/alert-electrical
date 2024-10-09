@@ -1,8 +1,8 @@
-import {defineField, defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 import {GROUPS} from '../../constants'
 import {customBlock} from '../objects/partials/customBlock'
 
-const TITLE = 'Product Setting'
+const TITLE = 'Product Page'
 
 export const productSettingType = defineType({
   name: 'productSetting',
@@ -70,6 +70,112 @@ export const productSettingType = defineType({
           title: 'Link',
           validation: (rule) => rule.required(),
           to: [{type: 'page'}],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'masterRobots',
+      title: 'Master Robots',
+      description:
+        'Used for the <meta> robots tag for SEO. Unless you have specified a page specific robots meta, this will be used as a fallback.',
+      type: 'object',
+      group: 'seo',
+      options: {
+        columns: 2,
+      },
+      fields: [
+        defineField({
+          name: 'noindex',
+          title: 'No Index',
+          type: 'boolean',
+          description: 'Discourages search engines from indexing page.',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'nofollow',
+          title: 'No Follow',
+          type: 'boolean',
+          description: 'Discourages search engines from following links.',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'noarchive',
+          title: 'No Archive',
+          type: 'boolean',
+          description: 'Prevents search engines from showing a cached links for pages.',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'noimageindex',
+          title: 'No Image Index',
+          type: 'boolean',
+          description: 'Prevents search engines from indexing images.',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'nosnippet',
+          title: 'No Snippet',
+          type: 'boolean',
+          description: 'Prevents search engines from showing a snippet.',
+          initialValue: false,
+        }),
+      ],
+    }),
+    defineField({
+      name: 'productSpecificRobots',
+      title: 'Product Specific Robots',
+      type: 'array',
+      group: 'seo',
+      description:
+        'Used for the <meta> robots tag for SEO. This will override the master robots meta. Ensure you add the correct product title',
+      of: [
+        defineArrayMember({
+          name: 'productRobots',
+          type: 'object',
+          title: 'Product Robots',
+          fields: [
+            defineField({
+              name: 'productTitle',
+              type: 'string',
+              title: 'Product Title',
+              description: 'The title of the product that this robots meta should be applied to.',
+            }),
+            defineField({
+              name: 'noindex',
+              title: 'No Index',
+              type: 'boolean',
+              description: 'Discourages search engines from indexing page.',
+              initialValue: false,
+            }),
+            defineField({
+              name: 'nofollow',
+              title: 'No Follow',
+              type: 'boolean',
+              description: 'Discourages search engines from following links.',
+              initialValue: false,
+            }),
+            defineField({
+              name: 'noarchive',
+              title: 'No Archive',
+              type: 'boolean',
+              description: 'Prevents search engines from showing a cached links for pages.',
+              initialValue: false,
+            }),
+            defineField({
+              name: 'noimageindex',
+              title: 'No Image Index',
+              type: 'boolean',
+              description: 'Prevents search engines from indexing images.',
+              initialValue: false,
+            }),
+            defineField({
+              name: 'nosnippet',
+              title: 'No Snippet',
+              type: 'boolean',
+              description: 'Prevents search engines from showing a snippet.',
+              initialValue: false,
+            }),
+          ],
         }),
       ],
     }),
