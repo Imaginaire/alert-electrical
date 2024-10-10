@@ -34,21 +34,31 @@ import {
 } from '@headlessui/react'
 import {XMarkIcon, AdjustmentsHorizontalIcon} from '@heroicons/react/24/outline'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
-import {MenuItem} from '../../types'
+import {FilterItems} from '../../types'
 
 interface FilterProps {
-  menuItems?: MenuItem[]
+  filterItems?: FilterItems
 }
 
-export default function Filter({menuItems}: FilterProps) {
+// TODO: hide brand filter if on brand page
+// and hide category filter if on collection page
+// reset price filter?
+
+//   const isCollection = resolvedUrl?.startsWith('/collection')
+// resolvedUrl?.startsWith('/brand') ||
+// resolvedUrl?.startsWith('/finish') ||
+// resolvedUrl?.startsWith('/range')
+// pathName
+
+export default function Filter({filterItems}: FilterProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const filtersData = menuItems?.[1]
-  const categoryColumn = filtersData?.megaMenuItemsColumn1
-  const brandColumn = filtersData?.megaMenuItemsColumn3
-  const finishColumn = filtersData?.megaMenuItemsColumn4
+  const filtersData = filterItems
+  const categoryColumn = filtersData?.categoryFilter
+  const brandColumn = filtersData?.brandFilter
+  const finishColumn = filtersData?.finishFilter
 
   const filters = []
 

@@ -247,3 +247,10 @@ export const productSettingQuery = groq`
    
   }
 `
+export const filtersQuery = groq`
+ *[_type == "filters"][0]{
+   finishFilter[],
+    brandFilter[],
+    categoryFilter[]
+ }
+`

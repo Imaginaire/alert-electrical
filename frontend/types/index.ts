@@ -223,6 +223,21 @@ export interface SEO {
   canonicalUrl?: string
 }
 
+export interface FilterItems {
+  categoryFilter?: {
+    title: string
+    link: Slug
+  }[]
+  brandFilter?: {
+    title: string
+    link: Slug
+  }[]
+  finishFilter?: {
+    title: string
+    link: Slug
+  }[]
+}
+
 export interface PageProps {
   page: PagePayload | undefined | null
   settings: SettingsPayload | undefined
@@ -234,6 +249,7 @@ export interface PageProps {
   draftMode?: boolean
   productSetting?: ProductSettingPayload | null
   product?: ProductPageProduct
+  filterItems?: FilterItems | undefined | null
 }
 
 export interface CollectionPageProps {
