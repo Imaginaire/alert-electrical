@@ -273,13 +273,13 @@ export default function Filter({filterItems}: FilterProps) {
         </div>
       </Dialog>
 
-      <div className="max-w-3xl text-center  lg:max-w-7xl ">
+      <div className="text-center border-b-2 border-gray-200   w-full ">
         <section aria-labelledby="filter-heading" className="border-gray-200 py-4">
           <h2 id="filter-heading" className="sr-only">
             Product filters
           </h2>
 
-          <Menu as="div" className="flex items-center justify-between font-manrope">
+          <Menu as="div" className="flex items-center justify-between font-manrope px-5">
             <MenuButton
               type="button"
               onClick={() => setMobileMenuOpen(true)}
