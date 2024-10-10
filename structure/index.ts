@@ -8,7 +8,7 @@ import latestNews from './latestNewsStructure'
 import productSetting from './productSettingStructure'
 import redirections from './redirectionsStructure'
 import {getClient} from '../lib/sanity.client'
-
+import filters from './filtersStructure'
 /**
  * Structure overrides
  *
@@ -40,6 +40,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'cart',
     'productSetting',
     'redirections',
+    'filters',
   ].includes(id)
 }
 
@@ -70,6 +71,7 @@ export const structure: StructureResolver = async (S, context) => {
       settings(S, context),
       redirections(S, context),
       S.divider(),
+      filters(S, context),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])
 }

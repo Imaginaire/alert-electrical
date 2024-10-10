@@ -39,7 +39,8 @@ import {shopType} from './singletons/shopType'
 import {cartType} from './singletons/cartType'
 import {redirectionsType} from './singletons/redirectionsType'
 import {browseProductsType} from './objects/sections/browseProductsType'
+import {filtersType} from './singletons/filtersType'
 
-const singletons = [homeType, settingsType, shopType, cartType, redirectionsType]
+const singletons = [homeType, settingsType, shopType, cartType, redirectionsType, filtersType]
 
 export const schemaTypes = [...sections, ...singletons, ...documents]
