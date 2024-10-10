@@ -425,7 +425,13 @@ export const collectionByMetafieldQuery = `
 export const getCollectionWithFilters = `
   query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = []) {
     collection(handle: $handle) {
+      id
+      title
       handle
+      description
+      metafield(namespace: "custom", key: "parent_collection") {
+        value
+      }
       products(first: 24, filters: $filters) {
         edges {
           node {

@@ -40,16 +40,6 @@ interface FilterProps {
   filterItems?: FilterItems
 }
 
-// TODO: hide brand filter if on brand page
-// and hide category filter if on collection page
-// reset price filter?
-
-//   const isCollection = resolvedUrl?.startsWith('/collection')
-// resolvedUrl?.startsWith('/brand') ||
-// resolvedUrl?.startsWith('/finish') ||
-// resolvedUrl?.startsWith('/range')
-// pathName
-
 export default function Filter({filterItems}: FilterProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -62,7 +52,7 @@ export default function Filter({filterItems}: FilterProps) {
 
   const filters = []
 
-  if (categoryColumn) {
+  if (categoryColumn && !pathname.startsWith('/product-category')) {
     filters.push({
       id: 'category',
       caption: 'Category',
@@ -75,7 +65,7 @@ export default function Filter({filterItems}: FilterProps) {
     })
   }
 
-  if (brandColumn) {
+  if (brandColumn && !pathname.startsWith('/brand')) {
     filters.push({
       id: 'brand',
       caption: 'Brand',
@@ -88,7 +78,7 @@ export default function Filter({filterItems}: FilterProps) {
     })
   }
 
-  if (finishColumn) {
+  if (finishColumn && !pathname.startsWith('/finish')) {
     filters.push({
       id: 'finish',
       caption: 'Finish',
