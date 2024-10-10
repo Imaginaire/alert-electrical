@@ -456,3 +456,67 @@ export const getCollectionWithFilters = `
       }
     }
   }`
+
+/**
+ * Query to fetch products with a specific metafield
+ * @param after - The cursor to start from
+ * @param key - The metafield key
+ */
+export const productsWithMetafieldQuery = `
+    query productsWithMetafield($after: String, $key: String!) {
+    products(first: 250, after: $after) {
+      edges {
+        node {
+          updatedAt
+          handle
+          metafield(namespace: "custom", key: $key) {
+            value
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`
+
+export const allCollectionsQuery = `
+    query collectionQuery($after: String) {
+    collections(first: 250, after: $after) {
+      edges {
+        node {
+          id
+          handle
+          updatedAt
+          title
+          metafield(namespace: "custom", key: "parent_collection") {
+            value
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`
+
+export const allProductsQuery = `
+    query productQuery($after: String) {
+      products(first: 250, after: $after) {
+        edges {
+          node {
+            handle
+            updatedAt
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  `
