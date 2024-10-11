@@ -423,10 +423,16 @@ export const collectionByMetafieldQuery = `
  * @param filters - The filters to apply
  */
 export const getCollectionWithFilters = `
-  query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = []) {
+  query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = [], $after: String, $sortKey: ProductCollectionSortKeys = COLLECTION_DEFAULT, $reverse: Boolean = false) {
     collection(handle: $handle) {
+      id
+      title
       handle
-      products(first: 24, filters: $filters) {
+      description
+      metafield(namespace: "custom", key: "parent_collection") {
+        value
+      }
+      products(first: 24, after: $after, filters: $filters, sortKey: $sortKey, reverse: $reverse) {
         edges {
           node {
             id
@@ -452,7 +458,6 @@ export const getCollectionWithFilters = `
         pageInfo{
           hasNextPage
         }
-        
       }
     }
   }`
@@ -520,3 +525,49 @@ export const allProductsQuery = `
       }
     }
   `
+
+// (first: 10, query: "(handle:'tiffany-floor-lamps') OR (handle:'pir-security-exterior-wall-lights')")
+export const getCollectionsWithFilters = `
+ query getCollectionsWithFilters($query: String = "title:'All Products'", $filters: [ProductFilter!] = []) {
+  collections(first: 99, query: $query) {
+    edges {
+      node {
+        id
+        title
+        handle
+        description
+        metafield(key: "parent_collection", namespace: "custom") {
+          value
+        }
+        products(first: 24, filters: $filters) {
+          edges {
+            node {
+              id
+              title
+              slug: handle
+              brand: metafield(namespace: "custom", key: "brand") {
+                value
+              }
+              featuredImage {
+                url
+              }
+              priceRange {
+                maxVariantPrice {
+                  amount
+                }
+                minVariantPrice {
+                  amount
+                }
+              }
+            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+          }
+        }
+      }
+    }
+  }
+}
+ `

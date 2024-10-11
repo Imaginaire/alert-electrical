@@ -2,14 +2,15 @@ import ScrollUp from '@/shared/utils/ScrollUp'
 import {PageProps} from '@/types'
 import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
-import {resolveHref} from '@/shared/utils/resolveHref'
-import Link from 'next/link'
 import {useEffect, useState} from 'react'
 import ShortHero from '../sections/ShortHero'
 import ProductCard from '../global/ProductCard'
 import Filter from '../shop/Filter'
 import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
+import {usePathname, useSearchParams} from 'next/navigation'
+import {ShopPageProduct} from '@/types/productType'
+import SortProducts from '../shop/SortProducts'
 
 export function ShopPage({
   page,
@@ -18,10 +19,25 @@ export function ShopPage({
   loading,
   canonicalUrl,
   homePageTitle,
-  products,
   filterItems,
 }: PageProps) {
-  const [numOfProductsToShow, setNumOfProductsToShow] = useState<number>(24)
+  const [products, setProducts] = useState<ShopPageProduct[]>([])
+  const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [lastCursor, setLastCursor] = useState<string | null>(null)
+  const [isNextPage, setIsNextPage] = useState<boolean>(true)
+  const [sortOrder, setSortOrder] = useState<{sortKey: string; reverse?: boolean} | null>(null)
+
+  console.log('sortOrder', sortOrder)
+
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // const category = searchParams.get('category')
+  const brand = searchParams.get('brand') || null
+  const finish = searchParams.get('finish') || null
+  const minPrice = searchParams.get('minPrice') || null
+  const maxPrice = searchParams.get('maxPrice') || null
 
   const shortHero = page?.shortHero ?? {
     header: page?.title,
@@ -29,10 +45,71 @@ export function ShopPage({
     shopifyData: true,
   }
 
-  const router = useRouter()
-  const {setBreadcrumbsFromUrl} = useBreadcrumbs()
+  const finishQueryParam = (finish as string)?.split(',') || []
+  const brandQueryParam = (brand as string)?.split(',') || []
+
+  const filters = buildFilters(finishQueryParam, brandQueryParam, minPrice, maxPrice)
+
+  useEffect(() => {
+    // const categoryQueryParam = (category as string)?.split(',') || []
+
+    const controller = new AbortController()
+
+    const getFilteredProducts = async () => {
+      setIsFetching(true)
+
+      try {
+        const {products, lastCursor, isNextPage} = await fetchProducts(
+          {
+            // handle,
+            filters,
+            sortKey: sortOrder?.sortKey,
+            reverse: sortOrder?.reverse,
+          },
+          controller.signal,
+        )
+
+        setProducts(products)
+        setLastCursor(lastCursor)
+        setIsNextPage(isNextPage)
+        setIsFetching(false)
+      } catch (e) {
+        setIsFetching(false)
+      }
+    }
+
+    getFilteredProducts()
+
+    return () => controller?.abort()
+  }, [brand, finish, minPrice, maxPrice, sortOrder?.sortKey, sortOrder?.reverse])
+
+  const handleLoadMoreClick = async () => {
+    try {
+      setIsFetching(true)
+
+      const {
+        products,
+        lastCursor: newCursor,
+        isNextPage,
+      } = await fetchProducts({
+        // handle,
+        filters,
+        after: lastCursor,
+        sortKey: sortOrder?.sortKey,
+        reverse: sortOrder?.reverse,
+      })
+
+      setProducts((prev) => [...prev, ...products])
+      setLastCursor(newCursor)
+      setIsNextPage(isNextPage)
+      setIsFetching(false)
+    } catch (e) {
+      setIsFetching(false)
+    }
+  }
 
   // set breadcrumbs
+  const {setBreadcrumbsFromUrl} = useBreadcrumbs()
   useEffect(() => {
     if (router && router.asPath) {
       setBreadcrumbsFromUrl(router.asPath)
@@ -46,10 +123,13 @@ export function ShopPage({
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
           <ShortHero {...shortHero} />
-          <div className="max-w-[1728px] mx-auto p-5 pt-0">
+          <div className="max-w-[1728px] mx-auto  pt-0">
             {/* Filter */}
-            <Filter filterItems={filterItems ?? undefined} />
-            <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 pt-9">
+            <div className="flex justify-between border-b border-gray-200">
+              <Filter filterItems={filterItems ?? undefined} />
+              <SortProducts setSortOrder={(sortKey, reverse) => setSortOrder({sortKey, reverse})} />
+            </div>
+            <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 pt-9 p-5">
               {/* Products */}
               {products && products.length > 0 ? (
                 products.map((product) => {
@@ -60,13 +140,12 @@ export function ShopPage({
                 <p>No products found</p>
               )}
             </div>
-            {products && numOfProductsToShow < products.length && (
+            {isNextPage && (
               <div className="flex justify-center">
                 <button
                   className="uppercase text-center text-primary underline mt-6 mb-[60px] hover:text-[#009FE3]"
-                  onClick={() => {
-                    setNumOfProductsToShow((prev) => prev + 24)
-                  }}
+                  onClick={handleLoadMoreClick}
+                  disabled={isFetching}
                 >
                   load more
                 </button>
@@ -82,3 +161,68 @@ export function ShopPage({
 }
 
 export default ShopPage
+
+function buildFilters(
+  finishQueryParam: string[],
+  brandQueryParam: string[],
+  minPrice: string | null,
+  maxPrice: string | null,
+) {
+  const filters = []
+
+  finishQueryParam.forEach((value) => {
+    filters.push({
+      productMetafield: {
+        namespace: 'custom',
+        key: 'finish',
+        value: formatMetaFieldValue(value),
+      },
+    })
+  })
+
+  brandQueryParam.forEach((value) => {
+    filters.push({
+      productMetafield: {
+        namespace: 'custom',
+        key: 'brand',
+        value: formatMetaFieldValue(value),
+      },
+    })
+  })
+
+  if (minPrice) {
+    filters.push({
+      price: {min: Number(minPrice)},
+    })
+  }
+
+  if (maxPrice) {
+    filters.push({
+      price: {max: Number(maxPrice)},
+    })
+  }
+
+  return filters
+}
+
+function formatMetaFieldValue(val: string) {
+  return val
+    .toString()
+    .split('-')
+    .join(' ')
+    .replace(/\b\w/g, (l) => l.toUpperCase())
+}
+
+const fetchProducts = async (body: any, signal?: AbortSignal) => {
+  const res = await fetch('/api/products', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    signal,
+  })
+
+  const data = await res.json()
+  return data
+}

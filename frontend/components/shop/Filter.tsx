@@ -40,29 +40,18 @@ interface FilterProps {
   filterItems?: FilterItems
 }
 
-// TODO: hide brand filter if on brand page
-// and hide category filter if on collection page
-// reset price filter?
-
-//   const isCollection = resolvedUrl?.startsWith('/collection')
-// resolvedUrl?.startsWith('/brand') ||
-// resolvedUrl?.startsWith('/finish') ||
-// resolvedUrl?.startsWith('/range')
-// pathName
-
 export default function Filter({filterItems}: FilterProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const filtersData = filterItems
-  const categoryColumn = filtersData?.categoryFilter
-  const brandColumn = filtersData?.brandFilter
-  const finishColumn = filtersData?.finishFilter
+  const categoryColumn = filterItems?.categoryFilter
+  const brandColumn = filterItems?.brandFilter
+  const finishColumn = filterItems?.finishFilter
 
   const filters = []
 
-  if (categoryColumn) {
+  if (categoryColumn && !pathname.startsWith('/product-category')) {
     filters.push({
       id: 'category',
       caption: 'Category',
@@ -75,7 +64,7 @@ export default function Filter({filterItems}: FilterProps) {
     })
   }
 
-  if (brandColumn) {
+  if (brandColumn && !pathname.startsWith('/brand')) {
     filters.push({
       id: 'brand',
       caption: 'Brand',
@@ -88,7 +77,7 @@ export default function Filter({filterItems}: FilterProps) {
     })
   }
 
-  if (finishColumn) {
+  if (finishColumn && !pathname.startsWith('/finish')) {
     filters.push({
       id: 'finish',
       caption: 'Finish',
@@ -273,13 +262,13 @@ export default function Filter({filterItems}: FilterProps) {
         </div>
       </Dialog>
 
-      <div className="max-w-3xl text-center  lg:max-w-7xl ">
+      <div className="text-center w-full ">
         <section aria-labelledby="filter-heading" className="border-gray-200 py-4">
           <h2 id="filter-heading" className="sr-only">
             Product filters
           </h2>
 
-          <Menu as="div" className="flex items-center justify-between font-manrope">
+          <Menu as="div" className="flex items-center justify-between font-manrope pl-5">
             <MenuButton
               type="button"
               onClick={() => setMobileMenuOpen(true)}

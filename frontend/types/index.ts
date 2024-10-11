@@ -250,6 +250,8 @@ export interface PageProps {
   productSetting?: ProductSettingPayload | null
   product?: ProductPageProduct
   filterItems?: FilterItems | undefined | null
+  isNextPage?: boolean
+  lastCursor?: string
 }
 
 export interface CollectionPageProps {
