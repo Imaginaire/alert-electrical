@@ -423,7 +423,7 @@ export const collectionByMetafieldQuery = `
  * @param filters - The filters to apply
  */
 export const getCollectionWithFilters = `
-  query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = [], $after: String) {
+  query getCollectionWithFilters($handle: String = "all-products", $filters: [ProductFilter!] = [], $after: String, $sortKey: ProductCollectionSortKeys = COLLECTION_DEFAULT, $reverse: Boolean = false) {
     collection(handle: $handle) {
       id
       title
@@ -432,7 +432,7 @@ export const getCollectionWithFilters = `
       metafield(namespace: "custom", key: "parent_collection") {
         value
       }
-      products(first: 24, after: $after, filters: $filters) {
+      products(first: 24, after: $after, filters: $filters, sortKey: $sortKey, reverse: $reverse) {
         edges {
           node {
             id

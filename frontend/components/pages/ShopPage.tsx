@@ -10,6 +10,7 @@ import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
 import {usePathname, useSearchParams} from 'next/navigation'
 import {ShopPageProduct} from '@/types/productType'
+import SortProducts from '../shop/SortProducts'
 
 export function ShopPage({
   page,
@@ -24,6 +25,9 @@ export function ShopPage({
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [lastCursor, setLastCursor] = useState<string | null>(null)
   const [isNextPage, setIsNextPage] = useState<boolean>(true)
+  const [sortOrder, setSortOrder] = useState<{sortKey: string; reverse?: boolean} | null>(null)
+
+  console.log('sortOrder', sortOrder)
 
   const pathname = usePathname()
   const router = useRouter()
@@ -34,19 +38,6 @@ export function ShopPage({
   const finish = searchParams.get('finish') || null
   const minPrice = searchParams.get('minPrice') || null
   const maxPrice = searchParams.get('maxPrice') || null
-
-  console.log('products', products)
-  // console.log('filterItems', filterItems)
-  // console.log('shoppppisNextPage', isNextPage)
-  // console.log('finish', finish)
-
-  // DONE create API handler
-  // obtain the paramters from the current URL
-  // fetch the products, passing the parameters
-  // 1. filter by price DONE
-  // 2. load more DONE
-  // 3. sort
-  // 4. category/handle
 
   const shortHero = page?.shortHero ?? {
     header: page?.title,
@@ -60,10 +51,6 @@ export function ShopPage({
   const filters = buildFilters(finishQueryParam, brandQueryParam, minPrice, maxPrice)
 
   useEffect(() => {
-    // get products from clientside
-    // parameters:
-    // number of products to fetch, last cursor, brand filter, categories filter, price filter, finish filter
-
     // const categoryQueryParam = (category as string)?.split(',') || []
 
     const controller = new AbortController()
@@ -76,6 +63,8 @@ export function ShopPage({
           {
             // handle,
             filters,
+            sortKey: sortOrder?.sortKey,
+            reverse: sortOrder?.reverse,
           },
           controller.signal,
         )
@@ -92,7 +81,7 @@ export function ShopPage({
     getFilteredProducts()
 
     return () => controller?.abort()
-  }, [brand, finish, minPrice, maxPrice])
+  }, [brand, finish, minPrice, maxPrice, sortOrder?.sortKey, sortOrder?.reverse])
 
   const handleLoadMoreClick = async () => {
     try {
@@ -106,6 +95,8 @@ export function ShopPage({
         // handle,
         filters,
         after: lastCursor,
+        sortKey: sortOrder?.sortKey,
+        reverse: sortOrder?.reverse,
       })
 
       setProducts((prev) => [...prev, ...products])
@@ -134,7 +125,10 @@ export function ShopPage({
           <ShortHero {...shortHero} />
           <div className="max-w-[1728px] mx-auto  pt-0">
             {/* Filter */}
-            <Filter filterItems={filterItems ?? undefined} />
+            <div className="flex justify-between border-b border-gray-200">
+              <Filter filterItems={filterItems ?? undefined} />
+              <SortProducts setSortOrder={(sortKey, reverse) => setSortOrder({sortKey, reverse})} />
+            </div>
             <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 pt-9 p-5">
               {/* Products */}
               {products && products.length > 0 ? (

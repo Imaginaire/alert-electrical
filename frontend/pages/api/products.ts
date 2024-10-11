@@ -5,7 +5,7 @@ import {NextApiRequest, NextApiResponse} from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
 
-  const {handle, filters, after} = body
+  const {handle, filters, after, sortKey, reverse} = body
 
   //   console.log(handle, filters, after)
 
@@ -14,6 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       handle: handle,
       filters: filters,
       after: after,
+      sortKey: sortKey,
+      reverse: reverse,
     })
 
     if (!productsResponse || productsResponse.errors) {
