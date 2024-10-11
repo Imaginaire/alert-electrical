@@ -26,6 +26,7 @@ export default function PageSlugRoute(props: PageProps) {
     draftMode,
     canonicalUrl,
     productSetting,
+    filterItems,
   } = props
 
   const [page, loading] = useLiveQuery<PagePayload | null | undefined>(
@@ -61,6 +62,7 @@ export default function PageSlugRoute(props: PageProps) {
           canonicalUrl={canonicalUrl}
           homePageTitle={homePageTitle}
           products={products}
+          filterItems={filterItems}
         />
       )
       break

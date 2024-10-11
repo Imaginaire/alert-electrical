@@ -45,10 +45,9 @@ export default function Filter({filterItems}: FilterProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const filtersData = filterItems
-  const categoryColumn = filtersData?.categoryFilter
-  const brandColumn = filtersData?.brandFilter
-  const finishColumn = filtersData?.finishFilter
+  const categoryColumn = filterItems?.categoryFilter
+  const brandColumn = filterItems?.brandFilter
+  const finishColumn = filterItems?.finishFilter
 
   const filters = []
 
