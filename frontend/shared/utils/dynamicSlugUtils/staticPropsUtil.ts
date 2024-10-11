@@ -75,6 +75,8 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     // Get products for the collection
     const formattedProducts = collection.products.edges.map((edge: Edge) => edge.node)
 
+    const filterItems = await client.fetch<FilterItems | null>(filtersQuery)
+
     return {
       props: {
         page: {
@@ -87,6 +89,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
         productSetting: null,
         products: formattedProducts ?? null,
         draftMode,
+        filterItems,
       },
       revalidate: 10,
     }
@@ -115,6 +118,8 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
     const metafieldProducts = await callShopify(collectionByMetafieldQuery, variables)
 
+    const filterItems = await client.fetch<FilterItems | null>(filtersQuery)
+
     const formattedProducts = metafieldProducts.data.collection.products.edges.map(
       (edge: Edge) => edge.node,
     )
@@ -135,6 +140,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
         productSetting: null,
         draftMode,
         products: formattedProducts ?? null,
+        filterItems,
       },
       revalidate: 10,
     }
@@ -168,7 +174,6 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     const res = await callShopify(productsQuery)
     products = res.data.products.edges.map((edge: Edge) => edge.node)
     const filterRes = await client.fetch<FilterItems | null>(filtersQuery)
-    console.log('aaa', filterRes)
     filterItems = filterRes
   }
 
