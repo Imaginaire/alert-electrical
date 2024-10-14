@@ -155,10 +155,10 @@ export default function ProductPage({
             <Breadcrumbs pages={breadcrumbs} />
             {/* <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p> */}
           </div>
-          <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
+          <div className="productPage-container mx-auto max-w-2xl lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
-              <div className="relative lg:sticky lg:top-10 w-full h-[520px] ">
+              <div className="relative lg:sticky lg:top-10 w-full ">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
@@ -178,7 +178,7 @@ export default function ProductPage({
                 )}
 
                 {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
-                  <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white">
+                  <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white z-50">
                     SALE
                   </span>
                 )}
@@ -186,8 +186,8 @@ export default function ProductPage({
 
               {/* Product info */}
               <div>
-                <div className="px-5">
-                  <div className="px-4 sm:mt-16 sm:px-0 lg:mt-0">
+                <div className="px-5 mt-6">
+                  <div className="px-4 sm:px-0 lg:mt-0">
                     <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
                     <p className="my-6 lg:mb-0 text-2xl text-center text-secondary">
                       <span
