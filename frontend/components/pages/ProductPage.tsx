@@ -142,8 +142,8 @@ export default function ProductPage({
   }
 
   const pages = [
-    {name: 'Ceiling Lights', href: '/product', current: false},
-    {name: title, current: true},
+    {title: 'Ceiling Lights', path: '/product'},
+    {title: title, path: undefined},
   ]
 
   return (
