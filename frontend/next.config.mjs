@@ -14,9 +14,9 @@ const nextConfig = {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: process.env.VERCEL_ENV === 'production',
   },
-  async redirects() {
-    return generateRedirects()
-  },
+  // async redirects() {
+  //   return generateRedirects()
+  // },
 }
 
 export default nextConfig
