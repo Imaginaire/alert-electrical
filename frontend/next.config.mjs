@@ -1,4 +1,4 @@
-import generateRedirects from '../utils/generateRedirects.mjs'
+// import generateRedirects from '../utils/generateRedirects.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
