@@ -24,6 +24,7 @@ export async function callShopify(query: WebGLQuery, variables = {}) {
     )
 
     if (!res.ok) {
+      console.log('res', res)
       throw new Error('Network response was not ok')
     }
 
