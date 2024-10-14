@@ -6,8 +6,10 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
   return (
     <>
       <Navbar
-        menuItems={settings?.menuItems}
-        menuItemsRight={settings?.menuItemsRight}
+        menuItems={settings?.menuItems ? {menuItems: settings.menuItems} : undefined}
+        menuItemsRight={
+          settings?.menuItemsRight ? {menuItemsRight: settings.menuItemsRight} : undefined
+        }
         companyInfo={settings?.companyInfo}
         contactPage={settings?.contactPage}
         navCta={settings?.navCta}
