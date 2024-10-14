@@ -13,7 +13,7 @@ export async function callShopify(query: WebGLQuery, variables = {}) {
       {
         method: 'POST',
         headers: {
-          'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+          'X-Shopify-Storefront-Access-Token': 'd10c3a6fe64d8deb4757d0f663c3d026',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
