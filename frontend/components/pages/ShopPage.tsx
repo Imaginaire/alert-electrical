@@ -33,7 +33,7 @@ export function ShopPage({
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // const category = searchParams.get('category')
+  const category = searchParams.get('category') || 'all-products'
   const brand = searchParams.get('brand') || null
   const finish = searchParams.get('finish') || null
   const minPrice = searchParams.get('minPrice') || null
@@ -51,8 +51,6 @@ export function ShopPage({
   const filters = buildFilters(finishQueryParam, brandQueryParam, minPrice, maxPrice)
 
   useEffect(() => {
-    // const categoryQueryParam = (category as string)?.split(',') || []
-
     const controller = new AbortController()
 
     const getFilteredProducts = async () => {
@@ -61,7 +59,7 @@ export function ShopPage({
       try {
         const {products, lastCursor, isNextPage} = await fetchProducts(
           {
-            // handle,
+            handle: category,
             filters,
             sortKey: sortOrder?.sortKey,
             reverse: sortOrder?.reverse,
@@ -81,7 +79,7 @@ export function ShopPage({
     getFilteredProducts()
 
     return () => controller?.abort()
-  }, [brand, finish, minPrice, maxPrice, sortOrder?.sortKey, sortOrder?.reverse])
+  }, [category, brand, finish, minPrice, maxPrice, sortOrder?.sortKey, sortOrder?.reverse])
 
   const handleLoadMoreClick = async () => {
     try {
@@ -92,7 +90,7 @@ export function ShopPage({
         lastCursor: newCursor,
         isNextPage,
       } = await fetchProducts({
-        // handle,
+        handle: category,
         filters,
         after: lastCursor,
         sortKey: sortOrder?.sortKey,

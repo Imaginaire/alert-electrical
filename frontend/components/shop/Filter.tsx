@@ -55,11 +55,13 @@ export default function Filter({filterItems}: FilterProps) {
     filters.push({
       id: 'category',
       caption: 'Category',
+      type: 'radio',
       options: categoryColumn
         .map((item) => ({
           value: item.link?.current,
           label: item.title,
         }))
+        .concat({value: 'all-products', label: 'All Products'})
         .filter((item) => item.value),
     })
   }
@@ -68,6 +70,7 @@ export default function Filter({filterItems}: FilterProps) {
     filters.push({
       id: 'brand',
       caption: 'Brand',
+      type: 'checkbox',
       options: brandColumn
         .map((item) => ({
           value: item.link?.current,
@@ -81,6 +84,7 @@ export default function Filter({filterItems}: FilterProps) {
     filters.push({
       id: 'finish',
       caption: 'Finish',
+      type: 'checkbox',
       options: finishColumn
         .map((item) => ({
           value: item.link?.current,
@@ -88,6 +92,26 @@ export default function Filter({filterItems}: FilterProps) {
         }))
         .filter((item) => item.value),
     })
+  }
+
+  const handleRadioChange = (filterId: string, value: string) => {
+    const newSearchParams = new URLSearchParams(window.location.search)
+    console.log(value)
+
+    if (value === 'all-products') {
+      newSearchParams.delete(filterId)
+    } else {
+      newSearchParams.set(filterId, value)
+    }
+
+    const newSearchParamsString = newSearchParams.toString()
+
+    if (!newSearchParamsString) {
+      router.push(pathname)
+    } else {
+      // Update the URL while retaining other query parameters
+      router.push(`${pathname}?${newSearchParamsString}`)
+    }
   }
 
   const handleCheckboxChange = (filterId: string, value: string, checked: boolean) => {
@@ -240,8 +264,8 @@ export default function Filter({filterItems}: FilterProps) {
                             <input
                               defaultValue={option.value}
                               id={`filter-mobile-${filter.id}-${optionIdx}`}
-                              name={`${filter.id}[]`}
-                              type="checkbox"
+                              name={filter.id}
+                              type={filter.type}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             />
                             <label
@@ -344,31 +368,40 @@ export default function Filter({filterItems}: FilterProps) {
                     className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                   >
                     <form className="space-y-4">
-                      {filter.options.map((option, optionIdx) => (
-                        <div key={option.value ?? option.label} className="flex items-center">
-                          <input
-                            checked={
-                              searchParams.get(filter.id) === option.value ||
-                              searchParams.get(filter.id)?.split(',').includes(option.value) ||
-                              false
-                            }
-                            id={`filter-${filter.id}-${optionIdx}`}
-                            name={`${filter.id}[]`}
-                            type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={(e) => {
-                              const checked = e.target.checked
-                              handleCheckboxChange(filter.id, option.value, checked)
-                            }}
-                          />
-                          <label
-                            htmlFor={`filter-${filter.id}-${optionIdx}`}
-                            className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900"
-                          >
-                            {option.label}
-                          </label>
-                        </div>
-                      ))}
+                      {filter.options.map((option, optionIdx) => {
+                        return (
+                          <div key={option.value ?? option.label} className="flex items-center">
+                            <input
+                              checked={
+                                searchParams.get(filter.id) === option.value ||
+                                searchParams.get(filter.id)?.split(',').includes(option.value) ||
+                                (searchParams.get('category') === null &&
+                                  option.value === 'all-products')
+                                  ? true
+                                  : null || false
+                              }
+                              id={`filter-${filter.id}-${optionIdx}`}
+                              name={filter.id}
+                              type={filter.type}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={(e) => {
+                                const checked = e.target.checked
+                                if (filter.type === 'radio') {
+                                  handleRadioChange(filter.id, option.value)
+                                } else {
+                                  handleCheckboxChange(filter.id, option.value, checked)
+                                }
+                              }}
+                            />
+                            <label
+                              htmlFor={`filter-${filter.id}-${optionIdx}`}
+                              className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900"
+                            >
+                              {option.label}
+                            </label>
+                          </div>
+                        )
+                      })}
                     </form>
                   </PopoverPanel>
                 </Popover>
