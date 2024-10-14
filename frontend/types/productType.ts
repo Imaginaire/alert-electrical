@@ -77,6 +77,13 @@ export interface ProductPageProduct {
   featuredImage?: {
     url?: string
   }
+  images?: {
+    edges: {
+      node: {
+        url: string
+      }
+    }[]
+  }
   id?: string
   priceRange?: PriceRange
   compareAtPriceRange?: PriceRange

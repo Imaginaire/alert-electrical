@@ -199,6 +199,13 @@ export const productQuery = `
         featuredImage {
             url
         }
+        images(first: 10) {
+            edges {
+              node {
+                 url
+              }
+            }
+        }    
         priceRange {
             maxVariantPrice {
                 amount

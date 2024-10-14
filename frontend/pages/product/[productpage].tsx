@@ -15,6 +15,8 @@ import {ProductPageProps} from '@/components/pages/ProductPage'
 import RecommendedProducts from '@/components/sections/RecommendedProducts'
 import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
+import ImageGallery from '@/components/product/ImageGallery'
+import ImageMagnifier from '@/components/shared/ImageMagnifier'
 
 // Render product details
 export default function ProductPage({
@@ -30,6 +32,7 @@ export default function ProductPage({
     title,
     descriptionHtml,
     featuredImage,
+    images,
     priceRange,
     compareAtPriceRange,
     height,
@@ -53,6 +56,8 @@ export default function ProductPage({
     id,
     variants,
   } = product || {}
+
+  console.log('product!!!!', product)
 
   const variantId = variants?.edges[0].node.id
 
@@ -96,6 +101,10 @@ export default function ProductPage({
     {name: 'delivery information', items: delivery ? [delivery] : []},
     {name: 'warranty', items: [warranty ?? '']},
   ]
+
+  const productImages = images?.edges.map((image: {node: {url: string}}) => ({
+    src: image.node.url,
+  }))
 
   const [quantity, setQuantity] = useState<number>(1)
 
@@ -150,13 +159,24 @@ export default function ProductPage({
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
               <div className="relative lg:sticky lg:top-10 w-full h-[520px] ">
-                <Image
-                  src={featuredImage?.url || ''}
-                  fill
-                  alt={title || ''}
-                  sizes="50vw"
-                  className="object-contain"
-                />
+                {productImages && productImages.length > 1 ? (
+                  <ImageGallery productImages={productImages} />
+                ) : (
+                  // <Image
+                  //   src={featuredImage?.url || ''}
+                  //   fill
+                  //   alt={title || ''}
+                  //   sizes="50vw"
+                  //   className="object-contain"
+                  // />
+                  <ImageMagnifier
+                    src={featuredImage?.url || ''}
+                    width="100%"
+                    height="520px"
+                    alt={''}
+                  />
+                )}
+
                 {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
                   <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white">
                     SALE
