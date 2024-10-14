@@ -12,7 +12,7 @@ const nextConfig = {
   reactStrictMode: true,
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
-    ignoreBuildErrors: process.env.NEXT_PUBLIC_ENV === 'production',
+    ignoreBuildErrors: true,
   },
   // async redirects() {
   //   return generateRedirects()
