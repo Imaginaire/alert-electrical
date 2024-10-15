@@ -8,6 +8,15 @@ interface ColumnItemsProps {
 export default function ColumnItems({column}: ColumnItemsProps) {
   return (
     <>
+      {column.columnCollectionsLinks?.map((collection, index) => (
+        <li key={index} className="py-1">
+          <Link href={collection.link || '/'}>
+            <span className="text-white first-letter:uppercase decoration-[0.5px] underline font-manrope">
+              {collection.title}
+            </span>
+          </Link>
+        </li>
+      ))}
       {column.columnLinks?.map((link, index) => (
         <li key={index} className="py-1">
           <Link href={link.slug || '/'}>
