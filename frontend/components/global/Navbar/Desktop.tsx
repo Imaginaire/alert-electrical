@@ -57,7 +57,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
                       {menuItem.title}
                     </Link>
                   ) : (
-                    <a href={menuItem.slug}>{menuItem.title}</a>
+                    <a href={`/${menuItem.slug}`}>{menuItem.title}</a>
                   )}
 
                   <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
@@ -96,15 +96,28 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
 
               return (
                 <li key={index} className="relative group">
-                  <Link
-                    href={menuItem?.link?.current || '/'}
-                    className="flex flex-col justify-center items-center gap-2"
-                  >
-                    <div className="relative h-6 w-5">
-                      <Image src={icon || ''} alt={menuItem.title} fill={true} />
-                    </div>
-                    {menuItem.title}
-                  </Link>
+                  {menuItem.link.current.includes('http') ? (
+                    <a
+                      className="flex flex-col justify-center items-center gap-2"
+                      href={menuItem.link.current}
+                      rel="noreferrer"
+                    >
+                      <div className="relative h-6 w-5">
+                        <Image src={icon || ''} alt={menuItem.title} fill={true} />
+                      </div>
+                      {menuItem.title}
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/${menuItem?.link?.current}` || '/'}
+                      className="flex flex-col justify-center items-center gap-2"
+                    >
+                      <div className="relative h-6 w-5">
+                        <Image src={icon || ''} alt={menuItem.title} fill={true} />
+                      </div>
+                      {menuItem.title}
+                    </Link>
+                  )}
                   <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
                 </li>
               )
