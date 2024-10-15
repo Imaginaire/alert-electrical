@@ -43,7 +43,7 @@ export default function ImageMagnifier({
   }
 
   return (
-    <div className={`imageMagnifier relative ${width} ${height}`}>
+    <div className={`imageMagnifier relative ${width} ${height} aspect-square`}>
       <img
         src={src}
         className="w-full h-full object-cover"

@@ -159,7 +159,7 @@ export default function ProductPage({
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image*/}
-              <div className="relative lg:sticky lg:top-10 w-full h-[520px] ">
+              <div className="relative lg:sticky lg:top-10 w-full">
                 <Image
                   src={featuredImage?.url || ''}
                   fill
