@@ -13,7 +13,7 @@ export default function SortProducts({setSortOrder}: SortPriceProps) {
   }
   return (
     <div className="flex items-center pr-5 font-manrope">
-      <label className="mr-2">Sort products</label>
+      <label className="mr-2 hidden lg:block">Sort products</label>
       <select className="" name="sort-price" id="sort-price" onChange={handleChange}>
         <option value="COLLECTION_DEFAULT">Default Order</option>
         <option value="BEST_SELLING">Popularity</option>

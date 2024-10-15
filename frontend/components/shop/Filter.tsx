@@ -192,16 +192,16 @@ export default function Filter({filterItems}: FilterProps) {
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="relative z-40 md:hidden">
         <DialogBackdrop
           transition
-          className="fixed inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
+          className="fixed inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-linear data-[closed]:opacity-0 "
         />
 
         <div className="fixed inset-0 z-40 flex">
           <DialogPanel
             transition
-            className="relative ml-auto flex h-full w-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl transition duration-300 ease-in-out data-[closed]:translate-x-full"
+            className="relative ml-auto flex h-full w-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl transition duration-300 ease-in-out data-[closed]:translate-x-full "
           >
             <div className="flex items-center justify-between px-4">
-              <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+              <h2 className="text-lg font-medium text-gray-900 font-manrope">Filters</h2>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
@@ -215,10 +215,10 @@ export default function Filter({filterItems}: FilterProps) {
             {/* Filters */}
             <form className="mt-4">
               <Disclosure key="price" as="div" className="border-t border-gray-200 px-4 py-6">
-                <h3 className="-mx-2 -my-3 flow-root">
+                <h3 className="-mx-2 -my-3 flow-root font-manrope">
                   <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
                     <div>
-                      <span className="font-medium text-gray-900">Price</span>
+                      <span className="font-medium text-gray-900 font-manrope">Price</span>
                       {searchParams.get('minPrice') || searchParams.get('maxPrice') ? (
                         <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                           1
@@ -233,7 +233,7 @@ export default function Filter({filterItems}: FilterProps) {
                     </span>
                   </DisclosureButton>
                 </h3>
-                <DisclosurePanel className="pt-6">
+                <DisclosurePanel className="pt-6 mb-6">
                   <DualRangeSlider
                     label={(value) => `£${value}`}
                     value={priceValues}
@@ -274,7 +274,7 @@ export default function Filter({filterItems}: FilterProps) {
                     </DisclosureButton>
                   </h3>
                   <DisclosurePanel className="pt-6">
-                    <div className="space-y-6">
+                    <div className="space-y-2">
                       {filter.options.map((option, optionIdx) => {
                         return (
                           <div key={option.value ?? option.label} className="flex items-center">
@@ -331,11 +331,11 @@ export default function Filter({filterItems}: FilterProps) {
               className="inline-block text-sm text-gray-700 hover:text-gray-900 md:hidden flex gap-3 w-full"
             >
               <AdjustmentsHorizontalIcon className="w-6" />
-              <span>Filter products</span>
+              <span className="text-base">Filter products</span>
             </MenuButton>
 
-            <PopoverGroup className="hidden md:flex md:items-baseline sm:space-x-14">
-              <p>Filter products</p>
+            <PopoverGroup className="hidden md:flex md:items-baseline sm:space-x-14 md:space-x-8 lg:space-x-14">
+              <p className="text-base">Filter products</p>
               <Popover className="relative inline-block text-left">
                 <div>
                   <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
