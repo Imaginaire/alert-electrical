@@ -174,6 +174,10 @@ export default function Filter({filterItems}: FilterProps) {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const category = searchParams.get('category') || 'all-products'
+  const brand = searchParams.get('brand') || null
+  const finish = searchParams.get('finish') || null
+
   return (
     <div className="filter">
       {/* Mobile filter dialog */}
@@ -205,7 +209,14 @@ export default function Filter({filterItems}: FilterProps) {
               <Disclosure key="price" as="div" className="border-t border-gray-200 px-4 py-6">
                 <h3 className="-mx-2 -my-3 flow-root">
                   <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
-                    <span className="font-medium text-gray-900">Price</span>
+                    <div>
+                      <span className="font-medium text-gray-900">Price</span>
+                      {searchParams.get('minPrice') || searchParams.get('maxPrice') ? (
+                        <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                          1
+                        </span>
+                      ) : null}
+                    </div>
                     <span className="ml-6 flex items-center">
                       <ChevronDownIcon
                         aria-hidden="true"
@@ -247,7 +258,22 @@ export default function Filter({filterItems}: FilterProps) {
                 <Disclosure key={filter.id} as="div" className="border-t border-gray-200 px-4 py-6">
                   <h3 className="-mx-2 -my-3 flow-root">
                     <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
-                      <span className="font-medium text-gray-900">{filter.caption}</span>
+                      <div>
+                        <span className="font-medium text-gray-900">{filter.caption}</span>
+                        {filter.id === 'category' && category !== 'all-products' ? (
+                          <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                            1
+                          </span>
+                        ) : filter.id === 'brand' && brand ? (
+                          <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                            {brand.split(',').length}
+                          </span>
+                        ) : filter.id === 'finish' && finish ? (
+                          <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                            {finish.split(',').length}
+                          </span>
+                        ) : null}
+                      </div>
                       <span className="ml-6 flex items-center">
                         <ChevronDownIcon
                           aria-hidden="true"
@@ -323,6 +349,11 @@ export default function Filter({filterItems}: FilterProps) {
                 <div>
                   <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                     <span className="text-base font-light">Price</span>
+                    {searchParams.get('minPrice') || searchParams.get('maxPrice') ? (
+                      <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                        1
+                      </span>
+                    ) : null}
                     <ChevronDownIcon
                       aria-hidden="true"
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -371,6 +402,19 @@ export default function Filter({filterItems}: FilterProps) {
                   <div>
                     <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                       <span className="text-base font-light">{filter.caption}</span>
+                      {filter.id === 'category' && category !== 'all-products' ? (
+                        <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                          1
+                        </span>
+                      ) : filter.id === 'brand' && brand ? (
+                        <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                          {brand.split(',').length}
+                        </span>
+                      ) : filter.id === 'finish' && finish ? (
+                        <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
+                          {finish.split(',').length}
+                        </span>
+                      ) : null}
                       <ChevronDownIcon
                         aria-hidden="true"
                         className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -393,7 +437,7 @@ export default function Filter({filterItems}: FilterProps) {
                                 (searchParams.get('category') === null &&
                                   option.value === 'all-products')
                                   ? true
-                                  : null || false
+                                  : false
                               }
                               id={`filter-${filter.id}-${optionIdx}`}
                               name={filter.id}
