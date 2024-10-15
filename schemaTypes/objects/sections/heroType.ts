@@ -37,7 +37,7 @@ const heroFields = [
     type: 'reference',
     name: 'link',
     title: 'Link',
-    to: [{type: 'page'}],
+    to: [{type: 'page'}, {type: 'shop'}],
     validation: (rule) => rule.required(),
   }),
 ]
