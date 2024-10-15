@@ -31,9 +31,22 @@ export function ShopPage({
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const category = searchParams.get('category') || 'all-products'
-  const brand = searchParams.get('brand') || null
-  const finish = searchParams.get('finish') || null
+  let categoryFromSlug = ''
+  let brandFromSlug = ''
+  let finishFromSlug = ''
+
+  if (pathname.startsWith('/product-category/')) {
+    categoryFromSlug = pathname.split('/').pop() as string
+  } else if (pathname.startsWith('/brand/')) {
+    brandFromSlug = pathname.split('/').pop() as string
+  } else if (pathname.startsWith('/finish/')) {
+    finishFromSlug = pathname.split('/').pop() as string
+  }
+
+  const category = categoryFromSlug || searchParams.get('category') || 'all-products'
+  const brand = brandFromSlug || searchParams.get('brand') || null
+  const finish = finishFromSlug || searchParams.get('finish') || null
+
   const minPrice = searchParams.get('minPrice') || null
   const maxPrice = searchParams.get('maxPrice') || null
 
