@@ -46,6 +46,10 @@ export interface Column {
   _type: string
   header?: string
   columnLinks?: ColumnLink[]
+  columnCollectionsLinks?: {
+    title?: string
+    link?: string
+  }[]
 }
 
 export interface PostContent {

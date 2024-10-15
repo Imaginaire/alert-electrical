@@ -114,6 +114,7 @@ export const settingsQuery = groq`
     footer{
       columns[]{
         header,
+        columnCollectionsLinks[],
         columnLinks[]->{
           _type,
           "slug": slug.current,

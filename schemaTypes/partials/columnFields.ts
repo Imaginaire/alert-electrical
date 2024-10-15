@@ -17,12 +17,32 @@ export default [
           {
             type: 'page',
           },
-          //   {
-          //     type: 'blog',
-          //   },
-          //   {
-          //     type: 'caseStudy',
-          //   },
+        ],
+      },
+    ],
+  }),
+
+  defineField({
+    name: 'columnCollectionsLinks',
+    title: 'Column Collections Links',
+    description: 'Links to collections of pages',
+    type: 'array',
+    of: [
+      {
+        type: 'object',
+        name: 'collectionLink',
+        title: 'Collection Link',
+        fields: [
+          defineField({
+            name: 'title',
+            title: 'Collection Page Title',
+            type: 'string',
+          }),
+          defineField({
+            name: 'link',
+            title: 'Collection Page Link',
+            type: 'string',
+          }),
         ],
       },
     ],
