@@ -155,10 +155,10 @@ export default function ProductPage({
             <Breadcrumbs pages={breadcrumbs} />
             {/* <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p> */}
           </div>
-          <div className="productPage-container mx-auto max-w-2xl lg:max-w-7xl lg:px-8">
-            <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
+          <div className="productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl">
+            <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
               {/* Image*/}
-              <div className="relative lg:sticky lg:top-10 w-full ">
+              <div className="relative lg:top-10 w-full ">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
