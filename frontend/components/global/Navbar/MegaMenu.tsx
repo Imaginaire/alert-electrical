@@ -50,7 +50,7 @@ export default function MegaMenu({menuItem, showMegaMenu, setShowMegaMenu}: Mega
                 {column.items.map((item: MenuItem, itemIndex: Key | null | undefined) => (
                   <a
                     className="text-black"
-                    href={(item.link?.current && item.link.current) || '/'}
+                    href={(item.link?.current && `/${item.link.current}`) || '/'}
                     key={itemIndex}
                   >
                     {item.title}

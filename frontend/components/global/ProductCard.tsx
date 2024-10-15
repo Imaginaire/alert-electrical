@@ -12,7 +12,7 @@ export default function ProductCard({product}: ProductCardProps) {
 
   return (
     <div>
-      <Link href={`product/${slug}` || '/'}>
+      <Link href={`/product/${slug}` || '/'}>
         <div className="relative w-full h-[265px]">
           <Image
             src={featuredImage?.url || ''}
