@@ -28,17 +28,17 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-  Field,
-  Input,
-  Label,
 } from '@headlessui/react'
 import {XMarkIcon, AdjustmentsHorizontalIcon} from '@heroicons/react/24/outline'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
 import {FilterItems} from '../../types'
+import {DualRangeSlider} from '../global/DualRangeSlider'
 
 interface FilterProps {
   filterItems?: FilterItems
 }
+
+const MAX_PRICE = 9999
 
 export default function Filter({filterItems}: FilterProps) {
   const router = useRouter()
@@ -152,14 +152,22 @@ export default function Filter({filterItems}: FilterProps) {
     }
   }
 
-  const handlePriceChange = (filterId: string, value: string) => {
-    const currentFilterValue = searchParams.get(filterId)
+  const [priceValues, setPriceValues] = useState([0, MAX_PRICE])
+
+  const handlePriceChange = (values: Number[]) => {
+    const [minPrice, maxPrice] = values
     const newSearchParams = new URLSearchParams(window.location.search)
 
-    if (value) {
-      newSearchParams.set(filterId, value)
-    } else if (currentFilterValue) {
-      newSearchParams.delete(filterId)
+    if (minPrice) {
+      newSearchParams.set('minPrice', String(minPrice))
+    } else {
+      newSearchParams.delete('minPrice')
+    }
+
+    if (maxPrice) {
+      newSearchParams.set('maxPrice', String(maxPrice))
+    } else {
+      newSearchParams.delete('maxPrice')
     }
 
     const newSearchParamsString = newSearchParams.toString()
@@ -226,32 +234,15 @@ export default function Filter({filterItems}: FilterProps) {
                   </DisclosureButton>
                 </h3>
                 <DisclosurePanel className="pt-6">
-                  <div className="space-y-6">
-                    <Field>
-                      <Label>Min</Label>
-                      <Input
-                        name="minPrice"
-                        type="number"
-                        min={0}
-                        max={searchParams.get('maxPrice') || 999999}
-                        step={10}
-                        onChange={(e) => handlePriceChange('minPrice', e.target.value)}
-                        value={searchParams.get('minPrice') || undefined}
-                      />
-                    </Field>
-                    <Field>
-                      <Label>Max</Label>
-                      <Input
-                        name="maxPrice"
-                        type="number"
-                        min={searchParams.get('minPrice') || 0}
-                        max={999999}
-                        step={10}
-                        onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
-                        value={searchParams.get('maxPrice') || undefined}
-                      />
-                    </Field>
-                  </div>
+                  <DualRangeSlider
+                    label={(value) => `£${value}`}
+                    value={priceValues}
+                    onValueChange={setPriceValues}
+                    onValueCommit={handlePriceChange}
+                    min={0}
+                    max={MAX_PRICE}
+                    step={5}
+                  />
                 </DisclosurePanel>
               </Disclosure>
               {filters.map((filter) => (
@@ -363,33 +354,18 @@ export default function Filter({filterItems}: FilterProps) {
 
                 <PopoverPanel
                   transition
-                  className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                  className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in w-[300px] p-10"
                 >
                   <form className="space-y-4">
-                    <Field>
-                      <Label>Min</Label>
-                      <Input
-                        name="minPrice"
-                        type="number"
-                        min={0}
-                        max={searchParams.get('maxPrice') || 999999}
-                        step={10}
-                        onChange={(e) => handlePriceChange('minPrice', e.target.value)}
-                        value={searchParams.get('minPrice') || undefined}
-                      />
-                    </Field>
-                    <Field>
-                      <Label>Max</Label>
-                      <Input
-                        name="maxPrice"
-                        type="number"
-                        min={searchParams.get('minPrice') || 0}
-                        max={999999}
-                        step={10}
-                        onChange={(e) => handlePriceChange('maxPrice', e.target.value)}
-                        value={searchParams.get('maxPrice') || undefined}
-                      />
-                    </Field>
+                    <DualRangeSlider
+                      label={(value) => `£${value}`}
+                      value={priceValues}
+                      onValueChange={setPriceValues}
+                      onValueCommit={handlePriceChange}
+                      min={0}
+                      max={MAX_PRICE}
+                      step={5}
+                    />
                   </form>
                 </PopoverPanel>
               </Popover>
