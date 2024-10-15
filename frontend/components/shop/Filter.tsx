@@ -262,11 +262,26 @@ export default function Filter({filterItems}: FilterProps) {
                         return (
                           <div key={option.value ?? option.label} className="flex items-center">
                             <input
-                              defaultValue={option.value}
+                              checked={
+                                searchParams.get(filter.id) === option.value ||
+                                searchParams.get(filter.id)?.split(',').includes(option.value) ||
+                                (searchParams.get('category') === null &&
+                                  option.value === 'all-products')
+                                  ? true
+                                  : false
+                              }
                               id={`filter-mobile-${filter.id}-${optionIdx}`}
                               name={filter.id}
                               type={filter.type}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={(e) => {
+                                const checked = e.target.checked
+                                if (filter.type === 'radio') {
+                                  handleRadioChange(filter.id, option.value)
+                                } else {
+                                  handleCheckboxChange(filter.id, option.value, checked)
+                                }
+                              }}
                             />
                             <label
                               htmlFor={`filter-mobile-${filter.id}-${optionIdx}`}
