@@ -14,13 +14,13 @@ interface CartModalItemProps {
 
 export default function CartModalItem({item, removeFromCart, updateQuantity}: CartModalItemProps) {
   const handleIncreaseQuantity = () => {
-    updateQuantity(Number(item?.store?.id), (item.quantity || 1) + 1)
+    updateQuantity(item?.store?.id as any, (item.quantity || 1) + 1)
   }
 
   const handleDecreaseQuantity = () => {
     const newQuantity = (item.quantity || 1) - 1
     if (newQuantity > 0) {
-      updateQuantity(Number(item?.store?.id), newQuantity)
+      updateQuantity(item?.store?.id as any, newQuantity)
     }
   }
 
@@ -50,7 +50,7 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
       {/* Remove button */}
       <button
         className="ml-auto mb-auto pl-2"
-        onClick={() => removeFromCart(Number(item?.store?.id))}
+        onClick={() => removeFromCart(item?.store?.id as any)}
       >
         <Bin />
       </button>
