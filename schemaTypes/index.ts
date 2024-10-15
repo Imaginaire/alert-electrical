@@ -29,9 +29,9 @@ const sections = [
 
 import {pageType} from './documents/page'
 import {latestNewsType} from './documents/latest-news'
-import {productSettingType} from './singletons/product-setting'
+import {brandType} from './documents/brand'
 
-const documents = [pageType, latestNewsType, productSettingType]
+const documents = [pageType, latestNewsType, brandType]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'
@@ -40,7 +40,16 @@ import {cartType} from './singletons/cartType'
 import {redirectionsType} from './singletons/redirectionsType'
 import {browseProductsType} from './objects/sections/browseProductsType'
 import {filtersType} from './singletons/filtersType'
+import {productSettingType} from './singletons/product-setting'
 
-const singletons = [homeType, settingsType, shopType, cartType, redirectionsType, filtersType]
+const singletons = [
+  homeType,
+  settingsType,
+  shopType,
+  cartType,
+  redirectionsType,
+  productSettingType,
+  filtersType,
+]
 
 export const schemaTypes = [...sections, ...singletons, ...documents]

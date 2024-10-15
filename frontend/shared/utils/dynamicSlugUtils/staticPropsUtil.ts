@@ -21,6 +21,7 @@ import {
 } from '@/lib/sanity.queries'
 import {buildCollectionUrl, callShopify, getCollectionByHandle} from '@/lib/shopify.helpers'
 import {collectionByMetafieldQuery, productQuery, productsQuery} from '@/lib/shopify.queries'
+import {pages} from 'next/dist/build/templates/app-page'
 
 interface Query {
   [key: string]: string
@@ -105,6 +106,19 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
   if (pagesByMetaField.includes(firstSlug)) {
     // convert end slug to string, break at comma add a space, and capitalise first letter
+
+    // if first slug is brand get the brand page data by end slug
+    let pageData = null
+    if (firstSlug === 'brand') {
+      pageData = await client.fetch(pagesBySlugQuery, {
+        slug: endSlug,
+      })
+      // update pageData _type to "shop" if there is page data
+      if (pageData) {
+        pageData._type = 'shop'
+      }
+    }
+
     const value = endSlug
       .toString()
       .split('-')
@@ -129,7 +143,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
     return {
       props: {
-        page: {
+        page: pageData ?? {
           _type: 'shop',
           title: value,
           description: `Products by ${value}`,

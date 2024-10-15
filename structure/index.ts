@@ -9,6 +9,7 @@ import productSetting from './productSettingStructure'
 import redirections from './redirectionsStructure'
 import {getClient} from '../lib/sanity.client'
 import filters from './filtersStructure'
+import brand from './brandPageStructure'
 /**
  * Structure overrides
  *
@@ -41,6 +42,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'productSetting',
     'redirections',
     'filters',
+    'brand',
   ].includes(id)
 }
 
@@ -63,6 +65,7 @@ export const structure: StructureResolver = async (S, context) => {
     .items([
       home(S, context),
       pages(S, context),
+      brand(S, context),
       ...(themeType === 'shopify' ? [shop(S, context), cart(S, context)] : []),
       productSetting(S, context),
       S.divider(),

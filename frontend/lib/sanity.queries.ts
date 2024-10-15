@@ -55,7 +55,7 @@ export const homePageTitleQuery = groq`
 
 export const pagesBySlugQuery = groq`
   *[
-    ((_type == "page" || _type == "caseStudy" || _type == "latestNews" || _type == "shop" || _type == "cart" ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
+    ((_type == "page" || _type == "caseStudy" || _type == "latestNews" || _type == "shop" || _type == "cart" || _type == 'brand' ) && slug.current == $slug) || (_type == "product" && store.slug.current == $slug)
   ][0] {
     _id,
     _type,
@@ -66,6 +66,7 @@ export const pagesBySlugQuery = groq`
     coverImage,
     featuredImage,
     shortDescription,
+    description,
     image,
     location,
     date,
@@ -248,9 +249,9 @@ export const productSettingQuery = groq`
   }
 `
 export const filtersQuery = groq`
-  *[_type == "filters"][0]{
-    finishFilter[], 
+ *[_type == "filters"][0]{
+   finishFilter[],
     brandFilter[],
-    categoryFilter[],
-  }
+    categoryFilter[]
+ }
 `
