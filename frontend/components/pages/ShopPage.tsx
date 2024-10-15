@@ -27,8 +27,6 @@ export function ShopPage({
   const [isNextPage, setIsNextPage] = useState<boolean>(true)
   const [sortOrder, setSortOrder] = useState<{sortKey: string; reverse?: boolean} | null>(null)
 
-  console.log('sortOrder', sortOrder)
-
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
