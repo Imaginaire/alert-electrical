@@ -26,7 +26,10 @@ export default function DeliveryInfoBar(props: DevlieryInfoBarProps) {
           </div>
         ) : (
           <div className="text-center">
-            <Link href={info[0]?.link?.slug ?? ''} className="hover:text-primary">
+            <Link
+              href={info[0]?.link?.slug ?? ''}
+              className="hover:text-primary hover:font-semibold transition-all duration-200 ease-in-out"
+            >
               {info[0].text}
             </Link>
           </div>

@@ -94,7 +94,7 @@ export default function News(newsData: NewsType) {
                   </div>
                   <Link
                     href={article.slug}
-                    className={`font-manrope flex items-center ${isFirst ? 'mt-10' : 'mt-5 text-primary'} hover:text-[#009FE3]`}
+                    className={`font-manrope flex items-center transition-all duration-200 ease-in-out ${isFirst ? 'mt-10' : 'mt-5 text-primary'} hover:text-[#009FE3]`}
                   >
                     <span>Read more</span>
                     <button className="bg-[#E0E0E0] ml-[10px] rounded-full p-1">
