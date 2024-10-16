@@ -201,7 +201,7 @@ export default function Filter({filterItems}: FilterProps) {
             className="relative ml-auto flex h-full w-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl transition duration-300 ease-in-out data-[closed]:translate-x-full "
           >
             <div className="flex items-center justify-between px-4">
-              <h2 className="text-lg font-medium text-gray-900 font-manrope">Filters</h2>
+              <h2 className="text-xl font-medium text-primary font-manrope">Filters</h2>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
@@ -218,7 +218,7 @@ export default function Filter({filterItems}: FilterProps) {
                 <h3 className="-mx-2 -my-3 flow-root font-manrope">
                   <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
                     <div>
-                      <span className="font-medium text-gray-900 font-manrope">Price</span>
+                      <span className="text-base text-primary font-manrope">Price</span>
                       {searchParams.get('minPrice') || searchParams.get('maxPrice') ? (
                         <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                           1
@@ -250,7 +250,7 @@ export default function Filter({filterItems}: FilterProps) {
                   <h3 className="-mx-2 -my-3 flow-root">
                     <DisclosureButton className="group flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
                       <div>
-                        <span className="font-medium text-gray-900">{filter.caption}</span>
+                        <span className="text-base text-primary">{filter.caption}</span>
                         {filter.id === 'category' && category !== 'all-products' ? (
                           <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                             1
