@@ -57,11 +57,7 @@ export default function ProductPage({
     variants,
   } = product || {}
 
-  console.log('product!!!!', product)
-
   const variantId = variants?.edges[0].node.id
-
-  console.log(productSpecificRobots)
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -162,13 +158,6 @@ export default function ProductPage({
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
-                  // <Image
-                  //   src={featuredImage?.url || ''}
-                  //   fill
-                  //   alt={title || ''}
-                  //   sizes="50vw"
-                  //   className="object-contain"
-                  // />
                   <ImageMagnifier
                     src={featuredImage?.url || ''}
                     width="100%"
