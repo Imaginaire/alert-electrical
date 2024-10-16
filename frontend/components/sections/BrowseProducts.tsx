@@ -121,15 +121,15 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
           {/* Menu Items */}
           <ul className="flex items-center order-last lg:-order-none w-full uppercase text-secondary-grey-text overflow-x-scroll font-manrope">
             <li
-              className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
-                selectedCategory === 'New In' ? 'text-primary transition-all duration-300' : ''
+              className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer hover:text-primary transition-colors duration-200 ease-in-out ${
+                selectedCategory === 'New In' ? 'text-primary ' : ''
               }`}
               onClick={() => handleCategoryChange('New In')}
             >
               New In
             </li>
             <li
-              className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
+              className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer hover:text-primary transition-colors duration-200 ease-in-out ${
                 selectedCategory === 'Best Sellers' ? 'text-primary' : ''
               }`}
               onClick={() => handleCategoryChange('Best Sellers')}
@@ -140,7 +140,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
               menuItems.map((menuItem, index) => (
                 <li
                   key={index}
-                  className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
+                  className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer hover:text-primary transition-colors duration-200 ease-in-out ${
                     selectedCategory === menuItem.title ? 'text-primary' : ''
                   }`}
                   onClick={() => handleCategoryChange(menuItem.title)}
