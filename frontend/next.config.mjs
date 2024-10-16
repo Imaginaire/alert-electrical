@@ -14,6 +14,7 @@ const nextConfig = {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: true,
   },
+  trailingSlash: true,
   // async redirects() {
   //   return generateRedirects()
   // },
