@@ -31,6 +31,7 @@ export function ShopPage({
   const router = useRouter()
   const searchParams = useSearchParams()
 
+  let searchFromSlug = ''
   let categoryFromSlug = ''
   let brandFromSlug = ''
   let finishFromSlug = ''
@@ -41,8 +42,11 @@ export function ShopPage({
     brandFromSlug = pathname.split('/').pop() as string
   } else if (pathname.startsWith('/finish/')) {
     finishFromSlug = pathname.split('/').pop() as string
+  } else if (pathname.startsWith('/search/')) {
+    searchFromSlug = pathname.split('/').pop() as string
   }
 
+  const search = searchFromSlug || searchParams.get('search') || null
   const category = categoryFromSlug || searchParams.get('category') || 'all-products'
   const brand = brandFromSlug || searchParams.get('brand') || null
   const finish = finishFromSlug || searchParams.get('finish') || null
@@ -91,6 +95,34 @@ export function ShopPage({
 
     return () => controller?.abort()
   }, [category, brand, finish, minPrice, maxPrice, sortOrder?.sortKey, sortOrder?.reverse])
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const getSearchProducts = async () => {
+      setIsFetching(true)
+
+      try {
+        const {products} = await fetchSearchProducts(
+          {
+            query: search,
+          },
+          controller.signal,
+        )
+
+        setProducts(products)
+        setIsFetching(false)
+      } catch (e) {
+        setIsFetching(false)
+      }
+    }
+
+    if (search) {
+      getSearchProducts()
+    }
+
+    return () => controller?.abort()
+  }, [search])
 
   const handleLoadMoreClick = async () => {
     try {
@@ -224,6 +256,20 @@ function formatMetaFieldValue(val: string) {
 
 const fetchProducts = async (body: any, signal?: AbortSignal) => {
   const res = await fetch('/api/products', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    signal,
+  })
+
+  const data = await res.json()
+  return data
+}
+
+const fetchSearchProducts = async (body: any, signal?: AbortSignal) => {
+  const res = await fetch('/api/productsBySearch', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
