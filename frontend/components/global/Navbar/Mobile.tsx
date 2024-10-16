@@ -26,7 +26,7 @@ export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarP
       {/* Cart Modal */}
       {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
 
-      <div className="xl:hidden navbar-mobile h-[79px] flex items-center justify-between px-5">
+      <div className="navbar-mobile h-[79px] flex items-center justify-between px-5">
         <div className="flex gap-6 items-center">
           <HamburgerMenu isOpen={isOpen} handleClick={() => setIsOpen(!isOpen)} />
           <Search />
