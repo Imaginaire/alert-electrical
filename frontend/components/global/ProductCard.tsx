@@ -22,7 +22,7 @@ export default function ProductCard({product, isLastTwoProducts}: ProductCardPro
             src={featuredImage?.url || ''}
             alt={title || ''}
             fill
-            sizes="100vw"
+            sizes="25vw"
             style={{objectFit: 'contain'}}
           />
           {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
