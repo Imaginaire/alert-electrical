@@ -1,4 +1,5 @@
 import {ChevronRightIcon, HomeIcon} from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 interface BreadcrumbsProps {
   pages: {title?: string; path?: string}[]
@@ -12,10 +13,10 @@ export default function Breadcrumbs({pages}: BreadcrumbsProps) {
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <div>
-            <a href="#" className="text-primary hover:text-secondary">
+            <Link href="/" className="text-primary hover:text-secondary">
               <HomeIcon aria-hidden="true" className="h-5 w-5 flex-shrink-0" />
               <span className="sr-only">Home</span>
-            </a>
+            </Link>
           </div>
         </li>
         {breadcrumbs &&
