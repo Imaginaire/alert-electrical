@@ -1,11 +1,10 @@
-import Search from '@/svgs/Search'
-import {useRouter} from 'next/router'
 import {useState} from 'react'
+import {useRouter} from 'next/router'
+import Search from '@/svgs/Search'
 
 export default function SearchBox() {
-  const [isFocused, setIsFocused] = useState(true)
   const [query, setQuery] = useState('')
-
+  const [isHovered, setIsHovered] = useState(false)
   const router = useRouter()
 
   const handleSearch = (e: React.FormEvent) => {
@@ -17,25 +16,28 @@ export default function SearchBox() {
 
   return (
     <div
-      className="searchBox flex items-center"
-      //   onMouseEnter={() => setIsFocused(true)}
-      //   onMouseLeave={() => setIsFocused(false)}
+      className="searchBox flex items-center relative"
+      onMouseEnter={() => {
+        setIsHovered(true)
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+      }}
     >
       <span className="pr-4">
         <Search />
       </span>
-      {/* Optionally, you can render something different based on the focus state */}
-      {isFocused && (
-        <form onSubmit={handleSearch}>
-          <input
-            className=" px-2 py-1 focus:outline-none focus:ring-2 focus:border-primary"
-            type="text"
-            placeholder="Search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </form>
-      )}
+      <form onSubmit={handleSearch} className="relative">
+        <input
+          className={`transition-all duration-500 ease-in-out transform ${
+            isHovered ? 'w-44 opacity-100 mr-4' : 'w-0 opacity-0'
+          } px-2 py-1 outline-none border-2 border-transparent focus:border-primary bg-gray-200 rounded`}
+          type="text"
+          placeholder="Search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </form>
     </div>
   )
 }

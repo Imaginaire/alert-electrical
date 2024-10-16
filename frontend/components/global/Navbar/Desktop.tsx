@@ -5,7 +5,6 @@ import urlForImage from '@/shared/utils/urlForImage'
 import Search from '@/svgs/Search'
 import Cart from '@/svgs/Cart'
 import CartWithItems from '@/svgs/CartWithItems'
-import dynamic from 'next/dynamic'
 import MegaMenu from './MegaMenu'
 import {useCart} from '@/contexts/CartContext'
 import {MenuItem, NavbarProps} from '@/types'
@@ -28,48 +27,52 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
 
       <div className="navbar-desktop flex relative h-24 items-center justify-between p-5">
         {/* Left - search */}
-        <button className="mr-14">
-          <SearchBox />
-        </button>
 
-        {/* Left - Links */}
-        <ul className="flex w-full md:gap-8 lg:gap-10 xl:gap-14">
-          {Array.isArray(menuItems) &&
-            menuItems.map((menuItem, index) => {
-              const hasMegaMenu = menuItem.useMegaMenu
+        <div className="w-[45%] flex items-center overflow-hidden">
+          <button className="">
+            <SearchBox />
+          </button>
 
-              return (
-                <li
-                  key={index}
-                  className="relative group uppercase hover:cursor-pointer"
-                  onMouseEnter={() => {
-                    if (hasMegaMenu) {
-                      setMenuItem(menuItem)
-                      setShowMegaMenu(true)
-                    } else {
-                      setShowMegaMenu(false)
-                    }
-                  }}
-                >
-                  {menuItem.sanityLink ? (
-                    <Link
-                      href={menuItem.title === 'Home' ? '/' : `/${menuItem.sanityLink?.slug || ''}`}
-                      className={menuItem.title === 'About Us' ? 'md:hidden xl:block' : ''}
-                    >
-                      {menuItem.title}
-                    </Link>
-                  ) : (
-                    <a href={`/${menuItem.slug}`}>{menuItem.title}</a>
-                  )}
+          {/* Left - Links */}
+          <ul className={`flex w-full md:gap-8 lg:gap-10 xl:gap-14`}>
+            {Array.isArray(menuItems) &&
+              menuItems.map((menuItem, index) => {
+                const hasMegaMenu = menuItem.useMegaMenu
 
-                  <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
-                </li>
-              )
-            })}
-        </ul>
+                return (
+                  <li
+                    key={index}
+                    className="relative whitespace-nowrap group uppercase hover:cursor-pointer flex justify-center items-center transition-opacity duration-300"
+                    onMouseEnter={() => {
+                      if (hasMegaMenu) {
+                        setMenuItem(menuItem)
+                        setShowMegaMenu(true)
+                      } else {
+                        setShowMegaMenu(false)
+                      }
+                    }}
+                  >
+                    {menuItem.sanityLink ? (
+                      <Link
+                        href={
+                          menuItem.title === 'Home' ? '/' : `/${menuItem.sanityLink?.slug || ''}`
+                        }
+                        className={menuItem.title === 'About Us' ? 'md:hidden xl:block' : ''}
+                      >
+                        {menuItem.title}
+                      </Link>
+                    ) : (
+                      <a href={`/${menuItem.slug}`}>{menuItem.title}</a>
+                    )}
+
+                    <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
+                  </li>
+                )
+              })}
+          </ul>
+        </div>
 
         {/* Mega Menu */}
-
         <MegaMenu
           menuItem={menuItem || ({} as MenuItem)}
           showMegaMenu={showMegaMenu}
@@ -79,7 +82,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
         {/* Centre - Logo */}
         {logo && (
           <Link href="/">
-            <div className="relative m-auto w-36">
+            <div className="relative flex justify-center w-36">
               <Image
                 src={urlForImage(logo)?.url()}
                 alt={(logo?.alt as string) || 'company logo'}
@@ -91,7 +94,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
         )}
 
         {/* Right - Contact */}
-        <ul className="flex w-full md:justify-end md:gap-3 lg:gap-10 xl:gap-7">
+        <ul className="flex w-[45%] md:justify-end md:gap-3 lg:gap-10 xl:gap-7">
           {Array.isArray(menuItemsRight) &&
             menuItemsRight.map((menuItem, index) => {
               const icon = urlForImage(menuItem?.icon)?.url()
@@ -112,7 +115,11 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
                   ) : (
                     <Link
                       href={`/${menuItem?.link?.current}` || '/'}
-                      className={`flex flex-col justify-center items-center gap-2 ${menuItem.title === 'Visit Us' ? 'md:hidden xl:flex' : ''} ${menuItem.title === 'Contact Us' ? 'md:hidden lg:flex xl:flex' : ''} ${menuItem.title === 'Inspiration' ? 'md:hidden xl:flex' : ''} `}
+                      className={`flex flex-col justify-center items-center gap-2 ${
+                        menuItem.title === 'Visit Us' ? 'md:hidden xl:flex' : ''
+                      } ${menuItem.title === 'Contact Us' ? 'md:hidden lg:flex xl:flex' : ''} ${
+                        menuItem.title === 'Inspiration' ? 'md:hidden xl:flex' : ''
+                      } `}
                     >
                       <div className="relative h-6 w-5">
                         <Image src={icon || ''} alt={menuItem.title} fill={true} />
