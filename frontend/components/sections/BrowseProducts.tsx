@@ -13,6 +13,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
   const {header, headerLink, headerLinkText, menuItems} = browseProductsData
   const [products, setProducts] = useState<{title: string; products: any[]}[]>([])
   const [selectedCategory, setSelectedCategory] = useState('New In') // Track selected menu item
+  const [isTransitioning, setIsTransitioning] = useState(false) // Track if the menu is transitioning
 
   console.log(browseProductsData)
 
@@ -99,13 +100,18 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
   const displayedProducts =
     products.find((category) => category.title === selectedCategory)?.products || []
 
+  const handleCategoryChange = (category: string) => {
+    setIsTransitioning(true) // Start fade out
+    setTimeout(() => {
+      setSelectedCategory(category) // Change category
+      setIsTransitioning(false) // Fade back in
+    }, 300) // Timeout matches transition duration
+  }
+
   return (
     <section className="browseProducts w-full flex justify-center">
-      {/* Container */}
       <div className="browseProducts-container w-full p-8 flex flex-col">
-        {/* Header Container */}
         <div className="flex flex-wrap lg:flex-nowrap items-center">
-          {/* Header */}
           <Header
             header={header.header}
             headerTag={header.headerTag}
@@ -116,9 +122,9 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
           <ul className="flex items-center order-last lg:-order-none w-full uppercase text-secondary-grey-text overflow-x-scroll font-manrope">
             <li
               className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
-                selectedCategory === 'New In' ? 'text-primary' : ''
+                selectedCategory === 'New In' ? 'text-primary transition-all duration-300' : ''
               }`}
-              onClick={() => setSelectedCategory('New In')}
+              onClick={() => handleCategoryChange('New In')}
             >
               New In
             </li>
@@ -126,7 +132,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
               className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
                 selectedCategory === 'Best Sellers' ? 'text-primary' : ''
               }`}
-              onClick={() => setSelectedCategory('Best Sellers')}
+              onClick={() => handleCategoryChange('Best Sellers')}
             >
               Best Sellers
             </li>
@@ -137,7 +143,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
                   className={`pr-4 md:pr-8 whitespace-nowrap cursor-pointer ${
                     selectedCategory === menuItem.title ? 'text-primary' : ''
                   }`}
-                  onClick={() => setSelectedCategory(menuItem.title)}
+                  onClick={() => handleCategoryChange(menuItem.title)}
                 >
                   {menuItem.title}
                 </li>
@@ -152,9 +158,19 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
         </div>
 
         {/* Products */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 xl:gap-x-16 mt-8">
+        <div
+          className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 xl:gap-x-16 mt-8 transition-opacity duration-300 ${
+            isTransitioning ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
           {displayedProducts.length > 0 ? (
-            displayedProducts.map((product, index) => <ProductCard key={index} product={product} />)
+            displayedProducts.map((product, index) => (
+              <ProductCard
+                key={index}
+                product={product}
+                isLastTwoProducts={index >= displayedProducts.length - 2}
+              />
+            ))
           ) : (
             <p>No products available for {selectedCategory}</p>
           )}
