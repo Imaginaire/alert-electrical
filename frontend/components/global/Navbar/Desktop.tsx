@@ -25,14 +25,14 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
       {/* Cart Modal */}
       {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
 
-      <div className="hidden xl:flex navbar-desktop relative h-24 items-center justify-between p-5">
+      <div className="navbar-desktop flex relative h-24 items-center justify-between p-5">
         {/* Left - search */}
         <button className="mr-14">
           <Search />
         </button>
 
         {/* Left - Links */}
-        <ul className="flex w-full gap-14">
+        <ul className="flex w-full md:gap-8 lg:gap-10 xl:gap-14">
           {Array.isArray(menuItems) &&
             menuItems.map((menuItem, index) => {
               const hasMegaMenu = menuItem.useMegaMenu
@@ -53,6 +53,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
                   {menuItem.sanityLink ? (
                     <Link
                       href={menuItem.title === 'Home' ? '/' : `/${menuItem.sanityLink?.slug || ''}`}
+                      className={menuItem.title === 'About Us' ? 'md:hidden xl:block' : ''}
                     >
                       {menuItem.title}
                     </Link>
@@ -89,7 +90,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
         )}
 
         {/* Right - Contact */}
-        <ul className="flex w-full justify-end gap-7">
+        <ul className="flex w-full md:justify-end md:gap-3 lg:gap-10 xl:gap-7">
           {Array.isArray(menuItemsRight) &&
             menuItemsRight.map((menuItem, index) => {
               const icon = urlForImage(menuItem?.icon)?.url()
@@ -110,7 +111,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
                   ) : (
                     <Link
                       href={`/${menuItem?.link?.current}` || '/'}
-                      className="flex flex-col justify-center items-center gap-2"
+                      className={`flex flex-col justify-center items-center gap-2 ${menuItem.title === 'Visit Us' ? 'md:hidden xl:flex' : ''} ${menuItem.title === 'Contact Us' ? 'md:hidden lg:flex xl:flex' : ''} ${menuItem.title === 'Inspiration' ? 'md:hidden xl:flex' : ''} `}
                     >
                       <div className="relative h-6 w-5">
                         <Image src={icon || ''} alt={menuItem.title} fill={true} />

@@ -16,7 +16,7 @@ export default function Navbar({
   return (
     <>
       {/* Desktop Nav */}
-      <nav className="hidden lg:block">
+      <nav className="hidden md:flex flex-col">
         {navCta && <DesktopCtaBanner ctas={navCta.ctas} />}
         <Desktop
           menuItems={menuItems}
@@ -27,13 +27,15 @@ export default function Navbar({
       </nav>
 
       {/* Mobile Nav */}
-      <nav className="lg:hidden z-50">{navCta && <MobileCtaBanner ctas={navCta.ctas} />}</nav>
-      <Mobile
-        menuItems={menuItems}
-        companyInfo={companyInfo}
-        contactPage={contactPage}
-        menuItemsRight={menuItemsRight}
-      />
+      <nav className="md:hidden z-50">
+        {navCta && <MobileCtaBanner ctas={navCta.ctas} />}
+        <Mobile
+          menuItems={menuItems}
+          companyInfo={companyInfo}
+          contactPage={contactPage}
+          menuItemsRight={menuItemsRight}
+        />
+      </nav>
 
       {deliveryInfoBar && <DeliveryInfoBar info={deliveryInfoBar.info} />}
     </>
