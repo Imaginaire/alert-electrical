@@ -120,6 +120,7 @@ export interface ProductPageProduct {
       node: {
         id: string
         title: string
+        sku: string
       }
     }[]
   }

@@ -187,6 +187,7 @@ export const productQuery = `
         variants(first:1){
           edges{
             node {
+              sku
               id
               title
             }
