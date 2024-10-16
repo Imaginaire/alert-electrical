@@ -14,7 +14,7 @@ type DropdownsProps = {
 
 export default function DropDowns({data}: DropdownsProps) {
   return (
-    <div className="divide-y divide-gray-200 border-b">
+    <div className="dropdowns divide-y divide-gray-200 border-b">
       {data.map((detail, index) => (
         <Disclosure key={index} as="div">
           <h3>
@@ -32,7 +32,10 @@ export default function DropDowns({data}: DropdownsProps) {
               </span>
             </DisclosureButton>
           </h3>
-          <DisclosurePanel className="prose prose-sm pb-6 font-manrope">
+          <DisclosurePanel
+            transition
+            className="prose prose-sm pb-6 font-manrope transition  ease-out data-[closed]:opacity-0 duration-200"
+          >
             <ul role="list" className="px-5">
               {detail.items.map((item, index) => {
                 if (typeof item === 'string') {
