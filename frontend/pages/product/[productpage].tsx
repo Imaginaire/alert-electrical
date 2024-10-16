@@ -59,6 +59,8 @@ export default function ProductPage({
 
   const variantId = variants?.edges[0].node.id
 
+  const SKU = variants?.edges[0].node.sku
+
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
     {label: 'Finish', value: finish?.value},
@@ -188,11 +190,14 @@ export default function ProductPage({
                       >
                         £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
                       </span>
-                      <span className="text-primary">
-                        {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
-                          ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
-                          : null}
-                      </span>
+                      <div>
+                        <span className="text-primary">
+                          {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                            ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
+                            : null}
+                        </span>
+                        {SKU && <span className="text-xs text-secondary">SKU: {SKU}</span>}
+                      </div>
                     </p>
                   </div>
 
