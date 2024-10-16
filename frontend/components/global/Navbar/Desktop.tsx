@@ -10,6 +10,7 @@ import MegaMenu from './MegaMenu'
 import {useCart} from '@/contexts/CartContext'
 import {MenuItem, NavbarProps} from '@/types'
 import CartModal from '../CartModal'
+import SearchBox from '@/components/shared/SearchBox'
 
 export default function Desktop({menuItems, menuItemsRight, companyInfo}: NavbarProps) {
   const {logo} = companyInfo || {}
@@ -28,7 +29,7 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
       <div className="navbar-desktop flex relative h-24 items-center justify-between p-5">
         {/* Left - search */}
         <button className="mr-14">
-          <Search />
+          <SearchBox />
         </button>
 
         {/* Left - Links */}
