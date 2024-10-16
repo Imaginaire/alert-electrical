@@ -21,7 +21,7 @@ export default function SearchBox() {
   return (
     <>
       {/* Search Box - Mobile */}
-      <div className="searchBoxMobile md:hidden flex items-center z-[100] ">
+      <div className="searchBoxMobile md:hidden flex items-center z-[50] ">
         <span onClick={() => setIsOpen(!isOpen)}>
           <Search />
         </span>
