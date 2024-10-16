@@ -11,7 +11,7 @@ export default function SearchBox() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (query.trim()) {
-      router.push(`shop?search=${encodeURIComponent(query)}`)
+      router.push(`/shop?search=${encodeURIComponent(query)}`)
     }
     if (isOpen) {
       setIsOpen(false)

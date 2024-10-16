@@ -37,13 +37,13 @@ export function ShopPage({
   let finishFromSlug = ''
 
   if (pathname.startsWith('/product-category/')) {
-    categoryFromSlug = pathname.split('/').pop() as string
+    categoryFromSlug = pathname.split('/').filter(Boolean).pop() as string
   } else if (pathname.startsWith('/brand/')) {
-    brandFromSlug = pathname.split('/').pop() as string
+    brandFromSlug = pathname.split('/').filter(Boolean).pop() as string
   } else if (pathname.startsWith('/finish/')) {
-    finishFromSlug = pathname.split('/').pop() as string
+    finishFromSlug = pathname.split('/').filter(Boolean).pop() as string
   } else if (pathname.startsWith('/search/')) {
-    searchFromSlug = pathname.split('/').pop() as string
+    searchFromSlug = pathname.split('/').filter(Boolean).pop() as string
   }
 
   const search = searchFromSlug || searchParams.get('search') || null
@@ -172,10 +172,11 @@ export function ShopPage({
             </div>
             <div className="shop-page grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-x-4 gap-y-11 pt-9 p-5">
               {/* Products */}
-              {products && products.length > 0 ? (
+              {products?.length ? (
                 products.map((product) => {
-                  const {title, featuredImage, brand, id, slug} = product || {}
-                  return <ProductCard product={product} key={product.id} />
+                  return (
+                    <ProductCard product={product} key={product.id} isLastTwoProducts={false} />
+                  )
                 })
               ) : (
                 <p>No products found</p>
