@@ -19,9 +19,7 @@ export default function DropDowns({data}: DropdownsProps) {
         <Disclosure key={index} as="div">
           <h3>
             <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
-              <span className="text-xl  text-black group-data-[open]:text-secondary first-letter:uppercase">
-                {detail.name}
-              </span>
+              <span className="text-xl  text-black  first-letter:uppercase">{detail.name}</span>
               <span className="ml-6 flex items-center">
                 <ChevronDownIcon
                   aria-hidden="true"
@@ -47,7 +45,10 @@ export default function DropDowns({data}: DropdownsProps) {
                       <tbody key={index}>
                         {item.title ? (
                           <tr>
-                            <th className="font-semibold py-4 text-center" colSpan={2}>
+                            <th
+                              className="font-semibold pt-5 pb-3 text-left text-secondary"
+                              colSpan={2}
+                            >
                               {item.title}
                             </th>
                           </tr>
