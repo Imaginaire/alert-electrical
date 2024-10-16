@@ -233,7 +233,7 @@ export default function ProductPage({
                           className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
                           onClick={() => setQuantity((prev) => prev + 1)}
                         >
-                          <PlusIcon className="w-3 h-3 text-primary dark:text-white" />
+                          <PlusIcon className="w-3 h-3 text-primary " />
                         </button>
                       </div>
 
