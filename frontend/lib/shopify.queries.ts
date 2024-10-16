@@ -579,3 +579,44 @@ export const getCollectionsWithFilters = `
   }
 }
  `
+
+export const searchProductsQuery = `
+  query searchProducts($query: String!) {
+    search(query: $query, first: 24 types: PRODUCT) {
+      edges {
+        node {
+          ... on Product {
+            id
+            title
+            slug: handle
+            brand: metafield(namespace: "custom", key: "brand") {
+              value
+            }
+            featuredImage {
+              url
+            }
+            priceRange {
+              maxVariantPrice {
+                amount
+              }
+              minVariantPrice {
+                amount
+              }
+            }
+            compareAtPriceRange {
+              maxVariantPrice {
+                amount
+              }
+              minVariantPrice {
+                amount
+              }
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }`
