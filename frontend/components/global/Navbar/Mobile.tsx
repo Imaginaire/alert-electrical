@@ -12,6 +12,7 @@ import MobileMenuModal from './MobileMenuModal' // Import the new modal componen
 import {useCart} from '@/contexts/CartContext'
 import {NavbarProps} from '@/types'
 import CartModal from '../CartModal'
+import SearchBox from '@/components/shared/SearchBox'
 
 export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarProps) {
   const {name, address, phone, email, logo} = companyInfo || {}
@@ -27,9 +28,9 @@ export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarP
       {showCartModal && <CartModal setShowCartModal={setShowCartModal} />}
 
       <div className="navbar-mobile h-[79px] flex items-center justify-between px-5">
-        <div className="flex gap-6 items-center">
+        <div className="flex gap-6 items-center w-28">
           <HamburgerMenu isOpen={isOpen} handleClick={() => setIsOpen(!isOpen)} />
-          <Search />
+          <SearchBox />
         </div>
         {logo && (
           <Link href="/">
@@ -43,7 +44,7 @@ export default function Mobile({menuItems, companyInfo, menuItemsRight}: NavbarP
             </div>
           </Link>
         )}
-        <ul className="flex gap-6">
+        <ul className="flex gap-6 w-28 justify-end">
           <li>
             <Link href="my-account">
               <MyAccount />
