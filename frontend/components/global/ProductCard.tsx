@@ -5,14 +5,18 @@ import urlForImage from '@/shared/utils/urlForImage'
 
 interface ProductCardProps {
   product: ShopPageProduct
+  isLastTwoProducts: boolean
 }
 
-export default function ProductCard({product}: ProductCardProps) {
+export default function ProductCard({product, isLastTwoProducts}: ProductCardProps) {
   const {title, featuredImage, priceRange, brand, id, slug, compareAtPriceRange} = product || {}
 
   return (
     <div>
-      <Link href={`/product/${slug}` || '/'}>
+      <Link
+        href={`/product/${slug}` || '/'}
+        className={`${isLastTwoProducts ? 'hidden md:block' : ''}`}
+      >
         <div className="relative w-full h-[265px]">
           <Image
             src={featuredImage?.url || ''}

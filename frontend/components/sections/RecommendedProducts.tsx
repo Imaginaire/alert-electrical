@@ -44,9 +44,15 @@ export default function RecommendedProducts({brand}: {brand: string}) {
         </div>
 
         {/* Products */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 xl:gap-x-16 mt-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 xl:gap-x-16 mt-8">
           {products.length > 0 &&
-            products.map((product, index) => <ProductCard key={index} product={product} />)}
+            products.map((product, index) => (
+              <ProductCard
+                key={index}
+                product={product}
+                isLastTwoProducts={index === 4 || index === 5}
+              />
+            ))}
         </div>
       </div>
     </section>
