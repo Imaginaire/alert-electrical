@@ -28,7 +28,10 @@ export default function Mobile({footer, companyInfo, socialMedia}: FooterProps) 
                 </span>
               </DisclosureButton>
             </h3>
-            <DisclosurePanel className="prose prose-sm pb-6">
+            <DisclosurePanel
+              transition
+              className="prose prose-sm pb-6 transition  ease-out data-[closed]:opacity-0 duration-200"
+            >
               {column.header === 'Get in Touch' ? (
                 <GetInTouch companyInfo={companyInfo} socialMedia={socialMedia} />
               ) : (
