@@ -25,8 +25,12 @@ export default function CartModalItem({item, removeFromCart, updateQuantity}: Ca
   }
 
   return (
-    <div className="cartItem mb-8 flex  text-primary h-32">
-      <img src={item?.featuredImage} alt={item?.title} className=" aspect-square object-cover" />
+    <div className="cartItem mb-8 flex  text-primary h-auto">
+      <img
+        src={item?.featuredImage}
+        alt={item?.title}
+        className=" aspect-square object-cover w-1/3"
+      />
 
       {/* Item details */}
       <div className="ml-4 flex flex-col justify-between ">
