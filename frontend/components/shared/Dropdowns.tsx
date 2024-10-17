@@ -18,7 +18,7 @@ export default function DropDowns({data}: DropdownsProps) {
       {data.map((detail, index) => (
         <Disclosure key={index} as="div">
           <h3>
-            <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 text-left">
+            <DisclosureButton className="group relative flex w-full items-center justify-between py-4 px-5 md:px-0 text-left">
               <span className="text-xl  text-black  first-letter:uppercase">{detail.name}</span>
               <span className="ml-6 flex items-center">
                 <ChevronDownIcon
@@ -34,7 +34,7 @@ export default function DropDowns({data}: DropdownsProps) {
           </h3>
           <DisclosurePanel
             transition
-            className="prose prose-sm pb-6 font-manrope transition  ease-out data-[closed]:opacity-0 duration-200"
+            className="prose prose-sm pb-6  transition  ease-out data-[closed]:opacity-0 duration-200"
           >
             <ul role="list" className="px-5">
               {detail.items.map((item, index) => {
@@ -44,12 +44,12 @@ export default function DropDowns({data}: DropdownsProps) {
 
                 if (typeof item === 'object' && 'value' in item && Array.isArray(item.value)) {
                   return (
-                    <table>
+                    <table className="w-full">
                       <tbody key={index}>
                         {item.title ? (
                           <tr>
                             <th
-                              className="font-semibold pt-5 pb-3 text-left text-secondary"
+                              className="font-semibold pt-5 pb-3 text-left text-lg border-b border-gray-200"
                               colSpan={2}
                             >
                               {item.title}
@@ -59,9 +59,13 @@ export default function DropDowns({data}: DropdownsProps) {
                         {item.value.map((subItem, subIndex: number) => {
                           if (!subItem.value) return null
                           return (
-                            <tr key={subIndex}>
-                              <td className="font-medium pr-4">{subItem.label}</td>
-                              <td>{subItem.value || 'N/A'}</td>
+                            <tr key={subIndex} className="">
+                              <td className="font-medium pr-4 py-2 text-left w-2/3">
+                                {subItem.label}
+                              </td>
+                              <td className="py-2 text-left w-1/2 text-gray-500">
+                                {subItem.value || 'N/A'}
+                              </td>
                             </tr>
                           )
                         })}
