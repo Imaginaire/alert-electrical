@@ -61,7 +61,7 @@ export function CustomPortableText({
         } else {
           return (
             <a
-              className={`text-secondary transition hover:opacity-70 ${linkClasses}`}
+              className={`text-primary font-semibold transition hover:opacity-70 ${linkClasses}`}
               href={value?.href || '/'}
               rel="noreferrer noopener"
               target={`${value?.blank ? '_blank' : '_self'}`}
