@@ -50,3 +50,10 @@
 .postContent ol ol ol > li:before {
   content: '•';
 }
+
+.list-none {
+  list-style-type: none;
+}
+.list-none::-webkit-details-marker {
+  display: none;
+}
