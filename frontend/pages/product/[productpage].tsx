@@ -180,7 +180,7 @@ export default function ProductPage({
                 <div className="px-5 mt-6">
                   <div className="px-4 sm:px-0 lg:mt-0">
                     <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
-                    <p className="my-6 lg:mb-0 text-2xl text-center text-secondary">
+                    <div className="my-6 lg:mb-0 text-2xl text-center text-secondary">
                       <span
                         className={
                           Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
@@ -198,7 +198,7 @@ export default function ProductPage({
                         </span>
                         {SKU && <span className="text-xs text-secondary">SKU: {SKU}</span>}
                       </div>
-                    </p>
+                    </div>
                   </div>
 
                   <div className="flex flex-col lg:flex-col-reverse items-center">
