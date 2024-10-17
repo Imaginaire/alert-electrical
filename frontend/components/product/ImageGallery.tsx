@@ -24,8 +24,8 @@ export default function ImageGallery({productImages}: ImageGalleryProps) {
         pagination={true}
         loop={true}
         navigation={{
-          nextEl: '.custom-navigation-next',
-          prevEl: '.custom-navigation-prev',
+          nextEl: '.custom-navigation-image-gallery-next',
+          prevEl: '.custom-navigation-image-gallery-prev',
         }}
         modules={[Navigation, Pagination]}
         className="mySwiper md:!hidden"
