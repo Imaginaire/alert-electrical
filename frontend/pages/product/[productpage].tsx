@@ -180,6 +180,18 @@ export default function ProductPage({
                 <div className="px-5 mt-6">
                   <div className="px-4 sm:px-0 lg:mt-0">
                     <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
+                    <div className="flex flex-col items-center">
+                      <p className="mt-6 mb-2 lg:mb-0 text-2xl text-center text-secondary">
+                        <span
+                          className={
+                            Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                              ? 'text-sm text-secondary mr-3 line-through'
+                              : 'text-primary'
+                          }
+                        >
+                          £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
+                        </span>
+
                     <div className="my-6 lg:mb-0 text-2xl text-center text-secondary">
                       <span
                         className={
@@ -196,6 +208,8 @@ export default function ProductPage({
                             ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
                             : null}
                         </span>
+                      </p>
+                      {SKU && <span className="text-xs text-secondary mb-4">SKU: {SKU}</span>}
                         {SKU && <span className="text-xs text-secondary">SKU: {SKU}</span>}
                       </div>
                     </div>
