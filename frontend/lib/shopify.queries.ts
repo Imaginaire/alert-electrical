@@ -414,6 +414,14 @@ export const collectionByMetafieldQuery = `
                 amount
               }
             }
+            compareAtPriceRange {
+              maxVariantPrice {
+                amount
+              }
+              minVariantPrice {
+                amount
+              }
+            }
           }
           cursor
         }

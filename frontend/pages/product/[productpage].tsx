@@ -192,6 +192,17 @@ export default function ProductPage({
                           £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
                         </span>
 
+                    <div className="my-6 lg:mb-0 text-2xl text-center text-secondary">
+                      <span
+                        className={
+                          Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                            ? 'text-sm text-secondary mr-3 line-through'
+                            : 'text-primary'
+                        }
+                      >
+                        £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
+                      </span>
+                      <div>
                         <span className="text-primary">
                           {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
                             ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
@@ -199,6 +210,8 @@ export default function ProductPage({
                         </span>
                       </p>
                       {SKU && <span className="text-xs text-secondary mb-4">SKU: {SKU}</span>}
+                        {SKU && <span className="text-xs text-secondary">SKU: {SKU}</span>}
+                      </div>
                     </div>
                   </div>
 
@@ -263,7 +276,9 @@ export default function ProductPage({
             </div>
           </div>
 
-          {brand?.value && <RecommendedProducts brand={brand?.value || ''} />}
+          {brand?.value && (
+            <RecommendedProducts productId={id ? id : ''} brand={brand?.value || ''} />
+          )}
 
           {/* Large CTA */}
           {cta && <LargeCta {...cta} />}

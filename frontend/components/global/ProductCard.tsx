@@ -31,7 +31,7 @@ export default function ProductCard({product, isLastTwoProducts}: ProductCardPro
             </span>
           )}
         </div>
-        <div className="my-2 text-xl self-stretch flex flex-col md:flex-row justify-between items-baseline">
+        <div className="my-2 text-xl self-stretch flex flex-col md:flex-row justify-between items-baseline flex-wrap">
           <span className="mb-2 md:mb-0 text-secondary text-sm uppercase">{brand?.value}</span>
           <div>
             <span

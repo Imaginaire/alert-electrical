@@ -7,8 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const {brand} = body
 
-  console.log(brand)
-
   try {
     const productsResponse = await callShopify(collectionByMetafieldQuery, {
       key: 'brand',
