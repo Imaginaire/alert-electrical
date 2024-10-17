@@ -55,14 +55,18 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
                     {menuItem.sanityLink ? (
                       <Link
                         href={
-                          menuItem.title === 'Home' ? '/' : `/${menuItem.sanityLink?.slug || ''}`
+                          hasMegaMenu
+                            ? '#'
+                            : menuItem.title === 'Home'
+                              ? '/'
+                              : `/${menuItem.sanityLink?.slug || ''}`
                         }
                         className={menuItem.title === 'About Us' ? 'md:hidden xl:block' : ''}
                       >
                         {menuItem.title}
                       </Link>
                     ) : (
-                      <a href={`/${menuItem.slug}`}>{menuItem.title}</a>
+                      <a href={hasMegaMenu ? '#' : `/${menuItem.slug}`}>{menuItem.title}</a>
                     )}
 
                     <span className="absolute left-0 bottom-0 w-0 h-[0.5px] bg-black opacity-0 transition-all duration-300 group-hover:w-full group-hover:opacity-100"></span>
