@@ -5,8 +5,15 @@
 import Link from 'next/link'
 import {useEffect, useState} from 'react'
 import ProductCard from '../global/ProductCard'
+import {ProductPageProduct} from '@/types/productType'
 
-export default function RecommendedProducts({brand}: {brand: string}) {
+export default function RecommendedProducts({
+  brand,
+  productId,
+}: {
+  brand: string
+  productId: string
+}) {
   const [products, setProducts] = useState<{title: string; products: any[]}[]>([])
 
   const getProductsByBrand = async () => {
@@ -19,6 +26,9 @@ export default function RecommendedProducts({brand}: {brand: string}) {
     })
 
     let {products} = await productsByBrand.json()
+
+    // remove current product from the list if it exists
+    products = products.filter((product: ProductPageProduct) => product.id !== productId)
 
     // get the first 6 products
     products = products.slice(0, 6)

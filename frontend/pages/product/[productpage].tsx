@@ -262,7 +262,9 @@ export default function ProductPage({
             </div>
           </div>
 
-          {brand?.value && <RecommendedProducts brand={brand?.value || ''} />}
+          {brand?.value && (
+            <RecommendedProducts productId={id ? id : ''} brand={brand?.value || ''} />
+          )}
 
           {/* Large CTA */}
           {cta && <LargeCta {...cta} />}
