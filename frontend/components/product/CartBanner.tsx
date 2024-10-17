@@ -12,7 +12,7 @@ export default function CartBanner({title, quantity}: CartBannerProps) {
   const [showCartModal, setShowCartModal] = useState(false)
 
   return (
-    <div className="w-full z-50 bg-primary text-white py-3 px-5 flex justify-center items-center gap-3">
+    <div className="w-full z-50 sticky top-0 bg-primary text-white py-3 px-5 flex justify-center items-center gap-3">
       <p>{`${title} ${quantity > 1 ? `(${quantity})` : ''} added to your cart!`}</p>
       <button className="underline" onClick={() => setShowCartModal((prev) => !prev)}>
         View Cart
