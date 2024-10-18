@@ -32,6 +32,15 @@ const config: Config = {
       invert: {
         1: '1',
       },
+      keyframes: {
+        dropIn: {
+          '0%': {transform: 'translateY(-100%)', opacity: '0'},
+          '100%': {transform: 'translateY(0)', opacity: '1'},
+        },
+      },
+      animation: {
+        dropIn: 'dropIn 250ms ease-in-out 1',
+      },
     },
   },
   plugins: [],
