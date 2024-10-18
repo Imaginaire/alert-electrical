@@ -85,7 +85,7 @@ export default function MobileMenuModal({
                       <>
                         {/* First Level Links */}
                         <details className="group w-full">
-                          <summary className="flex cursor-pointer items-center justify-between">
+                          <summary className="flex list-none cursor-pointer items-center justify-between">
                             <h2 className="text-xl text-primary uppercase">{menuItem.title}</h2>
                             <span className="transition group-open:rotate-180">
                               <Chevron />

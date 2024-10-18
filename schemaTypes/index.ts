@@ -30,8 +30,9 @@ const sections = [
 import {pageType} from './documents/page'
 import {latestNewsType} from './documents/latest-news'
 import {brandType} from './documents/brand'
+import {finishType} from './documents/finish'
 
-const documents = [pageType, latestNewsType, brandType]
+const documents = [pageType, latestNewsType, brandType, finishType]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'

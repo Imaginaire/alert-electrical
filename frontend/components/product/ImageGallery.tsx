@@ -1,13 +1,14 @@
 import {Tab, TabGroup, TabList, TabPanel, TabPanels} from '@headlessui/react'
 import ImageMagnifier from '../shared/ImageMagnifier'
 import {Swiper, SwiperSlide} from 'swiper/react'
-import {Navigation, Pagination, FreeMode, Thumbs} from 'swiper/modules'
+import {Navigation, Pagination, FreeMode, Thumbs, EffectFade} from 'swiper/modules'
 import {useState} from 'react'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
+import 'swiper/css/effect-fade'
 
 interface ImageGalleryProps {
   productImages: {src: string}[]
@@ -27,7 +28,9 @@ export default function ImageGallery({productImages}: ImageGalleryProps) {
           nextEl: '.custom-navigation-image-gallery-next',
           prevEl: '.custom-navigation-image-gallery-prev',
         }}
-        modules={[Navigation, Pagination]}
+        effect="fade"
+        fadeEffect={{crossFade: true}}
+        modules={[Navigation, Pagination, EffectFade]}
         className="mySwiper md:!hidden"
       >
         {productImages.map((image, index) => (

@@ -50,3 +50,15 @@
 .postContent ol ol ol > li:before {
   content: '•';
 }
+
+/* Safari list style fix */
+.list-none {
+  list-style-type: none;
+}
+.list-none::-webkit-details-marker {
+  display: none;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #05003e !important;
+}

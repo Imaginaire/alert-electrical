@@ -140,6 +140,15 @@ export default function ProductPage({
     setIsAddToCartClicked(true)
   }
 
+  // show cart banner for 5 seconds
+  useEffect(() => {
+    if (isAddToCartClicked) {
+      setTimeout(() => {
+        setIsAddToCartClicked(false)
+      }, 5000)
+    }
+  }, [isAddToCartClicked])
+
   return (
     <>
       <PageHead
@@ -150,6 +159,7 @@ export default function ProductPage({
         title={title}
       />
       <Layout settings={settings}>
+
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between text-primary font-manrope p-7">

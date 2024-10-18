@@ -109,7 +109,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
 
     // if first slug is brand get the brand page data by end slug
     let pageData = null
-    if (firstSlug === 'brand') {
+    if (firstSlug === 'brand' || firstSlug === 'finish') {
       pageData = await client.fetch(pagesBySlugQuery, {
         slug: endSlug,
       })
