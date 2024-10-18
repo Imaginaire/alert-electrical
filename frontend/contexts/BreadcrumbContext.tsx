@@ -26,7 +26,7 @@ export const BreadcrumbProvider = ({children}: {children: any}) => {
     // Reset breadcrumbs and build path incrementally
     let currentPath = '' // Local variable to store incremental path
 
-    const breadcrumbPaths = pathArray.map((segment) => {
+    const breadcrumbPaths = pathArray.map((segment, index) => {
       let title = ''
       // Handle special cases
       if (segment === 'shop' || segment === 'product') {
@@ -35,12 +35,17 @@ export const BreadcrumbProvider = ({children}: {children: any}) => {
         return {path: currentPath, title}
       }
 
-      // Build the path incrementally
-      currentPath += `/${segment}`
-
       // Convert segment to a readable title and capitalize first letter of each word
       title = segment.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
 
+      // Check if it's the last segment, set path to undefined if true
+      const isLastSegment = index === pathArray.length - 1
+      if (isLastSegment) {
+        return {path: undefined, title}
+      }
+
+      // Build the path incrementally
+      currentPath += `/${segment}`
       return {path: currentPath, title}
     })
 

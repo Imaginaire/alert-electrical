@@ -2,7 +2,7 @@ import {ChevronRightIcon, HomeIcon} from '@heroicons/react/20/solid'
 import Link from 'next/link'
 
 interface BreadcrumbsProps {
-  pages: {title?: string; path?: string}[]
+  pages: {title: string; path?: string}[]
 }
 
 export default function Breadcrumbs({pages}: BreadcrumbsProps) {
@@ -27,12 +27,16 @@ export default function Breadcrumbs({pages}: BreadcrumbsProps) {
                   aria-hidden="true"
                   className="h-5 w-5 flex-shrink-0 text-primary"
                 />
-                <a
-                  href={breadcrumb.path}
-                  className="ml-4 text-sm font-medium text-primary hover:text-secondary"
-                >
-                  {breadcrumb.title}
-                </a>
+                {breadcrumb.path ? (
+                  <Link
+                    href={breadcrumb.path}
+                    className="ml-4 text-sm font-medium text-primary hover:text-secondary"
+                  >
+                    {breadcrumb.title}
+                  </Link>
+                ) : (
+                  <span className="ml-4 text-sm font-medium text-primary">{breadcrumb.title}</span>
+                )}
               </div>
             </li>
           ))}
