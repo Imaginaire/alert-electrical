@@ -115,10 +115,8 @@ export default function ProductPage({
   const router = useRouter()
 
   useEffect(() => {
-    if (breadcrumbs.length === 0 && router && router.asPath) {
-      setBreadcrumbsFromUrl(router.asPath)
-    }
-  }, [router, breadcrumbs])
+    setBreadcrumbsFromUrl(router.asPath)
+  }, [router])
 
   const handleAddToCart = () => {
     const variant = {

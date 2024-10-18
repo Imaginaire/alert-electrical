@@ -1,7 +1,7 @@
 import {createContext, useContext, useState} from 'react'
 
 interface BreadcrumbContextType {
-  breadcrumbs: {path: string; title: string}[]
+  breadcrumbs: {path?: string; title: string}[]
   setBreadcrumbsFromUrl: (url: string) => void
 }
 
@@ -9,7 +9,7 @@ interface BreadcrumbContextType {
 const BreadcrumbContext = createContext<BreadcrumbContextType | null>(null)
 
 export const BreadcrumbProvider = ({children}: {children: any}) => {
-  const [breadcrumbs, setBreadcrumbs] = useState<{path: string; title: string}[]>([])
+  const [breadcrumbs, setBreadcrumbs] = useState<{path?: string; title: string}[]>([])
 
   const setBreadcrumbsFromUrl = (url: string) => {
     if (!url || typeof url !== 'string') {
