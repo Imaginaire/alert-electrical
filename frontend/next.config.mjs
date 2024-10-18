@@ -1,4 +1,4 @@
-// import generateRedirects from '../utils/generateRedirects.mjs'
+import generateRedirects from '../utils/generateRedirects.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,9 +15,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   trailingSlash: true,
-  // async redirects() {
-  //   return generateRedirects()
-  // },
+  async redirects() {
+    return generateRedirects()
+  },
 }
 
 export default nextConfig

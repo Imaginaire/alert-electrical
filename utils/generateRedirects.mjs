@@ -17,8 +17,18 @@ const query = `
 
 export default async function generateRedirects() {
   const redirects = await client.fetch(query)
-  if (redirects !== null) {
-    return redirects
+
+  // Filter out invalid redirects (those missing 'source', 'destination', or 'permanent')
+  const validRedirects = Array.isArray(redirects)
+    ? redirects.filter(
+        (redirect) =>
+          redirect.source && redirect.destination && typeof redirect.permanent === 'boolean',
+      )
+    : []
+
+  // Return valid redirects if any, otherwise return an empty array
+  if (validRedirects.length > 0) {
+    return validRedirects
   }
 
   return []
