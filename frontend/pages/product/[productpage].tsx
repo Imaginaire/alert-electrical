@@ -28,6 +28,12 @@ export default function ProductPage({
   const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
+  useEffect(() => {
+    if (isAddToCartClicked) {
+      setIsAddToCartClicked(false)
+    }
+  }, [product?.id])
+
   const {
     title,
     descriptionHtml,
@@ -148,7 +154,7 @@ export default function ProductPage({
       <Layout settings={settings}>
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
-          <div className="flex justify-between m-7 text-primary font-manrope">
+          <div className="flex justify-between text-primary font-manrope p-7">
             <Breadcrumbs pages={breadcrumbs} />
           </div>
           <div className="productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl">
