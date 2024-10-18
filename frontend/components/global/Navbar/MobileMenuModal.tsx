@@ -24,6 +24,8 @@ export default function MobileMenuModal({
     ...(Array.isArray(menuItemsRight) ? menuItemsRight : []),
   ]
 
+  console.log('menuItemsArray', menuItemsArray)
+
   // Handle visibility and body overflow
   useEffect(() => {
     if (isOpen) {
@@ -121,12 +123,28 @@ export default function MobileMenuModal({
                       </>
                     ) : (
                       <>
-                        <Link
-                          href={menuItem.sanityLink?.slug || '/'}
-                          className="text-xl text-primary uppercase"
-                        >
-                          {menuItem.title}
-                        </Link>
+                        {menuItem.sanityLink ? (
+                          <Link
+                            href={menuItem.sanityLink?.slug || '/'}
+                            className="text-xl text-primary uppercase"
+                          >
+                            {menuItem.title}
+                          </Link>
+                        ) : menuItem.externalLink ? (
+                          <a
+                            href={menuItem.externalLink || ''}
+                            className="text-xl text-primary uppercase"
+                          >
+                            {menuItem.title}
+                          </a>
+                        ) : (
+                          <a
+                            href={`/${menuItem.link?.current || ''}`}
+                            className="text-xl text-primary uppercase"
+                          >
+                            {menuItem.title}
+                          </a>
+                        )}
                       </>
                     )}
                   </div>

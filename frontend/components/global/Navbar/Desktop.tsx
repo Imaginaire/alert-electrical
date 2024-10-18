@@ -105,10 +105,10 @@ export default function Desktop({menuItems, menuItemsRight, companyInfo}: Navbar
 
               return (
                 <li key={index} className="relative group">
-                  {menuItem.link?.current.includes('http') ? (
+                  {menuItem.externalLink ? (
                     <a
                       className="flex flex-col justify-center items-center gap-2"
-                      href={menuItem.link.current}
+                      href={menuItem.externalLink || ''}
                       rel="noreferrer"
                     >
                       <div className="relative h-6 w-5">
