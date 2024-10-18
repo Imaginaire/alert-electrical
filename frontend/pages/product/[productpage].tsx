@@ -28,6 +28,12 @@ export default function ProductPage({
   const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
+  useEffect(() => {
+    if (isAddToCartClicked) {
+      setIsAddToCartClicked(false)
+    }
+  }, [product?.id])
+
   const {
     title,
     descriptionHtml,
@@ -58,7 +64,6 @@ export default function ProductPage({
   } = product || {}
 
   const variantId = variants?.edges[0].node.id
-
   const SKU = variants?.edges[0].node.sku
 
   const aboutProductArray = [
@@ -110,16 +115,14 @@ export default function ProductPage({
     setQuantity(Number(e.target.value))
 
   // cart context
-  const {addToCart, updateQuantity} = useCart()
+  const {addToCart} = useCart()
 
   const {breadcrumbs, setBreadcrumbsFromUrl} = useBreadcrumbs()
   const router = useRouter()
 
   useEffect(() => {
-    if (breadcrumbs.length === 0 && router && router.asPath) {
-      setBreadcrumbsFromUrl(router.asPath)
-    }
-  }, [router, breadcrumbs])
+    setBreadcrumbsFromUrl(router.asPath)
+  }, [router])
 
   const handleAddToCart = () => {
     const variant = {
@@ -156,16 +159,16 @@ export default function ProductPage({
         title={title}
       />
       <Layout settings={settings}>
-        <div className="productPage w-full relative">
-          {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
-          <div className="flex justify-between m-7 text-primary font-manrope">
+
+        {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
+        <div className="productPage w-full">
+          <div className="flex justify-between text-primary font-manrope p-7">
             <Breadcrumbs pages={breadcrumbs} />
-            {/* <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p> */}
           </div>
           <div className="productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl">
             <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
-              {/* Image*/}
-              <div className="relative lg:top-10 w-full ">
+              {/* Image */}
+              <div className="relative lg:top-10 w-full">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
@@ -173,12 +176,12 @@ export default function ProductPage({
                     src={featuredImage?.url || ''}
                     width="100%"
                     height="520px"
-                    alt={''}
+                    alt=""
                   />
                 )}
 
                 {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
-                  <span className="absolute top-2 right-2  w-[40px] h-[20px] text-red-900 bg-white z-50">
+                  <span className="absolute top-2 right-2 w-[40px] h-[20px] text-red-900 bg-white z-50">
                     SALE
                   </span>
                 )}
@@ -189,35 +192,34 @@ export default function ProductPage({
                 <div className="px-5 mt-6">
                   <div className="px-4 sm:px-0 lg:mt-0">
                     <h1 className="text-3xl font-normal text-primary text-center">{title}</h1>
-                    <div className="my-6 lg:mb-0 text-2xl text-center text-secondary">
-                      <span
-                        className={
-                          Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
-                            ? 'text-sm text-secondary mr-3 line-through'
-                            : 'text-primary'
-                        }
-                      >
-                        £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
-                      </span>
-                      <div>
+                    <div className="flex flex-col items-center">
+                      <p className="mt-6 mb-2 lg:mb-0 text-2xl text-center text-secondary">
+                        <span
+                          className={
+                            Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
+                              ? 'text-sm text-secondary mr-3 line-through'
+                              : 'text-primary'
+                          }
+                        >
+                          £{Number(priceRange?.maxVariantPrice?.amount).toFixed(2)}
+                        </span>
                         <span className="text-primary">
                           {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0
                             ? `£${Number(compareAtPriceRange?.maxVariantPrice?.amount).toFixed(2)}`
                             : null}
                         </span>
-                        {SKU && <span className="text-xs text-secondary">SKU: {SKU}</span>}
-                      </div>
+                      </p>
+                      {SKU && <span className="text-xs text-secondary mb-4">SKU: {SKU}</span>}
                     </div>
                   </div>
 
                   <div className="flex flex-col lg:flex-col-reverse items-center">
                     {/* Quantity & Add to Cart */}
                     <div className="flex justify-center items-center gap-2 lg:mb-7 w-full lg:w-4/5">
-                      <div className="max-w-32 relative flex items-center max-w-[8rem] border">
+                      <div className="max-w-[8rem] relative flex items-center border">
                         <button
                           type="button"
-                          data-input-counter-decrement="quantity-input"
-                          className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                          className="hover:bg-gray-100 border-gray-300 p-3 h-[50px] focus:outline-none"
                           onClick={() => {
                             if (quantity > 1) {
                               setQuantity((prev) => prev - 1)
@@ -228,9 +230,6 @@ export default function ProductPage({
                         </button>
                         <input
                           type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
                           className="h-11 text-center text-base text-primary block w-full py-2.5"
                           value={quantity}
                           onChange={handleQuantityChange}
@@ -238,17 +237,16 @@ export default function ProductPage({
                         />
                         <button
                           type="button"
-                          data-input-counter-increment="quantity-input"
-                          className="hover:bg-gray-100  border-gray-300 p-3 h-[50px] focus:outline-none"
+                          className="hover:bg-gray-100 border-gray-300 p-3 h-[50px] focus:outline-none"
                           onClick={() => setQuantity((prev) => prev + 1)}
                         >
-                          <PlusIcon className="w-3 h-3 text-primary " />
+                          <PlusIcon className="w-3 h-3 text-primary" />
                         </button>
                       </div>
 
                       <button
                         type="submit"
-                        className="flex w-full items-center justify-center border-none bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 uppercase"
+                        className="flex w-full items-center justify-center bg-primary px-8 py-3 text-base font-normal text-white text-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 uppercase"
                         onClick={handleAddToCart}
                       >
                         Add to cart
@@ -256,7 +254,7 @@ export default function ProductPage({
                     </div>
 
                     <div>
-                      {/* description */}
+                      {/* Description */}
                       <div
                         className="my-6 lg:my-3 leading-[26px] font-manrope text-center"
                         dangerouslySetInnerHTML={{__html: descriptionHtml ?? ''}}
@@ -271,15 +269,10 @@ export default function ProductPage({
             </div>
           </div>
 
-          {brand?.value && (
-            <RecommendedProducts productId={id ? id : ''} brand={brand?.value || ''} />
-          )}
+          {brand?.value && <RecommendedProducts productId={id || ''} brand={brand?.value || ''} />}
 
           {/* Large CTA */}
           {cta && <LargeCta {...cta} />}
-
-          {/* Sections */}
-          {/* {sections && sections.length > 0 && <Sections sections={sections} settings={settings} />} */}
         </div>
       </Layout>
     </>

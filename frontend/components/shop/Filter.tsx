@@ -339,7 +339,9 @@ export default function Filter({filterItems}: FilterProps) {
               <Popover className="relative inline-block text-left">
                 <div>
                   <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    <span className="text-base font-light">Price</span>
+                    <span className="text-base font-light outline-none border-2 border-transparent focus:border-primary">
+                      Price
+                    </span>
                     {searchParams.get('minPrice') || searchParams.get('maxPrice') ? (
                       <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                         1
@@ -377,7 +379,9 @@ export default function Filter({filterItems}: FilterProps) {
                 >
                   <div>
                     <PopoverButton className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                      <span className="text-base font-light">{filter.caption}</span>
+                      <span className="text-base font-light outline-none border-2 border-transparent focus:border-primary">
+                        {filter.caption}
+                      </span>
                       {filter.id === 'category' && category !== 'all-products' ? (
                         <span className="ml-1.5 rounded bg-gray-200 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-gray-700">
                           1
