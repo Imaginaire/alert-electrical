@@ -28,6 +28,12 @@ export default function ProductPage({
   const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false)
+  useEffect(() => {
+    if (isAddToCartClicked) {
+      setIsAddToCartClicked(false)
+    }
+  }, [product?.id])
+
   const {
     title,
     descriptionHtml,
