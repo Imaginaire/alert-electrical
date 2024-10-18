@@ -278,6 +278,14 @@ export const settingsType = defineType({
               title: 'Link',
               name: 'link',
               type: 'slug',
+              description:
+                'Link to a page. Use this if you are linking to a page that uses the host domain. Eg. /about',
+            }),
+            defineField({
+              title: 'External Link',
+              name: 'externalLink',
+              type: 'url',
+              description: 'Link to an external page. Rememeber to include the full URL.',
             }),
             defineField({
               title: 'Icon',
