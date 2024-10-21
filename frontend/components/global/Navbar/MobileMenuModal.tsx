@@ -97,7 +97,7 @@ export default function MobileMenuModal({
                             {/* Second Level Links */}
                             {megaMenuItems.map((column, index) => (
                               <details className="group/item w-full py-2" key={index}>
-                                <summary className="flex cursor-pointer items-center justify-between">
+                                <summary className="flex list-none cursor-pointer items-center justify-between">
                                   <h3 className="uppercase text-base text-primary">
                                     {column.title}
                                   </h3>
