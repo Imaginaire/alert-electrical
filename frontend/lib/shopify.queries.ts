@@ -468,6 +468,14 @@ export const getCollectionWithFilters = `
                 amount
               }
             }
+           compareAtPriceRange {
+              maxVariantPrice {
+                amount
+              }
+              minVariantPrice {
+                amount
+              }
+            }    
           }
           cursor
         }
