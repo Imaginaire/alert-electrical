@@ -1,6 +1,5 @@
-import generateRedirects from '../utils/generateRedirects.mjs'
-
 /** @type {import('next').NextConfig} */
+import generateRedirects from '../utils/generateRedirects.mjs'
 const nextConfig = {
   experimental: {
     esmExternals: false,
