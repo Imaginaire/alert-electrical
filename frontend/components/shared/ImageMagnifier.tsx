@@ -8,6 +8,7 @@ interface ImageMagnifierProps {
   magnifierHeight?: number
   magnifierWidth?: number
   zoomLevel?: number
+  classes?: string
 }
 
 export default function ImageMagnifier({
@@ -18,6 +19,7 @@ export default function ImageMagnifier({
   magnifierHeight = 100,
   magnifierWidth = 100,
   zoomLevel = 1.5,
+  classes,
 }: ImageMagnifierProps) {
   const [[x, y], setXY] = useState([0, 0])
   const [[imgWidth, imgHeight], setSize] = useState([0, 0])
@@ -43,10 +45,10 @@ export default function ImageMagnifier({
   }
 
   return (
-    <div className={`imageMagnifier relative ${width} ${height} aspect-square`}>
+    <div className={`imageMagnifier relative ${width} ${height} aspect-square `}>
       <img
         src={src}
-        className="w-full h-full object-cover"
+        className={`w-full h-full object-contain ${classes}`}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => {

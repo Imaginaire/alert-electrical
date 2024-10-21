@@ -159,23 +159,24 @@ export default function ProductPage({
         title={title}
       />
       <Layout settings={settings}>
-
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between text-primary font-manrope p-7">
             <Breadcrumbs pages={breadcrumbs} />
           </div>
-          <div className="productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl">
+          <div
+            className={`productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl ${brand?.value ? '' : 'pb-16'}`}
+          >
             <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
               {/* Image */}
-              <div className="relative lg:top-10 w-full">
+              <div className="relative lg:top-10 w-full flex justify-center items-center">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
                   <ImageMagnifier
                     src={featuredImage?.url || ''}
-                    width="100%"
-                    height="520px"
+                    width="w-auto"
+                    height="h-[500px]"
                     alt=""
                   />
                 )}
