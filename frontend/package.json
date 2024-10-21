@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "start": "NODE_PATH=./node_modules next start",
-    "build": "NODE_PATH=./node_modules next build",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
