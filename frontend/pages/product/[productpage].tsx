@@ -167,7 +167,7 @@ export default function ProductPage({
           <div
             className={`productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl ${brand?.value ? '' : 'pb-16'}`}
           >
-            <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8 ">
+            <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
               {/* Image */}
               <div className="relative lg:top-10 w-full flex justify-center items-center">
                 {productImages && productImages.length > 1 ? (
