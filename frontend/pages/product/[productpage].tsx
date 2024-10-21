@@ -169,7 +169,7 @@ export default function ProductPage({
           >
             <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
               {/* Image */}
-              <div className="relative lg:top-10 w-full flex justify-center items-center">
+              <div className="relative lg:top-10 w-full ">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
