@@ -69,7 +69,7 @@ export default function ImageGallery({productImages}: ImageGalleryProps) {
                 width="200px"
                 height="200px"
                 alt=""
-                classes={`transition-opacity duration-300 ${isFadingIn && activeImageIndex === index ? 'opacity-0' : 'opacity-100'}`}
+                imgClasses={`transition-opacity duration-300 ${isFadingIn && activeImageIndex === index ? 'opacity-0' : 'opacity-100'}`}
               />
             </TabPanel>
           ))}

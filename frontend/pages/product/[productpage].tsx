@@ -169,16 +169,28 @@ export default function ProductPage({
           >
             <div className="lg:grid lg:grid-cols-2 lg:px-8 lg:items-start lg:gap-x-8">
               {/* Image */}
-              <div className="relative lg:top-10 w-full flex justify-center items-center">
+              <div className="relative lg:top-10 w-full">
                 {productImages && productImages.length > 1 ? (
                   <ImageGallery productImages={productImages} />
                 ) : (
-                  <ImageMagnifier
-                    src={featuredImage?.url || ''}
-                    width="w-auto"
-                    height="h-[500px]"
-                    alt=""
-                  />
+                  <div className="flex justify-center items-center">
+                    <ImageMagnifier
+                      src={featuredImage?.url || ''}
+                      width="w-auto"
+                      height="h-[500px]"
+                      alt=""
+                      containerClasses="hidden md:flex"
+                    />
+                    <div className="relative w-full h-[500px] md:hidden">
+                      <Image
+                        src={featuredImage?.url || ''}
+                        fill
+                        alt={''}
+                        sizes="50vw"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
                 )}
 
                 {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
