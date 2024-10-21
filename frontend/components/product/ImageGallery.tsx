@@ -49,7 +49,7 @@ export default function ImageGallery({productImages}: ImageGalleryProps) {
       >
         {productImages.map((image, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[520px] ">
+            <div className="relative w-full h-[520px]">
               <Image src={image.src} fill alt={''} sizes="50vw" className="object-contain" />
             </div>
           </SwiperSlide>
