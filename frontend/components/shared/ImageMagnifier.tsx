@@ -46,7 +46,7 @@ export default function ImageMagnifier({
     <div className={`imageMagnifier relative ${width} ${height} aspect-square`}>
       <img
         src={src}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-fill"
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => {
