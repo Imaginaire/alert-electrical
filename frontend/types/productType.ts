@@ -85,6 +85,7 @@ export interface ProductPageProduct {
     }[]
   }
   id?: string
+  collections?: {edges: {node: {title: string}}[]}
   priceRange?: PriceRange
   compareAtPriceRange?: PriceRange
   brand?: {value?: string}

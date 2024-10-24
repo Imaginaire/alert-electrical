@@ -206,7 +206,14 @@ export const productQuery = `
                  url
               }
             }
-        }    
+        }
+        collections(first: 10) {
+          edges {
+            node {
+              title
+            }
+          }
+        }        
         priceRange {
             maxVariantPrice {
                 amount
