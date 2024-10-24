@@ -61,10 +61,14 @@ export default function ProductPage({
     seo,
     id,
     variants,
+    collections,
   } = product || {}
 
   const variantId = variants?.edges[0].node.id
   const SKU = variants?.edges[0].node.sku
+  const productCollections = collections?.edges.map(
+    (collection: {node: {title: string}}) => collection.node.title,
+  )
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -103,7 +107,10 @@ export default function ProductPage({
     },
     {name: 'delivery information', items: delivery ? [delivery] : []},
     {name: 'warranty', items: [warranty ?? '']},
+    {name: 'Categories', items: productCollections ? productCollections : []},
   ]
+
+  console.log('###productCollections', productCollections)
 
   const productImages = images?.edges.map((image: {node: {url: string}}) => ({
     src: image.node.url,
@@ -223,6 +230,30 @@ export default function ProductPage({
                         </span>
                       </p>
                       {SKU && <span className="text-xs text-secondary mb-4">SKU: {SKU}</span>}
+                      {/* <ul className="inline p-0 m-0 list-none text-center text-sm text-primary mb-4 lg:mb-0">
+                        <span className="mr-2">Categories:</span>
+                        {productCollections &&
+                          productCollections
+                            .filter((collection) => collection !== 'All Products')
+                            .map((collection, index) => {
+                              const isLastItem =
+                                index ===
+                                productCollections.filter((c) => c !== 'All Products').length - 1
+                              return (
+                                <li
+                                  key={index}
+                                  className="inline transition-colors duration-300  hover:text-blue-400"
+                                >
+                                  <Link
+                                    href={`/product-category/${formatCollectionValue(collection)}`}
+                                  >
+                                    {collection}
+                                  </Link>
+                                  {!isLastItem && ', '}
+                                </li>
+                              )
+                            })}
+                      </ul> */}
                     </div>
                   </div>
 
