@@ -47,7 +47,7 @@ export function ShopPage({
   }
 
   const search = searchFromSlug || searchParams.get('search') || null
-  const category = categoryFromSlug || searchParams.get('category') || 'all-products'
+  const category = searchParams.get('category') || categoryFromSlug || 'all-products'
   const brand = brandFromSlug || searchParams.get('brand') || null
   const finish = finishFromSlug || searchParams.get('finish') || null
 

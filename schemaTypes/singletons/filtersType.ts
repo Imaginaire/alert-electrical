@@ -10,13 +10,13 @@ export const filtersType = defineType({
   groups: GROUPS,
   fields: [
     defineField({
-      name: 'categoryFilter',
-      title: 'Category Filter',
+      name: 'interiorLightingCategories',
+      title: 'Interior Lighting Categories',
       type: 'array',
       of: [
         defineField({
           type: 'object',
-          name: 'filterItem',
+          name: 'category',
           fields: [
             defineField({
               title: 'Title',
@@ -32,6 +32,90 @@ export const filtersType = defineType({
                 source: 'title',
               },
               validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'subCategories',
+              title: 'Sub-categories',
+              type: 'array',
+              of: [
+                defineField({
+                  type: 'object',
+                  name: 'subCategory',
+                  fields: [
+                    defineField({
+                      title: 'Title',
+                      name: 'title',
+                      type: 'string',
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      title: 'Link',
+                      name: 'link',
+                      type: 'slug',
+                      options: {
+                        source: 'title',
+                      },
+                      validation: (rule) => rule.required(),
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'exteriorLightingCategories',
+      title: 'Exterior Lighting Categories',
+      type: 'array',
+      of: [
+        defineField({
+          type: 'object',
+          name: 'category',
+          fields: [
+            defineField({
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              title: 'Link',
+              name: 'link',
+              type: 'slug',
+              options: {
+                source: 'title',
+              },
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'subCategories',
+              title: 'Sub-categories',
+              type: 'array',
+              of: [
+                defineField({
+                  type: 'object',
+                  name: 'subCategory',
+                  fields: [
+                    defineField({
+                      title: 'Title',
+                      name: 'title',
+                      type: 'string',
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      title: 'Link',
+                      name: 'link',
+                      type: 'slug',
+                      options: {
+                        source: 'title',
+                      },
+                      validation: (rule) => rule.required(),
+                    }),
+                  ],
+                }),
+              ],
             }),
           ],
         }),
