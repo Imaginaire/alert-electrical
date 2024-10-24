@@ -38,7 +38,7 @@ interface FilterProps {
   filterItems?: FilterItems
 }
 
-const MAX_PRICE = 9999
+const MAX_PRICE = 1000 // max for slider, will be replaced with £9999 for query
 
 export default function Filter({filterItems}: FilterProps) {
   const router = useRouter()
@@ -165,7 +165,11 @@ export default function Filter({filterItems}: FilterProps) {
     }
 
     if (maxPrice) {
-      newSearchParams.set('maxPrice', String(maxPrice))
+      if (maxPrice === MAX_PRICE) {
+        newSearchParams.set('maxPrice', String(9999))
+      } else {
+        newSearchParams.set('maxPrice', String(maxPrice))
+      }
     } else {
       newSearchParams.delete('maxPrice')
     }
@@ -185,6 +189,23 @@ export default function Filter({filterItems}: FilterProps) {
   const category = searchParams.get('category') || 'all-products'
   const brand = searchParams.get('brand') || null
   const finish = searchParams.get('finish') || null
+
+  const priceFilter = (
+    <DualRangeSlider
+      label={(value) => {
+        if (value === MAX_PRICE) {
+          return '£1,000+'
+        }
+        return `£${value}`
+      }}
+      value={priceValues}
+      onValueChange={setPriceValues}
+      onValueCommit={handlePriceChange}
+      min={0}
+      max={MAX_PRICE}
+      step={5}
+    />
+  )
 
   return (
     <div className="filter">
@@ -233,17 +254,7 @@ export default function Filter({filterItems}: FilterProps) {
                     </span>
                   </DisclosureButton>
                 </h3>
-                <DisclosurePanel className="pt-6 mb-6">
-                  <DualRangeSlider
-                    label={(value) => `£${value}`}
-                    value={priceValues}
-                    onValueChange={setPriceValues}
-                    onValueCommit={handlePriceChange}
-                    min={0}
-                    max={MAX_PRICE}
-                    step={5}
-                  />
-                </DisclosurePanel>
+                <DisclosurePanel className="pt-6 mb-6">{priceFilter}</DisclosurePanel>
               </Disclosure>
               {filters.map((filter) => (
                 <Disclosure key={filter.id} as="div" className="border-t border-gray-200 px-4 py-6">
@@ -356,19 +367,9 @@ export default function Filter({filterItems}: FilterProps) {
 
                 <PopoverPanel
                   transition
-                  className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-8 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in w-[300px] p-10"
+                  className="absolute z-10 mt-2 origin-top-right rounded-md bg-white p-8 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in w-[500px] p-10"
                 >
-                  <form className="space-y-4">
-                    <DualRangeSlider
-                      label={(value) => `£${value}`}
-                      value={priceValues}
-                      onValueChange={setPriceValues}
-                      onValueCommit={handlePriceChange}
-                      min={0}
-                      max={MAX_PRICE}
-                      step={5}
-                    />
-                  </form>
+                  <form className="space-y-4">{priceFilter}</form>
                 </PopoverPanel>
               </Popover>
               {filters.map((filter, filterIdx) => (

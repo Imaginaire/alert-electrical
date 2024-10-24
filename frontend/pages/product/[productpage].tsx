@@ -62,13 +62,18 @@ export default function ProductPage({
     seo,
     id,
     variants,
+
     slug,
+    collections,
   } = product || {}
 
   console.log('slug', slug)
 
   const variantId = variants?.edges[0].node.id
   const SKU = variants?.edges[0].node.sku
+  const productCollections = collections?.edges.map(
+    (collection: {node: {title: string}}) => collection.node.title,
+  )
 
   const aboutProductArray = [
     {label: 'Brand', value: brand?.value},
@@ -107,7 +112,10 @@ export default function ProductPage({
     },
     {name: 'delivery information', items: delivery ? [delivery] : []},
     {name: 'warranty', items: [warranty ?? '']},
+    {name: 'Categories', items: productCollections ? productCollections : []},
   ]
+
+  console.log('###productCollections', productCollections)
 
   const productImages = images?.edges.map((image: {node: {url: string}}) => ({
     src: image.node.url,
