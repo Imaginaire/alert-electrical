@@ -45,24 +45,27 @@ export default function Filter({filterItems}: FilterProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const categoryColumn = filterItems?.categoryFilter
   const brandColumn = filterItems?.brandFilter
   const finishColumn = filterItems?.finishFilter
 
   const filters = []
 
-  if (categoryColumn && !pathname.startsWith('/product-category')) {
+  const endSlug = pathname.split('/').filter(Boolean).pop() || ''
+
+  const categoryColumn = getCategoryColumnBySlug(endSlug, filterItems)
+
+  if (categoryColumn) {
     filters.push({
       id: 'category',
       caption: 'Category',
       type: 'radio',
-      options: categoryColumn
-        .map((item) => ({
+      options: [
+        {value: 'all-products', label: 'All Products'},
+        ...categoryColumn.map((item) => ({
           value: item.link?.current,
           label: item.title,
-        }))
-        .concat({value: 'all-products', label: 'All Products'})
-        .filter((item) => item.value),
+        })),
+      ].filter((item) => item.value),
     })
   }
 
@@ -452,4 +455,35 @@ export default function Filter({filterItems}: FilterProps) {
       </div>
     </div>
   )
+}
+
+function getCategoryColumnBySlug(slug: string, filterItems: FilterItems | undefined) {
+  const interiorLightingCategories = filterItems?.interiorLightingCategories
+  const exteriorLightingCategories = filterItems?.exteriorLightingCategories
+  console.log({interiorLightingCategories, exteriorLightingCategories})
+
+  let combinedArray: FilterItems['interiorLightingCategories'] = []
+
+  if (interiorLightingCategories) {
+    combinedArray = [...combinedArray, ...interiorLightingCategories]
+  }
+
+  if (exteriorLightingCategories) {
+    combinedArray = [...combinedArray, ...exteriorLightingCategories]
+  }
+
+  const allCategories = combinedArray.length ? combinedArray : undefined
+
+  switch (slug) {
+    case 'interior-lighting':
+      return interiorLightingCategories
+    case 'exterior-lighting':
+      return exteriorLightingCategories
+    case 'shop':
+      return allCategories
+    default:
+      const parentCategory = allCategories?.find((category) => category?.link?.current === slug)
+
+      return parentCategory?.subCategories
+  }
 }

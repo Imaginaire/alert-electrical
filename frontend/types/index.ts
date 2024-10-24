@@ -228,9 +228,21 @@ export interface SEO {
 }
 
 export interface FilterItems {
-  categoryFilter?: {
+  interiorLightingCategories?: {
     title: string
     link: Slug
+    subCategories?: {
+      title: string
+      link: Slug
+    }[]
+  }[]
+  exteriorLightingCategories?: {
+    title: string
+    link: Slug
+    subCategories?: {
+      title: string
+      link: Slug
+    }[]
   }[]
   brandFilter?: {
     title: string
