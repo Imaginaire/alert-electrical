@@ -17,6 +17,7 @@ import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
 import ImageGallery from '@/components/product/ImageGallery'
 import ImageMagnifier from '@/components/shared/ImageMagnifier'
+import getCanonicalUrl from '@/shared/utils/getCanonicalUrl'
 
 // Render product details
 export default function ProductPage({
@@ -61,8 +62,12 @@ export default function ProductPage({
     seo,
     id,
     variants,
+
+    slug,
     collections,
   } = product || {}
+
+  console.log('slug', slug)
 
   const variantId = variants?.edges[0].node.id
   const SKU = variants?.edges[0].node.sku
@@ -162,7 +167,7 @@ export default function ProductPage({
         productSeo={seo ? {...seo, description: seo.metaDescription} : undefined}
         fallbackRobots={masterRobots}
         productSpecificRobots={productSpecificRobots}
-        canonicalUrl={`/product/${title}`}
+        canonicalUrl={getCanonicalUrl(`product/${slug?.value}`)}
         title={title}
       />
       <Layout settings={settings}>

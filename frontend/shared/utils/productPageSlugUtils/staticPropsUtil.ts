@@ -8,6 +8,7 @@ import {getClient} from '@/lib/sanity.client'
 import {settingsQuery, homePageTitleQuery, productSettingQuery} from '@/lib/sanity.queries'
 import {productQuery} from '@/lib/shopify.queries'
 import {GetStaticProps} from 'next'
+import getCanonicalUrl from '../getCanonicalUrl'
 
 export const fetchStaticProps: GetStaticProps = async ({params}) => {
   const productSlug = params?.productpage // Get the slug from the URL
