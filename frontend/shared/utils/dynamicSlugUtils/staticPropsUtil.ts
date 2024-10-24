@@ -21,7 +21,7 @@ import {
 } from '@/lib/sanity.queries'
 import {buildCollectionUrl, callShopify, getCollectionByHandle} from '@/lib/shopify.helpers'
 import {collectionByMetafieldQuery, productQuery, productsQuery} from '@/lib/shopify.queries'
-import {pages} from 'next/dist/build/templates/app-page'
+import validateUrl from '../validateUrl'
 
 interface Query {
   [key: string]: string
@@ -71,7 +71,20 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   if (collection) {
     // Build the full URL path by recursively fetching parent collections
     const urlSegments = await buildCollectionUrl(collection)
-    const fullUrl = '/' + urlSegments.join('/')
+
+    const fullUrl = 'product-category/' + urlSegments.join('/')
+    const actualUrl = Array.isArray(ctx?.params?.slug)
+      ? ctx.params.slug.join('/')
+      : ctx?.params?.slug
+
+    // Validate
+    const validUrl = validateUrl(actualUrl ?? '', fullUrl)
+
+    if (!validUrl) {
+      return {
+        notFound: true,
+      }
+    }
 
     // Get products for the collection
     const formattedProducts = collection.products.edges.map((edge: Edge) => edge.node)
@@ -103,7 +116,6 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
   const firstSlug = params.slug[0]
 
   // if the firstSlug exists in the pagesByMetaField array get products by metafield
-
   if (pagesByMetaField.includes(firstSlug)) {
     // convert end slug to string, break at comma add a space, and capitalise first letter
 
