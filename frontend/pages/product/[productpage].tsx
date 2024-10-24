@@ -230,30 +230,6 @@ export default function ProductPage({
                         </span>
                       </p>
                       {SKU && <span className="text-xs text-secondary mb-4">SKU: {SKU}</span>}
-                      {/* <ul className="inline p-0 m-0 list-none text-center text-sm text-primary mb-4 lg:mb-0">
-                        <span className="mr-2">Categories:</span>
-                        {productCollections &&
-                          productCollections
-                            .filter((collection) => collection !== 'All Products')
-                            .map((collection, index) => {
-                              const isLastItem =
-                                index ===
-                                productCollections.filter((c) => c !== 'All Products').length - 1
-                              return (
-                                <li
-                                  key={index}
-                                  className="inline transition-colors duration-300  hover:text-blue-400"
-                                >
-                                  <Link
-                                    href={`/product-category/${formatCollectionValue(collection)}`}
-                                  >
-                                    {collection}
-                                  </Link>
-                                  {!isLastItem && ', '}
-                                </li>
-                              )
-                            })}
-                      </ul> */}
                     </div>
                   </div>
 
