@@ -16,12 +16,7 @@ export default function TextMap(textMapData: TextMapType) {
     settings,
   } = textMapData
 
-  console.log('textMapData', textMapData)
-
   const {phone, email, address, availability} = settings?.companyInfo || {}
-
-  console.log('showPhoneNumber', showPhoneNumber)
-  console.log('showEmail', showEmail)
 
   return (
     <>

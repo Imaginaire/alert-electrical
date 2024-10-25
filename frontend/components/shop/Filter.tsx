@@ -97,7 +97,6 @@ export default function Filter({filterItems}: FilterProps) {
 
   const handleRadioChange = (filterId: string, value: string) => {
     const newSearchParams = new URLSearchParams(window.location.search)
-    console.log(value)
 
     if (value === 'all-products') {
       newSearchParams.delete(filterId)

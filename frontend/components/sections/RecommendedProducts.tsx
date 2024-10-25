@@ -27,8 +27,6 @@ export default function RecommendedProducts({
 
     let {products} = await productsByBrand.json()
 
-    console.log('products', products)
-
     // remove current product from the list if it exists
     products = products.filter((product: ProductPageProduct) => product.id !== productId)
 

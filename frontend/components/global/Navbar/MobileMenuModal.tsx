@@ -24,8 +24,6 @@ export default function MobileMenuModal({
     ...(Array.isArray(menuItemsRight) ? menuItemsRight : []),
   ]
 
-  console.log('menuItemsArray', menuItemsArray)
-
   // Handle visibility and body overflow
   useEffect(() => {
     if (isOpen) {

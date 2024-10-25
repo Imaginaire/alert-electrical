@@ -4,8 +4,6 @@ import {CustomPortableText} from '../shared/CustomPortableText'
 export default function ShortHero(shortHeroData: ShortHeroType) {
   const {header, description, shopifyData = false} = shortHeroData
 
-  console.log(Array.isArray(description))
-
   return (
     <>
       {shortHeroData && (

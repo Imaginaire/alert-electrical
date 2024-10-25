@@ -67,8 +67,6 @@ export default function ProductPage({
     collections,
   } = product || {}
 
-  console.log('slug', slug)
-
   const variantId = variants?.edges[0].node.id
   const SKU = variants?.edges[0].node.sku
   const productCollections = collections?.edges.map(
@@ -114,8 +112,6 @@ export default function ProductPage({
     {name: 'warranty', items: [warranty ?? '']},
     {name: 'Categories', items: productCollections ? productCollections : []},
   ]
-
-  console.log('###productCollections', productCollections)
 
   const productImages = images?.edges.map((image: {node: {url: string}}) => ({
     src: image.node.url,

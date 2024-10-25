@@ -57,7 +57,6 @@ export default function CartPage({
   useEffect(() => {
     // get cart items from local storage
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-    console.log(cart)
     setCart(cart)
   }, [])
 

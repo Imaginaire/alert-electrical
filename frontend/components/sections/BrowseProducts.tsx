@@ -15,8 +15,6 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
   const [selectedCategory, setSelectedCategory] = useState('New In') // Track selected menu item
   const [isTransitioning, setIsTransitioning] = useState(false) // Track if the menu is transitioning
 
-  console.log(browseProductsData)
-
   const getProducts = async () => {
     // Fetch New In and Best Sellers products
     const newInProducts = await fetch('/api/productsBySortKey', {

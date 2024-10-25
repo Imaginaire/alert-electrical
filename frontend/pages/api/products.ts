@@ -7,8 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const {handle, filters, after, sortKey, reverse} = body
 
-  //   console.log(handle, filters, after)
-
   try {
     const productsResponse = await callShopify(getCollectionWithFilters, {
       handle: handle,
@@ -21,8 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!productsResponse || productsResponse.errors) {
       throw new Error('An error occurred while fetching products')
     }
-
-    // console.log('productsByFilters', productsResponse.data.collection.products)
 
     const products = productsResponse.data.collection.products.edges.map((edge: any) => edge.node)
     const lastCursor =

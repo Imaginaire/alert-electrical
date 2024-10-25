@@ -89,8 +89,6 @@ export default function ProductPage({
     {label: 'Wattage', value: wattage?.value},
   ]
 
-  console.log({product})
-
   const [quantity, setQuantity] = useState<number>(1)
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) =>

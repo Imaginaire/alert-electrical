@@ -17,8 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error('An error occurred while fetching products')
     }
 
-    console.log('productsByBrand', productsResponse.data.collection.products)
-
     const products = productsResponse.data.collection.products.edges.map((edge: any) => edge.node)
 
     return res.status(200).json({products})
