@@ -50,9 +50,7 @@ export default function Filter({filterItems}: FilterProps) {
 
   const filters = []
 
-  const endSlug = pathname.split('/').filter(Boolean).pop() || ''
-
-  const categoryColumn = getCategoryColumnBySlug(endSlug, filterItems)
+  const categoryColumn = getCategoryColumnByPath(pathname, filterItems)
 
   if (categoryColumn) {
     filters.push({
@@ -457,10 +455,12 @@ export default function Filter({filterItems}: FilterProps) {
   )
 }
 
-function getCategoryColumnBySlug(slug: string, filterItems: FilterItems | undefined) {
+function getCategoryColumnByPath(pathname: string, filterItems: FilterItems | undefined) {
+  const firstSlug = pathname.split('/').filter(Boolean)[0] || ''
+  const endSlug = pathname.split('/').filter(Boolean).pop() || ''
+
   const interiorLightingCategories = filterItems?.interiorLightingCategories
   const exteriorLightingCategories = filterItems?.exteriorLightingCategories
-  console.log({interiorLightingCategories, exteriorLightingCategories})
 
   let combinedArray: FilterItems['interiorLightingCategories'] = []
 
@@ -474,15 +474,17 @@ function getCategoryColumnBySlug(slug: string, filterItems: FilterItems | undefi
 
   const allCategories = combinedArray.length ? combinedArray : undefined
 
-  switch (slug) {
+  if (firstSlug === 'shop' || firstSlug === 'brand' || firstSlug === 'finish') {
+    return allCategories
+  }
+
+  switch (endSlug) {
     case 'interior-lighting':
       return interiorLightingCategories
     case 'exterior-lighting':
       return exteriorLightingCategories
-    case 'shop':
-      return allCategories
     default:
-      const parentCategory = allCategories?.find((category) => category?.link?.current === slug)
+      const parentCategory = allCategories?.find((category) => category?.link?.current === endSlug)
 
       return parentCategory?.subCategories
   }
