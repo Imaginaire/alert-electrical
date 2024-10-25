@@ -206,7 +206,7 @@ export default function ProductPage({
                 )}
 
                 {Number(compareAtPriceRange?.maxVariantPrice?.amount) > 0 && (
-                  <span className="absolute top-2 right-2 w-[40px] h-[20px] text-red-900 bg-white z-50">
+                  <span className="absolute top-3 right-4 w-[50px] h-[30px] text-red-900 bg-white z-[30] flex items-center justify-center">
                     SALE
                   </span>
                 )}
