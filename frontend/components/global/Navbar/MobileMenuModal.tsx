@@ -130,9 +130,9 @@ export default function MobileMenuModal({
                           >
                             {menuItem.title}
                           </Link>
-                        ) : menuItem.externalLink ? (
+                        ) : menuItem.shopifyLink ? (
                           <a
-                            href={menuItem.externalLink || ''}
+                            href={menuItem.shopifyLink || ''}
                             className="text-xl text-primary uppercase"
                           >
                             {menuItem.title}

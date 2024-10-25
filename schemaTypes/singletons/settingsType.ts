@@ -101,7 +101,7 @@ export const settingsType = defineType({
             defineField({
               title: 'Shopify Link',
               name: 'shopifyLink',
-              type: 'url',
+              type: 'string',
               description:
                 'Link to a page. Use this if you are linking to a page created on Shopify. Examples include collections and individual products',
             }),
