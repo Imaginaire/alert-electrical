@@ -19,7 +19,7 @@ const query = `
 export default async function generateRedirects() {
   const redirects = await client.fetch(query)
 
-  // Filter out invalid redirects (those missing 'source: string', 'destination:string', or 'statusCode: number')
+  // Filter out invalid redirects
   const validRedirects = redirects.filter(
     (redirect) =>
       redirect.source &&
