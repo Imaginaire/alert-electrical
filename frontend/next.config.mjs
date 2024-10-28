@@ -3,6 +3,7 @@ import generateRedirects from './shared/utils/generateRedirects.mjs'
 const nextConfig = {
   experimental: {
     esmExternals: false,
+    appDir: false,
   },
   images: {
     remotePatterns: [{hostname: 'cdn.sanity.io'}, {hostname: 'source.unsplash.com'}],

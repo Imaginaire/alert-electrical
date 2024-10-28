@@ -71,5 +71,10 @@ export const sections = defineField({
       name: 'browseProducts',
       title: 'Browse Products',
     }),
+    defineArrayMember({
+      type: 'formBuilder',
+      name: 'formBuilder',
+      title: 'Form Builder',
+    }),
   ],
 })

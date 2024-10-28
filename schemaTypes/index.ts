@@ -10,6 +10,8 @@ import newsType from './objects/sections/newsType'
 import {textImageType} from './objects/sections/textImageType'
 import {textMapType} from './objects/sections/textMapType'
 import {trendingCollectionsType} from './objects/sections/trendingCollectionsType'
+import formBuilderType from './objects/sections/formBuilderType/formBuilderType'
+import formFields from './objects/sections/formBuilderType/formFields'
 
 const sections = [
   heroType,
@@ -25,6 +27,8 @@ const sections = [
   textMapType,
   trendingCollectionsType,
   browseProductsType,
+  formBuilderType,
+  formFields,
 ]
 
 import {pageType} from './documents/page'
