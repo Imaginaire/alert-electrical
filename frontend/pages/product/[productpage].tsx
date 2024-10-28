@@ -23,8 +23,8 @@ import getCanonicalUrl from '@/shared/utils/getCanonicalUrl'
 export default function ProductPage({
   product,
   settings,
-  homePageTitle,
   productSetting,
+  filterItems,
 }: ProductPageProps) {
   const {warranty, delivery, cta, masterRobots, productSpecificRobots} = productSetting || {}
 
@@ -285,7 +285,9 @@ export default function ProductPage({
                 </div>
 
                 {/* Additional details */}
-                {details && <DropDowns data={details} />}
+                {details && (
+                  <DropDowns data={details} settings={settings} filterItems={filterItems} />
+                )}
               </div>
             </div>
           </div>

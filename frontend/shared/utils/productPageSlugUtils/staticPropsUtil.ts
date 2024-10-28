@@ -2,10 +2,15 @@
  * This file fetches the product data by slug (handle) and settings data from Sanity
  */
 
-import {SettingsPayload} from '@/types'
+import {FilterItems, SettingsPayload} from '@/types'
 import {callShopify} from '@/lib/shopify.helpers'
 import {getClient} from '@/lib/sanity.client'
-import {settingsQuery, homePageTitleQuery, productSettingQuery} from '@/lib/sanity.queries'
+import {
+  settingsQuery,
+  homePageTitleQuery,
+  productSettingQuery,
+  filtersQuery,
+} from '@/lib/sanity.queries'
 import {productQuery} from '@/lib/shopify.queries'
 import {GetStaticProps} from 'next'
 import getCanonicalUrl from '../getCanonicalUrl'
@@ -38,12 +43,15 @@ export const fetchStaticProps: GetStaticProps = async ({params}) => {
     client.fetch<string | null>(productSettingQuery),
   ])
 
+  const filterItems = await client.fetch<FilterItems | null>(filtersQuery)
+
   return {
     props: {
       product,
       settings,
       homePageTitle,
       productSetting,
+      filterItems,
     },
     revalidate: 10, // Re-generate the page every 10 seconds
   }

@@ -5,7 +5,7 @@ import PageHead from './PageHead'
 import Layout from '@/components/global/Layout'
 import Sections from '@/components/global/Sections'
 import {ProductPageProduct} from '@/types/productType'
-import {PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
+import {FilterItems, PagePayload, ProductSettingPayload, SettingsPayload} from '@/types'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {useCart} from '@/contexts/CartContext'
 import CartBanner from '../product/CartBanner'
@@ -23,6 +23,7 @@ export interface ProductPageProps {
   addToCartText?: string
   productSetting?: ProductSettingPayload
   product?: ProductPageProduct
+  filterItems?: FilterItems
 }
 
 export default function ProductPage({

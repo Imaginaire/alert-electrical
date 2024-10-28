@@ -3,6 +3,9 @@ import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/24/outline'
 import {CustomPortableText} from '../shared/CustomPortableText'
 import {PortableTextBlock} from '@portabletext/types'
 import Link from 'next/link'
+import {buildCollectionUrl} from '../../lib/shopify.helpers'
+import {useEffect} from 'react'
+import {FilterItems, SettingsPayload} from '@/types'
 
 type DropdownsTableRow = {label: string; value: string | undefined}
 
@@ -11,9 +14,47 @@ type DropdownsProps = {
     name: string
     items: string[] | {title?: string; value: Array<DropdownsTableRow>}[] | PortableTextBlock[][]
   }[]
+  settings: SettingsPayload | undefined
+  filterItems?: FilterItems
 }
 
-export default function DropDowns({data}: DropdownsProps) {
+export default function DropDowns({data, settings, filterItems}: DropdownsProps) {
+  useEffect(() => {
+    const test = async () =>
+      await buildCollectionUrl({
+        handle: 'floor-lamps',
+      })
+    test().then((result) => console.log({result}))
+  }, [])
+
+  function getCollectionUrl(title: string) {
+    const categories = [
+      {name: 'interior-lighting', items: filterItems?.interiorLightingCategories},
+      {name: 'exterior-lighting', items: filterItems?.exteriorLightingCategories},
+    ]
+
+    for (const categoryGroup of categories) {
+      for (const category of categoryGroup?.items || []) {
+        // Check if the title matches the main category slug
+        if (category.link.current === title) {
+          return `${categoryGroup.name}/${category.link.current}/`
+        }
+
+        // Search through the subCategories if available
+        if (category.subCategories) {
+          for (const subCategory of category.subCategories) {
+            if (subCategory.link.current === title) {
+              return `${categoryGroup.name}/${category.link.current}/${subCategory.link.current}/`
+            }
+          }
+        }
+      }
+    }
+
+    // If no match is found, return an empty string or a default path
+    return title
+  }
+
   return (
     <div className="dropdowns divide-y divide-gray-200 border-b">
       {data.map((detail, index) => (
@@ -41,18 +82,19 @@ export default function DropDowns({data}: DropdownsProps) {
               {detail.name === 'Categories'
                 ? detail.items
                     .filter((item) => item !== 'All Products')
-                    .map((collection, subIndex, filteredItems) => {
+                    .map((item, subIndex, filteredItems) => {
                       const isLastSubItem = subIndex === filteredItems.length - 1
+
+                      const collectionUrl =
+                        typeof item === 'string' ? getCollectionUrl(formatAsHandle(item)) : ''
+
                       return (
                         <li
                           key={subIndex}
                           className="inline transition-colors duration-300 hover:text-secondary"
                         >
-                          <Link
-                            target="_blank"
-                            href={`/product-category/${formatCollectionValue(collection as string)}`}
-                          >
-                            {typeof collection === 'string' ? collection : ''}
+                          <Link target="_blank" href={`/product-category/${collectionUrl}`}>
+                            {typeof item === 'string' ? item : ''}
                           </Link>
                           {!isLastSubItem && ', '}
                         </li>
@@ -111,6 +153,6 @@ export default function DropDowns({data}: DropdownsProps) {
   )
 }
 
-const formatCollectionValue = (collection: string) => {
-  return collection.toLowerCase().replace(/\s+/g, '-').trim()
+const formatAsHandle = (title: string) => {
+  return title.toLowerCase().replace(/\s+/g, '-').trim()
 }
