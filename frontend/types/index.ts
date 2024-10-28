@@ -470,3 +470,23 @@ export interface TextMapType {
   openingHoursTitle: string
   settings?: SettingsPayload | undefined
 }
+
+export interface FormBuilderType {
+  _type: string
+  formId?: string
+  formName?: string
+  formImage?: Image
+  formFields?: {
+    required?: boolean
+    fieldName?: string
+    placeholder?: string
+    description?: string
+    fieldId?: {
+      current?: string
+      _type?: Slug
+    }
+    inputType?: string
+  }[]
+  useCaptcha?: boolean
+  captchaSiteKey?: string
+}
