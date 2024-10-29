@@ -50,9 +50,18 @@ export default defineType({
           {value: 'phone', title: 'Phone number'},
           {value: 'textArea', title: 'Text area'},
           {value: 'file', title: 'File upload'},
+          {value: 'dropdown', title: 'Dropdown'},
         ],
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'dropdownOptions',
+      title: 'Dropdown Options',
+      type: 'array',
+      of: [{type: 'string'}],
+      hidden: ({parent}) => parent?.inputType !== 'dropdown',
+      description: 'Specify the options for the dropdown.',
     }),
   ],
   preview: {
@@ -71,7 +80,9 @@ export default defineType({
                 ? 'Text area'
                 : inputType === 'file'
                   ? 'File upload'
-                  : 'Unknown'
+                  : inputType === 'dropdown'
+                    ? 'Dropdown'
+                    : 'Unknown'
 
       return {
         title: `Form Field: ${title}`,
