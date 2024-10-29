@@ -53,19 +53,6 @@ const InputField = ({
   </div>
 )
 
-// interface FormField {
-//   inputType?: string
-//   fieldId?: {
-//     current?: string
-//     _type?: string
-//   }
-//   fieldName?: string
-//   required?: boolean
-//   description?: string
-//   placeholder?: string
-//   dropdownOptions?: string[]
-// }
-
 export default function FormBuilder(formBuilderData: FormBuilderType) {
   const {formFields, formId, formName, formImage, useCaptcha, captchaSiteKey} =
     formBuilderData ?? {}
@@ -73,6 +60,7 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
   // UI states
   const [submitted, setSubmitted] = useState(false)
   const [showFormFailed, setShowFormFailed] = useState(false)
+  const [showCaptchaWarning, setShowCaptchaWarning] = useState(false)
 
   // Formspark hook
   const [submit, submitting] = useFormspark({
@@ -83,31 +71,48 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
   const {register, handleSubmit} = useForm()
 
   const onSubmit = async (data) => {
+    const captchaElement = document.querySelector(
+      '[name="h-captcha-response"]',
+    ) as HTMLInputElement | null
+    const captchaResponse = captchaElement?.value || ''
+    if (!captchaResponse) {
+      setShowCaptchaWarning(true)
+      return
+    }
+
     const submissionData = {
       ...data,
+      'h-captcha-response': captchaResponse,
     }
 
     try {
       // Submit the data to Formspark
-      const submitResponse = await submit(submissionData)
-
-      // Check if Formspark returned success
-      if (submitResponse) {
-        setSubmitted(true)
-      } else {
-        throw new Error('Form submission failed.')
-      }
+      await submit(submissionData)
+      setSubmitted(true)
+      setShowCaptchaWarning(false)
     } catch (error) {
       console.error('Error submitting form:', error)
       setShowFormFailed(true)
     }
   }
 
+  // Load hCaptcha script
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://js.hcaptcha.com/1/api.js'
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
+
   const formNameFormatted = formName?.toLowerCase().replace(/\s/g, '-')
 
   return (
     <section className="formBuilder flex justify-center py-16 px-5">
-      <div className="formBuilder-container w-full max-w-screen-xl flex bg-white rounded-lg gap-3">
+      <div className="formBuilder-container w-full max-w-screen-2xl flex bg-white rounded-lg gap-3">
         {/* Form */}
         {submitted ? (
           <div className="flex justify-center text-center w-11/12 min-h-[70vh] w-full items-center flex-col">
@@ -246,15 +251,23 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
               </div>
 
               {/* Button and Captcha */}
-              <div className="flex justify-end items-center mt-6">
+              <div className={`flex ${useCaptcha ? 'justify-between' : 'justify-end'}  w-full`}>
                 {useCaptcha && <div className="h-captcha" data-sitekey={captchaSiteKey}></div>}
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="px-12 py-2 bg-primary text-white font-semibold  hover:bg-secondary transition duration-300"
-                >
-                  Submit
-                </button>
+                <div className="flex flex-col items-center mt-6">
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="px-12 py-2 bg-primary text-white font-semibold  hover:bg-secondary transition duration-300"
+                  >
+                    Submit
+                  </button>
+
+                  {showCaptchaWarning && (
+                    <span className="text-red-500 text-sm text-right mt-3">
+                      Please complete the hCaptcha
+                    </span>
+                  )}
+                </div>
               </div>
             </form>
           </>
