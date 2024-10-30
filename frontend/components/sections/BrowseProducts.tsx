@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 // Utils
 import {useEffect, useState} from 'react'
+import {SORT_KEYS} from '@/constants'
 
 export default function BrowseProducts(browseProductsData: BrowseProductsType) {
   const {header, headerLink, headerLinkText, menuItems} = browseProductsData
@@ -22,7 +23,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({sortKey: 'CREATED_AT'}),
+      body: JSON.stringify({sortKey: SORT_KEYS.CREATED_AT}),
     })
 
     const bestSellerProducts = await fetch('/api/productsBySortKey', {
@@ -30,7 +31,7 @@ export default function BrowseProducts(browseProductsData: BrowseProductsType) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({sortKey: 'BEST_SELLING'}),
+      body: JSON.stringify({sortKey: SORT_KEYS.BEST_SELLING}),
     })
 
     // Parse the JSON from the New In and Best Sellers responses
