@@ -6,7 +6,6 @@ import {useEffect, useState} from 'react'
 import ShortHero from '../sections/ShortHero'
 import ProductCard from '../global/ProductCard'
 import Filter from '../shop/Filter'
-import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
 import {usePathname, useSearchParams} from 'next/navigation'
 import {ShopPageProduct} from '@/types/productType'
@@ -148,14 +147,6 @@ export function ShopPage({
       setIsFetching(false)
     }
   }
-
-  // set breadcrumbs
-  const {setBreadcrumbsFromUrl} = useBreadcrumbs()
-  useEffect(() => {
-    if (router && router.asPath) {
-      setBreadcrumbsFromUrl(router.asPath)
-    }
-  }, [router])
 
   return (
     <>

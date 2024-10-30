@@ -4,7 +4,7 @@ import PageHead from '@/components/pages/PageHead'
 import Layout from '@/components/global/Layout'
 import Sections from '@/components/global/Sections'
 import DropDowns from '@/components/shared/Dropdowns'
-import Breadcrumbs from '@/components/global/Breadcrumbs'
+import Breadcrumbs, {BreadcrumbType} from '@/components/global/Breadcrumbs'
 import CartBanner from '@/components/product/CartBanner'
 import LargeCta from '@/components/sections/LargeCta'
 import {useCart} from '@/contexts/CartContext'
@@ -13,7 +13,6 @@ import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsU
 import {fetchStaticProps} from '@/shared/utils/productPageSlugUtils/staticPropsUtil'
 import {ProductPageProps} from '@/components/pages/ProductPage'
 import RecommendedProducts from '@/components/sections/RecommendedProducts'
-import {useBreadcrumbs} from '@/contexts/BreadcrumbContext'
 import {useRouter} from 'next/router'
 import ImageGallery from '@/components/product/ImageGallery'
 import ImageMagnifier from '@/components/shared/ImageMagnifier'
@@ -125,13 +124,6 @@ export default function ProductPage({
   // cart context
   const {addToCart} = useCart()
 
-  const {breadcrumbs, setBreadcrumbsFromUrl} = useBreadcrumbs()
-  const router = useRouter()
-
-  useEffect(() => {
-    setBreadcrumbsFromUrl(router.asPath)
-  }, [router])
-
   const handleAddToCart = () => {
     const variant = {
       id: variantId,
@@ -157,6 +149,8 @@ export default function ProductPage({
     }
   }, [isAddToCartClicked])
 
+  const breadcrumbs: BreadcrumbType[] = []
+
   return (
     <>
       <PageHead
@@ -170,7 +164,7 @@ export default function ProductPage({
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between text-primary font-manrope p-7">
-            <Breadcrumbs pages={breadcrumbs} />
+            <Breadcrumbs crumbs={breadcrumbs} />
           </div>
           <div
             className={`productPage-container mx-auto max-w-2xl lg:max-w-screen-2xl ${brand?.value ? '' : 'pb-16'}`}
