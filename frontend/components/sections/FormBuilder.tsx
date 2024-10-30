@@ -6,7 +6,7 @@ For each unique form, create a dedicated .scss stylesheet. The dynamic className
 
 import {useFormspark} from '@formspark/use-formspark'
 import {useState, useEffect} from 'react'
-import {useForm} from 'react-hook-form'
+import {FieldValues, SubmitHandler, useForm} from 'react-hook-form'
 import {FormBuilderType} from '@/types'
 import Image from 'next/image'
 import CheckMark from '@/svgs/CheckMark'
@@ -70,7 +70,7 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
   // Submission handler
   const {register, handleSubmit} = useForm()
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const captchaElement = document.querySelector(
       '[name="h-captcha-response"]',
     ) as HTMLInputElement | null

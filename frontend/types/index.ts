@@ -134,19 +134,16 @@ export interface MenuItem {
   megaMenuImageLink?: string
 }
 
-export interface MenuItems {
-  menuItems: MenuItem[]
-}
+export type MenuItems = MenuItem[]
 
 export interface MenuItemRight {
   title: string
-  link?: string
-  image: Image
+  link?: Slug
+  externalLink?: string
+  icon: Image
 }
 
-export interface MenuItemsRight {
-  menuItemsRight: MenuItemRight[]
-}
+export type MenuItemsRight = MenuItemRight[]
 
 export interface MegaMenuItem {
   megaMenuItem: {
@@ -452,12 +449,12 @@ export interface FooterProps {
   socialMedia?: SettingsPayload['socialMedia']
 }
 
-export interface AvailabilityType {
-  availability?: {
-    availableTimes?: {from?: string; to?: string}[]
-    day?: string
-  }[]
-}
+export type AvailabilityType =
+  | {
+      availableTimes?: {from?: string; to?: string}[]
+      day?: string
+    }[]
+  | undefined
 
 export interface TextMapType {
   sectionTitle: string
@@ -486,6 +483,7 @@ export interface FormBuilderType {
       _type?: Slug
     }
     inputType?: string
+    dropdownOptions?: string[]
   }[]
   useCaptcha?: boolean
   captchaSiteKey?: string

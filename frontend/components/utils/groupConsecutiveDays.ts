@@ -1,4 +1,4 @@
-import {TextImage as TextImageType} from '@/types'
+import {AvailabilityType, TextImage as TextImageType} from '@/types'
 
 type TimeSlot = {from?: string; to?: string}
 
@@ -10,9 +10,7 @@ type GroupedAvailability = {
 
 const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-export function groupConsecutiveDays(
-  availability: TextImageType['availability'],
-): GroupedAvailability[] {
+export function groupConsecutiveDays(availability: AvailabilityType): GroupedAvailability[] {
   const availabilityMap = new Map(
     (availability || []).map((item) => [item.day, item.availableTimes]),
   )
