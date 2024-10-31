@@ -254,7 +254,7 @@ export interface FilterItems {
 export interface PageProps {
   page: PagePayload | undefined | null
   settings: SettingsPayload | undefined
-  homePageTitle: string | undefined
+  homePageTitle: string | null
   preview?: boolean
   loading?: boolean
   canonicalUrl?: string

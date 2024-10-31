@@ -98,7 +98,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
           ...collection,
         },
         settings: settings ?? {},
-        homePageTitle: homePageTitle ?? undefined,
+        homePageTitle: homePageTitle ?? null,
         canonicalUrl: getCanonicalUrl(urlSegments.join('/')),
         productSetting: null,
         products: formattedProducts ?? null,
@@ -161,7 +161,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
           description: `Products by ${value}`,
         },
         settings: settings ?? {},
-        homePageTitle: homePageTitle ?? undefined,
+        homePageTitle: homePageTitle ?? null,
         canonicalUrl: getCanonicalUrl(
           Array.isArray(params.slug) ? params.slug.join('/') : params.slug,
         ),
@@ -209,7 +209,7 @@ export const fetchStaticProps: GetStaticProps<PageProps, Query> = async (ctx) =>
     props: {
       page,
       settings: settings ?? {},
-      homePageTitle: homePageTitle ?? undefined,
+      homePageTitle: homePageTitle ?? null,
       draftMode,
       token: draftMode ? readToken : null,
       canonicalUrl,

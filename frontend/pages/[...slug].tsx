@@ -74,7 +74,7 @@ export default function PageSlugRoute(props: PageProps) {
           preview={draftMode}
           loading={loading}
           canonicalUrl={canonicalUrl}
-          homePageTitle={homePageTitle}
+          homePageTitle={homePageTitle || undefined}
         />
       )
       break
@@ -86,7 +86,7 @@ export default function PageSlugRoute(props: PageProps) {
           settings={settings}
           loading={loading}
           canonicalUrl={canonicalUrl}
-          homePageTitle={homePageTitle}
+          homePageTitle={homePageTitle || undefined}
           addToCartText={page?.addToCartText}
           productSetting={productSetting ?? undefined}
           product={product}
@@ -98,7 +98,7 @@ export default function PageSlugRoute(props: PageProps) {
         <LatestNewsPage
           settings={settings}
           page={page}
-          homePageTitle={homePageTitle}
+          homePageTitle={homePageTitle || undefined}
           preview={draftMode}
           loading={loading}
           canonicalUrl={canonicalUrl}

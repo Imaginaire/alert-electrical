@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (ctx) => {
     props: {
       page: null, // Since this is a 404 page, we can set page to null
       settings: settings ?? {},
-      homePageTitle: homePageTitle ?? undefined,
+      homePageTitle: homePageTitle ?? null,
       draftMode,
     },
     // Re-generate the page every 10 seconds: see Next.js revalidation docs

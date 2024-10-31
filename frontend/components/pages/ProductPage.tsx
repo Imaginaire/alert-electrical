@@ -142,7 +142,7 @@ export default function ProductPage({
 
   const pages = [
     {title: 'Ceiling Lights', path: '/product'},
-    {title: title, path: undefined},
+    {title: title || '', path: undefined},
   ]
 
   return (
@@ -152,7 +152,7 @@ export default function ProductPage({
         {isAddToCartClicked && <CartBanner title={title ?? ''} quantity={quantity} />}
         <div className="productPage w-full">
           <div className="flex justify-between m-7 text-primary font-manrope">
-            <Breadcrumbs pages={pages} />
+            <Breadcrumbs crumbs={pages} />
             <p>Need some help? Call our showroom on {settings?.companyInfo?.phone}</p>
           </div>
           <div className="productPage-container mx-auto max-w-2xl py-10 sm:py-24 lg:max-w-7xl lg:px-8">
