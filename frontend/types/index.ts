@@ -21,6 +21,7 @@ export interface Hero {
   _type: string
   header?: string
   subheader?: string
+  content: PortableTextBlock[]
   backgroundImage?: Image
   linkText?: string
   linkUrl?: string

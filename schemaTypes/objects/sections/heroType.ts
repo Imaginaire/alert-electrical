@@ -1,17 +1,13 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {customBlock} from '../partials/customBlock'
 
 // Reusable hero fields object
 const heroFields = [
   defineField({
-    type: 'string',
-    name: 'header',
-    title: 'Header',
-    validation: (rule) => rule.required(),
-  }),
-  defineField({
-    type: 'string',
-    name: 'subheader',
-    title: 'Subheader',
+    type: 'array',
+    name: 'content',
+    title: 'Content',
+    of: [customBlock],
     validation: (rule) => rule.required(),
   }),
   defineField({
