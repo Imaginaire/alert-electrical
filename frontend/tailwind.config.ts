@@ -10,17 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#05003E',
-        secondary: '#A5A5A5',
-        'secondary-grey': '#FBFBFB',
-        'secondary-grey-text': '#A5A5A5',
+        primary: '#15387D',
+        secondary: '#00B007',
+        'secondary-grey': '#F2F2F2',
+        'secondary-grey-text': '#4F4E4E',
+        'secondary-blue': '#2145C4',
       },
       screens: {
         xs: '420px',
       },
       fontFamily: {
         sans: ['var(--font-cormorant-infant)', ...defaultTheme.fontFamily.sans],
-        manrope: 'var(--font-manrope)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
