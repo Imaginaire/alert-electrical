@@ -25,9 +25,11 @@ const sectionsQuery = `
         },
       }
     },
-
+    "slug": link->slug,
+    heros[]{
+      ...,
       "slug": link->slug
-    
+    }
   }
 `
 
