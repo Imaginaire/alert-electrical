@@ -59,6 +59,40 @@
   display: none;
 }
 
+/* Pagination container */
+.swiper-pagination {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .swiper-pagination {
+    text-align: left !important;
+    padding-left: 30px;
+    /* left: 78px !important; Matches the padding of your hero content */
+  }
+}
+
+/* Individual pagination bullet */
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: transparent !important;
+  border: 1px solid white;
+  opacity: 1 !important;
+}
+
+/* Active pagination bullet */
 .swiper-pagination-bullet-active {
-  background-color: #05003e !important;
+  background: white !important;
+  border: none;
+}
+
+.hero-swiper .swiper-pagination {
+  max-width: 1280px !important;
+  width: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  position: absolute !important;
+  bottom: 20px !important;
+  padding: 0 20px;
 }

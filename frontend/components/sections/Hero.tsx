@@ -1,10 +1,12 @@
 // Swiper
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
+import {Pagination} from 'swiper/modules'
 
 // Types
 import {Hero as HeroType} from '@/types'
 import {Image as ImageType} from 'sanity'
+import type {PortableTextBlock} from '@portabletext/types'
 
 // Components
 import Image from 'next/image'
@@ -12,27 +14,34 @@ import Link from 'next/link'
 
 // Utils
 import urlForImage from '@/shared/utils/urlForImage'
+import {CustomPortableText} from '../shared/CustomPortableText'
 
 // Hero Content component
 function HeroContent({
-  header,
-  subheader,
+  content,
   linkText,
   slug,
 }: {
-  header?: string
-  subheader?: string
+  content: PortableTextBlock[]
   linkText?: string
   slug?: {current?: string}
 }) {
   return (
-    <div className="hero-wrapper w-full h-full relative flex justify-center items-center">
-      <div className="hero-container  z-10 max-w-[700px] mx-5 px-5 py-7 lg:py-9 lg:px-[78px] bg-primary text-white text-center">
-        <h2 className="text-[32px] leading-9 mb-4 lg:mb-[8px] uppercase">{header}</h2>
-        <p className="text-7xl lg:text-[128px] lg:text-[128px] mb-4 lg:mb-[8px]">{subheader}</p>
-        <Link href={slug?.current || '/'}>
-          <span className="text-[32px] underline uppercase">{linkText}</span>
-        </Link>
+    <div className="hero-container relative h-[355.19px] xl:h-[630px] m-auto  px-5 md:px-40 py-12 xl:py-40 lg:py-9 lg:px-[78px] text-white text-center md:text-start">
+      <div className="max-w-[1280px] m-auto">
+        <CustomPortableText
+          value={content}
+          headerClasses="text-[32px] font-bold mb-4 xl:text-[64px]"
+          paragraphClasses="text-2xl mb-4 xl:text-[32px]"
+        />
+        <div className="mt-12">
+          <Link
+            href={slug?.current || '/'}
+            className="font-bold uppercase bg-primary rounded-md px-6 py-4 hover:bg-secondary-blue"
+          >
+            {linkText}
+          </Link>
+        </div>
       </div>
     </div>
   )
@@ -54,7 +63,7 @@ function HeroImage({backgroundImage}: {backgroundImage: ImageType}) {
           : 'Hero Image background image'
       }
       sizes="100vw"
-      className="object-cover object-center"
+      className="object-cover object-center brightness-[0.7]"
       priority={true}
       quality={100}
     />
@@ -62,32 +71,37 @@ function HeroImage({backgroundImage}: {backgroundImage: ImageType}) {
 }
 
 export default function Hero(heroData: HeroType) {
-  const {header, subheader, backgroundImage, linkText, slug, useSwiper, heros} = heroData
+  const {content, backgroundImage, linkText, slug, useSwiper, heros} = heroData
+
+  console.log({heroData})
 
   return (
     <>
       {heroData && (
-        <section className="hero w-full h-[calc(100vh-159px)] flex justify-center items-center relative">
+        <section className="hero w-full flex justify-center items-center relative">
           {/* Conditionally render a Swiper or a single hero */}
           {useSwiper && heros ? (
             <Swiper
               spaceBetween={50}
               slidesPerView={1}
-              className="h-full "
               loop={true}
-              pagination={{clickable: true}}
+              pagination={{
+                clickable: true,
+                bulletClass: 'swiper-pagination-bullet custom-bullet',
+              }}
+              modules={[Pagination]}
+              className="hero-swiper"
             >
               {heros.map((heroItem, index) => (
                 <SwiperSlide
                   key={index}
-                  className="flex justify-center items-center relative w-full h-full"
+                  className="flex justify-center items-center relative w-full h-full "
                 >
                   {heroItem.backgroundImage && (
                     <HeroImage backgroundImage={heroItem.backgroundImage} />
                   )}
                   <HeroContent
-                    header={heroItem.header}
-                    subheader={heroItem.subheader}
+                    content={heroItem.content}
                     linkText={heroItem.linkText}
                     slug={heroItem.slug}
                   />
@@ -97,7 +111,7 @@ export default function Hero(heroData: HeroType) {
           ) : (
             <>
               {backgroundImage && <HeroImage backgroundImage={backgroundImage} />}
-              <HeroContent header={header} subheader={subheader} linkText={linkText} slug={slug} />
+              <HeroContent content={content} linkText={linkText} slug={slug} />
             </>
           )}
         </section>
