@@ -27,19 +27,21 @@ function HeroContent({
   slug?: {current?: string}
 }) {
   return (
-    <div className="hero-container relative h-[355.19px] xl:h-[630px] m-auto md:mx-0 px-5 md:px-40 py-12 xl:py-40 lg:py-9 lg:px-[78px] text-white text-center md:text-start">
-      <CustomPortableText
-        value={content}
-        headerClasses="text-[32px] font-bold mb-4 xl:text-[64px]"
-        paragraphClasses="text-2xl mb-4 xl:text-[32px]"
-      />
-      <div className="mt-12">
-        <Link
-          href={slug?.current || '/'}
-          className="font-bold uppercase bg-primary rounded-md px-6 py-4 hover:bg-secondary-blue"
-        >
-          {linkText}
-        </Link>
+    <div className="hero-container relative h-[355.19px] xl:h-[630px] m-auto  px-5 md:px-40 py-12 xl:py-40 lg:py-9 lg:px-[78px] text-white text-center md:text-start">
+      <div className="max-w-[1280px] m-auto">
+        <CustomPortableText
+          value={content}
+          headerClasses="text-[32px] font-bold mb-4 xl:text-[64px]"
+          paragraphClasses="text-2xl mb-4 xl:text-[32px]"
+        />
+        <div className="mt-12">
+          <Link
+            href={slug?.current || '/'}
+            className="font-bold uppercase bg-primary rounded-md px-6 py-4 hover:bg-secondary-blue"
+          >
+            {linkText}
+          </Link>
+        </div>
       </div>
     </div>
   )
@@ -83,13 +85,17 @@ export default function Hero(heroData: HeroType) {
               spaceBetween={50}
               slidesPerView={1}
               loop={true}
-              pagination={{clickable: true}}
+              pagination={{
+                clickable: true,
+                bulletClass: 'swiper-pagination-bullet custom-bullet',
+              }}
               modules={[Pagination]}
+              className="hero-swiper"
             >
               {heros.map((heroItem, index) => (
                 <SwiperSlide
                   key={index}
-                  className="flex justify-center items-center relative w-full h-full"
+                  className="flex justify-center items-center relative w-full h-full "
                 >
                   {heroItem.backgroundImage && (
                     <HeroImage backgroundImage={heroItem.backgroundImage} />
