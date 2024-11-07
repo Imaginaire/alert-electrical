@@ -12,7 +12,7 @@ import {textMapType} from './objects/sections/textMapType'
 import {trendingCollectionsType} from './objects/sections/trendingCollectionsType'
 import formBuilderType from './objects/sections/formBuilderType/formBuilderType'
 import formFields from './objects/sections/formBuilderType/formFields'
-
+import {serviceAreasType} from './objects/sections/serviceAreasType'
 const sections = [
   heroType,
   textLinkType,
@@ -29,6 +29,7 @@ const sections = [
   browseProductsType,
   formBuilderType,
   formFields,
+  serviceAreasType,
 ]
 
 import {pageType} from './documents/page'

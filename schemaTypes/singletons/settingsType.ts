@@ -12,9 +12,6 @@ import columnFields from '../partials/columnFields'
 import {customBlock} from '../objects/partials/customBlock'
 
 const TITLE = 'Settings'
-interface ProductOptions {
-  title: string
-}
 
 export const settingsType = defineType({
   name: 'settings',

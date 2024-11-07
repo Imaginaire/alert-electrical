@@ -76,5 +76,10 @@ export const sections = defineField({
       name: 'formBuilder',
       title: 'Form Builder',
     }),
+    defineArrayMember({
+      type: 'serviceAreas',
+      name: 'serviceAreas',
+      title: 'Service Areas',
+    }),
   ],
 })

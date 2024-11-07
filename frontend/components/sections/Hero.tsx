@@ -73,8 +73,6 @@ function HeroImage({backgroundImage}: {backgroundImage: ImageType}) {
 export default function Hero(heroData: HeroType) {
   const {content, backgroundImage, linkText, slug, useSwiper, heros} = heroData
 
-  console.log({heroData})
-
   return (
     <>
       {heroData && (
