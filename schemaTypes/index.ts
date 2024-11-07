@@ -13,6 +13,7 @@ import {trendingCollectionsType} from './objects/sections/trendingCollectionsTyp
 import formBuilderType from './objects/sections/formBuilderType/formBuilderType'
 import formFields from './objects/sections/formBuilderType/formFields'
 import {serviceAreasType} from './objects/sections/serviceAreasType'
+import {ourTopBrandsType} from './objects/sections/ourTopBrandsType'
 const sections = [
   heroType,
   textLinkType,
@@ -30,6 +31,7 @@ const sections = [
   formBuilderType,
   formFields,
   serviceAreasType,
+  ourTopBrandsType,
 ]
 
 import {pageType} from './documents/page'
