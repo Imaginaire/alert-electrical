@@ -14,7 +14,6 @@ type ServiceAreasType = {
 }
 
 export default function ServiceAreas({services}: ServiceAreasProps) {
-  console.log(services)
   return (
     <div className="my-3 mx-2 lg:mt-10 lg:mx-7">
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[10px]">
@@ -36,6 +35,7 @@ export default function ServiceAreas({services}: ServiceAreasProps) {
             {service.textLinks.map((textLink) => (
               <Link
                 href={textLink.slug.current}
+                key={textLink.text}
                 className="uppercase underline text-secondary-grey-text hover:text-stone-500  mt-[10px]"
               >
                 {textLink.text}
