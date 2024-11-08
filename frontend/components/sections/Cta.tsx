@@ -5,11 +5,6 @@ import {CustomPortableText} from '../shared/CustomPortableText'
 
 export default function Cta(ctaData: CtaType) {
   const {content, linkText, slug} = ctaData
-  console.log(ctaData)
-
-  // const backgroundImgUrl = backgroundImage
-  //   ? urlForImage(backgroundImage)?.width(1920).url()
-  //   : undefined
 
   return (
     <>
