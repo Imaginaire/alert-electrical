@@ -10,7 +10,24 @@ export const ourTopBrandsType = defineType({
       name: 'images',
       title: 'Images',
       type: 'array',
-      of: [{type: 'image'}],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+            },
+            {
+              name: 'slug',
+              title: 'URL',
+              type: 'slug',
+              description: 'Link to the brand website',
+            },
+          ],
+        },
+      ],
     }),
   ],
   preview: {
