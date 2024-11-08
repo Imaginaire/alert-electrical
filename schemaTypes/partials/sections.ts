@@ -86,5 +86,10 @@ export const sections = defineField({
       name: 'ourTopBrands',
       title: 'Our Top Brands',
     }),
+    defineArrayMember({
+      type: 'accordion',
+      name: 'accordion',
+      title: 'Accordion',
+    }),
   ],
 })

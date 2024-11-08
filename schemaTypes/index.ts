@@ -14,6 +14,8 @@ import formBuilderType from './objects/sections/formBuilderType/formBuilderType'
 import formFields from './objects/sections/formBuilderType/formFields'
 import {serviceAreasType} from './objects/sections/serviceAreasType'
 import {ourTopBrandsType} from './objects/sections/ourTopBrandsType'
+import {accordionType} from './objects/sections/accordionType'
+
 const sections = [
   heroType,
   textLinkType,
@@ -32,6 +34,7 @@ const sections = [
   formFields,
   serviceAreasType,
   ourTopBrandsType,
+  accordionType,
 ]
 
 import {pageType} from './documents/page'
