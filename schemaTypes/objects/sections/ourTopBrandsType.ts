@@ -26,6 +26,18 @@ export const ourTopBrandsType = defineType({
               description: 'Link to the brand website',
             },
           ],
+          preview: {
+            select: {
+              slug: 'slug.current',
+              media: 'image',
+            },
+            prepare({slug, media}) {
+              return {
+                title: `Brand image for ${slug || 'no URL'}`,
+                media,
+              }
+            },
+          },
         },
       ],
     }),
