@@ -41,8 +41,9 @@ import {pageType} from './documents/page'
 import {latestNewsType} from './documents/latest-news'
 import {brandType} from './documents/brand'
 import {finishType} from './documents/finish'
+import {buyersGuideType} from './documents/buyers-guide'
 
-const documents = [pageType, latestNewsType, brandType, finishType]
+const documents = [pageType, latestNewsType, buyersGuideType, brandType, finishType]
 
 import {homeType} from './singletons/homeType'
 import {settingsType} from './singletons/settingsType'

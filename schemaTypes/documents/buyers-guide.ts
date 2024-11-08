@@ -1,12 +1,12 @@
-import {defineField, defineType} from 'sanity'
+import {defineType, defineField} from 'sanity'
 import {GROUPS} from '../../constants'
 import {sections} from '../partials/sections'
 import {seo} from '../partials/seo'
 
-export const latestNewsType = defineType({
+export const buyersGuideType = defineType({
   type: 'document',
-  name: 'latestNews',
-  title: 'Blog Posts',
+  name: 'buyersGuide',
+  title: 'Buyers Guide',
   groups: GROUPS,
   fields: [
     defineField({
