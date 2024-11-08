@@ -9,8 +9,8 @@ import productSetting from './productSettingStructure'
 import redirections from './redirectionsStructure'
 import {getClient} from '../lib/sanity.client'
 import filters from './filtersStructure'
-import brand from './brandPageStructure'
-import finish from './finishPageStructure.js'
+import buyersGuide from './buyersGuideStructure'
+
 /**
  * Structure overrides
  *
@@ -37,6 +37,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'media.tag',
     'page',
     'latestNews',
+    'buyersGuide',
     'settings',
     'shop',
     'cart',
@@ -67,12 +68,11 @@ export const structure: StructureResolver = async (S, context) => {
     .items([
       home(S, context),
       pages(S, context),
-      brand(S, context),
-      finish(S, context),
       ...(themeType === 'shopify' ? [shop(S, context), cart(S, context)] : []),
       productSetting(S, context),
       S.divider(),
       latestNews(S, context),
+      buyersGuide(S, context),
       S.divider(),
       settings(S, context),
       redirections(S, context),
