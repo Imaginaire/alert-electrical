@@ -398,8 +398,8 @@ export interface News {
 }
 
 export interface TextImage {
-  header?: string
-  description?: PortableTextBlock[]
+  content?: PortableTextBlock[]
+  imagePosition?: string
   images?: Image[]
   settings?: SettingsPayload | undefined
 }
