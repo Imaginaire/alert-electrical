@@ -377,11 +377,9 @@ export interface DeliveryInfoBar {
   }[]
 }
 
-export interface LargeCta {
+export interface Cta {
   _type: string
-  header?: string
-  description?: PortableTextBlock[]
-  backgroundImage?: Image
+  content?: PortableTextBlock[]
   linkText?: string
   linkUrl?: string
   slug?: {
@@ -424,7 +422,7 @@ export interface TrendingCollections {
 export interface ProductSettingPayload {
   warranty?: string
   delivery?: PortableTextBlock[]
-  cta?: LargeCta
+  cta?: Cta
   masterRobots?: {
     noindex?: boolean
     nofollow?: boolean

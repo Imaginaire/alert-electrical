@@ -9,7 +9,6 @@ import {FilterItems, PagePayload, ProductSettingPayload, SettingsPayload} from '
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {useCart} from '@/contexts/CartContext'
 import CartBanner from '../product/CartBanner'
-import LargeCta from '../sections/LargeCta'
 import DropDowns from '../shared/Dropdowns'
 import Breadcrumbs from '../global/Breadcrumbs'
 
@@ -234,13 +233,10 @@ export default function ProductPage({
                 </div>
 
                 {/* Additional details */}
-                {details && <DropDowns data={details} />}
+                {details && <DropDowns data={details} settings={undefined} />}
               </div>
             </div>
           </div>
-
-          {/* Large CTA */}
-          {cta && <LargeCta {...cta} />}
 
           {/* Sections */}
           {sections && sections.length > 0 && <Sections sections={sections} settings={settings} />}

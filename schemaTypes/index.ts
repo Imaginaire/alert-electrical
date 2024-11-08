@@ -4,7 +4,7 @@ import {postContentType} from './objects/sections/postContent'
 import {imageGalleryType} from './objects/sections/postContent/imageGallery'
 import {headerType} from './objects/sections/headerType'
 import {embedType} from './objects/sections/embedType'
-import {largeCtaType} from './objects/sections/largeCtaType'
+import {ctaType} from './objects/sections/ctaType'
 import {shortHeroType} from './objects/sections/shortHeroType'
 import newsType from './objects/sections/newsType'
 import {textImageType} from './objects/sections/textImageType'
@@ -21,7 +21,7 @@ const sections = [
   imageGalleryType,
   headerType,
   embedType,
-  largeCtaType,
+  ctaType,
   shortHeroType,
   newsType,
   textImageType,

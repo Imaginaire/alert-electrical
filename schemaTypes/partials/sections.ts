@@ -37,9 +37,9 @@ export const sections = defineField({
       title: 'Embed',
     }),
     defineArrayMember({
-      type: 'largeCta',
-      name: 'largeCta',
-      title: 'Large CTA',
+      type: 'cta',
+      name: 'cta',
+      title: 'CTA',
     }),
     defineArrayMember({
       type: 'shortHero',
