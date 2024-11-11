@@ -18,7 +18,7 @@ export default function Accordion(data: AccordionType) {
   }
 
   return (
-    <section className="accordion px-5 py-7 max-w-[1280px] mx-auto">
+    <section className="accordion px-5 lg:px-0 py-7 max-w-[1280px] mx-auto">
       <h3 className="text-2xl font-medium text-center pb-7 mb-3 border-b border-stone-200">
         {mainHeading}
       </h3>
