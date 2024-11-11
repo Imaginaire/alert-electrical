@@ -14,11 +14,7 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         deliveryInfoBar={settings?.deliveryInfoBar}
       />
       <div className="">{children}</div>
-      <Footer
-        footer={settings?.footer}
-        companyInfo={settings?.companyInfo}
-        socialMedia={settings?.socialMedia}
-      />
+      <Footer footer={settings?.footer} newsletter={settings?.newsletter} />
     </>
   )
 }

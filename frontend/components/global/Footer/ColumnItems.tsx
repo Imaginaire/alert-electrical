@@ -23,13 +23,13 @@ export default function ColumnItems({column}: ColumnItemsProps) {
             <a
               href={link.slug}
               rel="noopener noreferrer"
-              className="text-white first-letter:uppercase decoration-[0.5px] underline font-manrope"
+              className="text-white first-letter:uppercase decoration-[0.5px]  font-manrope"
             >
               {link.title}
             </a>
           ) : (
             <Link href={link.slug || '/'}>
-              <span className="text-white first-letter:uppercase decoration-[0.5px] underline font-manrope">
+              <span className="text-white first-letter:uppercase decoration-[0.5px]  font-manrope">
                 {link.title}
               </span>
             </Link>

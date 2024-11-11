@@ -381,106 +381,24 @@ export const settingsType = defineType({
     }),
 
     defineField({
-      name: 'navCta',
-      title: 'Navbar CTAs',
+      name: 'newsletter',
+      title: 'Newsletter',
       type: 'object',
-      description: 'Call to action items displayed above the navbar.',
+      description: 'Newsletter section displayed in the footer.',
       group: 'navigation',
       options: {
         collapsible: true,
       },
       fields: [
         defineField({
-          name: 'ctas',
-          title: 'CTAs',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                {
-                  type: 'string',
-                  name: 'text',
-                  title: 'CTA Text',
-                  validation: (Rule) => Rule.required(),
-                },
-                {type: 'reference', name: 'link', title: 'CTA Link', to: [{type: 'page'}]},
-              ],
-            },
-          ],
-          validation: (Rule) => Rule.max(3).error('You can only add up to 3 CTAs.'),
-        }),
-      ],
-    }),
-
-    defineField({
-      name: 'deliveryInfoBar',
-      title: 'Delivery Info Bar',
-      type: 'object',
-      description: 'Delivery information displayed under the navbar.',
-      group: 'navigation',
-      options: {
-        collapsible: true,
-      },
-      fields: [
-        defineField({
-          name: 'info',
-          title: 'Information',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                {
-                  type: 'string',
-                  name: 'text',
-                  title: 'CTA Text',
-                  validation: (Rule) => Rule.required(),
-                },
-                {type: 'reference', name: 'link', title: 'CTA Link', to: [{type: 'page'}]},
-              ],
-            },
-          ],
-          validation: (Rule) => Rule.max(3).error('You can only add up to 3 info.'),
-        }),
-      ],
-    }),
-
-    defineField({
-      name: 'footerCta',
-      title: 'Footer CTA',
-      type: 'object',
-      description: 'Call to action displayed in the footer.',
-      group: 'navigation',
-      options: {
-        collapsible: true,
-      },
-      fields: [
-        defineField({
-          name: 'text',
-          title: 'CTA Text',
+          name: 'heading',
+          title: 'Newsletter Heading',
           type: 'string',
         }),
         defineField({
-          name: 'linkText',
-          title: 'CTA Link Text',
+          name: 'subHeading',
+          title: 'Newsletter Subheading',
           type: 'string',
-        }),
-        defineField({
-          name: 'link',
-          title: 'CTA Link',
-          type: 'reference',
-          to: [
-            {
-              type: 'page',
-            },
-            {
-              type: 'latestNews',
-            },
-            // {
-            //   type: 'caseStudy',
-            // },
-          ],
         }),
       ],
     }),

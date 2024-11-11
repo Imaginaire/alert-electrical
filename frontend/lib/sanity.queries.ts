@@ -152,24 +152,9 @@ export const settingsQuery = groq`
         }
       }
     },
-    deliveryInfoBar{
-      ...,
-     info[]{
-        ...,
-        link->{
-          "slug": slug.current
-        }
-     }
-    },
-    footerCta {
-      ...,
-      link->{
-        "slug": slug.current
-      }
-    },
+  
     siteNoIndex,
     ogImage,
-    companyInfo,
     accreditation,
     socialMedia,
   }
