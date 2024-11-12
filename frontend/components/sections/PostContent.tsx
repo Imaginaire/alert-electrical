@@ -23,23 +23,10 @@ export default function PostContent(data: PostContent) {
     }
   }
 
-  const pathname = usePathname()
-  console.log('pathname:', pathname)
-
-  const endslug =
-    pathname
-      ?.split('/')
-      .filter(Boolean)
-      .pop()
-      ?.split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ') || 'Default Title'
-
   return (
-    <div className="px-5 py-10 m-auto bg-secondary-grey">
+    <div className="px-5 pt-10 pb-10 m-auto bg-secondary-grey">
       {data?.content && (
         <div className="max-w-screen-xl m-auto">
-          <h1 className="text-3xl text-secondary-grey-text font-bold mb-4">{endslug}</h1>
           <section
             className="postContent w-full flex justify-center p-5 shadow-lg"
             style={{
