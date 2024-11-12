@@ -1,4 +1,5 @@
 import {MenuItem} from '@/types'
+import VatToggle from './VatToggle'
 
 export default function UpperMenu({
   upperMenuItems,
@@ -25,7 +26,7 @@ export default function UpperMenu({
       <p className="text-white w-1/3 text-center">{upperMenuCtaText}</p>
 
       {/* VAT toggle */}
-      <div className="text-end w-1/3 text-white"> vat toggle placeholder</div>
+      <VatToggle />
     </div>
   )
 }
