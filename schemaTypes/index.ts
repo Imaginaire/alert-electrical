@@ -16,6 +16,8 @@ import {serviceAreasType} from './objects/sections/serviceAreasType'
 import {ourTopBrandsType} from './objects/sections/ourTopBrandsType'
 import {accordionType} from './objects/sections/accordionType'
 import {customTableType} from './objects/sections/postContent/customTable'
+import {headerStrapType} from './objects/sections/headerStrap'
+import {simpleTextType} from './objects/sections/simpleText'
 
 const sections = [
   heroType,
@@ -37,6 +39,8 @@ const sections = [
   ourTopBrandsType,
   accordionType,
   customTableType,
+  headerStrapType,
+  simpleTextType,
 ]
 
 import {pageType} from './documents/page'

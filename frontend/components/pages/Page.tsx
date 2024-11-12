@@ -25,12 +25,6 @@ export function Page({page, settings, homePageTitle, preview, loading, canonical
 
       <Layout settings={settings} preview={preview} loading={loading}>
         <div data-content="main">
-          {/* Only show title if not on home page */}
-          <div className="bg-secondary-grey pt-10">
-            <div className="max-w-screen-xl m-auto ">
-              {!isHomePage && <h1 className="text-3xl font-bold px-5 xl:p-0">{page?.title}</h1>}
-            </div>
-          </div>
           {/* Sections */}
           {sections && sections.length > 0 && <Sections sections={sections} settings={settings} />}
 

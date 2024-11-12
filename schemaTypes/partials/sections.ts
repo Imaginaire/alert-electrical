@@ -91,5 +91,15 @@ export const sections = defineField({
       name: 'accordion',
       title: 'Accordion',
     }),
+    defineArrayMember({
+      type: 'headerStrap',
+      name: 'headerStrap',
+      title: 'Header Strap',
+    }),
+    defineArrayMember({
+      type: 'simpleText',
+      name: 'simpleText',
+      title: 'Simple Text',
+    }),
   ],
 })
