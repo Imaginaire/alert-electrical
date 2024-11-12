@@ -15,6 +15,7 @@ import formFields from './objects/sections/formBuilderType/formFields'
 import {serviceAreasType} from './objects/sections/serviceAreasType'
 import {ourTopBrandsType} from './objects/sections/ourTopBrandsType'
 import {accordionType} from './objects/sections/accordionType'
+import {customTableType} from './objects/sections/postContent/customTable'
 
 const sections = [
   heroType,
@@ -35,6 +36,7 @@ const sections = [
   serviceAreasType,
   ourTopBrandsType,
   accordionType,
+  customTableType,
 ]
 
 import {pageType} from './documents/page'

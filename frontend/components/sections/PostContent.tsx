@@ -1,9 +1,9 @@
-import {usePathname} from 'next/navigation'
 import {CustomPortableText} from '../shared/CustomPortableText'
-import type {PostContent} from '@/types'
+import type {CustomTableBlock, PostContent, PortableTextBlock} from '@/types'
 
 export default function PostContent(data: PostContent) {
   const {backgroundColour, padding, width} = data
+  console.log({data})
 
   let widthClass = 'w-full'
 
@@ -23,23 +23,10 @@ export default function PostContent(data: PostContent) {
     }
   }
 
-  const pathname = usePathname()
-  console.log('pathname:', pathname)
-
-  const endslug =
-    pathname
-      ?.split('/')
-      .filter(Boolean)
-      .pop()
-      ?.split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ') || 'Default Title'
-
   return (
-    <div className="px-5 py-10 m-auto bg-secondary-grey">
+    <div className="px-5 pt-10 pb-10 m-auto bg-secondary-grey">
       {data?.content && (
         <div className="max-w-screen-xl m-auto">
-          <h1 className="text-3xl text-secondary-grey-text font-bold mb-4">{endslug}</h1>
           <section
             className="postContent w-full flex justify-center p-5 shadow-lg"
             style={{
@@ -49,14 +36,47 @@ export default function PostContent(data: PostContent) {
             }}
           >
             <div className={`postContent-container max-w-screen-xl w-11/12 ${widthClass} `}>
-              <CustomPortableText
-                value={data.content || []}
-                headerClasses="text-3xl text-primary mb-4 mt-6 font-bold"
-                subheaderClasses="text-xl text-secondary-grey-text mb-4 mt-6 font-bold"
-                paragraphClasses="text-secondary-grey-text mb-4"
-                listClasses="list-bullets-black pl-10 mb-4"
-                listItemClasses="text-secondary-grey-text"
-              />
+              {data.content.map((block) => {
+                if ((block as CustomTableBlock)._type === 'customTable') {
+                  const customTableBlock = block as CustomTableBlock
+                  return (
+                    <table key={customTableBlock._key} className="table-auto w-full">
+                      <thead>
+                        <tr>
+                          {customTableBlock.customTable.rows[0].cells.map((cell, index) => (
+                            <th key={index} className="px-4 py-2 text-left">
+                              {cell}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {customTableBlock.customTable.rows.slice(1).map((row, rowIndex) => (
+                          <tr key={row._key}>
+                            {row.cells.map((cell, cellIndex) => (
+                              <td key={cellIndex} className="px-4 py-2">
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )
+                } else {
+                  return (
+                    <CustomPortableText
+                      key={block._key}
+                      value={[block as PortableTextBlock]}
+                      headerClasses="text-3xl text-primary mb-4 mt-6 font-bold"
+                      subheaderClasses="text-xl text-secondary-grey-text mb-4 mt-6 font-bold"
+                      paragraphClasses="text-secondary-grey-text mb-4"
+                      listClasses="list-bullets-black pl-10 mb-4"
+                      listItemClasses="text-secondary-grey-text"
+                    />
+                  )
+                }
+              })}
             </div>
           </section>
         </div>
