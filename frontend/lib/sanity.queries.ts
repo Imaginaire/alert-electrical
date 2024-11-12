@@ -152,7 +152,6 @@ export const settingsQuery = groq`
         }
       }
     },
-  
     siteNoIndex,
     ogImage,
     accreditation,

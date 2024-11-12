@@ -137,15 +137,6 @@ export interface MenuItem {
 
 export type MenuItems = MenuItem[]
 
-export interface MenuItemRight {
-  title: string
-  link?: Slug
-  externalLink?: string
-  icon: Image
-}
-
-export type MenuItemsRight = MenuItemRight[]
-
 export interface MegaMenuItem {
   megaMenuItem: {
     title?: string
@@ -188,10 +179,10 @@ export interface Accreditation {
 
 export interface NavbarProps {
   menuItems?: MenuItems
-  menuItemsRight?: MenuItemsRight
+  upperMenuItems?: MenuItems
   companyInfo?: CompanyInformation
-  contactPage?: PagePayload
-  navCta?: CtaBanner
+  upperMenuCtaText?: string
+
   deliveryInfoBar?: DeliveryInfoBar
 }
 
@@ -310,8 +301,8 @@ export interface PagePayload {
 
 export interface SettingsPayload {
   menuItems?: MenuItem[]
-  menuItemsRight?: MenuItemRight[]
-  contactPage?: PagePayload
+  upperMenuItems?: MenuItem[]
+  upperMenuCtaText?: string
   companyInfo?: CompanyInformation
   googleTagManager?: GoogleTagManager
   accreditation?: Accreditation
@@ -321,7 +312,6 @@ export interface SettingsPayload {
   }
   siteNoIndex?: boolean
   ogImage?: Image
-  navCta?: CtaBanner
   deliveryInfoBar?: DeliveryInfoBar
   socialMedia?: {
     twitter?: SocialMediaLink
@@ -359,15 +349,6 @@ export interface BrowseProducts {
   menuItems: BrowseProduct[]
   newInFallback?: boolean
   bestSellersFallback?: boolean
-}
-
-export interface CtaBanner {
-  ctas?: {
-    text: string
-    link?: {
-      slug?: string
-    }
-  }[]
 }
 
 export interface DeliveryInfoBar {

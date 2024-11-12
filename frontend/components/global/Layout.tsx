@@ -3,14 +3,14 @@ import {LayoutProps} from '@/types'
 import Footer from '@/components/global/Footer'
 
 export default function Layout({children, settings, preview, loading}: LayoutProps) {
+  console.log(settings)
   return (
     <>
       <Navbar
         menuItems={settings?.menuItems}
-        menuItemsRight={settings?.menuItemsRight}
+        upperMenuItems={settings?.upperMenuItems}
         companyInfo={settings?.companyInfo}
-        contactPage={settings?.contactPage}
-        navCta={settings?.navCta}
+        upperMenuCtaText={settings?.upperMenuCtaText}
         deliveryInfoBar={settings?.deliveryInfoBar}
       />
       <div className="">{children}</div>

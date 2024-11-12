@@ -58,9 +58,67 @@ export const settingsType = defineType({
   ],
   fields: [
     defineField({
+      name: 'upperMenuItems',
+      title: 'Upper Menu Items',
+      type: 'array',
+      group: 'navigation',
+      description: 'Menu Items displayed above the main menu on the left',
+      of: [
+        {
+          type: 'object',
+          name: 'upperMenuItem',
+          title: 'Upper Menu Item',
+          fields: [
+            defineField({
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            }),
+
+            defineField({
+              title: 'Sanity Link',
+              name: 'sanityLink',
+              type: 'reference',
+              description:
+                'Link to a page. Use this if you are linking to a page hosted on Sanity.',
+              to: [
+                {
+                  type: 'page',
+                },
+                {
+                  type: 'latestNews',
+                },
+                {
+                  type: 'home',
+                },
+                {
+                  type: 'buyersGuide',
+                },
+              ],
+            }),
+
+            defineField({
+              title: 'Shopify Link',
+              name: 'shopifyLink',
+              type: 'string',
+              description:
+                'Link to a page. Use this if you are linking to a page created on Shopify. Examples include collections and individual products',
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'upperMenuCtaText',
+      title: 'Upper Menu CTA Text',
+      type: 'string',
+      group: 'navigation',
+      description: 'CTA text on the centre of the upper menu',
+    }),
+    defineField({
       name: 'menuItems',
       title: 'Menu Item list',
-      description: 'Menu Items and Mega Menus displayed on the left of the navbar.',
+      description: 'Main Menu Items and Mega Menu Items',
       type: 'array',
       group: 'navigation',
       of: [
@@ -254,55 +312,6 @@ export const settingsType = defineType({
         },
       ],
     }),
-    defineField({
-      type: 'array',
-      name: 'menuItemsRight',
-      title: 'Menu Items Right',
-      group: 'navigation',
-      description: 'Menu items displayed on the right of the navbar.',
-      of: [
-        {
-          type: 'object',
-          name: 'menuItemRight',
-          title: 'Menu Item Right',
-          fields: [
-            defineField({
-              title: 'Title',
-              name: 'title',
-              type: 'string',
-            }),
-            defineField({
-              title: 'Link',
-              name: 'link',
-              type: 'slug',
-              description:
-                'Link to a page. Use this if you are linking to a page that uses the host domain. Eg. /about',
-            }),
-            defineField({
-              title: 'External Link',
-              name: 'externalLink',
-              type: 'url',
-              description: 'Link to an external page. Rememeber to include the full URL.',
-            }),
-            defineField({
-              title: 'Icon',
-              name: 'icon',
-              type: 'image',
-            }),
-          ],
-        },
-      ],
-    }),
-    defineField({
-      name: 'contactPage',
-      title: 'Contact Page',
-      type: 'reference',
-      to: [
-        {
-          type: 'page',
-        },
-      ],
-    }),
 
     defineField({
       type: 'object',
@@ -391,6 +400,42 @@ export const settingsType = defineType({
       },
       fields: [
         defineField({
+
+          name: 'info',
+          title: 'Information',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  type: 'string',
+                  name: 'text',
+                  title: 'CTA Text',
+                  validation: (Rule) => Rule.required(),
+                },
+                {type: 'reference', name: 'link', title: 'CTA Link', to: [{type: 'page'}]},
+              ],
+            },
+          ],
+          validation: (Rule) => Rule.max(3).error('You can only add up to 3 info.'),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: 'footerCta',
+      title: 'Footer CTA',
+      type: 'object',
+      description: 'Call to action displayed in the footer.',
+      group: 'navigation',
+      options: {
+        collapsible: true,
+      },
+      fields: [
+        defineField({
+          name: 'text',
+          title: 'CTA Text',
           name: 'heading',
           title: 'Newsletter Heading',
           type: 'string',
