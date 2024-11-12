@@ -150,6 +150,7 @@ export interface LayoutProps {
   settings: SettingsPayload | undefined
   preview?: boolean
   loading?: boolean
+  newsletter?: Newsletter
 }
 
 export interface Address {
@@ -317,6 +318,7 @@ export interface SettingsPayload {
     facebook?: SocialMediaLink
     instagram?: SocialMediaLink
   }
+  newsletter?: Newsletter
 }
 
 export interface SocialMediaLink {
@@ -427,6 +429,7 @@ export interface FooterProps {
   footer?: Footer
   companyInfo?: CompanyInformation
   socialMedia?: SettingsPayload['socialMedia']
+  newsletter?: Newsletter
 }
 
 export type AvailabilityType =
@@ -467,4 +470,9 @@ export interface FormBuilderType {
   }[]
   useCaptcha?: boolean
   captchaSiteKey?: string
+}
+
+export interface Newsletter {
+  heading?: string
+  subHeading?: string
 }

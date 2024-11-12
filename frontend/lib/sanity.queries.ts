@@ -143,24 +143,17 @@ export const settingsQuery = groq`
       "slug": slug.current,
     },
     googleTagManager,
-    deliveryInfoBar{
+    navCta{
       ...,
-     info[]{
+      ctas[]{
         ...,
         link->{
           "slug": slug.current
         }
-     }
-    },
-    footerCta {
-      ...,
-      link->{
-        "slug": slug.current
       }
     },
     siteNoIndex,
     ogImage,
-    companyInfo,
     accreditation,
     socialMedia,
   }

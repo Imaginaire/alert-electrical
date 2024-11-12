@@ -390,16 +390,17 @@ export const settingsType = defineType({
     }),
 
     defineField({
-      name: 'deliveryInfoBar',
-      title: 'Delivery Info Bar',
+      name: 'newsletter',
+      title: 'Newsletter',
       type: 'object',
-      description: 'Delivery information displayed under the navbar.',
+      description: 'Newsletter section displayed in the footer.',
       group: 'navigation',
       options: {
         collapsible: true,
       },
       fields: [
         defineField({
+
           name: 'info',
           title: 'Information',
           type: 'array',
@@ -435,28 +436,14 @@ export const settingsType = defineType({
         defineField({
           name: 'text',
           title: 'CTA Text',
+          name: 'heading',
+          title: 'Newsletter Heading',
           type: 'string',
         }),
         defineField({
-          name: 'linkText',
-          title: 'CTA Link Text',
+          name: 'subHeading',
+          title: 'Newsletter Subheading',
           type: 'string',
-        }),
-        defineField({
-          name: 'link',
-          title: 'CTA Link',
-          type: 'reference',
-          to: [
-            {
-              type: 'page',
-            },
-            {
-              type: 'latestNews',
-            },
-            // {
-            //   type: 'caseStudy',
-            // },
-          ],
         }),
       ],
     }),
