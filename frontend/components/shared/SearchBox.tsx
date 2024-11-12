@@ -4,8 +4,6 @@ import Search from '@/svgs/Search'
 
 export default function SearchBox() {
   const [query, setQuery] = useState('')
-  const [isHovered, setIsHovered] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
   const handleSearch = (e: React.FormEvent) => {
@@ -13,60 +11,48 @@ export default function SearchBox() {
     if (query.trim()) {
       router.push(`/shop?search=${encodeURIComponent(query)}`)
     }
-    if (isOpen) {
-      setIsOpen(false)
-    }
   }
 
   return (
     <>
       {/* Search Box - Mobile */}
-      <div className="searchBoxMobile md:hidden flex items-center ">
-        <span onClick={() => setIsOpen(!isOpen)}>
-          <Search />
-        </span>
-
-        <div
-          className={`absolute top-[127px] left-0 w-full ${isOpen ? 'pointer-events-auto' : 'pointer-events-none '} `}
-        >
-          <form onSubmit={handleSearch} className="w-full ">
+      <div className="searchBoxMobile md:hidden w-full flex items-center ">
+        <div className={`w-full flex bg-gray-200 px-2`}>
+          <form onSubmit={handleSearch} className="w-full py-2">
             <input
-              className={`transition-all duration-500 ease-in-out transform ${
-                isOpen ? 'w-full opacity-100  ' : ' w-0 opacity-0'
-              } px-2 py-2 outline-none border-2 border-transparent focus:border-secondary bg-gray-200 rounded-b`}
+              className={`transition-all w-full duration-500 ease-in-out transform px-2 py-3 placeholder-black outline-none border-2 border-transparent focus:border-primary rounded-l`}
               type="text"
-              placeholder="Search"
+              placeholder="Search our entire store"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </form>
+          <button
+            className="bg-primary my-2 w-12 flex justify-center items-center border-primary ease-in-out transition-all rounded-r searchIcon"
+            onClick={handleSearch}
+          >
+            <Search />
+          </button>
         </div>
       </div>
 
       {/* Search Box - Desktop */}
-      <div
-        className="searchBox md:flex items-center relative hidden"
-        onMouseEnter={() => {
-          setIsHovered(true)
-        }}
-        onMouseLeave={() => {
-          setIsHovered(false)
-        }}
-      >
-        <span className="pr-4">
-          <Search />
-        </span>
-        <form onSubmit={handleSearch} className="relative">
+      <div className="searchBox hidden md:flex items-center relative w-1/2">
+        <form onSubmit={handleSearch} className="relative w-full">
           <input
-            className={`transition-all duration-500 ease-in-out transform ${
-              isHovered ? 'w-44 opacity-100 mr-4' : 'w-0 opacity-0'
-            } px-2 py-1 outline-none border-2 border-transparent focus:border-primary bg-gray-200 rounded`}
+            className={` duration-500 placeholder-black w-full px-2 py-1 outline-none border-2 border-transparent focus:border-primary bg-gray-200 rounded-l`}
             type="text"
-            placeholder="Search"
+            placeholder="Search our entire store"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
         </form>
+        <button
+          className="bg-primary p-2  border-primary ease-in-out transition-all rounded-r searchIcon"
+          onClick={handleSearch}
+        >
+          <Search />
+        </button>
       </div>
     </>
   )

@@ -1,5 +1,4 @@
 import type {PortableTextBlock} from '@portabletext/types'
-
 import type {Image, Reference, Slug} from 'sanity'
 import {ProductPageProduct, ShopPageProduct, Store} from './productType'
 
@@ -192,8 +191,14 @@ export interface NavbarProps {
   menuItems?: MenuItems
   upperMenuItems?: MenuItems
   companyInfo?: CompanyInformation
-  upperMenuCtaText?: string
-
+  upperMenuCtaText?: string | undefined
+  contactPage?: {
+    slug?: string | null
+  }
+  blogPage?: {
+    slug?: string | null
+  }
+  accountPage?: string | null
   deliveryInfoBar?: DeliveryInfoBar
 }
 
@@ -330,6 +335,13 @@ export interface SettingsPayload {
     instagram?: SocialMediaLink
   }
   newsletter?: Newsletter
+  contactPage?: {
+    slug?: string | null
+  }
+  blogPage?: {
+    slug?: string | null
+  }
+  accountPage?: string | null
 }
 
 export interface SocialMediaLink {

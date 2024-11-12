@@ -139,6 +139,9 @@ export const settingsQuery = groq`
           "slug": slug.current
       }
     },
+    blogPage->{
+      "slug": slug.current,
+    },
     contactPage->{
       "slug": slug.current,
     },
@@ -152,6 +155,7 @@ export const settingsQuery = groq`
         }
       }
     },
+  
     siteNoIndex,
     ogImage,
     accreditation,
