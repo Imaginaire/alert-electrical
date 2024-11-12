@@ -137,15 +137,6 @@ export interface MenuItem {
 
 export type MenuItems = MenuItem[]
 
-export interface MenuItemRight {
-  title: string
-  link?: Slug
-  externalLink?: string
-  icon: Image
-}
-
-export type MenuItemsRight = MenuItemRight[]
-
 export interface MegaMenuItem {
   megaMenuItem: {
     title?: string
