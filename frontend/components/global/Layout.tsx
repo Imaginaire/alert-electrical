@@ -12,6 +12,9 @@ export default function Layout({children, settings, preview, loading}: LayoutPro
         companyInfo={settings?.companyInfo}
         upperMenuCtaText={settings?.upperMenuCtaText}
         deliveryInfoBar={settings?.deliveryInfoBar}
+        contactPage={settings?.contactPage}
+        blogPage={settings?.blogPage}
+        accountPage={settings?.accountPage}
       />
       <div className="">{children}</div>
       <Footer footer={settings?.footer} newsletter={settings?.newsletter} />

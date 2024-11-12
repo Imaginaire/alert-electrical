@@ -116,6 +116,37 @@ export const settingsType = defineType({
       description: 'CTA text on the centre of the upper menu',
     }),
     defineField({
+      name: 'contactPage',
+      title: 'Contact Page',
+      type: 'reference',
+      group: 'navigation',
+      description: 'Link to the contact page',
+      to: [
+        {
+          type: 'page',
+        },
+      ],
+    }),
+    defineField({
+      name: 'blogPage',
+      title: 'Blog Page',
+      type: 'reference',
+      group: 'navigation',
+      description: 'Link to the blog page',
+      to: [
+        {
+          type: 'page',
+        },
+      ],
+    }),
+    defineField({
+      name: 'accountPage',
+      title: 'Account Page',
+      group: 'navigation',
+      type: 'url',
+      description: 'Link to the account page',
+    }),
+    defineField({
       name: 'menuItems',
       title: 'Menu Item list',
       description: 'Main Menu Items and Mega Menu Items',
@@ -400,7 +431,6 @@ export const settingsType = defineType({
       },
       fields: [
         defineField({
-
           name: 'info',
           title: 'Information',
           type: 'array',
@@ -434,8 +464,6 @@ export const settingsType = defineType({
       },
       fields: [
         defineField({
-          name: 'text',
-          title: 'CTA Text',
           name: 'heading',
           title: 'Newsletter Heading',
           type: 'string',

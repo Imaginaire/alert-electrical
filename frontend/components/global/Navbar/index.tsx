@@ -9,6 +9,9 @@ export default function Navbar({
   upperMenuCtaText,
   companyInfo,
   deliveryInfoBar,
+  contactPage,
+  blogPage,
+  accountPage,
 }: NavbarProps) {
   return (
     <>
@@ -19,12 +22,23 @@ export default function Navbar({
           upperMenuItems={upperMenuItems}
           upperMenuCtaText={upperMenuCtaText}
           companyInfo={companyInfo}
+          contactPage={contactPage}
+          blogPage={blogPage}
+          accountPage={accountPage}
         />
       </nav>
 
       {/* Mobile Nav */}
       <nav className="md:hidden z-50">
-        <Mobile menuItems={menuItems} companyInfo={companyInfo} />
+        <Mobile
+          menuItems={menuItems}
+          upperMenuItems={upperMenuItems}
+          upperMenuCtaText={upperMenuCtaText}
+          companyInfo={companyInfo}
+          contactPage={contactPage}
+          blogPage={blogPage}
+          accountPage={accountPage}
+        />
       </nav>
 
       {deliveryInfoBar && <DeliveryInfoBar info={deliveryInfoBar.info} />}
