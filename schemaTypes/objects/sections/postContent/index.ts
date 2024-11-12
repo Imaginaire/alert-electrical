@@ -17,6 +17,7 @@ export const postContentType = defineType({
           fields: [defineField({type: 'string', name: 'alt', title: 'Alt Text'})],
         },
         {type: 'imageGallery'},
+        {type: 'customTable'},
       ],
     }),
     defineField({

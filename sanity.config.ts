@@ -1,5 +1,4 @@
 import {defineConfig, isDev} from 'sanity'
-
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemaTypes'
 import {structure} from './structure'
@@ -12,6 +11,7 @@ import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {customDocumentActions} from './plugins/customDocumentActions'
 import {availability} from 'sanity-plugin-availability'
 import Navbar from './components/studio/Navbar'
+import {table} from '@sanity/table'
 
 const devOnlyPlugins = [visionTool()]
 
@@ -29,6 +29,7 @@ export default defineConfig({
     customDocumentActions(),
     media(),
     availability(),
+    table(),
     ...(isDev ? devOnlyPlugins : []),
   ],
 

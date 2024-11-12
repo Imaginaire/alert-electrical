@@ -55,12 +55,23 @@ export interface Column {
 
 export interface PostContent {
   _type: string
-  content?: PortableTextBlock[]
+  content?: PortableTextBlock[] | CustomTableBlock[]
   width?: number
   backgroundColour?: {
     hex?: string
   }
   padding?: number
+}
+
+export interface CustomTableBlock {
+  _type: 'customTable'
+  _key: string
+  customTable: {
+    rows: Array<{
+      _key: string
+      cells: string[]
+    }>
+  }
 }
 
 export interface SocialMediaLink {
