@@ -22,7 +22,6 @@ interface OfficeInfoType {
 
 export default function OfficeInfo(data: OfficeInfoType) {
   const {officeCard, branchesCard} = data
-  console.log(branchesCard)
 
   const OfficeInfoLeft = ({showHeader}: {showHeader: boolean}) => {
     return (
