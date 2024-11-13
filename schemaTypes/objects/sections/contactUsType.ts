@@ -29,4 +29,11 @@ export const contactUsType = defineType({
     }),
     defineField(formBuilderType),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: 'Contact Us',
+      }
+    },
+  },
 })

@@ -8,8 +8,6 @@ interface HeaderStrapProps {
 export default function HeaderStrap(data: HeaderStrapProps) {
   const {header} = data
 
-  console.log(data)
-
   return (
     <section className="bg-primary ">
       <Header

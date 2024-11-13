@@ -106,5 +106,10 @@ export const sections = defineField({
       name: 'contactUs',
       title: 'Contact Us',
     }),
+    defineArrayMember({
+      type: 'officeInfo',
+      name: 'officeInfo',
+      title: 'Office Info',
+    }),
   ],
 })
