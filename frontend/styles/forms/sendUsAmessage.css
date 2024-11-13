@@ -1,0 +1,8 @@
+.formBuilder-form-send-us-a-message {
+  label {
+    @apply text-sm;
+  }
+  .send-us-a-message-text {
+    @apply col-span-2;
+  }
+}

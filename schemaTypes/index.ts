@@ -18,6 +18,7 @@ import {accordionType} from './objects/sections/accordionType'
 import {customTableType} from './objects/sections/postContent/customTable'
 import {headerStrapType} from './objects/sections/headerStrap'
 import {simpleTextType} from './objects/sections/simpleText'
+import {contactUsType} from './objects/sections/contactUsType'
 
 const sections = [
   heroType,
@@ -41,6 +42,7 @@ const sections = [
   customTableType,
   headerStrapType,
   simpleTextType,
+  contactUsType,
 ]
 
 import {pageType} from './documents/page'

@@ -1,7 +1,7 @@
 /*
-To customize the styling for our forms, we recommend using separate SCSS files. This approach is particularly useful because the appearance of forms can vary based on the chosen inputs and configurations.
+To customize the styling for our forms, we recommend using separate CSS files. This approach is particularly useful because the appearance of forms can vary based on the chosen inputs and configurations.
 
-For each unique form, create a dedicated .scss stylesheet. The dynamic className assigned to the form can be used to access and apply specific styles, ensuring a more organised and maintainable approach to form styling.
+For each unique form, create a dedicated .css stylesheet. The dynamic className assigned to the form can be used to access and apply specific styles, ensuring a more organised and maintainable approach to form styling.
 */
 
 import {useFormspark} from '@formspark/use-formspark'
@@ -35,7 +35,7 @@ const InputField = ({
   formName,
 }: InputFieldProps) => (
   <div className={`${formName}-${type}`}>
-    <label htmlFor={id} className="block text-primary text-xl font-medium mb-2">
+    <label htmlFor={id} className="block mb-2">
       {fieldName}
     </label>
     {description && <p>{description}</p>}
@@ -47,7 +47,7 @@ const InputField = ({
         placeholder={placeholder}
         aria-describedby={type}
         {...register(id)}
-        className="border border-primary rounded-sm p-3 w-full focus:outline-none focus:border-blue-500"
+        className="border rounded-sm p-2 w-full focus:outline-none focus:border-primary"
       />
     </div>
   </div>
@@ -111,8 +111,8 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
   const formNameFormatted = formName?.toLowerCase().replace(/\s/g, '-')
 
   return (
-    <section className="formBuilder flex justify-center py-16 px-5">
-      <div className="formBuilder-container w-full max-w-screen-2xl flex bg-white rounded-lg gap-3">
+    <section className="formBuilder flex justify-center mt-2 md:mt-0">
+      <div className="formBuilder-container w-full max-w-screen-2xl flex bg-white rounded-sm shadow-md gap-3">
         {/* Form */}
         {submitted ? (
           <div className="flex justify-center text-center w-11/12 min-h-[70vh] w-full items-center flex-col">
@@ -160,14 +160,13 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
             )}
 
             {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full p-8 md:w-2/3 lg:w-3/4 flex-1">
-              <h2 className="text-3xl text-gray-800 mb-4 uppercase text-primary">
-                Arrange a Visit
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={`w-full p-8 md:w-2/3 lg:w-3/4 flex-1 formBuilder-form-${formNameFormatted}`}
+            >
+              <h2 className="text-2xl text-gray-800 mb-4 uppercase text-black font-semibold">
+                {formName}
               </h2>
-              <p className="text-primary font-manrope font-bold mb-6">
-                If you would like to arrange a concierge service, please fill out the form below and
-                we’ll be in touch to confirm your appointment and answer any queries.
-              </p>
 
               {/* Map over form fields */}
               <div className="grid grid-cols-2 gap-4">
@@ -188,10 +187,7 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
                     if (inputType === 'dropdown') {
                       return (
                         <div key={key} className="mb-6 col-span-2">
-                          <label
-                            htmlFor={current}
-                            className="block text-primary text-xl font-medium mb-2"
-                          >
+                          <label htmlFor={current} className="block text-black mb-2">
                             {fieldName}
                           </label>
                           <select
@@ -216,10 +212,7 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
                     if (inputType === 'textArea') {
                       return (
                         <div key={key} className="mb-6 col-span-2">
-                          <label
-                            htmlFor={current}
-                            className="block text-primary text-xl font-medium mb-2"
-                          >
+                          <label className="" htmlFor={current}>
                             {fieldName}
                           </label>
                           <textarea
@@ -227,7 +220,7 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
                             required={!!required}
                             placeholder={placeholder}
                             rows={5}
-                            className="w-full p-3 border border-primary rounded-sm focus:outline-none focus:border-blue-500"
+                            className="w-full mt-2 p-3 border rounded-sm focus:outline-none focus:border-primary"
                             {...register(current)}
                           />
                         </div>
@@ -253,13 +246,13 @@ export default function FormBuilder(formBuilderData: FormBuilderType) {
               {/* Button and Captcha */}
               <div className={`flex ${useCaptcha ? 'justify-between' : 'justify-end'}  w-full`}>
                 {useCaptcha && <div className="h-captcha" data-sitekey={captchaSiteKey}></div>}
-                <div className="flex flex-col items-center mt-6">
+                <div className="flex flex-col items-center">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-12 py-2 bg-primary text-white font-semibold  hover:bg-secondary transition duration-300"
+                    className="px-12 py-1 uppercase bg-primary text-white   hover:bg-secondary transition duration-300 rounded-md"
                   >
-                    Submit
+                    Send Message
                   </button>
 
                   {showCaptchaWarning && (
