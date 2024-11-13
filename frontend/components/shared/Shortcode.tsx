@@ -20,7 +20,7 @@ function Shortcode({shortcode}: {shortcode: string}) {
     fetchShortcode()
   }, [shortcode])
 
-  return data
+  return <span>{data}</span>
 }
 
 export default Shortcode
