@@ -15,6 +15,7 @@ const config: Config = {
         'secondary-grey': '#F2F2F2',
         'secondary-grey-text': '#4F4E4E',
         'secondary-blue': '#2145C4',
+        'secondary-light-blue': '#BED0F4',
         'secondary-green-hover': '#16a34a',
       },
       screens: {

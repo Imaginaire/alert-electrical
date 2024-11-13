@@ -7,6 +7,22 @@ import type {Image} from 'sanity'
 import {Button} from './Button'
 import prepareHref from '@/shared/utils/prepareHref'
 
+export interface CustomPortableTextType {
+  paragraphClasses?: string
+  paragraphAltClasses?: string
+  headerClasses?: string
+  h1Classes?: string
+  h2Classes?: string
+  h3Classes?: string
+  h4Classes?: string
+  subheaderClasses?: string
+  linkClasses?: string
+  listItemClasses?: string
+  listClasses?: string
+  quoteClasses?: string
+  value: PortableTextBlock[]
+}
+
 export function CustomPortableText({
   paragraphClasses,
   paragraphAltClasses,
@@ -21,21 +37,7 @@ export function CustomPortableText({
   listClasses,
   quoteClasses,
   value,
-}: {
-  paragraphClasses?: string
-  paragraphAltClasses?: string
-  headerClasses?: string
-  h1Classes?: string
-  h2Classes?: string
-  h3Classes?: string
-  h4Classes?: string
-  subheaderClasses?: string
-  linkClasses?: string
-  listItemClasses?: string
-  listClasses?: string
-  quoteClasses?: string
-  value: PortableTextBlock[]
-}) {
+}: CustomPortableTextType) {
   const components: PortableTextComponents = {
     block: {
       h1: ({children}) => <h1 className={headerClasses || h1Classes}>{children}</h1>,

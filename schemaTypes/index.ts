@@ -16,6 +16,10 @@ import {serviceAreasType} from './objects/sections/serviceAreasType'
 import {ourTopBrandsType} from './objects/sections/ourTopBrandsType'
 import {accordionType} from './objects/sections/accordionType'
 import {customTableType} from './objects/sections/postContent/customTable'
+import {headerStrapType} from './objects/sections/headerStrap'
+import {simpleTextType} from './objects/sections/simpleText'
+import {contactUsType} from './objects/sections/contactUsType'
+import {officeInfoType} from './objects/sections/officeInfoType'
 
 const sections = [
   heroType,
@@ -37,6 +41,10 @@ const sections = [
   ourTopBrandsType,
   accordionType,
   customTableType,
+  headerStrapType,
+  simpleTextType,
+  contactUsType,
+  officeInfoType,
 ]
 
 import {pageType} from './documents/page'

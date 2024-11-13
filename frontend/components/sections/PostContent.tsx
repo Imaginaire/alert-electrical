@@ -1,5 +1,5 @@
 import {CustomPortableText} from '../shared/CustomPortableText'
-import type {CustomTableBlock, PostContent, PortableTextBlock} from '@/types'
+import type {CustomTableBlock, PostContent} from '@/types'
 
 export default function PostContent(data: PostContent) {
   const {backgroundColour, padding, width} = data
@@ -67,7 +67,7 @@ export default function PostContent(data: PostContent) {
                   return (
                     <CustomPortableText
                       key={block._key}
-                      value={[block as PortableTextBlock]}
+                      value={[block as any]}
                       headerClasses="text-3xl text-primary mb-4 mt-6 font-bold"
                       subheaderClasses="text-xl text-secondary-grey-text mb-4 mt-6 font-bold"
                       paragraphClasses="text-secondary-grey-text mb-4"
