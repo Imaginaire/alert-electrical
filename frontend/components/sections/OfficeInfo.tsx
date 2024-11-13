@@ -43,7 +43,7 @@ export default function OfficeInfo(data: OfficeInfoType) {
           />
         </div>
 
-        <CustomPortableText paragraphClasses="mb-2" value={officeCard.content} />
+        <CustomPortableText paragraphAltClasses={'mb-2'} value={officeCard.content} />
 
         <div className="bg-secondary-light-blue rounded-md p-8 mt-6">
           <CustomPortableText
