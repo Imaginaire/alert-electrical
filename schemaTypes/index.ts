@@ -63,6 +63,7 @@ import {redirectionsType} from './singletons/redirectionsType'
 import {browseProductsType} from './objects/sections/browseProductsType'
 import {filtersType} from './singletons/filtersType'
 import {productSettingType} from './singletons/product-setting'
+import {shortcodesType} from './singletons/shortcodes'
 
 const singletons = [
   homeType,
@@ -72,6 +73,7 @@ const singletons = [
   redirectionsType,
   productSettingType,
   filtersType,
+  shortcodesType,
 ]
 
 export const schemaTypes = [...sections, ...singletons, ...documents]

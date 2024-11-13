@@ -10,6 +10,7 @@ import redirections from './redirectionsStructure'
 import {getClient} from '../lib/sanity.client'
 import filters from './filtersStructure'
 import buyersGuide from './buyersGuideStructure'
+import shortcodes from './shortcodesStructure'
 
 /**
  * Structure overrides
@@ -46,6 +47,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'filters',
     'brand',
     'finish',
+    'shortcodes',
   ].includes(id)
 }
 
@@ -78,6 +80,7 @@ export const structure: StructureResolver = async (S, context) => {
       redirections(S, context),
       S.divider(),
       filters(S, context),
+      shortcodes(S, context),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])
 }

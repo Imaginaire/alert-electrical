@@ -10,6 +10,7 @@ import InternalLink from '../../../svgs/InternalLink'
 import ExternalLink from '../../../svgs/ExternalLink'
 
 import CenterText from '../../../svgs/CenterText'
+import Code from '../../../svgs/Code'
 
 export const customBlock = {
   type: 'block',
@@ -28,6 +29,7 @@ export const customBlock = {
     {title: 'Numbered', value: 'number'}, // Add ordered list
     {title: 'Bullet', value: 'bullet'}, // Add bullet list
   ],
+
   marks: {
     decorators: [
       {title: 'Strong', value: 'strong'},
@@ -39,6 +41,14 @@ export const customBlock = {
         title: 'Align Center',
         value: 'alignCenter',
         icon: CenterText,
+      },
+      {
+        title: 'Shortcode',
+        value: 'shortcode',
+        component: (props: {children: string}) => (
+          <span style={{textDecoration: 'underline', color: 'green'}}>{props.children}</span>
+        ),
+        icon: Code,
       },
     ],
     annotations: [

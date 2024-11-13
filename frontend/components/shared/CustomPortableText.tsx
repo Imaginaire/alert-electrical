@@ -3,7 +3,8 @@ import type {PortableTextBlock} from '@portabletext/types'
 import ImageBox from './ImageBox'
 import urlForImage from '@/shared/utils/urlForImage'
 import Link from 'next/link'
-import type {Image} from 'sanity'
+import {type Image} from 'sanity'
+import Shortcode from './Shortcode'
 import {Button} from './Button'
 import prepareHref from '@/shared/utils/prepareHref'
 
@@ -96,6 +97,9 @@ export function CustomPortableText({
         }
       },
       alignCenter: ({children}) => <span className="text-center block">{children}</span>,
+      shortcode: ({children}) => {
+        return <Shortcode shortcode={children as string} />
+      },
     },
     list: ({children, value}) => {
       // Check if the listItem is a numbered or bullet list
