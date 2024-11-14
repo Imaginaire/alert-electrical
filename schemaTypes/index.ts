@@ -20,7 +20,7 @@ import {headerStrapType} from './objects/sections/headerStrap'
 import {simpleTextType} from './objects/sections/simpleText'
 import {contactUsType} from './objects/sections/contactUsType'
 import {officeInfoType} from './objects/sections/officeInfoType'
-
+import {textWithBreadcrumbsType} from './objects/sections/textWithBreadcrumbsType'
 const sections = [
   heroType,
   textLinkType,
@@ -45,6 +45,7 @@ const sections = [
   simpleTextType,
   contactUsType,
   officeInfoType,
+  textWithBreadcrumbsType,
 ]
 
 import {pageType} from './documents/page'
