@@ -8,7 +8,7 @@ const heroFields = [
     name: 'content',
     title: 'Content',
     of: [customBlock],
-    validation: (rule) => rule.required(),
+    // validation: (rule) => rule.required(),
   }),
   defineField({
     type: 'image',
@@ -21,20 +21,20 @@ const heroFields = [
         title: 'Alt Text',
       }),
     ],
-    validation: (rule) => rule.required(),
+    // validation: (rule) => rule.required(),
   }),
   defineField({
     type: 'string',
     name: 'linkText',
     title: 'Link Text',
-    validation: (rule) => rule.required(),
+    // validation: (rule) => rule.required(),
   }),
   defineField({
     type: 'reference',
     name: 'link',
     title: 'Link',
     to: [{type: 'page'}, {type: 'shop'}],
-    validation: (rule) => rule.required(),
+    // validation: (rule) => rule.required(),
   }),
 ]
 
@@ -54,7 +54,7 @@ export const heroType = defineType({
     ...heroFields.map((field) => ({
       ...field,
       hidden: ({parent}: {parent: {useSwiper: boolean}}) => parent?.useSwiper === true,
-      validation: (rule: {required: () => any}) => (parent?.useSwiper ? rule : rule.required()), // Conditional validation
+      // validation: (rule: {required: () => any}) => (parent?.useSwiper ? rule : rule.required()), // Conditional validation
     })),
     // Array of Hero fields (conditionally displayed if useSwiper is true)
     defineField({
@@ -69,7 +69,7 @@ export const heroType = defineType({
           title: 'Hero Item',
           fields: heroFields.map((field) => ({
             ...field,
-            validation: (rule) => rule.required(), // Validation always required in array
+            // validation: (rule) => rule.required(), // Validation always required in array
           })),
         }),
       ],

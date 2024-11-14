@@ -34,14 +34,16 @@ function HeroContent({
           headerClasses="text-[32px] font-bold mb-4 xl:text-[64px]"
           paragraphClasses="text-2xl mb-4 xl:text-[32px]"
         />
-        <div className="mt-12">
-          <Link
-            href={slug?.current || '/'}
-            className="font-bold uppercase bg-primary rounded-md px-6 py-4 hover:bg-secondary-blue"
-          >
-            {linkText}
-          </Link>
-        </div>
+        {linkText && slug?.current && (
+          <div className="mt-12">
+            <Link
+              href={slug.current}
+              className="font-bold uppercase bg-primary rounded-md px-6 py-4 hover:bg-secondary-blue"
+            >
+              {linkText}
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )
