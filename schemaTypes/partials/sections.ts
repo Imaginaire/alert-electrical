@@ -111,5 +111,10 @@ export const sections = defineField({
       name: 'officeInfo',
       title: 'Office Info',
     }),
+    defineArrayMember({
+      type: 'textWithBreadcrumbs',
+      name: 'textWithBreadcrumbs',
+      title: 'Text with Breadcrumbs',
+    }),
   ],
 })
