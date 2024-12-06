@@ -8,9 +8,9 @@ import {defineField} from 'sanity'
 // link icons
 import InternalLink from '../../../svgs/InternalLink'
 import ExternalLink from '../../../svgs/ExternalLink'
-
-import CenterText from '../../../svgs/CenterText'
-import Code from '../../../svgs/Code'
+import {LeftAlignIcon} from '../../../svgs/LeftAlignIcon'
+import {CenterAlignIcon} from '../../../svgs/CenterAlignIcon'
+import {RightAlignIcon} from '../../../svgs/RightAlignIcon'
 
 export const customBlock = {
   type: 'block',
@@ -29,7 +29,6 @@ export const customBlock = {
     {title: 'Numbered', value: 'number'}, // Add ordered list
     {title: 'Bullet', value: 'bullet'}, // Add bullet list
   ],
-
   marks: {
     decorators: [
       {title: 'Strong', value: 'strong'},
@@ -37,19 +36,9 @@ export const customBlock = {
       {title: 'Code', value: 'code'},
       {title: 'Underline', value: 'underline'},
       {title: 'Strike', value: 'strike-through'},
-      {
-        title: 'Align Center',
-        value: 'alignCenter',
-        icon: CenterText,
-      },
-      {
-        title: 'Shortcode',
-        value: 'shortcode',
-        component: (props: {children: string}) => (
-          <span style={{textDecoration: 'underline', color: 'green'}}>{props.children}</span>
-        ),
-        icon: Code,
-      },
+      {title: 'Left', value: 'left', icon: LeftAlignIcon},
+      {title: 'Center', value: 'center', icon: CenterAlignIcon},
+      {title: 'Right', value: 'right', icon: RightAlignIcon},
     ],
     annotations: [
       {
@@ -124,6 +113,9 @@ export const customBlock = {
             },
           }),
         ],
+      },
+      {
+        type: 'textColor',
       },
     ],
   },

@@ -3,27 +3,12 @@ import type {PortableTextBlock} from '@portabletext/types'
 import ImageBox from './ImageBox'
 import urlForImage from '@/shared/utils/urlForImage'
 import Link from 'next/link'
-import {type Image} from 'sanity'
-import Shortcode from './Shortcode'
+import type {Image} from 'sanity'
 import {Button} from './Button'
 import prepareHref from '@/shared/utils/prepareHref'
-
-export interface CustomPortableTextType {
-  paragraphClasses?: string
-  paragraphAltClasses?: string
-  headerClasses?: string
-  h1Classes?: string
-  h2Classes?: string
-  h3Classes?: string
-  h4Classes?: string
-  subheaderClasses?: string
-  linkClasses?: string
-  listItemClasses?: string
-  listClasses?: string
-  quoteClasses?: string
-  value: PortableTextBlock[]
-}
-
+/**
+ * When using customBlock in the shcemaTypes, use "content" as the key for the value prop
+ */
 export function CustomPortableText({
   paragraphClasses,
   paragraphAltClasses,
@@ -38,7 +23,21 @@ export function CustomPortableText({
   listClasses,
   quoteClasses,
   value,
-}: CustomPortableTextType) {
+}: {
+  paragraphClasses?: string
+  paragraphAltClasses?: string
+  headerClasses?: string
+  h1Classes?: string
+  h2Classes?: string
+  h3Classes?: string
+  h4Classes?: string
+  subheaderClasses?: string
+  linkClasses?: string
+  listItemClasses?: string
+  listClasses?: string
+  quoteClasses?: string
+  value: PortableTextBlock[]
+}) {
   const components: PortableTextComponents = {
     block: {
       h1: ({children}) => <h1 className={headerClasses || h1Classes}>{children}</h1>,
@@ -64,7 +63,7 @@ export function CustomPortableText({
         } else {
           return (
             <a
-              className={`text-primary font-semibold transition hover:opacity-70 ${linkClasses}`}
+              className={`text-primary font-semibold transition hover:opacity-70 ${linkClasses ?? ''}`}
               href={value?.href || '/'}
               rel="noreferrer noopener"
               target={`${value?.blank ? '_blank' : '_self'}`}
@@ -88,7 +87,7 @@ export function CustomPortableText({
         } else {
           return (
             <Link
-              className={` transition hover:opacity-50 ${linkClasses}`}
+              className={` transition hover:opacity-50 ${linkClasses ?? ''}`}
               href={value?.slug?.current ? prepareHref(value.slug.current) : '/'}
             >
               {children}
@@ -96,20 +95,24 @@ export function CustomPortableText({
           )
         }
       },
-      alignCenter: ({children}) => <span className="text-center block">{children}</span>,
-      shortcode: ({children}) => {
-        return <Shortcode shortcode={children as string} />
-      },
+      left: ({children}: any) => <span className="text-left inline-block w-full">{children}</span>,
+      center: ({children}: any) => (
+        <span className="text-center inline-block w-full">{children}</span>
+      ),
+      right: ({children}: any) => (
+        <span className="text-right inline-block w-full">{children}</span>
+      ),
+      textColor: ({children, value}) => <span style={{color: value.value}}>{children}</span>,
     },
     list: ({children, value}) => {
       // Check if the listItem is a numbered or bullet list
       if (value.listItem === 'number') {
-        return <ol className={`list-decimal ${listClasses}`}>{children}</ol>
+        return <ol className={`list-decimal ${listClasses ?? ''}`}>{children}</ol>
       } else {
-        return <ul className={`list-disc ${listClasses}`}>{children}</ul>
+        return <ul className={`list-disc ${listClasses ?? ''}`}>{children}</ul>
       }
     },
-    listItem: ({children}) => <li className={` ${listItemClasses}`}>{children}</li>,
+    listItem: ({children}) => <li className={` ${listItemClasses ?? ''}`}>{children}</li>,
 
     types: {
       image: ({value}: {value: Image & {alt?: string; caption?: string}}) => {
