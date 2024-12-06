@@ -12,6 +12,7 @@ import {customDocumentActions} from './plugins/customDocumentActions'
 import {availability} from 'sanity-plugin-availability'
 import Navbar from './components/studio/Navbar'
 import {table} from '@sanity/table'
+import {simplerColorInput} from 'sanity-plugin-simpler-color-input'
 
 const devOnlyPlugins = [visionTool()]
 
@@ -24,6 +25,23 @@ export default defineConfig({
 
   plugins: [
     structureTool({defaultDocumentNode, structure}),
+    simplerColorInput({
+      defaultColorFormat: 'rgba',
+      defaultColorList: [
+        {label: 'White', value: '#ffffff'},
+        {label: 'Black', value: '#000000'},
+        {label: 'Bronze', value: '#b4886f'},
+        {label: 'Rose Gold', value: '#d9a1a1'},
+        {label: 'Rose Gold Alt', value: '#d6aeaf'},
+        {label: 'Slate', value: '#0D2A39'},
+        {label: 'Mid Grey', value: '#535353'},
+        {label: 'Cool Grey', value: '#D4D6D1'},
+        {label: 'Light Grey', value: '#F2F2F2'},
+        {label: 'Soft Grey', value: '#FBFBFB'},
+        {label: 'Light Pink', value: '#FFFAFB'},
+      ],
+      enableSearch: true,
+    }),
     colorInput(),
     imageHotspotArrayPlugin(),
     customDocumentActions(),
