@@ -6,7 +6,6 @@ import Sections from '@/components/global/Sections'
 import DropDowns from '@/components/shared/Dropdowns'
 import Breadcrumbs, {BreadcrumbType} from '@/components/global/Breadcrumbs'
 import CartBanner from '@/components/product/CartBanner'
-import LargeCta from '@/components/sections/LargeCta'
 import {useCart} from '@/contexts/CartContext'
 import {MinusIcon, PlusIcon} from '@heroicons/react/24/outline'
 import {fetchStaticPaths} from '@/shared/utils/productPageSlugUtils/staticPathsUtil'
@@ -287,9 +286,6 @@ export default function ProductPage({
           </div>
 
           {brand?.value && <RecommendedProducts productId={id || ''} brand={brand?.value || ''} />}
-
-          {/* Large CTA */}
-          {cta && <LargeCta {...cta} />}
         </div>
       </Layout>
     </>
