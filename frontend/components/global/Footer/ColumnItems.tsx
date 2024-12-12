@@ -11,7 +11,7 @@ export default function ColumnItems({column}: ColumnItemsProps) {
       {column.columnCollectionsLinks?.map((collection, index) => (
         <li key={index} className="py-1">
           <Link href={collection.link || '/'}>
-            <span className="text-white first-letter:uppercase decoration-[0.5px] underline font-manrope">
+            <span className="text-white first-letter:uppercase decoration-[0.5px] font-manrope">
               {collection.title}
             </span>
           </Link>
